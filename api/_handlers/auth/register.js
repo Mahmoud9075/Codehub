@@ -55,10 +55,14 @@ module.exports = async (req, res) => {
   const { data: created, error } = await supabase
     .from('students')
     .insert({ first_name, last_name, phone, email, password_hash })
-    .select('id, first_name, last_name, phone, email, avatar_url, phone_verified, parent_token')
+    .select('id, first_name, last_name, phone, email, avatar_url, phone_verified')
     .single();
 
   if (error) return res.status(500).json({ error: error.message });
+
+  // Ensure we never return sensitive fields or auto-login tokens after registration
+  if (created && created.password_hash) delete created.password_hash;
+  if (created && created.parent_token) delete created.parent_token;
 
   return res.status(201).json({ student: created });
 };
