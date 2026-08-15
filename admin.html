@@ -108,7 +108,7 @@
       <div id="otp-step-1">
         <label class="field-label">إيميلك</label>
         <input type="email" id="super-email-input" placeholder="example@gmail.com" autocomplete="email">
-        <button class="btn btn-primary ripple" id="super-request-btn">📧 ابعتلي الكود</button>
+        <button class="btn btn-primary ripple" id="super-request-btn" onclick="requestOtp()">📧 ابعتلي الكود</button>
         <button class="link-btn" id="show-pin-link">تسجيل دخول بالرقم السري بدل كده</button>
       </div>
 
@@ -442,6 +442,7 @@
   }
 
   function requestOtp(){
+    console.log('requestOtp triggered');
     var email = document.getElementById('super-email-input').value.trim();
     if (!email){ showLoginError('ادخل إيميلك الأول'); return; }
 
@@ -469,6 +470,8 @@
   }
 
   document.getElementById('super-request-btn').addEventListener('click', requestOtp);
+  // expose for inline onclick fallback and for debugging from console
+  window.requestOtp = requestOtp;
   document.getElementById('resend-otp-btn').addEventListener('click', requestOtp);
 
   function verifyOtp(){
