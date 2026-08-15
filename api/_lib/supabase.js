@@ -11,7 +11,7 @@ if (!SUPABASE_URL || !SUPABASE_KEY) {
     let op = null;
     let insertPayload = null;
     const q = {
-      select(..._args) { op = 'select'; return q; },
+      select(..._args) { if (!op) op = 'select'; return q; },
       or(..._args) { return q; },
       maybeSingle: async function() {
         // For selects, return no rows (null) and no error
