@@ -177,7 +177,6 @@
 
       <div class="card">
         <h3>الأسئلة الحالية</h3>
-        <div id="questions-count" style="font-weight:800;margin-bottom:8px;color:var(--navy)"></div>
         <div id="questions-list">
           <p class="msg">اختار شهر وكويز الأول عشان تشوف الأسئلة.</p>
         </div>
@@ -599,51 +598,20 @@
         wrap.innerHTML = '<p class="msg">لسه مفيش أسئلة للكويز ده.</p>';
         return;
       }
-      // update counter
-      var countEl = document.getElementById('questions-count');
-      countEl.textContent = data.questions.length + ' سؤال';
-
       wrap.innerHTML = data.questions.map(function(q, i){
         var optsHtml = q.options.map(function(o, idx){
           return '<span' + (idx === q.correct_index ? ' class="correct"' : '') + '>' + (idx + 1) + ') ' + o + '</span>';
         }).join(' &nbsp; ');
         return '<div class="q-item"><div class="q-text">' + (i+1) + '. ' + q.question_text + '</div>' +
           '<div class="q-opts">' + optsHtml + '</div>' +
-          '<div class="q-actions"><button class="small-btn edit" data-id="' + q.id + '">تعديل</button> <button class="small-btn del" data-id="' + q.id + '">حذف</button></div></div>';
+          '<div class="q-actions"><button class="small-btn del" data-id="' + q.id + '">حذف</button></div></div>';
       }).join('');
 
-      // delete buttons with confirmation
       wrap.querySelectorAll('.del').forEach(function(btn){
         btn.addEventListener('click', function(){
           if (!confirm('متأكد إنك عايز تحذف السؤال ده؟ الحذف نهائي ومش هترجعه.')) return;
           api('/api/admin/questions?id=' + btn.getAttribute('data-id'), { method: 'DELETE' })
             .then(function(){ loadQuestions(quizId); });
-        });
-      });
-
-      // edit buttons: prefill the add-question form and switch to PUT
-      wrap.querySelectorAll('.edit').forEach(function(btn){
-        btn.addEventListener('click', function(){
-          var qid = btn.getAttribute('data-id');
-          var q = data.questions.find(function(x){ return x.id === qid; });
-          if (!q) return;
-          // prefill form
-          document.getElementById('q-text').value = q.question_text;
-          // ensure option rows exist
-          buildOptionRows();
-          var optInputs = document.querySelectorAll('.opt-text');
-          for (var k = 0; k < optInputs.length; k++){
-            optInputs[k].value = q.options[k] || '';
-          }
-          // set correct radio
-          var radios = document.querySelectorAll('input[name="correct-opt"]');
-          if (radios && radios[q.correct_index]) radios[q.correct_index].checked = true;
-
-          // set editing state
-          window._editingQuestionId = qid;
-          document.getElementById('add-question-btn').textContent = 'حفظ التعديل';
-          // scroll to form
-          document.getElementById('add-question-btn').scrollIntoView({ behavior: 'smooth' });
         });
       });
     });
@@ -675,13 +643,8 @@
       return;
     }
 
-    // if editing, send PUT to update, else POST to create
-    var editingId = window._editingQuestionId || null;
-    var method = editingId ? 'PUT' : 'POST';
-    var url = '/api/admin/questions' + (editingId ? '?id=' + editingId : '');
-
-    api(url, {
-      method: method,
+    api('/api/admin/questions', {
+      method: 'POST',
       body: JSON.stringify({
         quiz_id: quizId,
         question_text: text,
@@ -690,26 +653,16 @@
         order_index: 1
       })
     }).then(function(){
-      if (editingId){
-        document.getElementById('q-msg').textContent = 'تم حفظ التعديل ✓';
-      } else {
-        document.getElementById('q-msg').textContent = 'تمت إضافة السؤال ✓';
-      }
+      document.getElementById('q-msg').textContent = 'تمت إضافة السؤال ✓';
       document.getElementById('q-msg').className = 'msg ok';
       document.getElementById('q-text').value = '';
       buildOptionRows();
-      window._editingQuestionId = null;
-      document.getElementById('add-question-btn').textContent = 'إضافة السؤال';
       loadQuestions(quizId);
     }).catch(function(e){
       document.getElementById('q-msg').textContent = e.message;
       document.getElementById('q-msg').className = 'msg err';
     });
   });
-  // global helper for delete confirmations (used elsewhere if needed)
-  window.confirmDelete = function(message){
-    return confirm(message || 'متأكد؟');
-  }
 
   // ---------- تبويب الصيانة والأقسام ----------
   function loadSettings(){
