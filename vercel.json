@@ -1,7 +1,0 @@
-{
-  "rewrites": [
-    { "source": "/api/auth/:route", "destination": "/api/auth?route=:route" },
-    { "source": "/api/admin/:route", "destination": "/api/admin?route=:route" },
-    { "source": "/api/:route(ai-chat|ai-conversations|content|months|parent-view|ping|quiz-questions|quizzes|settings|submit-result|track-visit)", "destination": "/api/site?route=:route" }
-  ]
-}
