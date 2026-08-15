@@ -2,10 +2,10 @@
   "name": "codehub-backend",
   "version": "1.0.0",
   "private": true,
-  "description": "Backend (Vercel Serverless Functions) لموقع Code Hub — تسجيل الطلاب واختبارات المسار الشهري",
   "dependencies": {
     "@supabase/supabase-js": "^2.45.0",
-    /* Lines 19-21 omitted */
+    "google-auth-library": "^9.14.0",
+    "bcryptjs": "^2.4.3",
     "nodemailer": "^6.9.14"
   },
   "engines": { "node": "24.x" }
