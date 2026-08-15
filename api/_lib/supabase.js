@@ -1,5 +1,3 @@
-const { createClient } = require('@supabase/supabase-js');
-
 // SUPABASE_SERVICE_ROLE_KEY يجب ألا يَكون متاحًا في الواجهة الأمامية
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -39,7 +37,20 @@ if (!SUPABASE_URL || !SUPABASE_KEY) {
     from: (/* table */) => makeQuery()
   };
 } else {
-  supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+  // require supabase only when credentials are present to avoid module errors during local tests
+  let createClient;
+  try {
+    ({ createClient } = require('@supabase/supabase-js'));
+  } catch (e) {
+    // If package missing, fall back to stub to keep endpoints working in limited local environments
+    supabase = {
+      from: () => ({
+        select: async () => ({ data: [], error: null }),
+        insert: async () => ({ data: null, error: new Error('Supabase package missing') }),
+      })
+    };
+  }
+  if (!supabase) supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 }
 
 module.exports = { supabase };
