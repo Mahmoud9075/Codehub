@@ -1649,7 +1649,7 @@ html, body{
   --accent-text:#8fb8ff;
 }
 .jl-student-modal.jl-pv-mode{
-  padding:0; max-width:400px; overflow:hidden; text-align:initial;
+  padding:0; max-width:400px; overflow-y:auto; overflow-x:hidden; text-align:initial;
 }
 .jl-student-modal.jl-pv-mode .jl-student-close{
   background:#ffffffd9; color:var(--navy); z-index:5;
@@ -1661,6 +1661,7 @@ html, body{
   height:64px; background:var(--accent-soft); position:relative;
   display:flex; align-items:flex-start; justify-content:space-between;
   padding:12px 18px; box-sizing:border-box;
+  border-radius:24px 24px 0 0;
 }
 .jl-pv-badge{
   display:inline-flex; align-items:center; gap:5px; background:#fff;
@@ -3950,7 +3951,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   inset:0;
   height:100vh;
   background:#0000006e;
-  z-index:200;
+  z-index:1200;
   display:none;
   align-items:center;
   justify-content:center;
@@ -4716,8 +4717,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   </form>
 
   <form id="jl-forgot-form" class="jl-student-form" style="display:none;">
-    <p class="jl-student-hint">دخّل رقم موبايلك، هيتولّد كود تحقق (هيوصلك من الإدارة لحد ما نفعّل الإرسال الآلي).</p>
-    <input type="text" id="fp-phone" placeholder="رقم الموبايل" required>
+    <p class="jl-student-hint">دخّل إيميلك المسجّل بيه، هيتولّد كود تحقق ويوصلك عليه فورًا.</p>
+    <input type="email" id="fp-email" placeholder="الإيميل المسجّل بيه" required>
     <button type="submit" class="jl-reg">طلب كود التحقق</button>
     <input type="text" id="fp-code" placeholder="الكود اللي وصلك" style="margin-top:10px;">
     <div class="jl-pass-wrap"><input type="password" id="fp-newpass" placeholder="مثال: 123@Codehub"><button type="button" class="jl-pass-eye" data-target="fp-newpass" aria-label="إظهار/إخفاء الباسورد">👁️</button></div><div class="jl-pass-strength-bar"><span></span></div><ul class="jl-pass-checklist" id="fp-pass-checklist"><li data-rule="len">8 حروف على الأقل</li><li data-rule="upper">حرف كبير (A-Z)</li><li data-rule="lower">حرف صغير (a-z)</li><li data-rule="num">رقم</li><li data-rule="sym">رمز (@#$...)</li></ul>
@@ -4763,7 +4764,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
     <div class="jl-pv-verify-inline" id="jl-profile-verify" style="display:none;">
       <span id="jl-verify-badge" class="jl-student-hint">📱 غير متحقق منه</span>
-      <button type="button" class="jl-student-link" id="jl-request-otp-btn">تحقق من رقم الموبايل</button>
+      <button type="button" class="jl-student-link" id="jl-request-otp-btn">تحقق من رقم الموبايل (الكود هيوصلك على إيميلك)</button>
     </div>
     <div id="jl-otp-form" style="display:none;margin-bottom:14px;">
       <input type="text" id="jl-otp-code" placeholder="الكود اللي وصلك">
@@ -5821,7 +5822,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   // ---------- لينك متابعة ولي الأمر ----------
   document.getElementById('jl-parent-link-btn').addEventListener('click', function(){
     var s = getStudent();
-    var link = location.origin + location.pathname.replace(/CodeHub\.html$/, '') + 'parent.html?token=' + s.parent_token;
+    var link = location.origin + location.pathname.replace(/[^/]*$/, '') + 'parent.html?token=' + s.parent_token;
     var done = function(){
       document.getElementById('profile-msg').textContent = 'اتنسخ اللينك ✓ ابعته لولي أمرك';
       document.getElementById('profile-msg').className = 'jl-student-msg ok';
@@ -6045,7 +6046,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     var msg = document.getElementById('fp-msg');
     api('/api/auth/forgot-password', {
       method: 'POST',
-      body: JSON.stringify({ phone: document.getElementById('fp-phone').value.trim() })
+      body: JSON.stringify({ email: document.getElementById('fp-email').value.trim() })
     }).then(function(data){
       msg.textContent = data.message;
       msg.className = 'jl-student-msg ok';
@@ -6087,7 +6088,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     api('/api/auth/reset-password', {
       method: 'POST',
       body: JSON.stringify({
-        phone: document.getElementById('fp-phone').value.trim(),
+        email: document.getElementById('fp-email').value.trim(),
         code: document.getElementById('fp-code').value.trim(),
         new_password: newPass1
       })
