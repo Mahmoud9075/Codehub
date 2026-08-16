@@ -3,7 +3,7 @@ const { supabase } = require('../../_lib/supabase');
 const { validatePassword } = require('../../_lib/auth-validators');
 const { applyCors } = require('../../_lib/cors');
 
-// POST /api/auth/reset-password   body: { phone, code, new_password }
+// POST /api/auth/reset-password   body: { email, code, new_password }
 module.exports = async (req, res) => {
   if (applyCors(req, res)) return;
 
@@ -11,18 +11,20 @@ module.exports = async (req, res) => {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { phone, code, new_password } = req.body || {};
-  if (!phone || !code || !new_password) {
+  const { email, code, new_password } = req.body || {};
+  if (!email || !code || !new_password) {
     return res.status(400).json({ error: 'كل الحقول مطلوبة' });
   }
   if (!validatePassword(new_password)) {
     return res.status(400).json({ error: 'الباسورد لازم 8 حروف على الأقل، وفيه حرف كابيتال وحرف سمول ورقم ورمز' });
   }
 
+  const normalizedEmail = String(email).toLowerCase().trim();
+
   const { data: student } = await supabase
     .from('students')
     .select('id')
-    .eq('phone', phone)
+    .eq('email', normalizedEmail)
     .maybeSingle();
 
   if (!student) return res.status(400).json({ error: 'الكود غلط أو منتهي' });
