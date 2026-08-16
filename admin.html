@@ -283,6 +283,7 @@
         <button class="side-btn tab-btn" data-tab="content"><span class="ic">✏️</span> محتوى الموقع</button>
         <button class="side-btn tab-btn" data-tab="reviews"><span class="ic">⭐</span> التقييمات</button>
         <button class="side-btn tab-btn" data-tab="aichat"><span class="ic">🤖</span> الشات الذكي</button>
+        <button class="side-btn tab-btn" data-tab="results"><span class="ic">📊</span> نتائج الطلاب</button>
         <button class="side-btn tab-btn" data-tab="analytics"><span class="ic">📈</span> التقارير</button>
         <button class="side-btn tab-btn" data-tab="admins"><span class="ic">🛡️</span> الأدمن والصلاحيات</button>
         <button class="side-btn tab-btn" data-tab="security"><span class="ic">🔒</span> الأمان</button>
@@ -330,6 +331,10 @@
         <div class="list-toolbar">
           <span class="list-counter" id="students-counter">— طالب</span>
           <input type="text" class="section-search" id="students-search" placeholder="ابحث بالاسم أو رقم الموبايل...">
+        </div>
+        <div style="display:flex;gap:10px;margin-bottom:16px;">
+          <button class="btn btn-primary" id="export-students-excel-btn" style="width:auto;padding:10px 18px;">⬇️ تنزيل Excel</button>
+          <button class="btn btn-primary" id="export-students-pdf-btn" style="width:auto;padding:10px 18px;background:var(--red);">⬇️ تنزيل PDF</button>
         </div>
         <div id="students-list"><p class="msg">جاري التحميل...</p></div>
       </div>
@@ -786,7 +791,7 @@
   // ---------- التابات ----------
   var SIDE_LABELS = {
     home: 'الرئيسية', students: 'الطلاب', questions: 'الأسئلة', months: 'الشهور والكويزات',
-    content: 'محتوى الموقع', reviews: 'التقييمات', aichat: 'الشات الذكي', analytics: 'التقارير',
+    content: 'محتوى الموقع', reviews: 'التقييمات', aichat: 'الشات الذكي', results: 'نتائج الطلاب', analytics: 'التقارير',
     admins: 'الأدمن والصلاحيات', security: 'الأمان', maintenance: 'الإعدادات'
   };
   document.querySelectorAll('.tab-btn').forEach(function(btn){
@@ -1275,6 +1280,7 @@
 
   // ---------- الطلاب ----------
   var allStudents = [];
+  var currentFilteredStudents = [];
   function loadStudents(){
     api('/api/admin/students').then(function(data){
       allStudents = data.students || [];
@@ -1284,6 +1290,7 @@
     });
   }
   function renderStudentsList(rows){
+    currentFilteredStudents = rows;
     document.getElementById('students-counter').textContent = rows.length + ' طالب';
     var list = document.getElementById('students-list');
     if (!rows.length){
@@ -1309,6 +1316,42 @@
       renderStudentsList(filtered);
     });
   }
+
+  // ---------- تنزيل بيانات الطلاب (Excel / PDF) ----------
+  // بيصدّر الطلاب المعروضين حاليًا بس (لو فيه بحث شغال، بيصدّر نتيجة البحث فقط)
+  var exportStudentsExcelBtn = document.getElementById('export-students-excel-btn');
+  if (exportStudentsExcelBtn){
+    exportStudentsExcelBtn.addEventListener('click', function(){
+      if (!window.XLSX){ alert('مكتبة Excel لسه بتتحمّل، جرب تاني بعد شوية.'); return; }
+      var rows = currentFilteredStudents.map(function(s){
+        return {
+          'الاسم الأول': s.first_name, 'الاسم الأخير': s.last_name, 'رقم الموبايل': s.phone,
+          'الإيميل': s.email || '', 'حالة التحقق': s.phone_verified ? 'متحقق' : 'غير متحقق',
+          'تاريخ التسجيل': new Date(s.created_at).toLocaleString('ar-EG')
+        };
+      });
+      var ws = XLSX.utils.json_to_sheet(rows);
+      var wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'الطلاب');
+      XLSX.writeFile(wb, 'بيانات-الطلاب.xlsx');
+    });
+  }
+  var exportStudentsPdfBtn = document.getElementById('export-students-pdf-btn');
+  if (exportStudentsPdfBtn){
+    exportStudentsPdfBtn.addEventListener('click', function(){
+      if (!window.jspdf){ alert('مكتبة PDF لسه بتتحمّل، جرب تاني بعد شوية.'); return; }
+      var doc = new window.jspdf.jsPDF();
+      var rows = currentFilteredStudents.map(function(s){
+        return [s.first_name + ' ' + s.last_name, s.phone, s.email || '-', s.phone_verified ? 'Verified' : 'Not verified', new Date(s.created_at).toLocaleDateString('ar-EG')];
+      });
+      doc.autoTable({
+        head: [['Name', 'Phone', 'Email', 'Status', 'Registered']],
+        body: rows
+      });
+      doc.save('بيانات-الطلاب.pdf');
+    });
+  }
+
 
   // ---------- الشهور والكويزات ----------
   function loadMonthsOverview(){
