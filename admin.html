@@ -700,9 +700,13 @@
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: email })
-    }).then(function(r){ return r.json(); }).then(function(data){
+    }).then(function(r){ return r.json().then(function(data){ return { status: r.status, data: data }; }); }).then(function(res){
       btn.disabled = false;
       btn.textContent = originalText;
+      if (res.status !== 200) {
+        showLoginError(res.data && res.data.error ? res.data.error : 'حصل خطأ، حاول تاني.');
+        return;
+      }
       showStep(2);
       startResendTimer(60);
       hideLoginError();
