@@ -9,6 +9,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
   :root{
     --navy:#1a2142; --gold:#2f6fed; --gold-light:#5a8ff2; --accent:#2f6fed; --accent-soft:#eaf1ff; --accent-text:#1552b8;
@@ -1185,6 +1186,57 @@
     renderResultsTable(filtered);
   });
 
+  // ---------- تصدير PDF بعربي سليم — بيرسم جدول HTML فعلي (بمتصفحك) ويحوّله لصورة جوه الـ PDF ----------
+  // (jsPDF لوحده مش بيرسم عربي صح، فبنخلي المتصفح هو اللي يرسم النص، وناخد صورة منه)
+  function exportArabicTablePdf(title, headers, rows, filename){
+    if (!window.jspdf || !window.html2canvas){ alert('مكتبة PDF لسه بتتحمّل، جرب تاني بعد شوية.'); return; }
+
+    var wrap = document.createElement('div');
+    wrap.style.position = 'fixed';
+    wrap.style.top = '-99999px';
+    wrap.style.left = '0';
+    wrap.style.background = '#fff';
+    wrap.style.padding = '24px';
+    wrap.style.width = '900px';
+    wrap.dir = 'rtl';
+    wrap.style.fontFamily = "'Cairo', Arial, sans-serif";
+
+    var html = '<h2 style="margin:0 0 16px;color:#1a2142;">' + title + '</h2>';
+    html += '<table style="width:100%;border-collapse:collapse;font-size:14px;">';
+    html += '<thead><tr style="background:#2f6fed;color:#fff;">' + headers.map(function(h){ return '<th style="padding:10px;text-align:right;">' + h + '</th>'; }).join('') + '</tr></thead>';
+    html += '<tbody>' + rows.map(function(r, i){
+      var bg = i % 2 === 0 ? '#f3eee1' : '#ffffff';
+      return '<tr style="background:' + bg + ';">' + r.map(function(c){ return '<td style="padding:9px;border-bottom:1px solid #e2dccb;">' + (c == null ? '' : c) + '</td>'; }).join('') + '</tr>';
+    }).join('') + '</tbody></table>';
+    wrap.innerHTML = html;
+    document.body.appendChild(wrap);
+
+    html2canvas(wrap, { scale: 2 }).then(function(canvas){
+      document.body.removeChild(wrap);
+      var imgData = canvas.toDataURL('image/png');
+      var doc = new window.jspdf.jsPDF({ orientation: 'landscape', unit: 'pt', format: 'a4' });
+      var pageWidth = doc.internal.pageSize.getWidth();
+      var pageHeight = doc.internal.pageSize.getHeight();
+      var imgWidth = pageWidth - 40;
+      var imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+      var heightLeft = imgHeight;
+      var position = 20;
+      doc.addImage(imgData, 'PNG', 20, position, imgWidth, imgHeight);
+      heightLeft -= (pageHeight - 40);
+      while (heightLeft > 0){
+        position = heightLeft - imgHeight + 20;
+        doc.addPage();
+        doc.addImage(imgData, 'PNG', 20, position, imgWidth, imgHeight);
+        heightLeft -= (pageHeight - 40);
+      }
+      doc.save(filename);
+    }).catch(function(){
+      document.body.removeChild(wrap);
+      alert('حصلت مشكلة وقت إنشاء الـ PDF، جرب تاني.');
+    });
+  }
+
   document.getElementById('export-excel-btn').addEventListener('click', function(){
     if (!window.XLSX){ alert('مكتبة Excel لسه بتتحمّل، جرب تاني بعد شوية.'); return; }
     var rows = allResults.map(function(r){
@@ -1201,16 +1253,10 @@
   });
 
   document.getElementById('export-pdf-btn').addEventListener('click', function(){
-    if (!window.jspdf){ alert('مكتبة PDF لسه بتتحمّل، جرب تاني بعد شوية.'); return; }
-    var doc = new window.jspdf.jsPDF();
     var rows = allResults.map(function(r){
       return [r.student_name, r.student_phone, r.month, r.quiz, r.score + '/' + r.total, new Date(r.completed_at).toLocaleDateString('ar-EG')];
     });
-    doc.autoTable({
-      head: [['Name', 'Phone', 'Month', 'Quiz', 'Score', 'Date']],
-      body: rows
-    });
-    doc.save('نتائج-الطلاب.pdf');
+    exportArabicTablePdf('نتائج الطلاب', ['الاسم', 'الرقم', 'الشهر', 'الكويز', 'الدرجة', 'التاريخ'], rows, 'نتائج-الطلاب.pdf');
   });
 
   // ---------- تبويب الأمان (سجل التدقيق) ----------
@@ -1339,16 +1385,10 @@
   var exportStudentsPdfBtn = document.getElementById('export-students-pdf-btn');
   if (exportStudentsPdfBtn){
     exportStudentsPdfBtn.addEventListener('click', function(){
-      if (!window.jspdf){ alert('مكتبة PDF لسه بتتحمّل، جرب تاني بعد شوية.'); return; }
-      var doc = new window.jspdf.jsPDF();
       var rows = currentFilteredStudents.map(function(s){
-        return [s.first_name + ' ' + s.last_name, s.phone, s.email || '-', s.phone_verified ? 'Verified' : 'Not verified', new Date(s.created_at).toLocaleDateString('ar-EG')];
+        return [s.first_name + ' ' + s.last_name, s.phone, s.email || '-', s.phone_verified ? 'متحقق' : 'غير متحقق', new Date(s.created_at).toLocaleDateString('ar-EG')];
       });
-      doc.autoTable({
-        head: [['Name', 'Phone', 'Email', 'Status', 'Registered']],
-        body: rows
-      });
-      doc.save('بيانات-الطلاب.pdf');
+      exportArabicTablePdf('بيانات الطلاب', ['الاسم', 'الرقم', 'الإيميل', 'حالة التحقق', 'تاريخ التسجيل'], rows, 'بيانات-الطلاب.pdf');
     });
   }
 
