@@ -1,11 +1,9 @@
 const { supabase } = require('../../_lib/supabase');
 const { applyCors } = require('../../_lib/cors');
+const { sendOtpWhatsApp } = require('../../_lib/whatsapp');
 
 // POST /api/auth/request-phone-otp   body: { student_id }
-// بيولّد كود من 6 أرقام صالح 10 دقايق.
-//
-// ⚠️ ملحوظة: الكود لسه مش بيتبعت SMS فعليًا — محتاج ربط بخدمة زي Twilio (لها رصيد مجاني بسيط للتجربة).
-// لحد ما نعملها، الكود بيتسجل في جدول phone_otps بس.
+// بيولّد كود من 6 أرقام صالح 10 دقايق، وبيبعته فعليًا على واتساب الطالب (لو الإعداد مظبوط).
 module.exports = async (req, res) => {
   if (applyCors(req, res)) return;
 
@@ -25,8 +23,11 @@ module.exports = async (req, res) => {
   const { error } = await supabase.from('phone_otps').insert({ student_id, code, expires_at });
   if (error) return res.status(500).json({ error: error.message });
 
-  // TODO: اربط هنا خدمة إرسال SMS
-  // مثال (Twilio): await twilioClient.messages.create({ to: student.phone, from: '...', body: `كود Code Hub: ${code}` });
+  const whatsappResult = await sendOtpWhatsApp(student.phone, code).catch((e) => ({ sent: false, reason: e.message }));
 
-  return res.status(200).json({ ok: true, message: 'الكود اتبعت (أو هيبان في السجل لحد ما يتفعّل الإرسال الآلي).' });
+  return res.status(200).json({
+    ok: true,
+    message: 'لو الإعداد جاهز، الكود هيوصلك على واتساب دلوقتي.',
+    whatsapp_sent: whatsappResult.sent, // مفيد وقت التجربة عشان تعرف لو الإرسال شغّال فعلاً
+  });
 };
