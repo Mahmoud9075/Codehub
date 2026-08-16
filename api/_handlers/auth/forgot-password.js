@@ -1,12 +1,9 @@
 const { supabase } = require('../../_lib/supabase');
 const { applyCors } = require('../../_lib/cors');
+const { sendOtpWhatsApp } = require('../../_lib/whatsapp');
 
 // POST /api/auth/forgot-password   body: { phone }
-// بيولّد كود من 6 أرقام صالح 15 دقيقة، ويخزّنه.
-//
-// ⚠️ ملحوظة مهمة: الكود مبيتبعتش فعليًا للطالب لسه — محتاجين نربطه بخدمة SMS أو واتساب
-// (زي Twilio أو WhatsApp Business API) عشان يوصله. لحد ما نعمل ده، الكود بيتسجل في قاعدة
-// البيانات بس (جدول password_resets)، وتقدر تدخل تشوفه من Supabase وتديه للطالب يدوي لو اتصل بيك.
+// بيولّد كود من 6 أرقام صالح 15 دقيقة، وبيبعته فعليًا على واتساب الطالب (لو الإعداد مظبوط).
 module.exports = async (req, res) => {
   if (applyCors(req, res)) return;
 
@@ -19,7 +16,7 @@ module.exports = async (req, res) => {
 
   const { data: student } = await supabase
     .from('students')
-    .select('id')
+    .select('id, phone')
     .eq('phone', phone)
     .maybeSingle();
 
@@ -37,8 +34,7 @@ module.exports = async (req, res) => {
 
   if (error) return res.status(500).json({ error: error.message });
 
-  // TODO: اربط هنا خدمة إرسال SMS أو واتساب عشان تبعت الكود فعليًا للطالب
-  // مثال: await sendViaWhatsAppOrSms(phone, code);
+  await sendOtpWhatsApp(student.phone, code).catch(() => {});
 
   return res.status(200).json({ ok: true, message: 'لو الرقم ده مسجل، هيوصله كود التحقق.' });
 };
