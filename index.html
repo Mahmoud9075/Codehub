@@ -4699,7 +4699,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   <div class="jl-student-tabs"><button type="button" class="jl-student-tab active" data-form="login">دخول</button><button type="button" class="jl-student-tab" data-form="register">حساب جديد</button></div>
 
   <form id="jl-login-form" class="jl-student-form">
-    <input type="text" id="li-phone" placeholder="رقم الموبايل" required>
+    <input type="email" id="li-email" placeholder="الإيميل" required>
     <div class="jl-pass-wrap"><input type="password" id="li-password" placeholder="الباسورد" required><button type="button" class="jl-pass-eye" data-target="li-password" aria-label="إظهار/إخفاء الباسورد">👁️</button></div>
     <button type="submit" class="jl-reg">دخول</button>
     <button type="button" class="jl-student-link" id="jl-forgot-link">نسيت الباسورد؟</button>
@@ -5887,7 +5887,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     api('/api/auth/login', {
       method: 'POST',
       body: JSON.stringify({
-        phone: document.getElementById('li-phone').value.trim(),
+        email: document.getElementById('li-email').value.trim(),
         password: document.getElementById('li-password').value
       })
     }).then(function(data){
