@@ -7,6 +7,7 @@ const handlers = {
   'months': require('./_handlers/site/months'),
   'parent-view': require('./_handlers/site/parent-view'),
   'ping': require('./_handlers/site/ping'),
+  'profile-stats': require('./_handlers/site/profile-stats'),
   'quiz-questions': require('./_handlers/site/quiz-questions'),
   'quizzes': require('./_handlers/site/quizzes'),
   'settings': require('./_handlers/site/settings'),
