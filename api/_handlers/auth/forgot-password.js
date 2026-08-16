@@ -1,9 +1,9 @@
 const { supabase } = require('../../_lib/supabase');
 const { applyCors } = require('../../_lib/cors');
-const { sendOtpWhatsApp } = require('../../_lib/whatsapp');
+const { sendStudentOtpEmail } = require('../../_lib/admin-email');
 
 // POST /api/auth/forgot-password   body: { phone }
-// بيولّد كود من 6 أرقام صالح 15 دقيقة، وبيبعته فعليًا على واتساب الطالب (لو الإعداد مظبوط).
+// بيولّد كود من 6 أرقام صالح 15 دقيقة، وبيبعته فعليًا على إيميل الطالب المسجّل بيه.
 module.exports = async (req, res) => {
   if (applyCors(req, res)) return;
 
@@ -16,13 +16,13 @@ module.exports = async (req, res) => {
 
   const { data: student } = await supabase
     .from('students')
-    .select('id, phone')
+    .select('id, phone, email')
     .eq('phone', phone)
     .maybeSingle();
 
   // برضو بنرجع نفس الرسالة لو الرقم مش موجود، عشان محدش يعرف أرقام مسجلة ولا لأ
   if (!student) {
-    return res.status(200).json({ ok: true, message: 'لو الرقم ده مسجل، هيوصله كود التحقق.' });
+    return res.status(200).json({ ok: true, message: 'لو الرقم ده مسجل، هيوصله كود التحقق على إيميله.' });
   }
 
   const code = String(Math.floor(100000 + Math.random() * 900000));
@@ -34,7 +34,7 @@ module.exports = async (req, res) => {
 
   if (error) return res.status(500).json({ error: error.message });
 
-  await sendOtpWhatsApp(student.phone, code).catch(() => {});
+  await sendStudentOtpEmail(student.email, code, 'reset').catch(() => {});
 
-  return res.status(200).json({ ok: true, message: 'لو الرقم ده مسجل، هيوصله كود التحقق.' });
+  return res.status(200).json({ ok: true, message: 'لو الرقم ده مسجل، هيوصله كود التحقق على إيميله.' });
 };
