@@ -47,4 +47,38 @@ async function sendOtpEmail(toEmail, code) {
   return { sent: true };
 }
 
-module.exports = { sendOtpEmail };
+// بيبعت كود تحقق لإيميل الطالب — مستخدمة في التحقق من الموبايل واستعادة كلمة السر.
+// purpose: 'verify' (تحقق من الموبايل) أو 'reset' (استعادة كلمة السر) — بس بيغيّر نص الرسالة.
+async function sendStudentOtpEmail(toEmail, code, purpose) {
+  const t = getTransporter();
+  if (!t) {
+    return { sent: false, reason: 'ADMIN_EMAIL_SENDER أو GMAIL_APP_PASS مش متظبطين لسه' };
+  }
+
+  const isReset = purpose === 'reset';
+  const title = isReset ? 'استعادة كلمة السر' : 'التحقق من رقم الموبايل';
+  const subject = isReset
+    ? `🔑 كود استعادة كلمة السر في Code Hub: ${code}`
+    : `📱 كود التحقق من الموبايل في Code Hub: ${code}`;
+
+  await t.sendMail({
+    from: `"Code Hub" <${process.env.ADMIN_EMAIL_SENDER}>`,
+    to: toEmail,
+    subject,
+    html: `
+      <div style="font-family:Arial,sans-serif;max-width:420px;margin:0 auto;background:#1a2142;border-radius:16px;padding:32px;text-align:center;">
+        <h2 style="color:#2f6fed;font-size:24px;margin-bottom:8px;">Code Hub</h2>
+        <p style="color:#dfd9c8;font-size:14px;margin-bottom:24px;">${title}</p>
+        <div style="background:#0f1730;border-radius:12px;padding:22px;margin:16px 0;border:2px solid #2f6fed;">
+          <div style="color:#8fb8ff;font-size:13px;letter-spacing:2px;margin-bottom:8px;">الكود السري</div>
+          <div style="color:#fff;font-size:34px;font-weight:800;letter-spacing:8px;">${code}</div>
+        </div>
+        <p style="color:#a89f8c;font-size:12px;">الكود صالح لمدة محدودة. لو محدش طلب الكود ده، تجاهل الإيميل ده.</p>
+      </div>
+    `,
+  });
+
+  return { sent: true };
+}
+
+module.exports = { sendOtpEmail, sendStudentOtpEmail };
