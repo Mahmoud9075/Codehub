@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 const { supabase } = require('../../_lib/supabase');
 const { applyCors } = require('../../_lib/cors');
 
-// POST /api/auth/login   body: { phone, password }
+// POST /api/auth/login   body: { email, password }
 // محمي من التخمين العشوائي: 5 محاولات غلط بس من نفس الجهاز كل 10 دقايق.
 module.exports = async (req, res) => {
   if (applyCors(req, res)) return;
@@ -11,10 +11,12 @@ module.exports = async (req, res) => {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { phone, password } = req.body || {};
-  if (!phone || !password) {
-    return res.status(400).json({ error: 'رقم الموبايل والباسورد مطلوبين' });
+  const { email, password } = req.body || {};
+  if (!email || !password) {
+    return res.status(400).json({ error: 'الإيميل والباسورد مطلوبين' });
   }
+
+  const normalizedEmail = String(email).toLowerCase().trim();
 
   const ip = (req.headers['x-forwarded-for'] || req.socket?.remoteAddress || 'unknown').split(',')[0].trim();
   const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000).toISOString();
@@ -33,7 +35,7 @@ module.exports = async (req, res) => {
   const { data: student, error } = await supabase
     .from('students')
     .select('id, first_name, last_name, phone, email, avatar_url, phone_verified, parent_token, password_hash')
-    .eq('phone', phone)
+    .eq('email', normalizedEmail)
     .maybeSingle();
 
   if (error) return res.status(500).json({ error: error.message });
@@ -41,7 +43,7 @@ module.exports = async (req, res) => {
   const match = student ? await bcrypt.compare(password, student.password_hash) : false;
   if (!match) {
     await supabase.from('login_attempts').insert({ ip, context: 'student_login' });
-    return res.status(401).json({ error: 'الرقم أو الباسورد غلط' });
+    return res.status(401).json({ error: 'الإيميل أو الباسورد غلط' });
   }
 
   delete student.password_hash;
