@@ -7,10 +7,12 @@ const handlers = {
   'analytics': require('./_handlers/admin/analytics'),
   'audit-log': require('./_handlers/admin/audit-log'),
   'content': require('./_handlers/admin/content'),
+  'dashboard-stats': require('./_handlers/admin/dashboard-stats'),
   'login-pin': require('./_handlers/admin/login-pin'),
   'questions': require('./_handlers/admin/questions'),
   'results': require('./_handlers/admin/results'),
   'settings': require('./_handlers/admin/settings'),
+  'students': require('./_handlers/admin/students'),
   'super-login-request': require('./_handlers/admin/super-login-request'),
   'super-login-verify': require('./_handlers/admin/super-login-verify'),
 };
