@@ -5,13 +5,13 @@ const { applyCors } = require('../../_lib/cors');
 //
 // إزاي بيشتغل:
 // 1. بيجيب كل محتوى المنهج المتاح (من جدول ai_knowledge اللي بتضيفه من اللوحة).
-// 2. بيبعت سؤال الطالب + المنهج لموديل الذكاء الاصطناعي (Claude من Anthropic).
+// 2. بيبعت سؤال الطالب + المنهج لموديل الذكاء الاصطناعي (Gemini من Google).
 // 3. لو السؤال جوه المنهج، بيجاوب منه ويقول المصدر (اسم الدرس).
 // 4. لو السؤال برّه المنهج تمامًا، بيجاوب من معرفته العامة (مش هيقول "معرفش").
 // 5. بيسجّل كل سؤال في ai_chat_log عشان تشوف في اللوحة أكتر الأسئلة تكرارًا.
 //
-// ⚠️ عشان الجزء ده يشتغل، لازم تحط مفتاح API من Anthropic في متغير ANTHROPIC_API_KEY
-// (التفاصيل خطوة بخطوة في backend/README.md).
+// ⚠️ عشان الجزء ده يشتغل، لازم تحط مفتاح API من Google AI Studio في متغير GEMINI_API_KEY
+// (Environment Variables على Vercel). المفتاح مجاني من aistudio.google.com/apikey
 module.exports = async (req, res) => {
   if (applyCors(req, res)) return;
 
@@ -27,7 +27,7 @@ module.exports = async (req, res) => {
     return res.status(400).json({ error: 'السؤال طويل قوي' });
   }
 
-  if (!process.env.ANTHROPIC_API_KEY) {
+  if (!process.env.GEMINI_API_KEY) {
     return res.status(200).json({
       answer: 'المساعد الذكي لسه مش متفعّل من صاحب الموقع. تواصل معاه لتفعيل الخدمة دي.',
       source: 'not_configured',
@@ -58,33 +58,58 @@ module.exports = async (req, res) => {
 محتوى المنهج المتاح حاليًا:
 ${knowledgeText || '(لسه معرفش أي محتوى منهج، جاوب من معرفتك العامة بس)'}`;
 
+  // شكل الرسائل الداخلي (بيتخزن في قاعدة البيانات وبيستخدمه الفرونت إند)
+  // فاضل زي ما هو: { role: 'user' | 'assistant', content: '...' }
   const messages = [
     ...(Array.isArray(history) ? history.slice(-10) : []),
     { role: 'user', content: question },
   ];
 
+  // Gemini محتاج شكل مختلف شوية: role لازم يكون 'user' أو 'model' (مش 'assistant'),
+  // وكل رسالة بتتحط جوه array اسمه parts. التحويل ده بيحصل هنا بس، وقت الاتصال بالـ API،
+  // من غير ما يأثر على شكل التخزين أو الفرونت إند.
+  const geminiContents = messages.map((m) => ({
+    role: m.role === 'assistant' ? 'model' : 'user',
+    parts: [{ text: m.content }],
+  }));
+
+  const GEMINI_MODEL = 'gemini-2.5-flash'; // موديل مجاني (Tier مجاني بحد أقصى يومي)
+
   try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': process.env.ANTHROPIC_API_KEY,
-        'anthropic-version': '2023-06-01',
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 700,
-        system: systemPrompt,
-        messages,
-      }),
-    });
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${process.env.GEMINI_API_KEY}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          contents: geminiContents,
+          systemInstruction: {
+            parts: [{ text: systemPrompt }],
+          },
+          generationConfig: {
+            maxOutputTokens: 700,
+          },
+        }),
+      }
+    );
 
     const data = await response.json();
     if (!response.ok) {
       return res.status(500).json({ error: data.error?.message || 'حصل خطأ في المساعد الذكي' });
     }
 
-    const answerText = (data.content || []).map((c) => c.text || '').join('');
+    // شكل رد Gemini: data.candidates[0].content.parts[0].text
+    const candidate = (data.candidates || [])[0];
+    const answerText = candidate
+      ? (candidate.content?.parts || []).map((p) => p.text || '').join('')
+      : '';
+
+    if (!answerText) {
+      return res.status(500).json({ error: 'المساعد الذكي مايقدرش يجاوب دلوقتي، جرب تاني بعد شوية' });
+    }
+
     const source = answerText.includes('[المصدر:') ? 'knowledge_base' : 'general_knowledge';
 
     // سجّل السؤال (صامت، ما بيأثرش على الرد لو فشل) — لسجل الأسئلة الشائعة في اللوحة
