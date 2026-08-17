@@ -6131,15 +6131,37 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   });
 
   // رفع صورة البروفايل — بتفضل محفوظة (بتستبدل القديمة، وما بتتمسحش لوحدها)
+  // دالة تصغير الصورة قبل الرفع — بتحل مشكلة "الصورة كبيرة أوي" (413 error)
+  function resizeImageForUpload(file, maxSize, quality) {
+    return new Promise(function(resolve, reject){
+      var reader = new FileReader();
+      reader.onload = function(e){
+        var img = new Image();
+        img.onload = function(){
+          var w = img.width, h = img.height;
+          if (w > h && w > maxSize) { h = Math.round(h * (maxSize / w)); w = maxSize; }
+          else if (h > maxSize) { w = Math.round(w * (maxSize / h)); h = maxSize; }
+          var canvas = document.createElement('canvas');
+          canvas.width = w; canvas.height = h;
+          canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+          resolve(canvas.toDataURL('image/jpeg', quality));
+        };
+        img.onerror = reject;
+        img.src = e.target.result;
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
   document.getElementById('jl-avatar-input').addEventListener('change', function(e){
     var file = e.target.files[0];
     if (!file) return;
     var s = getStudent();
-    var reader = new FileReader();
-    reader.onload = function(){
+    resizeImageForUpload(file, 500, 0.75).then(function(resizedDataUrl){
       api('/api/auth/update-profile', {
         method: 'POST',
-        body: JSON.stringify({ student_id: s.id, avatar_base64: reader.result })
+        body: JSON.stringify({ student_id: s.id, avatar_base64: resizedDataUrl })
       }).then(function(data){
         setStudent(data.student);
         renderProfile();
@@ -6149,8 +6171,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         document.getElementById('profile-msg').textContent = err.message;
         document.getElementById('profile-msg').className = 'jl-student-msg err';
       });
-    };
-    reader.readAsDataURL(file);
+    }).catch(function(){
+      document.getElementById('profile-msg').textContent = 'حصلت مشكلة في معالجة الصورة، جرّب صورة تانية';
+      document.getElementById('profile-msg').className = 'jl-student-msg err';
+    });
   });
 
   // خروج
