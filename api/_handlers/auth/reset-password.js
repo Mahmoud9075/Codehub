@@ -1,7 +1,7 @@
-const bcrypt = require('bcryptjs');
 const { supabase } = require('../../_lib/supabase');
 const { validatePassword } = require('../../_lib/auth-validators');
 const { applyCors } = require('../../_lib/cors');
+const { hashPassword } = require('../../_lib/password');
 
 // POST /api/auth/reset-password   body: { email, code, new_password }
 module.exports = async (req, res) => {
@@ -42,7 +42,7 @@ module.exports = async (req, res) => {
 
   if (!reset) return res.status(400).json({ error: 'الكود غلط أو منتهي' });
 
-  const password_hash = await bcrypt.hash(new_password, 10);
+  const password_hash = await hashPassword(new_password);
 
   const { error: updateErr } = await supabase
     .from('students')
