@@ -1,6 +1,6 @@
-const bcrypt = require('bcryptjs');
 const { supabase } = require('../../_lib/supabase');
 const { applyCors } = require('../../_lib/cors');
+const { verifyPassword } = require('../../_lib/password');
 
 // POST /api/auth/login   body: { email, password }
 // محمي من التخمين العشوائي: 5 محاولات غلط بس من نفس الجهاز كل 10 دقايق.
@@ -40,7 +40,7 @@ module.exports = async (req, res) => {
 
   if (error) return res.status(500).json({ error: error.message });
 
-  const match = student ? await bcrypt.compare(password, student.password_hash) : false;
+  const match = student ? await verifyPassword(password, student.password_hash) : false;
   if (!match) {
     await supabase.from('login_attempts').insert({ ip, context: 'student_login' });
     return res.status(401).json({ error: 'الإيميل أو الباسورد غلط' });
