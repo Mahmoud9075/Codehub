@@ -73,7 +73,7 @@ ${knowledgeText || '(لسه معرفش أي محتوى منهج، جاوب من 
     parts: [{ text: m.content }],
   }));
 
-  const GEMINI_MODEL = 'gemini-2.5-flash'; // موديل مجاني (Tier مجاني بحد أقصى يومي)
+  const GEMINI_MODEL = 'gemini-3.6-flash'; // موديل مجاني (Tier مجاني بحد أقصى يومي)
 
   try {
     const response = await fetch(
