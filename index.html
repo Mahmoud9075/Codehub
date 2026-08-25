@@ -4806,7 +4806,7 @@ img, video, iframe{ max-width:100%; }
   .jl-ai-plus-btn, .jl-ai-send-btn{ width:40px; height:40px; min-width:40px; }
 }
 
-@media (width<=420px){
+@media (width<=600px){
   .jl-nav{ left:5px !important; right:5px !important; padding-inline:7px !important; }
   .jl-nav-start{ gap:4px !important; }
   .jl-nav-end{ gap:4px !important; flex-shrink:1 !important; min-width:0; }
@@ -4823,6 +4823,39 @@ img, video, iframe{ max-width:100%; }
   .jl-ai-plus-btn, .jl-ai-send-btn{ width:38px; height:38px; min-width:38px; }
 }
 
+/* With ten links, the desktop row only has enough room on genuinely wide screens. */
+@media (width<=1500px){
+  .jl-nav-hamburger{ display:flex !important; order:0; }
+  .jl-nav-links{
+    display:none !important;
+    position:absolute;
+    top:100%;
+    inset-inline:0;
+    margin-top:8px;
+    max-height:calc(100dvh - 90px);
+    overflow-y:auto;
+    background:var(--cream-card);
+    border:1px solid #b6913b38;
+    border-radius:14px;
+    flex-direction:column;
+    align-items:stretch;
+    gap:4px !important;
+    padding:12px !important;
+    box-shadow:0 14px 30px #1a214224;
+  }
+  .jl-nav-links.open{ display:flex !important; }
+  .jl-nav-links .jl-navlink{
+    width:100%;
+    min-height:42px;
+    display:flex;
+    align-items:center;
+    padding:10px 12px;
+    border-radius:8px;
+    font-size:13.5px !important;
+  }
+  .jl-nav-links .jl-navlink:hover{ background:#9a917a1a; }
+}
+
 @media (min-width:1800px){
   .jl-hero{ min-height:720px; align-content:center; }
   .jl-hero-text, .jl-code-wrap{ max-width:760px; }
@@ -4831,6 +4864,51 @@ img, video, iframe{ max-width:100%; }
   .jl-benefits-grid, .jl-audience-grid, .jl-about-cards,
   .jl-pricing-grid, .jl-footer-grid, .jl-reviews-list{ max-width:1500px; margin-inline:auto; }
 }
+
+/* Team cards must never stay in two oversized columns on tablets. */
+.jl-am-card{ min-width:0; max-width:100%; }
+@media (width<=900px){
+  .jl-am-grid{
+    grid-template-columns:minmax(0, 1fr) !important;
+    width:min(100%, 620px);
+    margin-inline:auto;
+    gap:24px;
+  }
+  .jl-am-card{ width:100%; overflow:hidden; }
+  .jl-am-photo{
+    width:min(100%, 420px) !important;
+    height:auto !important;
+    aspect-ratio:1 / 1;
+    margin-inline:auto;
+  }
+  .jl-am-photo img{ width:100%; height:100%; object-fit:cover; }
+}
+
+/* The very narrow phones use two clean navbar rows instead of clipping controls. */
+@media (width<=350px){
+  body{ padding-top:104px !important; }
+  .jl-nav{
+    flex-wrap:wrap !important;
+    min-height:92px !important;
+    row-gap:5px !important;
+    padding-block:7px !important;
+  }
+  .jl-nav-start{
+    width:100%;
+    justify-content:space-between;
+  }
+  .jl-nav-end{
+    width:100%;
+    justify-content:center;
+  }
+}
+
+.jl-ai-msg a{
+  color:#2f6fed;
+  text-decoration:underline;
+  overflow-wrap:anywhere;
+}
+[data-theme="dark"] .jl-ai-msg a{ color:#8ab4ff; }
 </style>
   </head>
   <body cz-shortcut-listen="true">
@@ -6769,6 +6847,12 @@ img, video, iframe{ max-width:100%; }
     return d.innerHTML;
   }
 
+  function formatAnswerAI(s){
+    return escapeHtmlAI(s)
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
+  }
+
   function renderThread(){
     if (!currentMessages.length){
       thread.innerHTML = '';
@@ -6779,11 +6863,11 @@ img, video, iframe{ max-width:100%; }
       var cls = m.role === 'user' ? 'user' : 'assistant';
       var text = m.content || '';
       var sourceTag = '';
-      var body = escapeHtmlAI(text);
-      var sourceMatch = text.match(/^\[(المصدر:[^\]]+|معلومة عامة)\]\s*/);
+      var body = formatAnswerAI(text);
+      var sourceMatch = text.match(/^\[(المصدر:[^\]]+|معلومة عامة|مصدر خارجي موثوق)\]\s*/);
       if (sourceMatch){
         sourceTag = '<span class="jl-ai-source-tag">' + escapeHtmlAI(sourceMatch[1]) + '</span>';
-        body = escapeHtmlAI(text.slice(sourceMatch[0].length));
+        body = formatAnswerAI(text.slice(sourceMatch[0].length));
       }
       body = body.replace(/\[سؤال مقترح\]:?\s*(.*)/, '<br><br><em>💡 $1</em>');
       return '<div class="jl-ai-msg ' + cls + '">' + sourceTag + body + '</div>';
