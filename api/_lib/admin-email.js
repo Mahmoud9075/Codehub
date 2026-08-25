@@ -10,8 +10,13 @@ const nodemailer = require('nodemailer');
 let transporter = null;
 function getTransporter() {
   if (transporter) return transporter;
-  const sender = process.env.ADMIN_EMAIL_SENDER || process.env.SMTP_USER;
-  const password = process.env.GMAIL_APP_PASS || process.env.SMTP_PASS;
+  const sender = String(process.env.ADMIN_EMAIL_SENDER || process.env.SMTP_USER || '').trim();
+  // Google displays app passwords in groups. Remove copied spaces/newlines and
+  // accidental wrapping quotes before authenticating.
+  const password = String(process.env.GMAIL_APP_PASS || process.env.SMTP_PASS || '')
+    .trim()
+    .replace(/^['"]|['"]$/g, '')
+    .replace(/\s+/g, '');
   if (!sender || !password) return null;
 
   if (process.env.SMTP_HOST) {
@@ -23,7 +28,9 @@ function getTransporter() {
     });
   } else {
     transporter = nodemailer.createTransport({
-      service: 'gmail',
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
       auth: { user: sender, pass: password },
     });
   }
