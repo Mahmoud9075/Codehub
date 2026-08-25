@@ -5028,8 +5028,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   function renderQuizTaking(quizId, monthId, quizTitle, questions, studentId, isFinal){
     var savedKey = 'ch_quiz_progress_' + quizId;
     var currentIndex = 0;
-    var answers = {}; // question_id -> selected_index
+    var answers = {}; // question_id -> selected_index or text answer
     var examExitWarningOn = false;
+    function quizEsc(value){ return String(value == null ? '' : value).replace(/[&<>"']/g,function(ch){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];}); }
 
     // 18) استرجاع تقدّم محفوظ لو حصل قطع نت أو قفل الصفحة غلط
     try {
@@ -5062,18 +5063,25 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       var progress = Math.round(((currentIndex) / questions.length) * 100);
       var isLast = currentIndex === questions.length - 1;
 
+      var answerMode = q.answer_mode || 'choice';
+      var currentAnswer = answers[q.id];
+      var hasAnswer = answerMode === 'choice' ? currentAnswer != null : String(currentAnswer || '').trim().length > 0;
+      var answerHtml = answerMode === 'choice'
+        ? '<div class="jl-quiz-take-options">' + (q.options || []).map(function(opt, idx){
+            var checked = currentAnswer === idx ? ' selected' : '';
+            return '<button type="button" class="jl-quiz-option' + checked + '" data-idx="' + idx + '">' + quizEsc(opt) + '</button>';
+          }).join('') + '</div>'
+        : (q.question_type === 'essay'
+            ? '<textarea id="jl-quiz-text-answer" maxlength="4000" rows="7" placeholder="اكتب إجابتك بالتفصيل..." style="width:100%;border:1px solid #b6913b66;border-radius:14px;padding:14px;background:#fff;color:#1a2142;font:600 15px Cairo,sans-serif;resize:vertical">' + quizEsc(currentAnswer || '') + '</textarea>'
+            : '<input id="jl-quiz-text-answer" maxlength="1000" placeholder="اكتب الإجابة هنا" value="' + quizEsc(currentAnswer || '') + '" style="width:100%;border:1px solid #b6913b66;border-radius:14px;padding:14px;background:#fff;color:#1a2142;font:600 15px Cairo,sans-serif">');
+
       monthsEl.innerHTML =
         '<div class="jl-quiz-take">' +
-          '<div class="jl-quiz-take-head"><span>' + quizTitle + '</span><span>سؤال ' + (currentIndex + 1) + ' من ' + questions.length + '</span></div>' +
+          '<div class="jl-quiz-take-head"><span>' + quizEsc(quizTitle) + '</span><span>سؤال ' + (currentIndex + 1) + ' من ' + questions.length + '</span></div>' +
           '<div class="jl-quiz-take-progress"><div class="jl-quiz-take-progress-fill" style="width:' + progress + '%"></div></div>' +
-          '<div class="jl-quiz-take-question">' + q.question_text + '</div>' +
-          '<div class="jl-quiz-take-options">' +
-            q.options.map(function(opt, idx){
-              var checked = answers[q.id] === idx ? ' selected' : '';
-              return '<button type="button" class="jl-quiz-option' + checked + '" data-idx="' + idx + '">' + opt + '</button>';
-            }).join('') +
-          '</div>' +
-          '<button type="button" class="jl-reg" id="jl-quiz-next-btn" ' + (answers[q.id] == null ? 'disabled' : '') + '>' + (isLast ? 'إنهاء الكويز' : 'التالي') + '</button>' +
+          '<div style="display:inline-flex;background:#b6913b1f;color:#80631f;border-radius:999px;padding:5px 11px;font-weight:800;font-size:12px;margin-bottom:10px">' + quizEsc(q.type_label || 'اختياري') + '</div>' +
+          '<div class="jl-quiz-take-question">' + quizEsc(q.question_text) + '</div>' + answerHtml +
+          '<button type="button" class="jl-reg" id="jl-quiz-next-btn" ' + (!hasAnswer ? 'disabled' : '') + '>' + (isLast ? 'إنهاء الكويز' : 'التالي') + '</button>' +
         '</div>';
 
       monthsEl.querySelectorAll('.jl-quiz-option').forEach(function(btn){
@@ -5084,6 +5092,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           document.getElementById('jl-quiz-next-btn').disabled = false;
           saveProgress();
         });
+      });
+
+      var textAnswer = document.getElementById('jl-quiz-text-answer');
+      if (textAnswer) textAnswer.addEventListener('input', function(){
+        answers[q.id] = textAnswer.value;
+        document.getElementById('jl-quiz-next-btn').disabled = !textAnswer.value.trim();
+        saveProgress();
       });
 
       document.getElementById('jl-quiz-next-btn').addEventListener('click', function(){
@@ -5103,7 +5118,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       var payload = {
         student_id: studentId,
         quiz_id: quizId,
-        answers: Object.keys(answers).map(function(qId){ return { question_id: qId, selected_index: answers[qId] }; })
+        answers: Object.keys(answers).map(function(qId){
+          return typeof answers[qId] === 'number'
+            ? { question_id: qId, selected_index: answers[qId] }
+            : { question_id: qId, text_answer: String(answers[qId] || '') };
+        })
       };
       fetch(CH_API_BASE_MP + '/api/submit-result', {
         method: 'POST',
@@ -5118,11 +5137,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           // 20) مراجعة الإجابات الصح والغلط
           var reviewHtml = (data.breakdown || []).map(function(b, i){
             var status = b.is_correct ? 'correct' : 'wrong';
-            var yourAnswer = b.selected_index != null ? b.options[b.selected_index] : 'من غير إجابة';
-            var correctAnswer = b.options[b.correct_index];
+            var yourAnswer = b.answer_mode === 'text' ? (b.student_answer || 'من غير إجابة') : (b.selected_index != null ? b.options[b.selected_index] : 'من غير إجابة');
+            var correctAnswer = b.answer_mode === 'text' ? b.correct_answer : b.options[b.correct_index];
+            var similarityText = b.similarity != null ? ' — نسبة التشابه: ' + b.similarity + '%' : '';
             return '<div class="jl-review-answer ' + status + '">' +
-              '<strong>' + (i + 1) + '. ' + b.question_text + '</strong><br>' +
-              (b.is_correct ? '✓ إجابتك صح: ' + yourAnswer : '✗ إجابتك: ' + yourAnswer + ' — الصح: ' + correctAnswer) +
+              '<strong>' + (i + 1) + '. ' + quizEsc(b.question_text) + '</strong><br>' +
+              (b.is_correct ? '✓ إجابتك صح: ' + quizEsc(yourAnswer) : '✗ إجابتك: ' + quizEsc(yourAnswer) + ' — الإجابة النموذجية: ' + quizEsc(correctAnswer)) + similarityText +
             '</div>';
           }).join('');
 
