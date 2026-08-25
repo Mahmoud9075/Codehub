@@ -10,14 +10,23 @@ const nodemailer = require('nodemailer');
 let transporter = null;
 function getTransporter() {
   if (transporter) return transporter;
-  if (!process.env.ADMIN_EMAIL_SENDER || !process.env.GMAIL_APP_PASS) return null;
-  transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.ADMIN_EMAIL_SENDER,
-      pass: process.env.GMAIL_APP_PASS,
-    },
-  });
+  const sender = process.env.ADMIN_EMAIL_SENDER || process.env.SMTP_USER;
+  const password = process.env.GMAIL_APP_PASS || process.env.SMTP_PASS;
+  if (!sender || !password) return null;
+
+  if (process.env.SMTP_HOST) {
+    transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: Number(process.env.SMTP_PORT || 587),
+      secure: String(process.env.SMTP_SECURE || '').toLowerCase() === 'true' || Number(process.env.SMTP_PORT) === 465,
+      auth: { user: process.env.SMTP_USER || sender, pass: password },
+    });
+  } else {
+    transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: { user: sender, pass: password },
+    });
+  }
   return transporter;
 }
 
@@ -28,7 +37,7 @@ async function sendOtpEmail(toEmail, code) {
   }
 
   await t.sendMail({
-    from: `"Code Hub 🔐" <${process.env.ADMIN_EMAIL_SENDER}>`,
+    from: `"Code Hub 🔐" <${process.env.ADMIN_EMAIL_SENDER || process.env.SMTP_USER}>`,
     to: toEmail,
     subject: `🔐 كود دخول لوحة تحكم Code Hub: ${code}`,
     html: `
@@ -62,7 +71,7 @@ async function sendStudentOtpEmail(toEmail, code, purpose) {
     : `📱 كود التحقق من الموبايل في Code Hub: ${code}`;
 
   await t.sendMail({
-    from: `"Code Hub" <${process.env.ADMIN_EMAIL_SENDER}>`,
+    from: `"Code Hub" <${process.env.ADMIN_EMAIL_SENDER || process.env.SMTP_USER}>`,
     to: toEmail,
     subject,
     html: `
