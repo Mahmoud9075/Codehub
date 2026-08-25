@@ -4728,6 +4728,33 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   border-color:#3b82f640 !important;
   box-shadow:0 16px 34px #00000066 !important;
 }
+
+/* Working admin panel — uses the existing site palette without changing the public page. */
+.ch-admin-overlay{position:fixed;inset:0;z-index:9999;background:#0d1226e8;backdrop-filter:blur(10px);display:none;padding:18px;font-family:"Cairo",sans-serif;color:#1a2142}
+.ch-admin-overlay.open{display:grid;place-items:center}
+.ch-admin-shell{width:min(1180px,100%);height:min(760px,calc(100vh - 36px));background:#f8f4e8;border:1px solid #b6913b66;border-radius:24px;box-shadow:0 30px 90px #0008;overflow:hidden;display:flex;flex-direction:column}
+.ch-admin-top{height:68px;flex:none;background:#1a2142;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 20px;gap:12px}
+.ch-admin-title{display:flex;align-items:center;gap:11px;font-weight:800;font-size:18px}.ch-admin-title-badge{width:38px;height:38px;border-radius:11px;background:#b6913b;display:grid;place-items:center;font-size:20px}
+.ch-admin-top-actions{display:flex;gap:8px}.ch-admin-icon-btn{border:1px solid #ffffff33;background:#ffffff12;color:#fff;border-radius:10px;padding:8px 12px;cursor:pointer;font-family:inherit;font-weight:700}.ch-admin-icon-btn:hover{background:#ffffff22}
+.ch-admin-layout{display:grid;grid-template-columns:220px 1fr;min-height:0;flex:1}
+.ch-admin-side{background:#fffaf0;border-inline-end:1px solid #b6913b33;padding:14px;overflow:auto}.ch-admin-tabs{display:flex;flex-direction:column;gap:6px}
+.ch-admin-tab{border:0;background:transparent;text-align:start;border-radius:11px;padding:11px 13px;font:700 14px "Cairo",sans-serif;color:#50546b;cursor:pointer}.ch-admin-tab:hover{background:#b6913b14}.ch-admin-tab.active{background:#1a2142;color:#fff}
+.ch-admin-main{padding:22px;overflow:auto;min-width:0}.ch-admin-view-title{margin:0 0 16px;font-size:24px;color:#1a2142}.ch-admin-muted{color:#777b90;font-size:13px}
+.ch-admin-login-wrap{flex:1;display:grid;place-items:center;padding:24px;background:radial-gradient(circle at top right,#b6913b22,transparent 38%),#f8f4e8}
+.ch-admin-login{width:min(440px,100%);background:#fff;border:1px solid #b6913b44;border-radius:20px;padding:28px;box-shadow:0 18px 55px #1a21421c}.ch-admin-login h2{margin:0 0 8px;color:#1a2142}.ch-admin-login p{margin:0 0 18px;color:#777b90}
+.ch-admin-login-tabs{display:grid;grid-template-columns:1fr 1fr;background:#f1ecdf;border-radius:12px;padding:4px;margin-bottom:16px}.ch-admin-login-tab{border:0;background:transparent;border-radius:9px;padding:9px;font:700 13px "Cairo",sans-serif;cursor:pointer}.ch-admin-login-tab.active{background:#1a2142;color:#fff}
+.ch-admin-form{display:grid;gap:11px}.ch-admin-input,.ch-admin-select{width:100%;border:1px solid #d7cfbb;background:#fff;border-radius:11px;padding:11px 13px;font:600 14px "Cairo",sans-serif;color:#1a2142;outline:none}.ch-admin-input:focus,.ch-admin-select:focus{border-color:#b6913b;box-shadow:0 0 0 3px #b6913b1f}
+.ch-admin-primary{border:0;background:#1a2142;color:#fff;border-radius:11px;padding:11px 15px;font:800 14px "Cairo",sans-serif;cursor:pointer}.ch-admin-primary:hover{background:#28325d}.ch-admin-primary:disabled{opacity:.55;cursor:not-allowed}.ch-admin-secondary{border:1px solid #b6913b66;background:#fff;color:#1a2142;border-radius:10px;padding:9px 13px;font:700 13px "Cairo",sans-serif;cursor:pointer}
+.ch-admin-alert{display:none;border-radius:10px;padding:10px 12px;font-size:13px;margin-top:12px}.ch-admin-alert.show{display:block}.ch-admin-alert.error{background:#fee2e2;color:#991b1b}.ch-admin-alert.ok{background:#dcfce7;color:#166534}
+.ch-admin-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-bottom:20px}.ch-admin-stat{background:#fff;border:1px solid #b6913b30;border-radius:15px;padding:16px;box-shadow:0 8px 22px #1a21420b}.ch-admin-stat-label{font-size:12px;color:#777b90}.ch-admin-stat-value{font-size:28px;font-weight:900;color:#1a2142;margin-top:3px}
+.ch-admin-card{background:#fff;border:1px solid #b6913b30;border-radius:15px;padding:16px;margin-bottom:15px}.ch-admin-card h3{margin:0 0 12px;color:#1a2142;font-size:17px}.ch-admin-toolbar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:13px}
+.ch-admin-table-wrap{overflow:auto;border:1px solid #ece6d8;border-radius:12px}.ch-admin-table{width:100%;border-collapse:collapse;min-width:650px;background:#fff}.ch-admin-table th,.ch-admin-table td{padding:11px 12px;text-align:start;border-bottom:1px solid #eee8da;font-size:13px;white-space:nowrap}.ch-admin-table th{background:#f7f2e7;color:#50546b;font-weight:800}.ch-admin-table tr:last-child td{border-bottom:0}
+.ch-admin-pill{display:inline-flex;border-radius:999px;padding:3px 9px;font-size:11px;font-weight:800}.ch-admin-pill.ok{background:#dcfce7;color:#166534}.ch-admin-pill.no{background:#fee2e2;color:#991b1b}
+.ch-admin-loading{min-height:220px;display:grid;place-items:center;color:#777b90}.ch-admin-spinner{width:30px;height:30px;border:3px solid #b6913b44;border-top-color:#b6913b;border-radius:50%;animation:chAdminSpin .7s linear infinite;margin:auto auto 10px}@keyframes chAdminSpin{to{transform:rotate(360deg)}}
+.ch-admin-empty{text-align:center;color:#777b90;padding:28px}.ch-admin-settings-row{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid #eee8da}.ch-admin-settings-row:last-child{border-bottom:0}.ch-admin-switch{width:48px;height:27px;appearance:none;background:#cbd0dd;border-radius:99px;position:relative;cursor:pointer;transition:.2s}.ch-admin-switch:checked{background:#b6913b}.ch-admin-switch:after{content:"";position:absolute;width:21px;height:21px;top:3px;inset-inline-start:3px;background:#fff;border-radius:50%;transition:.2s}.ch-admin-switch:checked:after{transform:translateX(-21px)}
+[data-theme="dark"] .ch-admin-shell,[data-theme="dark"] .ch-admin-login-wrap{background:#0d1226;color:#eee}[data-theme="dark"] .ch-admin-side,[data-theme="dark"] .ch-admin-login,[data-theme="dark"] .ch-admin-card,[data-theme="dark"] .ch-admin-stat,[data-theme="dark"] .ch-admin-table{background:#171e3d;border-color:#3b82f633}[data-theme="dark"] .ch-admin-main,[data-theme="dark"] .ch-admin-view-title,[data-theme="dark"] .ch-admin-login h2,[data-theme="dark"] .ch-admin-card h3,[data-theme="dark"] .ch-admin-stat-value{color:#f4efe4}[data-theme="dark"] .ch-admin-table th{background:#222b53;color:#eee}[data-theme="dark"] .ch-admin-table td{border-color:#ffffff12}[data-theme="dark"] .ch-admin-input,[data-theme="dark"] .ch-admin-select{background:#0d1226;color:#fff;border-color:#ffffff24}
+@media(max-width:820px){.ch-admin-overlay{padding:0}.ch-admin-shell{height:100vh;border-radius:0}.ch-admin-layout{grid-template-columns:1fr;grid-template-rows:auto 1fr}.ch-admin-side{border-inline-end:0;border-bottom:1px solid #b6913b33;padding:8px;overflow-x:auto}.ch-admin-tabs{flex-direction:row;width:max-content}.ch-admin-tab{white-space:nowrap;padding:9px 11px}.ch-admin-main{padding:15px}.ch-admin-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.ch-admin-top{height:60px;padding:0 12px}.ch-admin-title{font-size:15px}.ch-admin-icon-btn{padding:7px 9px}}
+@media(max-width:480px){.ch-admin-grid{grid-template-columns:1fr 1fr;gap:8px}.ch-admin-stat{padding:12px}.ch-admin-stat-value{font-size:22px}.ch-admin-login{padding:20px}.ch-admin-main{padding:12px}}
 </style>
   </head>
   <body cz-shortcut-listen="true">
@@ -6821,6 +6848,368 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     window.open(url, '_blank');
     form.reset();
   });
+})();
+</script>
+<script>
+(function(){
+  'use strict';
+
+  var ADMIN_API_BASE = window.CH_SITE_API_BASE || '';
+  var adminAuth = null;
+  var studentCache = [];
+
+  function escapeHtml(value){
+    return String(value == null ? '' : value)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+  }
+  function formatDate(value){
+    if (!value) return '—';
+    var d = new Date(value);
+    return isNaN(d.getTime()) ? '—' : d.toLocaleString('ar-EG', { dateStyle:'medium', timeStyle:'short' });
+  }
+  function percent(score, total){
+    return total ? Math.round((Number(score) / Number(total)) * 100) + '%' : '—';
+  }
+
+  var overlay = document.createElement('div');
+  overlay.className = 'ch-admin-overlay';
+  overlay.id = 'ch-admin-overlay';
+  overlay.setAttribute('role', 'dialog');
+  overlay.setAttribute('aria-modal', 'true');
+  overlay.setAttribute('aria-label', 'لوحة إدارة Code Hub');
+  overlay.innerHTML = [
+    '<div class="ch-admin-shell">',
+      '<header class="ch-admin-top">',
+        '<div class="ch-admin-title"><span class="ch-admin-title-badge">⚙️</span><span>لوحة إدارة Code Hub</span></div>',
+        '<div class="ch-admin-top-actions">',
+          '<button type="button" class="ch-admin-icon-btn" id="ch-admin-logout" hidden>تسجيل الخروج</button>',
+          '<button type="button" class="ch-admin-icon-btn" id="ch-admin-close" aria-label="إغلاق لوحة الإدارة">✕</button>',
+        '</div>',
+      '</header>',
+      '<div id="ch-admin-body" style="display:flex;min-height:0;flex:1"></div>',
+    '</div>'
+  ].join('');
+  document.body.appendChild(overlay);
+
+  var body = document.getElementById('ch-admin-body');
+  var logoutBtn = document.getElementById('ch-admin-logout');
+  var closeBtn = document.getElementById('ch-admin-close');
+
+  function setAlert(id, message, type){
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.textContent = message || '';
+    el.className = 'ch-admin-alert' + (message ? ' show ' + (type || 'error') : '');
+  }
+  function setBusy(button, busy, busyText){
+    if (!button) return;
+    if (busy){ button.dataset.oldText = button.textContent; button.textContent = busyText || 'جاري التحميل...'; }
+    else if (button.dataset.oldText){ button.textContent = button.dataset.oldText; delete button.dataset.oldText; }
+    button.disabled = !!busy;
+  }
+  function saveAuth(auth){
+    adminAuth = auth;
+    try { sessionStorage.setItem('ch_admin_auth', JSON.stringify(auth)); } catch (e) {}
+  }
+  function clearAuth(){
+    adminAuth = null;
+    try { sessionStorage.removeItem('ch_admin_auth'); } catch (e) {}
+  }
+  function restoreAuth(){
+    try {
+      var raw = sessionStorage.getItem('ch_admin_auth');
+      if (raw) adminAuth = JSON.parse(raw);
+    } catch (e) { clearAuth(); }
+  }
+  function authHeaders(){
+    var headers = { 'Content-Type':'application/json' };
+    if (!adminAuth) return headers;
+    if (adminAuth.via === 'pin') headers['x-admin-pin'] = adminAuth.pin;
+    if (adminAuth.via === 'super') {
+      headers['x-super-admin-email'] = adminAuth.email;
+      headers['x-super-admin-sig'] = adminAuth.signature;
+    }
+    return headers;
+  }
+  function parseResponse(response){
+    return response.json().catch(function(){ return {}; }).then(function(data){
+      if (!response.ok) {
+        var error = new Error(data.error || 'حصل خطأ في الاتصال بالسيرفر');
+        error.status = response.status;
+        throw error;
+      }
+      return data;
+    });
+  }
+  function publicAdminApi(path, options){
+    options = options || {};
+    options.headers = Object.assign({ 'Content-Type':'application/json' }, options.headers || {});
+    return fetch(ADMIN_API_BASE + path, options).then(parseResponse);
+  }
+  function adminApi(path, options){
+    options = options || {};
+    options.headers = Object.assign(authHeaders(), options.headers || {});
+    return fetch(ADMIN_API_BASE + path, options).then(parseResponse).catch(function(error){
+      if (error.status === 401) {
+        clearAuth();
+        renderLogin('انتهت جلسة الإدارة. سجّل الدخول مرة تانية.');
+      }
+      throw error;
+    });
+  }
+
+  function renderLogin(initialMessage){
+    logoutBtn.hidden = true;
+    body.innerHTML = [
+      '<div class="ch-admin-login-wrap">',
+        '<div class="ch-admin-login">',
+          '<h2>تسجيل دخول الإدارة</h2>',
+          '<p>استخدم الرقم السري أو كود البريد الإلكتروني.</p>',
+          '<div class="ch-admin-login-tabs">',
+            '<button type="button" class="ch-admin-login-tab active" data-login-mode="pin">الرقم السري</button>',
+            '<button type="button" class="ch-admin-login-tab" data-login-mode="email">كود الإيميل</button>',
+          '</div>',
+          '<form class="ch-admin-form" id="ch-admin-pin-form">',
+            '<input class="ch-admin-input" id="ch-admin-pin" type="password" inputmode="numeric" autocomplete="current-password" placeholder="الرقم السري للإدارة" required>',
+            '<button class="ch-admin-primary" type="submit">دخول</button>',
+          '</form>',
+          '<form class="ch-admin-form" id="ch-admin-email-form" hidden>',
+            '<input class="ch-admin-input" id="ch-admin-email" type="email" autocomplete="email" placeholder="إيميل المدير" required>',
+            '<button class="ch-admin-primary" type="submit">إرسال كود التحقق</button>',
+          '</form>',
+          '<form class="ch-admin-form" id="ch-admin-code-form" hidden>',
+            '<input class="ch-admin-input" id="ch-admin-code" inputmode="numeric" maxlength="6" placeholder="كود التحقق المكوّن من 6 أرقام" required>',
+            '<button class="ch-admin-primary" type="submit">تأكيد ودخول</button>',
+            '<button class="ch-admin-secondary" id="ch-admin-code-back" type="button">تغيير الإيميل</button>',
+          '</form>',
+          '<div class="ch-admin-alert" id="ch-admin-login-alert"></div>',
+        '</div>',
+      '</div>'
+    ].join('');
+
+    if (initialMessage) setAlert('ch-admin-login-alert', initialMessage, 'error');
+    var pendingEmail = '';
+    var loginTabs = body.querySelectorAll('[data-login-mode]');
+    loginTabs.forEach(function(tab){
+      tab.addEventListener('click', function(){
+        loginTabs.forEach(function(t){ t.classList.toggle('active', t === tab); });
+        document.getElementById('ch-admin-pin-form').hidden = tab.dataset.loginMode !== 'pin';
+        document.getElementById('ch-admin-email-form').hidden = tab.dataset.loginMode !== 'email';
+        document.getElementById('ch-admin-code-form').hidden = true;
+        setAlert('ch-admin-login-alert', '');
+      });
+    });
+
+    document.getElementById('ch-admin-pin-form').addEventListener('submit', function(e){
+      e.preventDefault();
+      var button = this.querySelector('button[type="submit"]');
+      var pin = document.getElementById('ch-admin-pin').value.trim();
+      if (!pin) return;
+      setBusy(button, true, 'جاري التحقق...');
+      setAlert('ch-admin-login-alert', '');
+      publicAdminApi('/api/admin/login-pin', { method:'POST', body:JSON.stringify({ pin:pin }) })
+        .then(function(){ saveAuth({ via:'pin', pin:pin }); renderDashboard(); })
+        .catch(function(error){ setAlert('ch-admin-login-alert', error.message, 'error'); })
+        .finally(function(){ setBusy(button, false); });
+    });
+
+    document.getElementById('ch-admin-email-form').addEventListener('submit', function(e){
+      e.preventDefault();
+      var form = this;
+      var button = form.querySelector('button[type="submit"]');
+      pendingEmail = document.getElementById('ch-admin-email').value.trim().toLowerCase();
+      if (!pendingEmail) return;
+      setBusy(button, true, 'جاري الإرسال...');
+      setAlert('ch-admin-login-alert', '');
+      publicAdminApi('/api/admin/super-login-request', { method:'POST', body:JSON.stringify({ email:pendingEmail }) })
+        .then(function(data){
+          form.hidden = true;
+          document.getElementById('ch-admin-code-form').hidden = false;
+          setAlert('ch-admin-login-alert', data.message || 'تم إرسال الكود.', 'ok');
+        })
+        .catch(function(error){ setAlert('ch-admin-login-alert', error.message, 'error'); })
+        .finally(function(){ setBusy(button, false); });
+    });
+
+    document.getElementById('ch-admin-code-form').addEventListener('submit', function(e){
+      e.preventDefault();
+      var button = this.querySelector('button[type="submit"]');
+      var code = document.getElementById('ch-admin-code').value.trim();
+      if (!pendingEmail || !code) return;
+      setBusy(button, true, 'جاري التحقق...');
+      setAlert('ch-admin-login-alert', '');
+      publicAdminApi('/api/admin/super-login-verify', { method:'POST', body:JSON.stringify({ email:pendingEmail, code:code }) })
+        .then(function(data){ saveAuth({ via:'super', email:data.email, signature:data.signature }); renderDashboard(); })
+        .catch(function(error){ setAlert('ch-admin-login-alert', error.message, 'error'); })
+        .finally(function(){ setBusy(button, false); });
+    });
+    document.getElementById('ch-admin-code-back').addEventListener('click', function(){
+      document.getElementById('ch-admin-code-form').hidden = true;
+      document.getElementById('ch-admin-email-form').hidden = false;
+      setAlert('ch-admin-login-alert', '');
+    });
+  }
+
+  var tabs = [
+    ['dashboard','🏠 الرئيسية'], ['students','👥 الطلاب'], ['results','📊 النتائج'],
+    ['analytics','📈 التحليلات'], ['month','🗓️ إضافة شهر'], ['settings','⚙️ الإعدادات']
+  ];
+  function renderDashboard(){
+    logoutBtn.hidden = false;
+    body.innerHTML = [
+      '<div class="ch-admin-layout">',
+        '<aside class="ch-admin-side"><nav class="ch-admin-tabs">',
+          tabs.map(function(t){ return '<button type="button" class="ch-admin-tab' + (t[0] === 'dashboard' ? ' active' : '') + '" data-admin-view="' + t[0] + '">' + t[1] + '</button>'; }).join(''),
+        '</nav></aside>',
+        '<main class="ch-admin-main" id="ch-admin-main"></main>',
+      '</div>'
+    ].join('');
+    body.querySelectorAll('[data-admin-view]').forEach(function(button){
+      button.addEventListener('click', function(){
+        body.querySelectorAll('[data-admin-view]').forEach(function(b){ b.classList.toggle('active', b === button); });
+        loadView(button.dataset.adminView);
+      });
+    });
+    loadView('dashboard');
+  }
+  function loading(){
+    var main = document.getElementById('ch-admin-main');
+    if (main) main.innerHTML = '<div class="ch-admin-loading"><div><div class="ch-admin-spinner"></div>جاري تحميل البيانات...</div></div>';
+    return main;
+  }
+  function viewError(main, error){
+    if (!main || !main.isConnected) return;
+    main.innerHTML = '<div class="ch-admin-card"><h3>تعذّر تحميل البيانات</h3><div class="ch-admin-alert show error">' + escapeHtml(error.message) + '</div><button type="button" class="ch-admin-secondary" id="ch-admin-retry">إعادة المحاولة</button></div>';
+    var retry = document.getElementById('ch-admin-retry');
+    if (retry) retry.addEventListener('click', function(){ loadView(body.querySelector('.ch-admin-tab.active').dataset.adminView); });
+  }
+  function loadView(view){
+    if (view === 'dashboard') return loadStats();
+    if (view === 'students') return loadStudents();
+    if (view === 'results') return loadResults();
+    if (view === 'analytics') return loadAnalytics();
+    if (view === 'month') return renderAddMonth();
+    if (view === 'settings') return loadSettings();
+  }
+
+  function loadStats(){
+    var main = loading();
+    adminApi('/api/admin/dashboard-stats').then(function(data){
+      if (!main || !main.isConnected) return;
+      var recent = data.recent_registrations || [];
+      main.innerHTML = [
+        '<h2 class="ch-admin-view-title">الرئيسية</h2>',
+        '<div class="ch-admin-grid">',
+          '<div class="ch-admin-stat"><div class="ch-admin-stat-label">إجمالي الطلاب</div><div class="ch-admin-stat-value">' + escapeHtml(data.total_students || 0) + '</div></div>',
+          '<div class="ch-admin-stat"><div class="ch-admin-stat-label">متوسط الأداء</div><div class="ch-admin-stat-value">' + escapeHtml(data.avg_performance_percent == null ? '—' : data.avg_performance_percent + '%') + '</div></div>',
+          '<div class="ch-admin-stat"><div class="ch-admin-stat-label">الكويزات المكتملة</div><div class="ch-admin-stat-value">' + escapeHtml(data.quizzes_completed || 0) + '</div></div>',
+          '<div class="ch-admin-stat"><div class="ch-admin-stat-label">طلاب بلا نشاط حديث</div><div class="ch-admin-stat-value">' + escapeHtml(data.students_behind || 0) + '</div></div>',
+        '</div>',
+        '<div class="ch-admin-card"><h3>آخر التسجيلات</h3>',
+          recent.length ? '<div class="ch-admin-table-wrap"><table class="ch-admin-table"><thead><tr><th>الطالب</th><th>الهاتف</th><th>التحقق</th><th>التاريخ</th></tr></thead><tbody>' + recent.map(function(s){ return '<tr><td>' + escapeHtml((s.first_name || '') + ' ' + (s.last_name || '')) + '</td><td>' + escapeHtml(s.phone || '—') + '</td><td><span class="ch-admin-pill ' + (s.phone_verified ? 'ok' : 'no') + '">' + (s.phone_verified ? 'مؤكد' : 'غير مؤكد') + '</span></td><td>' + escapeHtml(formatDate(s.created_at)) + '</td></tr>'; }).join('') + '</tbody></table></div>' : '<div class="ch-admin-empty">لا توجد تسجيلات حتى الآن.</div>',
+        '</div>'
+      ].join('');
+    }).catch(function(error){ viewError(main, error); });
+  }
+
+  function renderStudentRows(list){
+    var target = document.getElementById('ch-admin-student-rows');
+    if (!target) return;
+    target.innerHTML = list.length ? list.map(function(s){
+      return '<tr><td>' + escapeHtml((s.first_name || '') + ' ' + (s.last_name || '')) + '</td><td>' + escapeHtml(s.phone || '—') + '</td><td>' + escapeHtml(s.email || '—') + '</td><td><span class="ch-admin-pill ' + (s.phone_verified ? 'ok' : 'no') + '">' + (s.phone_verified ? 'مؤكد' : 'غير مؤكد') + '</span></td><td>' + escapeHtml(formatDate(s.created_at)) + '</td></tr>';
+    }).join('') : '<tr><td colspan="5" class="ch-admin-empty">لا توجد نتائج.</td></tr>';
+  }
+  function loadStudents(){
+    var main = loading();
+    adminApi('/api/admin/students').then(function(data){
+      if (!main || !main.isConnected) return;
+      studentCache = data.students || [];
+      main.innerHTML = '<div class="ch-admin-toolbar"><h2 class="ch-admin-view-title" style="margin:0">الطلاب</h2><input class="ch-admin-input" id="ch-admin-student-search" style="max-width:310px" placeholder="ابحث بالاسم أو الهاتف أو الإيميل"></div><div class="ch-admin-card"><div class="ch-admin-table-wrap"><table class="ch-admin-table"><thead><tr><th>الاسم</th><th>الهاتف</th><th>الإيميل</th><th>التحقق</th><th>تاريخ التسجيل</th></tr></thead><tbody id="ch-admin-student-rows"></tbody></table></div></div>';
+      renderStudentRows(studentCache);
+      document.getElementById('ch-admin-student-search').addEventListener('input', function(){
+        var q = this.value.trim().toLowerCase();
+        renderStudentRows(studentCache.filter(function(s){ return [s.first_name,s.last_name,s.phone,s.email].join(' ').toLowerCase().includes(q); }));
+      });
+    }).catch(function(error){ viewError(main, error); });
+  }
+
+  function loadResults(){
+    var main = loading();
+    adminApi('/api/admin/results').then(function(data){
+      if (!main || !main.isConnected) return;
+      var rows = data.results || [];
+      main.innerHTML = '<h2 class="ch-admin-view-title">النتائج</h2><div class="ch-admin-card">' + (rows.length ? '<div class="ch-admin-table-wrap"><table class="ch-admin-table"><thead><tr><th>الطالب</th><th>الشهر</th><th>الكويز</th><th>النتيجة</th><th>النسبة</th><th>التاريخ</th></tr></thead><tbody>' + rows.map(function(r){ return '<tr><td>' + escapeHtml(r.student_name || '—') + '</td><td>' + escapeHtml(r.month || '—') + '</td><td>' + escapeHtml(r.quiz || '—') + '</td><td>' + escapeHtml(r.score + ' / ' + r.total) + '</td><td>' + escapeHtml(percent(r.score,r.total)) + '</td><td>' + escapeHtml(formatDate(r.completed_at)) + '</td></tr>'; }).join('') + '</tbody></table></div>' : '<div class="ch-admin-empty">لا توجد نتائج حتى الآن.</div>') + '</div>';
+    }).catch(function(error){ viewError(main, error); });
+  }
+
+  function loadAnalytics(){
+    var main = loading();
+    adminApi('/api/admin/analytics').then(function(data){
+      if (!main || !main.isConnected) return;
+      var pages = Object.entries(data.by_page || {}).sort(function(a,b){ return b[1]-a[1]; });
+      var days = Object.entries(data.last_7_days || {}).sort(function(a,b){ return a[0].localeCompare(b[0]); });
+      main.innerHTML = '<h2 class="ch-admin-view-title">التحليلات</h2><div class="ch-admin-grid"><div class="ch-admin-stat"><div class="ch-admin-stat-label">إجمالي الزيارات المسجلة</div><div class="ch-admin-stat-value">' + escapeHtml(data.total || 0) + '</div></div></div><div class="ch-admin-card"><h3>الزيارات حسب الصفحة</h3>' + (pages.length ? '<div class="ch-admin-table-wrap"><table class="ch-admin-table"><thead><tr><th>الصفحة</th><th>الزيارات</th></tr></thead><tbody>' + pages.map(function(p){ return '<tr><td>' + escapeHtml(p[0]) + '</td><td>' + escapeHtml(p[1]) + '</td></tr>'; }).join('') + '</tbody></table></div>' : '<div class="ch-admin-empty">لا توجد زيارات.</div>') + '</div><div class="ch-admin-card"><h3>آخر 7 أيام</h3>' + (days.length ? days.map(function(d){ return '<div class="ch-admin-settings-row"><span>' + escapeHtml(d[0]) + '</span><strong>' + escapeHtml(d[1]) + ' زيارة</strong></div>'; }).join('') : '<div class="ch-admin-empty">لا توجد بيانات حديثة.</div>') + '</div>';
+    }).catch(function(error){ viewError(main, error); });
+  }
+
+  function renderAddMonth(){
+    var main = document.getElementById('ch-admin-main');
+    main.innerHTML = '<h2 class="ch-admin-view-title">إضافة شهر دراسي</h2><div class="ch-admin-card"><h3>شهر جديد</h3><p class="ch-admin-muted">سيتم إنشاء 8 كويزات أسبوعية واختبار نهائي تلقائيًا.</p><form class="ch-admin-form" id="ch-admin-month-form" style="max-width:520px"><input class="ch-admin-input" id="ch-admin-month-name" maxlength="80" placeholder="مثال: الشهر الأول" required><button class="ch-admin-primary" type="submit">إضافة الشهر</button></form><div class="ch-admin-alert" id="ch-admin-month-alert"></div></div>';
+    document.getElementById('ch-admin-month-form').addEventListener('submit', function(e){
+      e.preventDefault();
+      var form = this;
+      var button = form.querySelector('button');
+      var name = document.getElementById('ch-admin-month-name').value.trim();
+      if (!name) return;
+      setBusy(button, true, 'جاري الإضافة...');
+      setAlert('ch-admin-month-alert', '');
+      adminApi('/api/admin/add-month', { method:'POST', body:JSON.stringify({ name:name }) })
+        .then(function(){ form.reset(); setAlert('ch-admin-month-alert', 'تمت إضافة الشهر والكويزات بنجاح.', 'ok'); })
+        .catch(function(error){ setAlert('ch-admin-month-alert', error.message, 'error'); })
+        .finally(function(){ setBusy(button, false); });
+    });
+  }
+
+  function loadSettings(){
+    var main = loading();
+    adminApi('/api/admin/settings').then(function(data){
+      if (!main || !main.isConnected) return;
+      var settings = data.settings || {};
+      main.innerHTML = '<h2 class="ch-admin-view-title">الإعدادات</h2><div class="ch-admin-card"><div class="ch-admin-settings-row"><div><strong>وضع الصيانة</strong><div class="ch-admin-muted">إيقاف الموقع مؤقتًا للزوار إذا كان الـBackend يدعم تطبيق هذا الإعداد.</div></div><input class="ch-admin-switch" id="ch-admin-maintenance" type="checkbox" ' + (settings.maintenance_mode ? 'checked' : '') + '></div><div style="padding-top:14px"><label style="font-weight:800;display:block;margin-bottom:7px" for="ch-admin-hidden">الأقسام المخفية</label><input class="ch-admin-input" id="ch-admin-hidden" value="' + escapeHtml((settings.hidden_sections || []).join(', ')) + '" placeholder="مثال: pricing, reviews"><div class="ch-admin-muted" style="margin-top:6px">افصل أسماء الأقسام بفاصلة.</div></div><button class="ch-admin-primary" id="ch-admin-save-settings" style="margin-top:16px">حفظ الإعدادات</button><div class="ch-admin-alert" id="ch-admin-settings-alert"></div></div>';
+      document.getElementById('ch-admin-save-settings').addEventListener('click', function(){
+        var button = this;
+        var hidden = document.getElementById('ch-admin-hidden').value.split(',').map(function(x){ return x.trim(); }).filter(Boolean);
+        setBusy(button, true, 'جاري الحفظ...');
+        setAlert('ch-admin-settings-alert', '');
+        adminApi('/api/admin/settings', { method:'POST', body:JSON.stringify({ maintenance_mode:document.getElementById('ch-admin-maintenance').checked, hidden_sections:hidden }) })
+          .then(function(){ setAlert('ch-admin-settings-alert', 'تم حفظ الإعدادات بنجاح.', 'ok'); })
+          .catch(function(error){ setAlert('ch-admin-settings-alert', error.message, 'error'); })
+          .finally(function(){ setBusy(button, false); });
+      });
+    }).catch(function(error){ viewError(main, error); });
+  }
+
+  function openAdmin(){
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    restoreAuth();
+    if (adminAuth) renderDashboard(); else renderLogin();
+  }
+  function closeAdmin(){
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.querySelectorAll('.jl-admin-btn').forEach(function(button){
+    button.addEventListener('click', function(e){ e.preventDefault(); openAdmin(); });
+  });
+  closeBtn.addEventListener('click', closeAdmin);
+  logoutBtn.addEventListener('click', function(){ clearAuth(); renderLogin('تم تسجيل الخروج.'); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && overlay.classList.contains('open')) closeAdmin(); });
+
+  if (/\/admin(?:-fixed|-modified)?\.html$/i.test(location.pathname)) {
+    window.setTimeout(openAdmin, 0);
+  }
 })();
 </script>
 </body></html>
