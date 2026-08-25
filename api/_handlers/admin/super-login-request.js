@@ -54,9 +54,19 @@ module.exports = async (req, res) => {
 
   const emailResult = await sendOtpEmail(superAdmin.email, code).catch((e) => ({ sent: false, reason: e.message }));
 
+  // Do not tell the UI that the code was sent when the mail provider is not
+  // configured or rejected the message. Also invalidate the unusable code.
+  if (!emailResult.sent) {
+    await supabase.from('super_admin_otps').delete().eq('email', superAdmin.email).eq('code', code);
+    console.error('Admin OTP email failed:', emailResult.reason || 'unknown mail error');
+    return res.status(503).json({
+      error: 'تعذر إرسال كود الدخول. تأكد من إعداد بريد الإرسال على Vercel ثم حاول مرة أخرى.',
+    });
+  }
+
   return res.status(200).json({
     ok: true,
-    message: 'لو الإيميل ده أدمن، هيوصله كود التحقق.',
-    email_sent: emailResult.sent, // مفيد وقت التجربة عشان تعرف لو الإرسال شغّال فعلاً
+    message: 'تم إرسال كود التحقق إلى بريدك. راجع البريد الوارد والرسائل غير المرغوب فيها.',
+    email_sent: true,
   });
 };
