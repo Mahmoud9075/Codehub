@@ -5486,7 +5486,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
   var hamburger = document.getElementById('jl-nav-hamburger');
   var navLinks = document.querySelector('.jl-nav-links');
-  // Keep the links hidden on every screen size until the hamburger is pressed.
   if (hamburger) hamburger.setAttribute('aria-expanded', 'false');
   if (navLinks) navLinks.style.setProperty('display', 'none', 'important');
   hamburger && hamburger.addEventListener('click', function(){
@@ -7034,9 +7033,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       setAlert('ch-admin-login-alert', '');
       publicAdminApi('/api/admin/super-login-request', { method:'POST', body:JSON.stringify({ email:pendingEmail }) })
         .then(function(data){
-          if (data.email_sent !== true) {
-            throw new Error('تعذر إرسال الكود من الخادم. تأكد من ضبط بيانات بريد الإرسال على Vercel ثم حاول مرة أخرى.');
-          }
+          if (data.email_sent !== true) throw new Error('تعذر إرسال الكود من الخادم. تأكد من إعداد بريد الإرسال على Vercel.');
           form.hidden = true;
           document.getElementById('ch-admin-code-form').hidden = false;
           setAlert('ch-admin-login-alert', data.message || 'تم إرسال الكود.', 'ok');
@@ -7105,7 +7102,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     if (view === 'results') return loadResults();
     if (view === 'analytics') return loadAnalytics();
     if (view === 'content') return loadContentEditor();
-    if (view === 'questions') return loadQuestionManager();
+    if (view === 'questions') return loadQuestionManagerV2();
     if (view === 'month') return renderAddMonth();
     if (view === 'admins') return loadAdmins();
     if (view === 'knowledge') return loadKnowledge();
@@ -7249,6 +7246,98 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     adminApi('/api/admin/audit-log').then(function(data){
       if(!main||!main.isConnected)return;var rows=data.log||[];
       main.innerHTML='<div class="ch-admin-toolbar"><div><h2 class="ch-admin-view-title" style="margin:0">سجل العمليات</h2><div class="ch-admin-muted">آخر التعديلات التي نفذها المديرون.</div></div><span class="ch-admin-count">'+rows.length+'</span></div><div class="ch-admin-card">'+(rows.length?'<div class="ch-admin-table-wrap"><table class="ch-admin-table"><thead><tr><th>المدير</th><th>العملية</th><th>التفاصيل</th><th>التاريخ</th></tr></thead><tbody>'+rows.map(function(row){return '<tr><td>'+escapeHtml(row.admin_identity||'—')+'</td><td>'+escapeHtml(row.action||'—')+'</td><td style="white-space:normal;min-width:260px"><span class="ch-admin-code">'+escapeHtml(JSON.stringify(row.details||{}))+'</span></td><td>'+escapeHtml(formatDate(row.created_at))+'</td></tr>';}).join('')+'</tbody></table></div>':'<div class="ch-admin-empty">سجل العمليات فارغ.</div>')+'</div>';
+    }).catch(function(error){viewError(main,error);});
+  }
+
+  function loadQuestionManagerV2(){
+    var main=loading();
+    publicAdminApi('/api/months').then(function(monthData){
+      if(!main||!main.isConnected)return;
+      var months=monthData.months||[];
+      main.innerHTML=[
+        '<h2 class="ch-admin-view-title">إدارة أسئلة الكويزات</h2>',
+        '<div class="ch-admin-card"><div class="ch-admin-two-col">',
+          '<div><label style="font-weight:800;display:block;margin-bottom:6px">الشهر</label><select class="ch-admin-select" id="ch-admin-question-month"><option value="">اختر الشهر</option>'+months.map(function(m){return '<option value="'+escapeHtml(m.id)+'">'+escapeHtml(m.name)+'</option>';}).join('')+'</select></div>',
+          '<div><label style="font-weight:800;display:block;margin-bottom:6px">الكويز</label><select class="ch-admin-select" id="ch-admin-question-quiz" disabled><option value="">اختر الكويز</option></select></div>',
+        '</div></div>',
+        '<div class="ch-admin-two-col">',
+          '<div class="ch-admin-card"><h3 id="ch-admin-question-form-title">إضافة سؤال</h3>',
+            '<form class="ch-admin-form" id="ch-admin-question-form">',
+              '<div class="ch-admin-two-col">',
+                '<div><label style="font-weight:800;display:block;margin-bottom:6px">نوع السؤال</label><select class="ch-admin-select" id="ch-admin-question-type"><option value="multiple_choice">اختياري</option><option value="true_false">صح أو غلط</option><option value="fill_blank">أكمل</option><option value="essay">مقالي</option><option value="custom">نوع مخصص</option></select></div>',
+                '<div id="ch-admin-custom-name-wrap" hidden><label style="font-weight:800;display:block;margin-bottom:6px">اسم النوع المخصص</label><input class="ch-admin-input" id="ch-admin-custom-name" maxlength="60" placeholder="مثال: علّل أو اذكر السبب"></div>',
+              '</div>',
+              '<div id="ch-admin-custom-mode-wrap" hidden><label style="font-weight:800;display:block;margin-bottom:6px">طريقة الإجابة</label><select class="ch-admin-select" id="ch-admin-answer-mode"><option value="choice">اختيارات</option><option value="text">إجابة نصية</option></select></div>',
+              '<textarea class="ch-admin-editor" id="ch-admin-question-text" maxlength="500" placeholder="نص السؤال" required></textarea>',
+              '<div class="ch-admin-option-list" id="ch-admin-options-wrap">'+[0,1,2,3].map(function(i){return '<div class="ch-admin-option-row" data-option-row="'+i+'"><span class="ch-admin-option-index">'+(i+1)+'</span><input class="ch-admin-input ch-admin-question-option" maxlength="300" placeholder="الاختيار '+(i+1)+'"></div>';}).join('')+'</div>',
+              '<div id="ch-admin-choice-answer-wrap"><label style="font-weight:800;display:block;margin:8px 0 6px">الإجابة الصحيحة</label><select class="ch-admin-select" id="ch-admin-correct-index"></select></div>',
+              '<div id="ch-admin-text-answer-wrap" hidden><label style="font-weight:800;display:block;margin:8px 0 6px">الإجابة النموذجية</label><textarea class="ch-admin-editor" id="ch-admin-correct-answer" maxlength="2000" placeholder="اكتب الإجابة الصحيحة. يمكن إضافة أكثر من إجابة بوضع | بينها"></textarea><div class="ch-admin-muted" style="margin-top:5px">مثال لأكثر من إجابة مقبولة: القاهرة | القاهره</div></div>',
+              '<div class="ch-admin-two-col">',
+                '<div id="ch-admin-similarity-wrap" hidden><label style="font-weight:800;display:block;margin-bottom:6px">أقل نسبة تشابه للنجاح</label><input class="ch-admin-input" id="ch-admin-similarity" type="number" min="30" max="100" value="55"><div class="ch-admin-muted">55% مناسبة للمقالي.</div></div>',
+                '<div><label style="font-weight:800;display:block;margin-bottom:6px">ترتيب السؤال</label><input class="ch-admin-input" id="ch-admin-question-order" type="number" min="1" value="1"></div>',
+              '</div>',
+              '<button class="ch-admin-primary" type="submit">إضافة السؤال</button><button class="ch-admin-secondary" id="ch-admin-question-cancel" type="button" hidden>إلغاء التعديل</button>',
+            '</form><div class="ch-admin-alert" id="ch-admin-question-alert"></div>',
+          '</div>',
+          '<div class="ch-admin-card"><div class="ch-admin-toolbar"><h3 style="margin:0">الأسئلة الحالية</h3><span class="ch-admin-count" id="ch-admin-question-count">0</span></div><div id="ch-admin-question-list" class="ch-admin-empty">اختر شهرًا وكويزًا لعرض الأسئلة.</div></div>',
+        '</div>'
+      ].join('');
+
+      var monthSelect=document.getElementById('ch-admin-question-month');
+      var quizSelect=document.getElementById('ch-admin-question-quiz');
+      var typeSelect=document.getElementById('ch-admin-question-type');
+      var answerModeSelect=document.getElementById('ch-admin-answer-mode');
+      var editingId=null;
+      var currentQuestions=[];
+
+      function currentAnswerMode(){return typeSelect.value==='custom'?answerModeSelect.value:((typeSelect.value==='multiple_choice'||typeSelect.value==='true_false')?'choice':'text');}
+      function updateTypeFields(){
+        var type=typeSelect.value;
+        var mode=currentAnswerMode();
+        var isTrueFalse=type==='true_false';
+        document.getElementById('ch-admin-custom-name-wrap').hidden=type!=='custom';
+        document.getElementById('ch-admin-custom-mode-wrap').hidden=type!=='custom';
+        document.getElementById('ch-admin-options-wrap').hidden=mode!=='choice';
+        document.getElementById('ch-admin-choice-answer-wrap').hidden=mode!=='choice';
+        document.getElementById('ch-admin-text-answer-wrap').hidden=mode!=='text';
+        document.getElementById('ch-admin-similarity-wrap').hidden=!(mode==='text'&&type!=='fill_blank');
+        var optionInputs=Array.from(document.querySelectorAll('.ch-admin-question-option'));
+        optionInputs.forEach(function(input,i){
+          var row=input.closest('[data-option-row]');
+          row.hidden=mode!=='choice'||(isTrueFalse&&i>1);
+          input.required=mode==='choice'&&(!isTrueFalse||i<2);
+        });
+        if(isTrueFalse){optionInputs[0].value='صح';optionInputs[1].value='خطأ';optionInputs[0].readOnly=true;optionInputs[1].readOnly=true;}else{optionInputs[0].readOnly=false;optionInputs[1].readOnly=false;}
+        var count=isTrueFalse?2:4;
+        var correctSelect=document.getElementById('ch-admin-correct-index');
+        var oldValue=Number(correctSelect.value)||0;
+        correctSelect.innerHTML=Array.from({length:count},function(_,i){return '<option value="'+i+'">الإجابة الصحيحة: '+(i+1)+'</option>';}).join('');
+        correctSelect.value=String(Math.min(oldValue,count-1));
+      }
+      typeSelect.addEventListener('change',updateTypeFields);
+      answerModeSelect.addEventListener('change',updateTypeFields);
+
+      function resetQuestionForm(){
+        editingId=null;document.getElementById('ch-admin-question-form').reset();typeSelect.value='multiple_choice';answerModeSelect.value='choice';document.getElementById('ch-admin-question-order').value='1';document.getElementById('ch-admin-similarity').value='55';document.getElementById('ch-admin-question-form-title').textContent='إضافة سؤال';document.querySelector('#ch-admin-question-form button[type="submit"]').textContent='إضافة السؤال';document.getElementById('ch-admin-question-cancel').hidden=true;setAlert('ch-admin-question-alert','');updateTypeFields();
+      }
+      function renderQuestions(){
+        var list=document.getElementById('ch-admin-question-list');document.getElementById('ch-admin-question-count').textContent=currentQuestions.length;list.className='';
+        list.innerHTML=currentQuestions.length?currentQuestions.map(function(q){var answer=q.answer_mode==='text'?q.correct_answer:((q.options||[])[q.correct_index]||'—');return '<div class="ch-admin-settings-row"><div style="min-width:0"><div><span class="ch-admin-pill ok">'+escapeHtml(q.type_label||'اختياري')+'</span></div><strong>'+escapeHtml(q.order_index)+'. '+escapeHtml(q.question_text)+'</strong><div class="ch-admin-muted">الإجابة: '+escapeHtml(answer||'—')+(q.answer_mode==='text'&&q.question_type!=='fill_blank'?' — التشابه المطلوب '+Math.round(Number(q.similarity_threshold||0.6)*100)+'%':'')+'</div></div><div class="ch-admin-actions"><button type="button" class="ch-admin-secondary" data-question-edit="'+escapeHtml(q.id)+'">تعديل</button><button type="button" class="ch-admin-danger" data-question-delete="'+escapeHtml(q.id)+'">حذف</button></div></div>';}).join(''):'<div class="ch-admin-empty">لا توجد أسئلة في هذا الكويز.</div>';
+        list.querySelectorAll('[data-question-edit]').forEach(function(button){button.addEventListener('click',function(){var q=currentQuestions.find(function(x){return String(x.id)===button.dataset.questionEdit;});if(!q)return;editingId=q.id;typeSelect.value=q.question_type||'multiple_choice';answerModeSelect.value=q.answer_mode||'choice';document.getElementById('ch-admin-custom-name').value=q.custom_type_name||'';updateTypeFields();document.getElementById('ch-admin-question-text').value=q.question_text||'';document.querySelectorAll('.ch-admin-question-option').forEach(function(input,i){input.value=(q.options||[])[i]||input.value||'';});document.getElementById('ch-admin-correct-index').value=String(q.correct_index||0);document.getElementById('ch-admin-correct-answer').value=q.correct_answer||'';document.getElementById('ch-admin-similarity').value=Math.round(Number(q.similarity_threshold||0.6)*100);document.getElementById('ch-admin-question-order').value=q.order_index||1;document.getElementById('ch-admin-question-form-title').textContent='تعديل السؤال';document.querySelector('#ch-admin-question-form button[type="submit"]').textContent='حفظ التعديل';document.getElementById('ch-admin-question-cancel').hidden=false;});});
+        list.querySelectorAll('[data-question-delete]').forEach(function(button){button.addEventListener('click',function(){if(!window.confirm('حذف السؤال نهائيًا؟'))return;setBusy(button,true,'...');adminApi('/api/admin/questions?id='+encodeURIComponent(button.dataset.questionDelete),{method:'DELETE'}).then(loadQuestions).catch(function(error){window.alert(error.message);setBusy(button,false);});});});
+      }
+      function loadQuestions(){if(!quizSelect.value){currentQuestions=[];renderQuestions();return;}var list=document.getElementById('ch-admin-question-list');list.className='ch-admin-loading';list.textContent='جاري تحميل الأسئلة...';adminApi('/api/admin/questions?quiz_id='+encodeURIComponent(quizSelect.value)).then(function(data){currentQuestions=data.questions||[];renderQuestions();}).catch(function(error){list.className='ch-admin-alert show error';list.textContent=error.message;});}
+      monthSelect.addEventListener('change',function(){quizSelect.disabled=true;quizSelect.innerHTML='<option>جاري التحميل...</option>';if(!monthSelect.value)return;publicAdminApi('/api/quizzes?month_id='+encodeURIComponent(monthSelect.value)+'&student_id=00000000-0000-0000-0000-000000000000').then(function(data){var quizzes=(data.quizzes||[]).concat(data.final_exam?[data.final_exam]:[]);quizSelect.innerHTML='<option value="">اختر الكويز</option>'+quizzes.map(function(q){return '<option value="'+escapeHtml(q.id)+'">'+escapeHtml(q.title)+'</option>';}).join('');quizSelect.disabled=false;}).catch(function(error){quizSelect.innerHTML='<option value="">'+escapeHtml(error.message)+'</option>';});});
+      quizSelect.addEventListener('change',function(){resetQuestionForm();loadQuestions();});
+      document.getElementById('ch-admin-question-cancel').addEventListener('click',resetQuestionForm);
+      document.getElementById('ch-admin-question-form').addEventListener('submit',function(e){
+        e.preventDefault();if(!quizSelect.value){setAlert('ch-admin-question-alert','اختر الكويز الأول.','error');return;}
+        var button=this.querySelector('button[type="submit"]');var mode=currentAnswerMode();var options=Array.from(document.querySelectorAll('.ch-admin-question-option')).filter(function(input){return !input.closest('[data-option-row]').hidden;}).map(function(input){return input.value.trim();});
+        if(mode==='choice'&&options.some(function(value){return !value;})){setAlert('ch-admin-question-alert','اكتب كل الاختيارات.','error');return;}
+        var payload={quiz_id:quizSelect.value,question_text:document.getElementById('ch-admin-question-text').value.trim(),question_type:typeSelect.value,custom_type_name:document.getElementById('ch-admin-custom-name').value.trim(),answer_mode:mode,options:options,correct_index:Number(document.getElementById('ch-admin-correct-index').value)||0,correct_answer:document.getElementById('ch-admin-correct-answer').value.trim(),similarity_threshold:(Number(document.getElementById('ch-admin-similarity').value)||55)/100,order_index:Number(document.getElementById('ch-admin-question-order').value)||1};
+        if(editingId)payload.id=editingId;setBusy(button,true,editingId?'جاري الحفظ...':'جاري الإضافة...');adminApi('/api/admin/questions',{method:editingId?'PUT':'POST',body:JSON.stringify(payload)}).then(function(){resetQuestionForm();loadQuestions();}).catch(function(error){setAlert('ch-admin-question-alert',error.message,'error');}).finally(function(){setBusy(button,false);});
+      });
+      updateTypeFields();
     }).catch(function(error){viewError(main,error);});
   }
 
