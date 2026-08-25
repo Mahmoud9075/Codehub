@@ -4690,6 +4690,147 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 [data-theme="dark"] .jl-about-card:hover{ box-shadow:0 18px 40px #00000066; }
 .jl-audience-item:hover{ transform:translateY(-4px); }
 .jl-star-dot, .jl-dots-field span{ will-change:opacity; }
+
+/* ================= RESPONSIVE + CHAT LAYOUT FIX (2026-08-25) ================= */
+html, body{ width:100%; max-width:100%; overflow-x:hidden; }
+body{ padding-top:68px !important; }
+body.jl-ai-open{ overflow:hidden !important; }
+img, video, iframe{ max-width:100%; }
+
+/* Navbar: a little taller, readable, and never squeezed into one glued block. */
+.jl-nav{
+  top:10px !important;
+  left:clamp(8px, 1.2vw, 20px) !important;
+  right:clamp(8px, 1.2vw, 20px) !important;
+  min-height:58px !important;
+  padding:9px clamp(12px, 1.5vw, 24px) !important;
+  gap:12px !important;
+}
+.jl-nav-start{ gap:14px !important; }
+.jl-nav-end{ gap:9px !important; }
+.jl-nav img{ height:36px !important; }
+.jl-nav-hamburger{ width:36px !important; height:36px !important; font-size:17px !important; }
+.jl-nav-reg{ padding:8px 16px !important; font-size:13px !important; }
+.jl-lang-pill{ padding:7px 11px !important; font-size:12px !important; }
+.jl-chat-btn, .jl-admin-btn, .jl-student-btn{
+  width:34px !important; height:34px !important; min-width:34px !important; flex:0 0 34px !important;
+}
+
+/* Keep the main content fluid on phones, tablets, laptops and wide monitors. */
+.jl-hero, .jl-benefits, .jl-audience, .jl-cta-section, .jl-about,
+.jl-reviews, .jl-faq, .jl-contact{ padding-inline:clamp(18px, 4vw, 72px); }
+.jl-hero{
+  grid-template-columns:minmax(0, 1fr) minmax(0, 1.05fr);
+  gap:clamp(32px, 5vw, 76px);
+  padding-top:clamp(44px, 6vw, 86px);
+  padding-bottom:clamp(58px, 7vw, 104px);
+}
+.jl-hero-text, .jl-code-wrap, .jl-code{ min-width:0; max-width:100%; }
+.jl-hero h1{ font-size:clamp(38px, 4.2vw, 68px); }
+.jl-hero p.sub{ font-size:clamp(17px, 1.45vw, 21px); }
+.jl-code-body{ overflow-x:auto; }
+
+/* Chat window: old full chat layout, with a permanently reachable composer. */
+.jl-ai-overlay{
+  height:100dvh; min-height:100svh;
+  padding:clamp(8px, 1.5vw, 18px);
+  overscroll-behavior:contain;
+}
+.jl-ai-modal{
+  position:relative; width:min(1120px, 100%); max-width:1120px;
+  height:min(820px, calc(100dvh - 24px)); max-height:calc(100dvh - 24px); min-height:0;
+}
+.jl-ai-sidebar{ width:300px; min-width:300px; }
+.jl-ai-sidebar-head{ padding:18px 16px 12px; }
+.jl-ai-new-btn{ min-height:48px; padding:12px 14px; font-size:14px; }
+.jl-ai-conv-list{ gap:8px; padding:4px 14px 16px; }
+.jl-ai-conv-item{ min-height:42px; padding:11px 13px; font-size:13px; }
+.jl-ai-main{ min-height:0; overflow:hidden; }
+.jl-ai-topbar{ min-height:62px; padding:10px 16px; }
+.jl-ai-thread{
+  min-height:0; padding:20px clamp(14px, 2.5vw, 28px);
+  overscroll-behavior:contain; -webkit-overflow-scrolling:touch;
+}
+.jl-ai-input-bar{
+  position:relative; z-index:4; min-height:68px;
+  padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+}
+.jl-ai-input{ min-width:0; height:46px; padding:10px 16px; font-size:16px; }
+.jl-ai-plus-btn, .jl-ai-send-btn{ width:42px; height:42px; min-width:42px; }
+.jl-ai-file-preview{ flex-shrink:0; }
+
+@media (width<=980px){
+  .jl-nav-links{ gap:6px !important; padding:12px !important; }
+  .jl-nav-links .jl-navlink{ min-height:42px; display:flex; align-items:center; }
+  .jl-hero{ grid-template-columns:1fr; gap:34px; }
+  .jl-hero-text, .jl-code-wrap{ width:min(100%, 720px); margin-inline:auto; }
+  .jl-code-wrap{ order:2; }
+  .jl-hero-text{ order:1; }
+}
+
+@media (width<=760px){
+  body{ padding-top:66px !important; }
+  .jl-nav{ top:7px !important; min-height:54px !important; padding:8px 10px !important; gap:8px !important; }
+  .jl-nav-start{ gap:8px !important; }
+  .jl-nav-end{ gap:7px !important; }
+  .jl-nav img{ height:32px !important; }
+  .jl-nav-brand{ display:none !important; }
+  .jl-nav-hamburger{ width:34px !important; height:34px !important; }
+  .jl-nav-reg{ padding:8px 12px !important; font-size:12px !important; }
+  .jl-lang-pill{ padding:6px 9px !important; font-size:11px !important; }
+  .jl-theme-toggle{ display:none !important; }
+  .jl-chat-btn{ display:flex !important; width:34px !important; height:34px !important; min-width:34px !important; }
+  .jl-admin-btn, .jl-student-btn{ width:32px !important; height:32px !important; min-width:32px !important; }
+
+  .jl-hero{ min-height:auto !important; padding-top:34px !important; padding-bottom:52px !important; gap:28px !important; }
+  .jl-hero h1{ font-size:clamp(32px, 9vw, 44px) !important; line-height:1.22; }
+  .jl-hero p.sub{ margin-top:20px; font-size:16px; line-height:1.8; }
+  .jl-code{ transform:none; padding:18px 16px 20px; }
+  .jl-code-body{ font-size:12.5px; }
+
+  .jl-ai-overlay{ padding:0; align-items:stretch; }
+  .jl-ai-modal{ width:100%; max-width:none; height:100dvh; max-height:100dvh; border-radius:0; }
+  .jl-ai-sidebar{
+    position:absolute; inset-block:0; inset-inline-start:0; inset-inline-end:auto; z-index:8;
+    width:min(86vw, 330px); min-width:0; transform:translateX(110%);
+    box-shadow:-14px 0 32px #00000042;
+  }
+  [dir="ltr"] .jl-ai-sidebar{ transform:translateX(-110%); box-shadow:14px 0 32px #00000042; }
+  .jl-ai-sidebar.open{ transform:translateX(0); }
+  .jl-ai-main{ width:100%; height:100%; }
+  .jl-ai-topbar{ min-height:60px; padding:8px 10px; }
+  .jl-ai-thread{ padding:16px 12px; gap:12px; }
+  .jl-ai-msg{ max-width:90%; font-size:14px; }
+  .jl-ai-input-bar{ min-height:66px; gap:7px; padding:9px 10px calc(9px + env(safe-area-inset-bottom)); }
+  .jl-ai-input{ height:46px; padding-inline:14px; }
+  .jl-ai-plus-btn, .jl-ai-send-btn{ width:40px; height:40px; min-width:40px; }
+}
+
+@media (width<=420px){
+  .jl-nav{ left:5px !important; right:5px !important; padding-inline:7px !important; }
+  .jl-nav-start{ gap:4px !important; }
+  .jl-nav-end{ gap:4px !important; flex-shrink:1 !important; min-width:0; }
+  .jl-nav img{ height:27px !important; max-width:72px; object-fit:contain; }
+  .jl-nav-reg{ width:76px; justify-content:center; padding:7px 5px !important; font-size:10.5px !important; }
+  .jl-lang-pill{ width:38px; justify-content:center; padding:6px 3px !important; font-size:9.5px !important; gap:2px !important; }
+  .jl-chat-btn, .jl-admin-btn, .jl-student-btn, .jl-nav-hamburger{
+    width:29px !important; height:29px !important; min-width:29px !important;
+    flex:0 0 29px !important; padding:0 !important;
+  }
+  .jl-ai-topbar-brand{ justify-content:center; }
+  .jl-ai-exit-btn{ padding:6px 9px; font-size:12px; }
+  .jl-ai-input-bar{ gap:6px; padding-inline:8px; }
+  .jl-ai-plus-btn, .jl-ai-send-btn{ width:38px; height:38px; min-width:38px; }
+}
+
+@media (min-width:1800px){
+  .jl-hero{ min-height:720px; align-content:center; }
+  .jl-hero-text, .jl-code-wrap{ max-width:760px; }
+  .jl-hero-text{ justify-self:start; }
+  .jl-code-wrap{ justify-self:end; width:100%; }
+  .jl-benefits-grid, .jl-audience-grid, .jl-about-cards,
+  .jl-pricing-grid, .jl-footer-grid, .jl-reviews-list{ max-width:1500px; margin-inline:auto; }
+}
 </style>
   </head>
   <body cz-shortcut-listen="true">
@@ -6556,10 +6697,19 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
   function openModal(){
     overlay.classList.add('open');
+    document.body.classList.add('jl-ai-open');
+    sidebar.classList.remove('open');
+    window.setTimeout(function(){
+      if (input) input.focus({ preventScroll:true });
+    }, 120);
     var student = getLoggedInStudentAI();
     if (student) loadConversationList(student.id);
   }
-  function closeModal(){ overlay.classList.remove('open'); }
+  function closeModal(){
+    overlay.classList.remove('open');
+    sidebar.classList.remove('open');
+    document.body.classList.remove('jl-ai-open');
+  }
 
   openBtn.addEventListener('click', openModal);
   if (heroOpenBtn) heroOpenBtn.addEventListener('click', openModal);
