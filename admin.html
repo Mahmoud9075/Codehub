@@ -5486,14 +5486,19 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
   var hamburger = document.getElementById('jl-nav-hamburger');
   var navLinks = document.querySelector('.jl-nav-links');
+  // Keep the links hidden on every screen size until the hamburger is pressed.
+  if (hamburger) hamburger.setAttribute('aria-expanded', 'false');
+  if (navLinks) navLinks.style.setProperty('display', 'none', 'important');
   hamburger && hamburger.addEventListener('click', function(){
     var isOpen = navLinks.classList.toggle('open');
+    navLinks.style.setProperty('display', isOpen ? 'flex' : 'none', 'important');
     hamburger.classList.toggle('jl-open', isOpen);
     hamburger.setAttribute('aria-expanded', String(isOpen));
   });
   navLinks && navLinks.querySelectorAll('.jl-navlink').forEach(function(link){
     link.addEventListener('click', function(){
       navLinks.classList.remove('open');
+      navLinks.style.setProperty('display', 'none', 'important');
       hamburger.classList.remove('jl-open');
       hamburger.setAttribute('aria-expanded', 'false');
     });
@@ -7029,6 +7034,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       setAlert('ch-admin-login-alert', '');
       publicAdminApi('/api/admin/super-login-request', { method:'POST', body:JSON.stringify({ email:pendingEmail }) })
         .then(function(data){
+          if (data.email_sent !== true) {
+            throw new Error('تعذر إرسال الكود من الخادم. تأكد من ضبط بيانات بريد الإرسال على Vercel ثم حاول مرة أخرى.');
+          }
           form.hidden = true;
           document.getElementById('ch-admin-code-form').hidden = false;
           setAlert('ch-admin-login-alert', data.message || 'تم إرسال الكود.', 'ok');
