@@ -5191,7 +5191,7 @@ img, video, iframe{ max-width:100%; }
     <style id="jl-responsive-polish-v7">
       /* Light/dark logo variants. The dark-theme asset stays exactly as it was. */
       .jl-nav-logo-link img{
-        content:url("assets/codehub-logo-light-v7.png") !important;
+        content:url("assets/codehub-logo-light-v8.png") !important;
         mix-blend-mode:multiply;
       }
       [data-theme="dark"] .jl-nav-logo-link img{
@@ -5391,6 +5391,296 @@ img, video, iframe{ max-width:100%; }
         if(langButton){
           langButton.setAttribute('aria-label','تغيير اللغة بين العربية والإنجليزية');
           langButton.title='العربية / English';
+        }
+      });
+    </script>
+    <style id="jl-polish-v8">
+      /* Final light logo: no white robot panel; original logo remains for dark theme. */
+      .jl-nav-logo-link img,
+      .jl-ai-topbar-logo{
+        content:url("assets/codehub-logo-light-v8.png") !important;
+        mix-blend-mode:normal !important;
+      }
+      [data-theme="dark"] .jl-nav-logo-link img,
+      [data-theme="dark"] .jl-ai-topbar-logo{
+        content:url("assets/codehub-logo.png") !important;
+        mix-blend-mode:normal !important;
+      }
+
+      /* Clean language switch: show the language the button will switch to. */
+      .jl-lang-pill{
+        width:92px !important;
+        min-width:92px !important;
+        min-height:38px !important;
+        border-radius:999px !important;
+        background:linear-gradient(135deg,rgba(255,255,255,.96),rgba(235,226,205,.92)) !important;
+        border:1px solid rgba(21,26,54,.18) !important;
+        color:#151a36 !important;
+        box-shadow:0 5px 14px rgba(21,26,54,.08) !important;
+      }
+      .jl-lang-pill::before{content:"English" !important;font-size:11px;letter-spacing:.3px;}
+      html[lang="en"] .jl-lang-pill::before{content:"العربية" !important;font-family:var(--font-display);}
+      .jl-lang-pill::after{
+        content:"A";
+        display:grid;
+        place-items:center;
+        width:24px;
+        height:24px;
+        margin-inline-start:7px;
+        border-radius:50%;
+        color:#fff;
+        background:#151a36;
+        font-family:Arial,sans-serif;
+        font-size:11px;
+        font-weight:900;
+      }
+      html[lang="en"] .jl-lang-pill::after{content:"ع";font-family:var(--font-display);}
+      [data-theme="dark"] .jl-lang-pill{
+        background:rgba(255,255,255,.08) !important;
+        border-color:rgba(255,255,255,.2) !important;
+        color:#fff !important;
+      }
+      [data-theme="dark"] .jl-lang-pill::after{background:#fff;color:#151a36;}
+
+      /* Login and register are always the same dimensions. */
+      .jl-auth-nav-btn{
+        width:116px !important;
+        min-width:116px !important;
+        min-height:38px !important;
+        display:inline-flex !important;
+        align-items:center !important;
+        justify-content:center !important;
+        padding:7px 12px !important;
+      }
+
+      /* Glass panel over the dark wall so the copy area is visually intentional. */
+      .jl-hero .jl-hero-text{
+        padding:clamp(18px,2vw,30px) !important;
+        border:1px solid rgba(255,255,255,.16) !important;
+        border-radius:24px !important;
+        background:
+          radial-gradient(circle at 88% 6%,rgba(75,107,218,.19),transparent 38%),
+          linear-gradient(145deg,rgba(6,15,38,.36),rgba(5,11,28,.58)) !important;
+        box-shadow:0 24px 60px rgba(0,0,0,.2),inset 0 1px rgba(255,255,255,.08) !important;
+        backdrop-filter:blur(7px) !important;
+      }
+      .jl-hero .jl-hero-text::after{
+        content:"{  AI  }   </>   01";
+        position:absolute;
+        inset-inline-end:22px;
+        bottom:10px;
+        color:rgba(116,163,255,.23);
+        font-family:var(--font-mono);
+        font-size:12px;
+        letter-spacing:5px;
+        pointer-events:none;
+      }
+
+      /* Code symbols move about five times faster. */
+      .jl-wall-code{transition:transform .045s linear !important;}
+      .jl-wall-code span{animation-duration:1.4s !important;}
+
+      /* Private chat: the student is on the right, assistant on the left. */
+      .jl-ai-thread{direction:rtl;}
+      .jl-ai-msg.user{
+        align-self:flex-start !important;
+        text-align:right !important;
+        border-bottom-right-radius:4px !important;
+        border-bottom-left-radius:14px !important;
+      }
+      .jl-ai-msg.assistant,
+      .jl-ai-typing{
+        align-self:flex-end !important;
+        text-align:right !important;
+        border-bottom-left-radius:4px !important;
+        border-bottom-right-radius:14px !important;
+      }
+      .jl-ai-msg-img{width:min(260px,100%);max-width:100% !important;height:auto;}
+
+      @media (max-width:700px){
+        .jl-auth-nav-btn{
+          width:82px !important;
+          min-width:82px !important;
+          min-height:32px !important;
+          padding:5px 7px !important;
+          font-size:9.5px !important;
+        }
+        .jl-lang-pill{width:58px !important;min-width:58px !important;min-height:32px !important;padding:4px 5px !important;}
+        .jl-lang-pill::before{font-size:8px !important;}
+        .jl-lang-pill::after{width:20px;height:20px;margin-inline-start:3px;font-size:9px;}
+        .jl-hero .jl-hero-text{
+          position:absolute !important;
+          top:50% !important;
+          right:3.5% !important;
+          left:auto !important;
+          bottom:auto !important;
+          width:47% !important;
+          margin:0 !important;
+          transform:translateY(-50%) !important;
+          justify-self:auto !important;
+          padding:8px 7px !important;
+          border-radius:12px !important;
+          background:linear-gradient(145deg,rgba(6,15,38,.42),rgba(5,11,28,.6)) !important;
+          backdrop-filter:blur(3px) !important;
+        }
+        .jl-hero .jl-hero-text::after{display:none;}
+      }
+      @media (max-width:390px){
+        .jl-auth-nav-btn{width:72px !important;min-width:72px !important;font-size:8.8px !important;}
+        .jl-lang-pill{display:inline-flex !important;width:46px !important;min-width:46px !important;}
+        .jl-lang-pill::before{display:none !important;}
+        .jl-lang-pill::after{margin:0 !important;}
+      }
+      @media (prefers-reduced-motion:reduce){.jl-wall-code span{animation:none !important;}}
+    </style>
+
+    <style id="jl-final-v9">
+      /* Code Hub v9: final, cache-safe responsive layer */
+      .jl-nav-logo-link img,.jl-ai-topbar-logo{
+        content:url("assets/codehub-logo-light-v9.png?v=9") !important;
+        mix-blend-mode:multiply !important;
+      }
+      [data-theme="dark"] .jl-nav-logo-link img,[data-theme="dark"] .jl-ai-topbar-logo{
+        content:url("assets/codehub-logo.png?v=9") !important;
+        mix-blend-mode:normal !important;
+      }
+      .jl-lang-pill{
+        display:inline-flex !important;align-items:center !important;justify-content:center !important;
+        gap:7px !important;width:76px !important;min-width:76px !important;height:42px !important;
+        padding:0 10px !important;border:1px solid rgba(20,30,70,.18) !important;
+        border-radius:14px !important;background:rgba(255,255,255,.86) !important;color:#111a43 !important;
+        font-family:Arial,sans-serif !important;font-weight:800 !important;line-height:1 !important;
+      }
+      .jl-lang-pill span{display:none !important}
+      .jl-lang-pill::before{content:"🌐" !important;font-size:15px !important;display:block !important}
+      .jl-lang-pill::after{
+        content:"EN" !important;display:block !important;width:auto !important;height:auto !important;
+        margin:0 !important;background:none !important;color:inherit !important;font-size:12px !important;
+        border:0 !important;border-radius:0 !important;box-shadow:none !important;
+      }
+      html[lang="en"] .jl-lang-pill::after{content:"عربي" !important}
+      [data-theme="dark"] .jl-lang-pill{background:rgba(14,22,52,.9) !important;color:#fff !important;border-color:rgba(255,255,255,.18) !important}
+      .jl-auth-nav-btn{
+        width:118px !important;min-width:118px !important;height:42px !important;min-height:42px !important;
+        display:inline-flex !important;align-items:center !important;justify-content:center !important;
+        padding:0 12px !important;white-space:nowrap !important;
+      }
+      #jl-student-btn::before{content:"👤";font-size:13px;margin-inline-end:5px}
+
+      .jl-hero{padding:12px clamp(10px,4vw,76px) 56px !important;min-height:auto !important;display:block !important}
+      .jl-hw-scene{
+        position:relative !important;display:block !important;width:min(100%,1750px) !important;
+        aspect-ratio:16/9 !important;min-height:0 !important;margin:0 auto !important;overflow:hidden !important;
+        border-radius:30px !important;background-image:url("assets/codehub-hero-tshirt-watch-v6.png") !important;
+        background-size:cover !important;background-position:left center !important;background-repeat:no-repeat !important;
+        box-shadow:0 24px 54px rgba(8,17,39,.2) !important;isolation:isolate !important;
+      }
+      .jl-hw-scene::before{
+        content:"" !important;display:block !important;position:absolute !important;inset:0 !important;z-index:1 !important;
+        background:linear-gradient(90deg,transparent 42%,rgba(3,10,28,.14) 58%,rgba(3,9,25,.42) 100%) !important;
+        pointer-events:none !important;
+      }
+      .jl-hw-scene::after{
+        content:"" !important;display:block !important;position:absolute !important;right:3.5% !important;top:8% !important;
+        width:43% !important;height:84% !important;z-index:2 !important;border:1px solid rgba(120,175,255,.14) !important;
+        border-radius:26px !important;background:linear-gradient(145deg,rgba(8,25,58,.23),rgba(2,8,22,.43)) !important;
+        box-shadow:inset 0 0 45px rgba(38,100,190,.1) !important;backdrop-filter:blur(1.5px) !important;pointer-events:none !important;
+      }
+      .jl-hw-scene>.jl-hero-code-field{display:block !important}
+      .jl-wall-code{display:none !important}
+      .jl-hero-code-field{position:absolute;inset:0;z-index:3;overflow:hidden;pointer-events:none;transform:translate(var(--code-x,0),var(--code-y,0));transition:transform .12s linear}
+      .jl-hero-code-field span{
+        position:absolute;color:#79a9ff;font:700 clamp(12px,1.15vw,23px)/1 "Courier New",monospace;
+        opacity:.25;text-shadow:0 0 18px rgba(72,139,255,.75);animation:jlCodeDriftV9 1.35s ease-in-out infinite alternate;
+      }
+      .jl-hero-code-field span:nth-child(1){right:7%;top:13%}.jl-hero-code-field span:nth-child(2){right:34%;top:18%;animation-delay:-.3s}
+      .jl-hero-code-field span:nth-child(3){right:12%;top:37%;animation-delay:-.7s}.jl-hero-code-field span:nth-child(4){right:39%;top:42%;animation-delay:-1s}
+      .jl-hero-code-field span:nth-child(5){right:25%;top:59%;animation-delay:-.45s}.jl-hero-code-field span:nth-child(6){right:5%;top:69%;animation-delay:-.85s}
+      .jl-hero-code-field span:nth-child(7){right:43%;top:76%;animation-delay:-.15s}.jl-hero-code-field span:nth-child(8){right:30%;top:88%;animation-delay:-.65s}
+      .jl-hero-code-field span:nth-child(9){right:48%;top:10%;animation-delay:-.9s}.jl-hero-code-field span:nth-child(10){right:18%;top:27%;animation-delay:-.25s}
+      .jl-hero-code-field span:nth-child(11){right:46%;top:58%;animation-delay:-.55s}.jl-hero-code-field span:nth-child(12){right:9%;top:87%;animation-delay:-1.1s}
+      .jl-hero-code-field span:nth-child(13){right:35%;top:68%;animation-delay:-.4s}.jl-hero-code-field span:nth-child(14){right:21%;top:45%;animation-delay:-.75s}
+      @keyframes jlCodeDriftV9{from{transform:translate3d(-3px,-4px,0) scale(.94);opacity:.13}to{transform:translate3d(7px,6px,0) scale(1.08);opacity:.42}}
+      .jl-hero .jl-hero-text{
+        display:flex !important;position:absolute !important;right:5.5% !important;left:auto !important;top:50% !important;bottom:auto !important;
+        z-index:6 !important;width:39% !important;max-width:680px !important;height:auto !important;margin:0 !important;
+        padding:clamp(16px,2vw,34px) !important;transform:translateY(-50%) !important;box-sizing:border-box !important;
+        border:1px solid rgba(129,179,255,.18) !important;border-radius:24px !important;
+        background:linear-gradient(145deg,rgba(7,18,43,.48),rgba(3,10,28,.68)) !important;
+        box-shadow:0 22px 50px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.08) !important;
+        backdrop-filter:blur(4px) !important;text-align:right !important;align-items:flex-start !important;
+      }
+      .jl-hero .jl-hero-text h1{font-size:clamp(38px,4vw,78px) !important;line-height:1.05 !important;margin:0 0 18px !important;color:#fff !important}
+      .jl-hero .jl-hero-text mark{color:#f2d89c !important;background:linear-gradient(90deg,rgba(164,118,31,.65),rgba(209,172,92,.3)) !important;padding:0 .1em !important}
+      .jl-hero .jl-hero-text p{font-size:clamp(15px,1.25vw,23px) !important;line-height:1.85 !important;color:#dce6f8 !important;margin:0 0 20px !important}
+      .jl-hero .jl-free-badge{font-size:clamp(11px,.9vw,16px) !important;color:#c5f4de !important}
+      .jl-course-btn{display:none !important}
+      .jl-hero-actions{justify-content:flex-start !important;width:100% !important}
+      .jl-hero-primary{min-width:190px !important}
+
+      .jl-ai-thread{direction:rtl !important}
+      .jl-ai-msg.user{margin-left:auto !important;margin-right:0 !important;align-self:auto !important;text-align:right !important}
+      .jl-ai-msg.assistant,.jl-ai-typing{margin-right:auto !important;margin-left:0 !important;align-self:auto !important;text-align:right !important}
+      .jl-ai-msg-img{display:block !important;width:min(280px,100%) !important;max-height:310px !important;object-fit:contain !important;border-radius:14px !important;margin:0 0 10px !important;border:1px solid rgba(194,148,47,.32) !important}
+      .jl-ai-file-preview{max-width:100% !important}
+      #jl-ai-plus-btn{display:inline-flex !important}
+
+      .jl-footer-grid{align-items:stretch !important;grid-auto-rows:1fr !important}
+      .jl-footer-card{height:100% !important;min-height:365px !important;display:flex !important;flex-direction:column !important;background:rgba(255,255,255,.68) !important;backdrop-filter:blur(8px) !important}
+      .jl-footer-socials{margin-top:auto !important}
+      [data-theme="dark"] .jl-footer-card{background:rgba(16,25,52,.75) !important}
+
+      @media(max-width:700px){
+        .jl-nav{padding:8px !important;gap:5px !important}
+        .jl-nav-start{gap:4px !important;flex-wrap:nowrap !important}
+        .jl-nav-logo-link img{width:88px !important;max-width:88px !important}
+        .jl-auth-nav-btn{width:78px !important;min-width:78px !important;height:34px !important;min-height:34px !important;padding:0 5px !important;font-size:9px !important}
+        #jl-student-btn::before{font-size:9px;margin-inline-end:2px}
+        .jl-lang-pill{width:40px !important;min-width:40px !important;height:34px !important;padding:0 !important;border-radius:11px !important}
+        .jl-lang-pill::before{font-size:13px !important}.jl-lang-pill::after{display:none !important}
+        .jl-hero{padding:14px 7px 46px !important}
+        .jl-hw-scene{width:100% !important;aspect-ratio:16/9 !important;border-radius:15px !important;background-position:left center !important}
+        .jl-hw-scene::after{right:2.5% !important;top:5% !important;width:46% !important;height:90% !important;border-radius:13px !important}
+        .jl-hw-scene::before{background:linear-gradient(90deg,transparent 40%,rgba(3,10,28,.18) 55%,rgba(3,9,25,.48) 100%) !important}
+        .jl-hero .jl-hero-text{
+          right:3.2% !important;top:50% !important;width:44% !important;max-width:none !important;padding:5px !important;
+          border-radius:10px !important;background:rgba(4,12,32,.32) !important;box-shadow:none !important;backdrop-filter:blur(1px) !important;
+        }
+        .jl-hero .jl-hero-text h1{font-size:clamp(11px,4.25vw,19px) !important;line-height:1.02 !important;margin:0 0 4px !important;letter-spacing:-.3px !important}
+        .jl-hero .jl-hero-text p{font-size:clamp(4.4px,1.38vw,6.8px) !important;line-height:1.45 !important;margin:0 0 5px !important;color:#e5ecfa !important;max-height:none !important;overflow:visible !important}
+        .jl-hero .jl-free-badge{font-size:clamp(4.5px,1.45vw,7px) !important;padding:3px 5px !important;margin-bottom:4px !important}
+        .jl-hero-actions{margin-top:0 !important;gap:3px !important}
+        .jl-hero-primary{min-width:0 !important;width:78% !important;height:23px !important;min-height:23px !important;padding:0 5px !important;font-size:7px !important;border-radius:9px !important}
+        .jl-hero-code-field span{font-size:clamp(5px,1.8vw,9px) !important;opacity:.25}
+        .jl-footer-grid{grid-auto-rows:auto !important}.jl-footer-card{min-height:260px !important}
+      }
+      @media(max-width:390px){
+        .jl-nav-logo-link img{width:74px !important;max-width:74px !important}
+        .jl-auth-nav-btn{width:68px !important;min-width:68px !important;font-size:8px !important}
+        .jl-lang-pill{width:34px !important;min-width:34px !important}.jl-lang-pill::before{font-size:12px !important}
+      }
+      @media(prefers-reduced-motion:reduce){.jl-hero-code-field span{animation:none !important}.jl-hero-code-field{transform:none !important}}
+    </style>
+    <script id="jl-final-v9-script">
+      document.addEventListener('DOMContentLoaded',function(){
+        var exact='Code Hub هي منصة تعليمية خاصة متخصصة في تدريس مادة البرمجة والذكاء الاصطناعي لطلاب الصف الأول الثانوي والصف الثاني الثانوي بطريقة مبسطة وعملية تساعد الطالب على الفهم والتطبيق وتحقيق أعلى الدرجات';
+        var desc=document.querySelector('.jl-hero .jl-hero-text p');
+        if(desc) desc.textContent=exact;
+        document.querySelectorAll('.jl-course-btn').forEach(function(button){button.remove()});
+        var primary=document.querySelector('.jl-hero-primary');
+        if(primary) primary.textContent='ابدأ دلوقتي';
+        var account=document.getElementById('jl-student-btn');
+        if(account){account.setAttribute('title','الحساب الشخصي: تعديل الاسم والبريد والهاتف والصورة');account.setAttribute('aria-label','فتح الحساب الشخصي أو تسجيل الدخول')}
+        var lang=document.querySelector('.jl-lang-pill');
+        if(lang){lang.setAttribute('title','تغيير اللغة');lang.setAttribute('aria-label','تغيير لغة الموقع')}
+        var scene=document.querySelector('.jl-hw-scene');
+        if(scene){
+          scene.querySelectorAll('.jl-wall-code,.jl-hero-code-field').forEach(function(old){old.remove()});
+          var field=document.createElement('div');field.className='jl-hero-code-field';field.setAttribute('aria-hidden','true');
+          ['</>','{ }','AI','#','01','( )','[ ]','λ','const','</>','{ }',';','=','fn'].forEach(function(symbol){var item=document.createElement('span');item.textContent=symbol;field.appendChild(item)});
+          scene.appendChild(field);
+          scene.addEventListener('pointermove',function(event){var box=scene.getBoundingClientRect();var x=((event.clientX-box.left)/box.width-.5)*12;var y=((event.clientY-box.top)/box.height-.5)*9;field.style.setProperty('--code-x',x+'px');field.style.setProperty('--code-y',y+'px')},{passive:true});
+          scene.addEventListener('pointerleave',function(){field.style.setProperty('--code-x','0px');field.style.setProperty('--code-y','0px')},{passive:true});
         }
       });
     </script>
@@ -7280,6 +7570,7 @@ img, video, iframe{ max-width:100%; }
   var currentConversationId = null;
   var currentMessages = [];
   var pendingImage = null;
+  var pendingImageMime = null;
 
   function getLoggedInStudentAI(){
     var raw = localStorage.getItem('ch_student');
@@ -7391,7 +7682,8 @@ img, video, iframe{ max-width:100%; }
       if (sourceMatch) text = text.slice(sourceMatch[0].length);
       var body = formatAnswerAI(text);
       body = body.replace(/\[سؤال مقترح\]:?\s*(.*)/, '<br><br><em>💡 $1</em>');
-      return '<div class="jl-ai-msg ' + cls + '">' + body + '</div>';
+      var imageHtml = m.image ? '<img class="jl-ai-msg-img" src="' + m.image + '" alt="الصورة المرسلة">' : '';
+      return '<div class="jl-ai-msg ' + cls + '">' + imageHtml + body + '</div>';
     }).join('');
     thread.scrollTop = thread.scrollHeight;
   }
@@ -7401,16 +7693,43 @@ img, video, iframe{ max-width:100%; }
   fileInput.addEventListener('change', function(){
     var file = fileInput.files[0];
     if (!file) return;
+    if (!file.type || file.type.indexOf('image/') !== 0){
+      alert('من فضلك اختار صورة فقط');
+      fileInput.value = '';
+      return;
+    }
+    if (file.size > 12 * 1024 * 1024){
+      alert('حجم الصورة كبير. اختار صورة أقل من 12 ميجابايت');
+      fileInput.value = '';
+      return;
+    }
     var reader = new FileReader();
     reader.onload = function(){
-      pendingImage = reader.result;
-      filePreview.style.display = 'flex';
-      filePreview.innerHTML = '<img src="' + pendingImage + '"><span>الصورة جاهزة تتبعت مع سؤالك</span><button type="button" class="jl-ai-file-remove" id="jl-ai-file-remove">✕</button>';
-      document.getElementById('jl-ai-file-remove').addEventListener('click', function(){
-        pendingImage = null;
-        filePreview.style.display = 'none';
+      var image = new Image();
+      image.onload = function(){
+        var maxSide = 1280;
+        var scale = Math.min(1, maxSide / Math.max(image.naturalWidth, image.naturalHeight));
+        var canvas = document.createElement('canvas');
+        canvas.width = Math.max(1, Math.round(image.naturalWidth * scale));
+        canvas.height = Math.max(1, Math.round(image.naturalHeight * scale));
+        var context = canvas.getContext('2d');
+        context.drawImage(image, 0, 0, canvas.width, canvas.height);
+        pendingImage = canvas.toDataURL('image/jpeg', .82);
+        pendingImageMime = 'image/jpeg';
+        filePreview.style.display = 'flex';
+        filePreview.innerHTML = '<img src="' + pendingImage + '" alt="معاينة الصورة"><span>الصورة جاهزة للتحليل مع سؤالك</span><button type="button" class="jl-ai-file-remove" id="jl-ai-file-remove" aria-label="حذف الصورة">✕</button>';
+        document.getElementById('jl-ai-file-remove').addEventListener('click', function(){
+          pendingImage = null;
+          pendingImageMime = null;
+          filePreview.style.display = 'none';
+          fileInput.value = '';
+        });
+      };
+      image.onerror = function(){
+        alert('الصورة دي مش قابلة للقراءة. جرّب صورة تانية');
         fileInput.value = '';
-      });
+      };
+      image.src = reader.result;
     };
     reader.readAsDataURL(file);
   });
@@ -7419,7 +7738,8 @@ img, video, iframe{ max-width:100%; }
   form.addEventListener('submit', function(e){
     e.preventDefault();
     var question = input.value.trim();
-    if (!question) return;
+    if (!question && !pendingImage) return;
+    if (!question) question = 'اشرح محتوى الصورة بالتفصيل.';
 
     var student = getLoggedInStudentAI();
     if (!student){
@@ -7428,11 +7748,12 @@ img, video, iframe{ max-width:100%; }
       return;
     }
 
-    var userMsgHtml = question;
-    if (pendingImage) userMsgHtml = '<img class="jl-ai-msg-img" src="' + pendingImage + '">' + escapeHtmlAI(question);
-    currentMessages.push({ role: 'user', content: question });
+    var imageToSend = pendingImage;
+    var imageMimeToSend = pendingImageMime;
+    currentMessages.push({ role: 'user', content: question, image: imageToSend });
     input.value = '';
     pendingImage = null;
+    pendingImageMime = null;
     filePreview.style.display = 'none';
     fileInput.value = '';
 
@@ -7455,7 +7776,9 @@ img, video, iframe{ max-width:100%; }
         student_id: student.id,
         question: question,
         history: historyForApi,
-        conversation_id: currentConversationId
+        conversation_id: currentConversationId,
+        image_data: imageToSend ? imageToSend.split(',')[1] : null,
+        image_mime: imageToSend ? (imageMimeToSend || 'image/jpeg') : null
       })
     }).then(function(data){
       typingEl.remove();
