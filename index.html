@@ -5738,6 +5738,37 @@ img, video, iframe{ max-width:100%; }
         if(register){register.textContent='حساب جديد';register.setAttribute('role','link');register.setAttribute('aria-label','إنشاء حساب جديد')}
       });
     </script>
+    <style id="jl-final-v11">
+      .jl-hw-scene{
+        background-image:url("assets/codehub-hero-v11.png?v=11") !important;
+        background-size:cover !important;background-position:center !important;background-repeat:no-repeat !important;
+      }
+      .jl-hw-scene::before,.jl-hw-scene::after{display:none !important}
+      .jl-hw-scene>.jl-hero-text{display:none !important}
+      .jl-hw-scene>.jl-hero-actions{
+        display:flex !important;position:absolute !important;right:7.5% !important;left:auto !important;bottom:5.5% !important;
+        z-index:12 !important;width:34% !important;margin:0 !important;justify-content:flex-start !important;align-items:center !important;
+      }
+      .jl-hw-scene>.jl-hero-actions .jl-hero-chat-btn{display:none !important}
+      .jl-hw-scene>.jl-hero-actions .jl-reg{
+        display:inline-flex !important;align-items:center !important;justify-content:center !important;min-width:190px !important;
+        min-height:48px !important;padding:0 24px !important;border-radius:15px !important;background:#18234f !important;
+        color:#fff !important;border:1px solid rgba(255,255,255,.18) !important;box-shadow:0 12px 28px rgba(0,0,0,.24) !important;
+      }
+      @media(max-width:700px){
+        .jl-hw-scene>.jl-hero-actions{right:7% !important;bottom:4.5% !important;width:35% !important}
+        .jl-hw-scene>.jl-hero-actions .jl-reg{min-width:0 !important;width:76% !important;min-height:20px !important;height:20px !important;padding:0 4px !important;border-radius:7px !important;font-size:6px !important}
+      }
+    </style>
+    <script id="jl-final-v11-script">
+      document.addEventListener('DOMContentLoaded',function(){
+        var scene=document.querySelector('.jl-hw-scene');
+        var copy=scene&&scene.querySelector('.jl-hero-text');
+        var actions=copy&&copy.querySelector('.jl-hero-actions');
+        if(scene&&actions) scene.appendChild(actions);
+        if(copy) copy.style.setProperty('display','none','important');
+      });
+    </script>
   </head>
   <body cz-shortcut-listen="true">
     <div id="root"><div dir="rtl"><nav class="jl-nav" aria-label="التنقل الرئيسي">
