@@ -28,6 +28,26 @@ begin
   end if;
 end $$;
 
+-- Repair/upgrade the student account schema used by registration/login/profile.
+do $$
+begin
+  if to_regclass('public.students') is not null then
+    alter table public.students add column if not exists first_name text;
+    alter table public.students add column if not exists last_name text;
+    alter table public.students add column if not exists phone text;
+    alter table public.students add column if not exists email text;
+    alter table public.students add column if not exists password_hash text;
+    alter table public.students add column if not exists parent_token text;
+    alter table public.students add column if not exists avatar_url text;
+    alter table public.students add column if not exists phone_verified boolean default false;
+    alter table public.students add column if not exists created_at timestamptz default now();
+    alter table public.students alter column password_hash type text using password_hash::text;
+    alter table public.students alter column email type text using email::text;
+    alter table public.students alter column phone type text using phone::text;
+    update public.students set phone_verified = false where phone_verified is null;
+  end if;
+end $$;
+
 -- Final-exam pass percentage is configurable from the admin panel.
 do $$
 begin
@@ -41,7 +61,28 @@ begin
   end if;
 end $$;
 
+-- Keep exactly one canonical result per student/quiz. The app uses UPSERT on
+-- (student_id, quiz_id), so this unique index is required for reliable submissions.
+-- If an older database has duplicates, keep the latest result before adding it.
+do $$
+begin
+  if to_regclass('public.results') is not null then
+    with ranked as (
+      select ctid,
+             row_number() over (
+               partition by student_id, quiz_id
+               order by completed_at desc nulls last, ctid desc
+             ) as rn
+      from public.results
+    )
+    delete from public.results r
+    using ranked x
+    where r.ctid = x.ctid and x.rn > 1;
+  end if;
+end $$;
+
 -- Helpful indexes for authorization, quiz progression, rate limiting, and dashboards.
+create unique index if not exists uq_results_student_quiz on public.results(student_id, quiz_id);
 create index if not exists idx_results_student_quiz on public.results(student_id, quiz_id);
 create unique index if not exists uq_students_parent_token on public.students(parent_token) where parent_token is not null;
 create index if not exists idx_results_completed_at on public.results(completed_at desc);
@@ -68,6 +109,15 @@ create table if not exists public.site_reviews (
   moderated_at timestamptz,
   moderated_by text
 );
+alter table public.site_reviews add column if not exists name text;
+alter table public.site_reviews add column if not exists audience text default 'زائر';
+alter table public.site_reviews add column if not exists stars smallint;
+alter table public.site_reviews add column if not exists comment text;
+alter table public.site_reviews add column if not exists status text default 'pending';
+alter table public.site_reviews add column if not exists ip_hash text;
+alter table public.site_reviews add column if not exists created_at timestamptz default now();
+alter table public.site_reviews add column if not exists moderated_at timestamptz;
+alter table public.site_reviews add column if not exists moderated_by text;
 create index if not exists idx_site_reviews_status_created on public.site_reviews(status, created_at desc);
 create index if not exists idx_site_reviews_ip_created on public.site_reviews(ip_hash, created_at desc);
 
@@ -88,6 +138,15 @@ begin
       execute format('revoke all on table public.%I from anon, authenticated', t);
     end if;
   end loop;
+end $$;
+
+-- Code Hub avatar bucket used by profile photo uploads.
+do $$
+begin
+  if to_regclass('storage.buckets') is not null then
+    insert into storage.buckets (id, name, public) values ('avatars','avatars',true)
+    on conflict (id) do update set public = excluded.public;
+  end if;
 end $$;
 
 commit;
