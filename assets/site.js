@@ -1,6529 +1,2218 @@
-/*! tailwindcss v4.3.2 | MIT License | https://tailwindcss.com */
-@layer properties{@supports (((-webkit-hyphens:none)) and (not (margin-trim:inline))) or ((-moz-orient:inline) and (not (color:rgb(from red r g b)))){*,:before,:after,::backdrop{--tw-ease:initial}}}@layer theme{:root,:host{--font-sans:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";--font-mono:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;--ease-in-out:cubic-bezier(.4, 0, .2, 1);--default-transition-duration:.15s;--default-transition-timing-function:cubic-bezier(.4, 0, .2, 1);--default-font-family:var(--font-sans);--default-mono-font-family:var(--font-mono)}}@layer base{*,:after,:before,::backdrop{box-sizing:border-box;border:0 solid;margin:0;padding:0}::file-selector-button{box-sizing:border-box;border:0 solid;margin:0;padding:0}html,:host{-webkit-text-size-adjust:100%;tab-size:4;line-height:1.5;font-family:var(--default-font-family,ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji");font-feature-settings:var(--default-font-feature-settings,normal);font-variation-settings:var(--default-font-variation-settings,normal);-webkit-tap-highlight-color:transparent}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;-webkit-text-decoration:inherit;-webkit-text-decoration:inherit;-webkit-text-decoration:inherit;-webkit-text-decoration:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,samp,pre{font-family:var(--default-mono-font-family,ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace);font-feature-settings:var(--default-mono-font-feature-settings,normal);font-variation-settings:var(--default-mono-font-variation-settings,normal);font-size:1em}small{font-size:80%}sub,sup{vertical-align:baseline;font-size:75%;line-height:0;position:relative}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}:-moz-focusring{outline:auto}progress{vertical-align:baseline}summary{display:list-item}ol,ul,menu{list-style:none}img,svg,video,canvas,audio,iframe,embed,object{vertical-align:middle;display:block}img,video{max-width:100%;height:auto}button,input,select,optgroup,textarea{font:inherit;font-feature-settings:inherit;font-variation-settings:inherit;letter-spacing:inherit;color:inherit;opacity:1;background-color:#0000;border-radius:0}::file-selector-button{font:inherit;font-feature-settings:inherit;font-variation-settings:inherit;letter-spacing:inherit;color:inherit;opacity:1;background-color:#0000;border-radius:0}:where(select:is([multiple],[size])) optgroup{font-weight:bolder}:where(select:is([multiple],[size])) optgroup option{padding-inline-start:20px}::file-selector-button{margin-inline-end:4px}::placeholder{opacity:1}@supports (not ((-webkit-appearance:-apple-pay-button))) or (contain-intrinsic-size:1px){::placeholder{color:currentColor}@supports (color:color-mix(in lab, red, red)){::placeholder{color:color-mix(in oklab, currentcolor 50%, transparent)}}}textarea{resize:vertical}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-date-and-time-value{min-height:1lh;text-align:inherit}::-webkit-datetime-edit{display:inline-flex}::-webkit-datetime-edit-fields-wrapper{padding:0}::-webkit-datetime-edit{padding-block:0}::-webkit-datetime-edit-year-field{padding-block:0}::-webkit-datetime-edit-month-field{padding-block:0}::-webkit-datetime-edit-day-field{padding-block:0}::-webkit-datetime-edit-hour-field{padding-block:0}::-webkit-datetime-edit-minute-field{padding-block:0}::-webkit-datetime-edit-second-field{padding-block:0}::-webkit-datetime-edit-millisecond-field{padding-block:0}::-webkit-datetime-edit-meridiem-field{padding-block:0}::-webkit-calendar-picker-indicator{line-height:1}:-moz-ui-invalid{box-shadow:none}button,input:where([type=button],[type=reset],[type=submit]){appearance:button}::file-selector-button{appearance:button}::-webkit-inner-spin-button{height:auto}::-webkit-outer-spin-button{height:auto}[hidden]:where(:not([hidden=until-found])){display:none!important}}@layer components;@layer utilities{.hidden{display:none}.inline{display:inline}.transition{transition-property:color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,--tw-gradient-from,--tw-gradient-via,--tw-gradient-to,opacity,box-shadow,transform,translate,scale,rotate,filter,-webkit-backdrop-filter,backdrop-filter,display,content-visibility,overlay,pointer-events;transition-timing-function:var(--tw-ease,var(--default-transition-timing-function));transition-duration:var(--tw-duration,var(--default-transition-duration))}.ease-in-out{--tw-ease:var(--ease-in-out);transition-timing-function:var(--ease-in-out)}}:root{--cream:#f7f4ec;--cream-deep:#f0e9da;--cream-card:#fbf8f0;--navy:#102a43;--gold:#d9a441;--gold-light:#e8c574;--ink:#4a4636;--muted:#7a7460;--muted-2:#9a917a;--green:#6fcf97;--font-display:"Cairo", sans-serif;--font-mono:"JetBrains Mono", monospace}*{box-sizing:border-box}html{scroll-behavior:smooth}html,body{margin:0;padding:0}body{font-family:var(--font-display);background:var(--cream);color:var(--navy);min-height:100vh}a{color:inherit;text-decoration:none}::selection{background:#d9a44147}[dir=rtl] body{overflow-x:hidden}.mono{font-family:var(--font-mono)}.jl-nav{border-bottom:1px solid #d9a44138;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;padding:16px 56px;display:flex}.jl-nav img{width:auto;height:56px;display:block;border-radius:10px}.jl-navlink{color:var(--navy)}.jl-navlink:hover{color:var(--gold)}.jl-nav-start{align-items:center;gap:40px;display:flex}.jl-nav-links{align-items:center;gap:34px;font-size:16px;font-weight:700;display:flex}.jl-nav-end{align-items:center;gap:20px;display:flex}.jl-hero-arrow{color:var(--gold);pointer-events:none;-webkit-user-select:none;user-select:none;margin-inline-start:36px;font-size:46px;font-weight:900;line-height:1;display:inline-block}.jl-lang-pill{font-family:var(--font-mono);cursor:pointer;background:#fff;border:1px solid #102a432e;border-radius:999px;align-items:center;gap:7px;padding:9px 14px;font-size:13px;font-weight:700;display:flex}.jl-reg{font-family:var(--font-display);background:var(--gold);color:#fff;cursor:pointer;border:none;border-radius:999px;align-items:center;gap:10px;padding:15px 34px;font-size:18px;font-weight:900;transition:all .18s;display:inline-flex;box-shadow:0 10px 24px #d9a44157}.jl-reg:hover{transform:translateY(-2px);box-shadow:0 16px 34px #d9a4416b}.jl-reg.dark{background:var(--navy);color:var(--cream);box-shadow:0 12px 26px #102a4342}.jl-ghost:hover{background:#102a430d}.jl-hero{grid-template-columns:1fr 1.05fr;align-items:center;gap:48px;padding:64px 56px 92px;display:grid}[dir=rtl] .jl-hero-text{text-align:right}[dir=ltr] .jl-hero-text{text-align:left}.jl-hero h1{letter-spacing:-1px;margin:0;font-size:58px;font-weight:900;line-height:1.12}.jl-hero h1 mark{color:var(--navy);background:#d9a44142;border-radius:6px;margin-top:8px;padding:0 10px;display:inline-block}.jl-hero p.sub{color:var(--ink);max-width:520px;margin:28px 0 0;font-size:20px;font-weight:500;line-height:1.85}[dir=rtl] .jl-hero p.sub{margin-inline:auto 0}.jl-hero-actions{flex-wrap:wrap;align-items:center;gap:14px;margin-top:34px;display:flex}[dir=rtl] .jl-hero-actions{justify-content:flex-start}.jl-code-wrap{position:relative}.jl-code{font-family:var(--font-mono);background:#121831;border-radius:18px;padding:22px 26px 26px;transform:rotate(-1.1deg);box-shadow:0 30px 60px #12183152}.jl-code-head{justify-content:space-between;align-items:center;margin-bottom:18px;display:flex}.jl-code-dots{gap:8px;display:flex}.jl-code-dots i{border-radius:50%;width:12px;height:12px;display:block}.jl-code-filename{color:var(--gold-light);font-size:14px}.jl-code-body{color:#cfd6ee;text-align:left;direction:ltr;font-size:15px;line-height:2.05}.jl-code-line{gap:18px;display:flex}.jl-code-ln{color:#4a567a;text-align:right;flex-shrink:0;width:14px}.jl-code-badge{color:var(--gold-light);letter-spacing:1px;border:1px solid #e8c57466;border-radius:999px;align-items:center;gap:9px;margin-top:16px;padding:8px 16px;font-size:12px;display:inline-flex}.jl-code-badge i{background:var(--green);border-radius:50%;width:9px;height:9px;display:block}.jl-benefits{background:var(--navy);color:var(--cream);padding:80px 56px}.jl-benefits-head{max-width:720px;margin-bottom:54px}[dir=rtl] .jl-benefits-head{text-align:right}[dir=ltr] .jl-benefits-head{text-align:left}.jl-benefits-head h2{margin:0;font-size:44px;font-weight:900}.jl-benefits-head p{color:#f7f4ecb3;margin:14px 0 0;font-size:19px;font-weight:500}.jl-benefits-grid{grid-template-columns:repeat(3,1fr);gap:22px;display:grid}.jl-benefit{background:#f7f4ec0d;border:1.5px solid #e8c57438;border-radius:18px;padding:30px 26px;transition:transform .18s,border-color .18s,background .18s}.jl-benefit:hover{background:#f7f4ec14;border-color:#e8c57480;transform:translateY(-3px)}[dir=rtl] .jl-benefit{text-align:right}[dir=ltr] .jl-benefit{text-align:left}.jl-benefit-icon{width:48px;height:48px;color:var(--gold-light);background:#e8c57429;border-radius:13px;justify-content:center;align-items:center;margin-bottom:20px;display:flex}.jl-benefit h3{margin:0 0 10px;font-size:20px;font-weight:800}.jl-benefit p{color:#f7f4eca6;margin:0;font-size:15px;line-height:1.75}.jl-audience{background:var(--cream-deep);padding:80px 56px}.jl-audience>h2{max-width:720px;margin:0 0 40px;font-size:38px;font-weight:900}[dir=rtl] .jl-audience>h2{text-align:right}[dir=ltr] .jl-audience>h2{text-align:left}.jl-audience-grid{grid-template-columns:repeat(2,1fr);gap:20px;display:grid}.jl-audience-item{background:var(--cream-card);border:1.5px solid #d9a44147;border-radius:16px;align-items:center;gap:18px;padding:22px 24px;display:flex}[dir=rtl] .jl-audience-item{text-align:right}[dir=ltr] .jl-audience-item{text-align:left}.jl-audience-icon{background:var(--navy);width:44px;height:44px;color:var(--gold-light);border-radius:50%;flex-shrink:0;justify-content:center;align-items:center;display:flex}.jl-audience-item p{color:var(--ink);margin:0;font-size:16px;font-weight:600;line-height:1.65}.jl-cta-section{background:var(--cream);padding:80px 56px}.jl-cta-card{background:var(--cream-card);border:1.5px solid #d9a44166;border-radius:26px;padding:56px 60px;position:relative;overflow:hidden}.jl-cta-bg{font-family:var(--font-mono);color:#d9a4411a;pointer-events:none;inset-inline-start:30px;font-size:260px;font-weight:700;line-height:1;position:absolute;top:-30px}.jl-cta-grid{grid-template-columns:1fr 1fr;align-items:center;gap:40px;display:grid;position:relative}[dir=rtl] .jl-cta-copy{text-align:right}[dir=ltr] .jl-cta-copy,[dir=rtl] .jl-cta-action{text-align:left}[dir=ltr] .jl-cta-action{text-align:right}.jl-cta-eyebrow{font-family:var(--font-mono);color:var(--gold);letter-spacing:2px;margin-bottom:18px;font-size:14px}.jl-cta-copy h2{margin:0 0 16px;font-size:44px;font-weight:900;line-height:1.2}.jl-cta-copy p{color:var(--ink);margin:0;font-size:18px;font-weight:500}.jl-about{background:var(--cream);padding:80px 56px}.jl-about-main{margin:0 0 46px}[dir=rtl] .jl-about-main{text-align:right}[dir=ltr] .jl-about-main{text-align:left}.jl-about-tag{color:var(--gold);letter-spacing:2px;margin-bottom:12px;font-size:14px}.jl-about-main h2{margin:0 0 10px;font-size:38px;font-weight:900}.jl-about-tagline{color:var(--gold);margin:0 0 20px;font-size:20px;font-weight:800}.jl-about-main p{color:var(--ink);margin:0 0 14px;font-size:17px;font-weight:500;line-height:1.95}.jl-about-main p:last-child{margin-bottom:0}.jl-about-cards{grid-template-columns:repeat(3,1fr);align-items:stretch;gap:24px;display:grid}.jl-about-card{background:var(--cream-card);border:1.5px solid #d9a4414d;border-radius:20px;padding:32px}[dir=rtl] .jl-about-card{text-align:right}[dir=ltr] .jl-about-card{text-align:left}.jl-about-card-icon{width:46px;height:46px;color:var(--gold);background:#d9a44124;border-radius:13px;justify-content:center;align-items:center;margin-bottom:18px;display:flex}[dir=rtl] .jl-about-tag,[dir=rtl] .jl-about-card h3{margin:0 0 12px;font-size:22px;font-weight:800}.jl-about-card p{color:var(--ink);margin:0;font-size:15.5px;line-height:1.85}.jl-about-card-list{flex-direction:column;gap:12px;margin:0;padding:0;list-style:none;display:flex}.jl-about-card-list li{color:var(--ink);align-items:flex-start;gap:10px;font-size:15.5px;line-height:1.6;display:flex}.jl-about-card-list li svg{color:var(--gold);flex-shrink:0;margin-top:3px}.jl-footer{background:var(--cream-deep);text-align:center;border-top:1px solid #d9a44140;padding:40px 56px}.jl-footer img{width:auto;height:48px;margin-bottom:10px;display:inline-block;border-radius:10px}.jl-footer p{color:var(--muted);font-family:var(--font-mono);margin:0;font-size:13px}.jl-social-row{justify-content:center;align-items:center;gap:14px;margin:16px 0 18px;display:flex}.jl-social-icon{background:var(--navy);width:42px;height:42px;color:var(--cream);border-radius:50%;justify-content:center;align-items:center;transition:all .18s;display:flex}.jl-social-icon:hover{background:var(--gold);transform:translateY(-2px)}@media (width<=980px){.jl-nav,.jl-hero,.jl-benefits,.jl-audience,.jl-cta-section,.jl-about{padding-left:24px;padding-right:24px}.jl-nav-links{display:none}.jl-hero{grid-template-columns:1fr;padding-top:40px}.jl-benefits-grid{grid-template-columns:1fr 1fr}.jl-audience-grid,.jl-cta-grid,.jl-about-cards{grid-template-columns:1fr}.jl-hero h1{font-size:40px}}@media (width<=560px){.jl-benefits-grid{grid-template-columns:1fr}.jl-cta-card{padding:36px 24px}}.jl-modal-social .jl-social-row{margin:0}}.jl-field-label .num{font-family:var(--font-mono);color:var(--gold);margin-inline-end:8px}.jl-input.mono{font-family:var(--font-mono)}.jl-input::placeholder{color:var(--muted-2);opacity:.9}.jl-input:focus{border-color:var(--gold);outline:none;box-shadow:0 0 0 3px #d9a44129}select.jl-phone-group:focus-within{border-color:var(--gold);box-shadow:0 0 0 3px #d9a44129}.jl-phone-group .jl-phone-group .jl-phone-input:focus{box-shadow:none}.jl-input.jl-input-invalid,.jl-phone-group.jl-toggle-btn.active{background:var(--gold);color:#fff;border-color:var(--gold);box-shadow:0 8px 18px #d9a4414d}.jl-submit:hover{transform:translateY(-2px);box-shadow:0 16px 32px #102a434d}.jl-submit:disabled{opacity:.65;cursor:not-allowed;transform:none}.jl-submit .play{font-family:var(--font-mono);color:var(--green)}#root{min-height:100vh}@property --tw-ease{syntax:"*";inherits:false}
+/* CODE HUB UI RELEASE 15.0 - quiz + typography stability pass */
+/* --- extracted script 1 --- */
+// ============================================================
+  // 🔧 مكان واحد بس تحطّ فيه رابط الباك إند بتاعك (نفس الرابط في الحالتين)
+  // مثال: 'https://codehub-backend-xxxx.vercel.app'
+  // ============================================================
+  window.CH_SITE_API_BASE = window.location.origin;
 
-
-/* ===== Custom overrides added for Code Hub: floating nav, dark mode, chat button, code animation ===== */
-
-/* --- Floating navbar (fixed while scrolling, raised closer to the top) --- */
-.jl-nav{
-  position:fixed;
-  top:8px;
-  left:12px;
-  right:12px;
-  z-index:999;
-  border-bottom:none !important;
-  border-radius:16px;
-  background:var(--cream-card);
-  box-shadow:0 10px 30px #102a4333;
-  border:1px solid #d9a44138;
-  transition:background .25s ease, box-shadow .25s ease;
-}
-body{ padding-top:80px; }
-@media (width<=560px){
-  .jl-nav{ top:6px; left:8px; right:10px; border-radius:14px; }
-  body{ padding-top:82px; }
-}
-
-/* --- Theme toggle (light/dark) --- */
-.jl-theme-toggle{
-  font-family:var(--font-mono);
-  cursor:pointer;
-  background:#fff;
-  border:1px solid #102a432e;
-  border-radius:999px;
-  align-items:center;
-  gap:2px;
-  padding:4px;
-  display:flex;
-}
-.jl-theme-opt{
-  padding:7px 12px;
-  border-radius:999px;
-  font-size:13px;
-  font-weight:800;
-  color:var(--muted);
-  transition:all .15s;
-}
-.jl-theme-opt.active{
-  background:var(--navy);
-  color:#fff;
-}
-[data-theme="dark"] .jl-theme-opt.active{
-  background:#3b82f6;
-  color:#fff;
-}
-
-/* --- Chat / assistant button --- */
-.jl-chat-btn{
-  width:38px;
-  height:38px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:var(--navy);
-  color:var(--cream);
-  border:none;
-  cursor:pointer;
-  transition:all .18s;
-  flex-shrink:0;
-}
-.jl-chat-btn:hover{
-  background:var(--gold);
-  transform:translateY(-2px);
-}
-[data-theme="dark"] .jl-chat-btn{
-  background:#3b82f6;
-  color:#fff;
-}
-[data-theme="dark"] .jl-chat-btn:hover{
-  background:#60a5fa;
-}
-
-/* --- Code block: extra motion (glow + staggered line reveal + blinking cursor) --- */
-@keyframes jlCodeGlow{
-  0%,100%{ box-shadow:0 24px 60px #102a4333, 0 0 0 1px #d9a44122; }
-  50%{ box-shadow:0 24px 70px #d9a4413d, 0 0 0 1px #d9a44155; }
-}
-.jl-code{
-  box-shadow:0 24px 60px #102a4333, 0 0 0 1px #d9a44122;
-}
-
-@keyframes jlCodeGlowDark{
-  0%,100%{ box-shadow:0 24px 60px #00000055, 0 0 0 1px #3b82f622; }
-  50%{ box-shadow:0 24px 70px #3b82f640, 0 0 0 1px #3b82f670; }
-}
-/* "Wow" typewriter effect: each code line types itself out left-to-right, in sequence */
-@keyframes jlTypeLine{
-  from{ width:0; }
-  to{ width:100%; }
-}
-.jl-code-line{
-  overflow:hidden;
-  white-space:nowrap;
-  width:0;
-  animation:jlTypeLine .45s steps(28,end) forwards;
-}
-.jl-code-line:nth-child(1){ animation-delay:.2s; }
-.jl-code-line:nth-child(2){ animation-delay:.65s; }
-.jl-code-line:nth-child(3){ animation-delay:1.1s; }
-.jl-code-line:nth-child(4){ animation-delay:1.2s; }
-.jl-code-line:nth-child(5){ animation-delay:1.65s; }
-.jl-code-line:nth-child(6){ animation-delay:2.1s; }
-.jl-code-line:nth-child(7){ animation-delay:2.55s; }
-.jl-code-line:nth-child(8){ animation-delay:2.65s; }
-.jl-code-line:nth-child(9){ animation-delay:3.1s; }
-
-.jl-code-line:last-child::after{
-  content:"";
-  display:inline-block;
-  width:8px;
-  height:15px;
-  margin-inline-start:4px;
-  background:var(--gold);
-  vertical-align:middle;
-  animation:jlCursorBlink 1s step-end infinite;
-}
-[data-theme="dark"] .jl-code-line:last-child::after{
-  background:#3b82f6;
-}
-@keyframes jlCursorBlink{
-  0%,49%{ opacity:1; }
-  50%,100%{ opacity:0; }
-}
-.jl-code-dots i{
-  animation:jlDotPulse 2s ease-in-out infinite;
-}
-.jl-code-dots i:nth-child(2){ animation-delay:.2s; }
-.jl-code-dots i:nth-child(3){ animation-delay:.4s; }
-@keyframes jlDotPulse{
-  0%,100%{ transform:scale(1); opacity:1; }
-  50%{ transform:scale(1.25); opacity:.7; }
-}
-.jl-code-badge i{
-  display:inline-block;
-  animation:jlBadgePulse 1.4s ease-in-out infinite;
-}
-@keyframes jlBadgePulse{
-  0%,100%{ transform:scale(1); }
-  50%{ transform:scale(1.4); }
-}
-
-/* --- Dark theme palette (avoids pure blue and pure black; red accent) --- */
-[data-theme="dark"]{
-  --cream:#080c16;
-  --cream-deep:#05070d;
-  --cream-card:#0d1728;
-  --navy:#eef3fd;
-  --gold:#3b82f6;
-  --gold-light:#60a5fa;
-  --ink:#dce6f5;
-  --muted:#9db3d6;
-  --muted-2:#7891b8;
-}
-[data-theme="dark"] body{
-  background:var(--cream);
-}
-[data-theme="dark"] .jl-nav{
-  background:var(--cream-card);
-  border-color:#3b82f640;
-}
-[data-theme="dark"] .jl-lang-pill,
-[data-theme="dark"] .jl-theme-toggle{
-  background:#2a1512;
-  border-color:#3b82f633;
-  color:var(--ink);
-}
-[data-theme="dark"] .jl-about-card,
-[data-theme="dark"] .jl-cta-card{
-  background:var(--cream-card);
-}
-
-/* --- Monthly Path (المسار الشهري) --- */
-.jl-monthly-path{
-  padding:80px 56px;
-  background:var(--cream-deep);
-}
-.jl-mp-head{
-  text-align:center;
-  max-width:640px;
-  margin:0 auto 40px;
-}
-.jl-mp-head h2{
-  font-size:38px;
-  font-weight:900;
-  margin:0 0 12px;
-}
-.jl-mp-head p{
-  color:var(--muted);
-  font-size:16px;
-  margin:0;
-}
-.jl-mp-months{
-  display:grid;
-  grid-template-columns:repeat(auto-fill, minmax(150px, 1fr));
-  gap:16px;
-  max-width:1100px;
-  margin:0 auto;
-}
-.jl-mp-month-card{
-  background:var(--cream-card);
-  border:1px solid #d9a44138;
-  border-radius:16px;
-  padding:22px 14px;
-  text-align:center;
-  cursor:pointer;
-  transition:all .18s;
-  font-family:var(--font-display);
-}
-.jl-mp-month-card:hover{
-  border-color:var(--gold);
-  transform:translateY(-3px);
-  box-shadow:0 14px 28px #102a4324;
-}
-.jl-mp-month-card.active{
-  background:var(--navy);
-  border-color:var(--navy);
-}
-.jl-mp-month-card.active .jl-mp-month-name{ color:var(--cream); }
-.jl-mp-month-card.active .jl-mp-month-progress{ color:var(--gold-light); }
-.jl-mp-month-name{
-  font-size:18px;
-  font-weight:800;
-  color:var(--navy);
-  display:block;
-  margin-bottom:6px;
-}
-.jl-mp-month-progress{
-  font-family:var(--font-mono);
-  font-size:12px;
-  color:var(--muted);
-}
-.jl-mp-panel{
-  max-width:720px;
-  margin:32px auto 0;
-}
-.jl-mp-panel-box{
-  background:var(--cream-card);
-  border:1px solid #d9a44138;
-  border-radius:20px;
-  padding:30px;
-  animation:jlPanelIn .3s ease both;
-}
-@keyframes jlPanelIn{
-  from{ opacity:0; transform:translateY(14px); }
-  to{ opacity:1; transform:translateY(0); }
-}
-.jl-mp-panel-title{
-  font-size:22px;
-  font-weight:900;
-  margin:0 0 4px;
-}
-.jl-mp-panel-sub{
-  color:var(--muted);
-  font-size:14px;
-  margin:0 0 22px;
-}
-.jl-mp-week{
-  margin-bottom:18px;
-}
-.jl-mp-week-label{
-  font-family:var(--font-mono);
-  font-size:13px;
-  font-weight:700;
-  color:var(--gold);
-  margin-bottom:8px;
-}
-.jl-mp-quiz-row{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  background:var(--cream);
-  border-radius:12px;
-  padding:12px 16px;
-  margin-bottom:8px;
-}
-.jl-mp-quiz-name{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-weight:700;
-  font-size:15px;
-}
-.jl-mp-quiz-icon{
-  width:26px;
-  height:26px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-shrink:0;
-  font-size:13px;
-}
-.jl-mp-quiz-row.locked .jl-mp-quiz-icon{ background:#9a917a33; color:var(--muted-2); }
-.jl-mp-quiz-row.unlocked .jl-mp-quiz-icon{ background:var(--gold); color:#fff; }
-.jl-mp-quiz-row.completed .jl-mp-quiz-icon{ background:#6fcf97; color:#fff; }
-.jl-mp-quiz-row.locked{ opacity:.55; }
-.jl-mp-quiz-btn{
-  font-family:var(--font-display);
-  font-weight:800;
-  font-size:13px;
-  border:none;
-  border-radius:999px;
-  padding:8px 18px;
-  cursor:pointer;
-  transition:all .15s;
-}
-.jl-mp-quiz-row.unlocked .jl-mp-quiz-btn{ background:var(--navy); color:var(--cream); }
-.jl-mp-quiz-row.unlocked .jl-mp-quiz-btn:hover{ background:var(--gold); }
-.jl-mp-quiz-row.completed .jl-mp-quiz-btn{ background:#6fcf9733; color:#3f8f63; cursor:default; }
-.jl-mp-quiz-row.locked .jl-mp-quiz-btn{ background:#9a917a22; color:var(--muted-2); cursor:not-allowed; }
-.jl-mp-quiz-score{
-  font-family:var(--font-mono);
-  font-size:13px;
-  color:var(--muted);
-  margin-inline-end:8px;
-}
-
-/* --- WhatsApp groups picker modal (replaces the old register page) --- */
-.jl-groups-overlay{
-  position:fixed;
-  inset:0;
-  background:#102a43b3;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:1200;
-  padding:20px;
-}
-.jl-groups-overlay.open{ display:flex; }
-.jl-groups-card{
-  background:var(--cream-card);
-  border-radius:24px;
-  max-width:460px;
-  width:100%;
-  padding:36px 32px;
-  position:relative;
-  box-shadow:0 30px 70px #102a4355;
-  animation:jlPanelIn .25s ease both;
-  text-align:center;
-}
-.jl-groups-close{
-  position:absolute;
-  top:16px;
-  inset-inline-end:16px;
-  width:32px;
-  height:32px;
-  border-radius:50%;
-  border:none;
-  background:#9a917a22;
-  color:var(--muted);
-  cursor:pointer;
-  font-size:15px;
-}
-.jl-groups-close:hover{ background:#9a917a44; }
-.jl-groups-tag{
-  color:var(--gold);
-  font-size:13px;
-  letter-spacing:1px;
-  margin-bottom:8px;
-}
-.jl-groups-card h3{
-  font-size:22px;
-  font-weight:900;
-  margin:0 0 8px;
-}
-.jl-groups-card p{
-  color:var(--muted);
-  font-size:14px;
-  margin:0 0 24px;
-}
-.jl-group-option{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  background:var(--cream);
-  border:1px solid #d9a44138;
-  border-radius:14px;
-  padding:16px 18px;
-  margin-bottom:12px;
-  font-weight:800;
-  font-size:15px;
-  color:var(--navy);
-  transition:all .18s;
-}
-.jl-group-option:hover{
-  border-color:var(--gold);
-  transform:translateY(-2px);
-  box-shadow:0 12px 24px #102a4324;
-}
-.jl-group-arrow{ color:var(--gold); font-size:18px; }
-
-/* --- Extra motion: entrance stagger for cards + button micro-interactions --- */
-@keyframes jlCardIn{
-  from{ opacity:0; transform:translateY(16px); }
-  to{ opacity:1; transform:translateY(0); }
-}
-.jl-benefit{ animation:jlCardIn .5s ease both; }
-.jl-benefit:nth-child(1){ animation-delay:.05s; }
-.jl-benefit:nth-child(2){ animation-delay:.12s; }
-.jl-benefit:nth-child(3){ animation-delay:.19s; }
-.jl-benefit:nth-child(4){ animation-delay:.26s; }
-.jl-benefit:nth-child(5){ animation-delay:.33s; }
-.jl-benefit:nth-child(6){ animation-delay:.4s; }
-.jl-benefit:nth-child(7){ animation-delay:.47s; }
-.jl-benefit:nth-child(8){ animation-delay:.54s; }
-.jl-benefit:nth-child(9){ animation-delay:.61s; }
-
-.jl-mp-month-card{ animation:jlCardIn .4s ease both; }
-.jl-mp-month-card:nth-child(1){ animation-delay:.03s; }
-.jl-mp-month-card:nth-child(2){ animation-delay:.06s; }
-.jl-mp-month-card:nth-child(3){ animation-delay:.09s; }
-.jl-mp-month-card:nth-child(4){ animation-delay:.12s; }
-.jl-mp-month-card:nth-child(5){ animation-delay:.15s; }
-.jl-mp-month-card:nth-child(6){ animation-delay:.18s; }
-.jl-mp-month-card:nth-child(7){ animation-delay:.21s; }
-.jl-mp-month-card:nth-child(8){ animation-delay:.24s; }
-.jl-mp-month-card:nth-child(9){ animation-delay:.27s; }
-.jl-mp-month-card:nth-child(10){ animation-delay:.3s; }
-.jl-mp-month-card:nth-child(11){ animation-delay:.33s; }
-.jl-mp-month-card:nth-child(12){ animation-delay:.36s; }
-
-.jl-reg{ transition:all .18s ease; }
-.jl-reg:hover{ transform:translateY(-2px); box-shadow:0 14px 28px #102a4333; }
-[data-theme="dark"] .jl-reg:hover{ box-shadow:0 14px 28px #3b82f640; }
-.jl-navlink{ transition:color .15s ease; }
-
-/* --- نبذة عني (Team / About Me) --- */
-.jl-about-me{
-  padding:80px 56px;
-  background:var(--cream);
-}
-.jl-am-head{
-  text-align:center;
-  max-width:640px;
-  margin:0 auto 48px;
-}
-.jl-am-head h2{
-  font-size:38px;
-  font-weight:900;
-  margin:0 0 10px;
-}
-.jl-am-head p{
-  color:var(--muted);
-  font-size:16px;
-  margin:0;
-}
-.jl-am-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:32px;
-  max-width:920px;
-  margin:0 auto;
-}
-.jl-am-card{
-  background:var(--cream-card);
-  border:1px solid #d9a44138;
-  border-radius:22px;
-  padding:36px 28px;
-  text-align:center;
-  transition:all .2s;
-  animation:jlCardIn .5s ease both;
-}
-.jl-am-card:hover{
-  transform:translateY(-4px);
-  box-shadow:0 20px 40px #102a4324;
-  border-color:var(--gold);
-}
-.jl-am-right{ animation-delay:.05s; }
-.jl-am-left{ animation-delay:.15s; }
-.jl-am-photo{
-  width:270px;
-  height:270px;
-  border-radius:22px;
-  overflow:hidden;
-  margin:0 auto 20px;
-  border:3px solid var(--gold);
-  box-shadow:0 12px 28px #102a4324;
-  max-width:100%;
-}
-.jl-am-photo img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-}
-.jl-am-photo.jl-am-empty{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#9a917a1f;
-  border-style:dashed;
-  font-size:38px;
-}
-.jl-am-card h3{
-  margin:0 0 4px;
-  font-size:20px;
-  font-weight:900;
-}
-.jl-am-role{
-  color:#8a6b28;
-  font-size:13px;
-  font-weight:800;
-  margin:0 0 14px;
-}
-.jl-faq{ background:var(--cream-deep); padding:80px 56px; }
-.jl-faq-head{ max-width:720px; margin:0 0 40px; }
-[dir=rtl] .jl-faq-head{ text-align:right; }
-.jl-faq-head h2{ margin:0; font-size:38px; font-weight:900; }
-.jl-faq-head p{ color:var(--ink); margin:14px 0 0; font-size:17px; font-weight:500; }
-.jl-faq-list{ max-width:820px; display:flex; flex-direction:column; gap:14px; }
-.jl-faq-item{ background:var(--cream-card); border:1.5px solid #d9a44147; border-radius:16px; overflow:hidden; }
-.jl-faq-q{
-  width:100%;
-  background:none;
-  border:none;
-  cursor:pointer;
-  font-family:var(--font-display);
-  color:var(--navy);
-  font-size:17px;
-  font-weight:800;
-  padding:20px 24px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  text-align:right;
-}
-[dir=ltr] .jl-faq-q{ text-align:left; }
-.jl-faq-q .jl-faq-icon{
-  flex-shrink:0;
-  width:26px; height:26px;
-  border-radius:50%;
-  background:#d9a44124;
-  color:var(--gold);
-  display:flex; align-items:center; justify-content:center;
-  font-size:16px; font-weight:900;
-  transition:transform .25s ease;
-}
-.jl-faq-item.open .jl-faq-icon{ transform:rotate(45deg); }
-.jl-faq-a{
-  max-height:0;
-  overflow:hidden;
-  transition:max-height .3s ease, padding .3s ease;
-  padding:0 24px;
-  color:var(--ink);
-  font-size:15.5px;
-  line-height:1.85;
-}
-.jl-faq-item.open .jl-faq-a{ max-height:400px; padding:0 24px 20px; }
-[data-theme="dark"] .jl-faq{ background:var(--cream-deep); }
-.jl-am-bio{
-  color:var(--ink);
-  font-size:14.5px;
-  line-height:1.8;
-  margin:0;
-}
-.jl-am-bio-title{
-  color:var(--navy);
-  font-weight:900;
-  font-size:16px;
-  margin:2px 0 2px;
-}
-.jl-am-bio-section{
-  color:#8a6b28;
-  font-weight:800;
-  font-size:13.5px;
-  margin:10px 0 2px;
-}
-.jl-am-bio mark{
-  background:var(--navy);
-  color:var(--cream);
-  font-weight:800;
-  border-radius:4px;
-  padding:0 4px;
-  font-family:var(--font-mono);
-}
-[data-theme="dark"] .jl-am-bio mark{
-  background:#e0b356;
-  color:#1a1206;
-  font-weight:800;
-}
-@media (width<=700px){
-  .jl-am-grid{ grid-template-columns:1fr; }
-}
-
-/* --- Navbar: thin, semi-transparent, logo back on the right (natural RTL order) --- */
-.jl-nav{
-  padding:8px 24px !important;
-  gap:8px !important;
-  background:var(--cream-card) !important;
-  background:color-mix(in srgb, var(--cream-card) 78%, transparent) !important;
-  -webkit-backdrop-filter:blur(10px);
-  backdrop-filter:blur(10px);
-}
-.jl-nav img{
-  height:34px !important;
-}
-.jl-nav-start{
-  gap:20px !important;
-}
-.jl-nav-links{
-  gap:16px !important;
-  font-size:12.5px !important;
-}
-.jl-nav-end{
-  gap:8px !important;
-}
-.jl-nav-reg{
-  padding:8px 18px !important;
-  font-size:12.5px !important;
-}
-.jl-lang-pill{
-  padding:7px 14px !important;
-  font-size:13px !important;
-  gap:6px !important;
-}
-.jl-theme-toggle{
-  padding:2px !important;
-}
-.jl-theme-opt{
-  padding:4px 8px !important;
-  font-size:12px !important;
-}
-.jl-chat-btn{
-  width:28px !important;
-  height:28px !important;
-}
-body{ padding-top:56px !important; }
-@media (width<=560px){
-  body{ padding-top:50px !important; }
-}
-
-/* Compact, consistent navbar + hamburger menu on small screens */
-.jl-nav-hamburger{
-  display:none;
-  width:36px;
-  height:36px;
-  border-radius:9px;
-  border:1px solid #102a432e;
-  background:#fff;
-  color:var(--navy);
-  font-size:17px;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-}
-[data-theme="dark"] .jl-nav-hamburger{
-  background:var(--cream-card);
-  border-color:#3b82f633;
-  color:var(--navy);
-}
-@media (width<=980px){
-  .jl-nav-hamburger{ display:flex; order:0; }
-  .jl-nav-links{
-    display:none;
-    position:absolute;
-    top:100%;
-    inset-inline:0;
-    margin-top:8px;
-    background:var(--cream-card);
-    border:1px solid #d9a44138;
-    border-radius:14px;
-    flex-direction:column;
-    align-items:flex-start;
-    gap:2px;
-    padding:10px;
-    box-shadow:0 14px 30px #102a4324;
+/* --- first-screen initializer v12 --- */
+document.addEventListener('DOMContentLoaded', function(){
+  var accountButton=document.getElementById('jl-student-btn');
+  if(accountButton){
+    accountButton.setAttribute('aria-label','فتح الحساب الشخصي أو تسجيل الدخول');
+    accountButton.title='الحساب الشخصي أو تسجيل الدخول';
   }
-  .jl-nav-links.open{ display:flex; }
-  .jl-nav-links .jl-navlink{
-    width:100%;
-    padding:10px 12px;
-    border-radius:8px;
-    font-size:13.5px !important;
+  var register=document.getElementById('jl-register-nav-btn');
+  if(register){
+    register.setAttribute('role','link');
+    register.setAttribute('aria-label','إنشاء حساب جديد');
   }
-  .jl-nav-links .jl-navlink:hover{ background:#9a917a1a; }
-  .jl-nav{ position:fixed; }
-}
-
-/* --- More motion across the page --- */
-.jl-audience-item{ animation:jlCardIn .5s ease both; transition:transform .18s; }
-.jl-audience-item:hover{ transform:translateY(-4px); }
-.jl-audience-item:nth-child(1){ animation-delay:.05s; }
-.jl-audience-item:nth-child(2){ animation-delay:.15s; }
-.jl-audience-item:nth-child(3){ animation-delay:.25s; }
-.jl-audience-item:nth-child(4){ animation-delay:.35s; }
-
-.jl-about-card{ animation:jlCardIn .5s ease both; transition:transform .18s, box-shadow .18s; }
-.jl-about-card:hover{ transform:translateY(-4px); box-shadow:0 20px 40px #102a4324; }
-.jl-about-card:nth-child(1){ animation-delay:.05s; }
-.jl-about-card:nth-child(2){ animation-delay:.15s; }
-.jl-about-card:nth-child(3){ animation-delay:.25s; }
-
-.jl-cta-card{ transition:transform .25s; }
-.jl-cta-card:hover{ transform:translateY(-3px); }
-
-.jl-social-icon{ transition:transform .18s, background .18s; }
-.jl-social-icon:hover{ transform:translateY(-3px) scale(1.05); }
-
-.jl-mp-quiz-row{ transition:transform .15s; }
-.jl-mp-quiz-row.unlocked:hover{ transform:translateX(-3px); }
-[dir="ltr"] .jl-mp-quiz-row.unlocked:hover{ transform:translateX(3px); }
-
-/* --- Animated falling streaks (gentle, top-to-bottom), color follows the accent --- */
-.jl-hero{ position:relative; overflow:hidden; }
-.jl-streaks{ position:absolute; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
-.jl-streak{
-  position:absolute;
-  width:2px;
-  height:70px;
-  background:linear-gradient(180deg, transparent, var(--gold), transparent);
-  border-radius:2px;
-  opacity:0;
-  top:-80px;
-  animation:jlStreakFall 8s ease-in-out infinite;
-}
-[data-theme="dark"] .jl-streak{
-  background:linear-gradient(180deg, transparent, #3b82f6, transparent);
-  box-shadow:0 0 8px #3b82f688;
-}
-.jl-streak.s1{ left:8%; animation-delay:0s; height:60px; }
-.jl-streak.s2{ left:34%; animation-delay:2.2s; height:80px; }
-.jl-streak.s3{ left:62%; animation-delay:4.4s; height:50px; }
-.jl-streak.s4{ left:85%; animation-delay:6.1s; height:65px; }
-@keyframes jlStreakFall{
-  0%{ transform:translateY(0); opacity:0; }
-  12%{ opacity:.9; }
-  80%{ opacity:.5; }
-  100%{ transform:translateY(115vh); opacity:0; }
-}
-.jl-hero > *:not(.jl-streaks):not(.jl-hero-symbols):not(.jl-stars-field):not(.jl-dots-field){ position:relative; z-index:1; }
-
-
-/* --- Footer: two-column layout (links + contact info) --- */
-.jl-footer-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:32px;
-  max-width:640px;
-  margin:0 auto 24px;
-  text-align:center;
-}
-.jl-footer-col h4{
-  font-size:14px;
-  font-weight:900;
-  color:var(--gold);
-  margin:0 0 14px;
-}
-.jl-footer-line{
-  color:var(--muted);
-  font-size:13.5px;
-  margin:0 0 8px;
-  line-height:1.7;
-}
-.jl-footer-line a{
-  color:var(--muted);
-  text-decoration:none;
-}
-.jl-footer-line a:hover{
-  color:var(--gold);
-}
-.jl-phone-label{
-  color:var(--gold);
-  font-size:12px;
-  font-weight:700;
-  margin-inline-start:4px;
-}
-.jl-footer-credit{
-  color:var(--muted-2);
-  font-family:var(--font-mono);
-  margin:0;
-  font-size:12px;
-  direction:ltr;
-}
-@media (width<=560px){
-  .jl-footer-grid{ grid-template-columns:1fr; gap:22px; }
-}
-
-/* WhatsApp icon: always its brand green, direct link */
-.jl-social-whatsapp{
-  background:#25D366 !important;
-}
-.jl-social-whatsapp:hover{
-  background:#1ebe5a !important;
-}
-.jl-footer-credit{
-  direction:rtl;
-}
-.jl-footer-tagline, p.jl-footer-line[data-i18n="footer-tagline"]{
-  color:var(--muted);
-}
-
-/* --- Navbar brand text next to the logo --- */
-.jl-nav-brand{
-  font-family:var(--font-display);
-  font-weight:900;
-  font-size:17px;
-  color:var(--navy);
-  margin-inline-start:4px;
-}
-
-/* --- Anchor scroll fix: keep section titles from hiding behind the fixed navbar --- */
-section[id], .jl-hero{
-  scroll-margin-top:100px;
-}
-
-/* --- CTA eyebrow: nicer font instead of thin mono --- */
-.jl-cta-eyebrow{
-  font-family:var(--font-display) !important;
-  font-weight:800 !important;
-  font-size:15px !important;
-  letter-spacing:.2px !important;
-}
-.jl-cta-brand{
-  color:var(--gold);
-}
-
-/* --- Team photos: bigger, closer to natural size --- */
-.jl-am-photo{
-  width:400px !important;
-  height:400px !important;
-}
-@media (width<=760px){
-  .jl-am-photo{ width:300px !important; height:300px !important; }
-}
-
-/* --- Footer redesign: organized, card-based, readable font --- */
-.jl-footer{
-  padding:56px 24px 40px !important;
-}
-.jl-footer > img{ display:none; } /* safety: hide if any legacy logo remains */
-.jl-footer-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:24px;
-  max-width:720px;
-  margin:0 auto 28px;
-  text-align:start;
-}
-.jl-footer-col{
-  background:var(--cream-card);
-  border:1px solid #d9a44130;
-  border-radius:18px;
-  padding:26px 24px;
-}
-.jl-footer-col h4{
-  font-family:var(--font-display) !important;
-  font-size:17px !important;
-  font-weight:900 !important;
-  color:var(--navy) !important;
-  margin:0 0 12px !important;
-}
-.jl-footer p.jl-footer-line{
-  font-family:var(--font-display) !important;
-  color:var(--ink) !important;
-  font-size:14.5px !important;
-  font-weight:600 !important;
-  line-height:1.9 !important;
-  margin:0 0 8px !important;
-}
-.jl-footer-line a{
-  color:var(--ink);
-  font-weight:700;
-}
-.jl-footer-line a:hover{ color:var(--gold); }
-.jl-footer-col .jl-social-row{
-  justify-content:flex-start;
-  margin:16px 0 0;
-}
-.jl-footer-credit{
-  font-family:var(--font-display) !important;
-  color:var(--muted-2) !important;
-  font-weight:700 !important;
-  font-size:13px !important;
-  text-align:center;
-  padding-top:22px;
-  border-top:1px solid #d9a44130;
-  max-width:720px;
-  margin:0 auto !important;
-}
-@media (width<=560px){
-  .jl-footer-grid{ grid-template-columns:1fr; }
-}
-
-/* --- Footer: 3-column layout (brand / quick links / contact) --- */
-.jl-footer-grid-3{
-  grid-template-columns:1.2fr 1fr 1fr !important;
-  max-width:900px !important;
-  text-align:start;
-}
-.jl-footer-navlink{
-  display:block;
-  color:var(--ink);
-  font-family:var(--font-display);
-  font-size:14px;
-  font-weight:600;
-  text-decoration:none;
-  margin-bottom:10px;
-  transition:color .15s;
-}
-.jl-footer-navlink:hover{ color:var(--gold); }
-@media (width<=760px){
-  .jl-footer-grid-3{ grid-template-columns:1fr 1fr !important; }
-  .jl-footer-brand-col{ grid-column:1 / -1; }
-}
-@media (width<=560px){
-  .jl-footer-grid-3{ grid-template-columns:1fr !important; }
-}
-
-/* --- Reviews / Testimonials section --- */
-.jl-reviews{
-  padding:80px 56px;
-  background:var(--cream-deep);
-}
-.jl-reviews-head{
-  text-align:center;
-  max-width:640px;
-  margin:0 auto 40px;
-}
-.jl-reviews-head h2{
-  font-size:38px;
-  font-weight:900;
-  margin:0 0 10px;
-}
-.jl-reviews-head p{
-  color:var(--muted);
-  font-size:16px;
-  margin:0;
-}
-.jl-reviews-list{
-  display:grid;
-  grid-template-columns:repeat(3, 1fr);
-  gap:18px;
-  max-width:1100px;
-  margin:0 auto 44px;
-}
-.jl-review-card{
-  background:var(--cream-card);
-  border:1px solid #d9a44130;
-  border-radius:18px;
-  padding:24px;
-  animation:jlCardIn .5s ease both;
-}
-.jl-review-card-stars{
-  color:var(--gold);
-  font-size:16px;
-  letter-spacing:2px;
-  margin-bottom:10px;
-}
-.jl-review-card p{
-  color:var(--ink);
-  font-size:14.5px;
-  line-height:1.8;
-  margin:0 0 14px;
-}
-.jl-review-card-name{
-  font-weight:900;
-  font-size:14.5px;
-  color:var(--navy);
-}
-.jl-review-card-course{
-  color:var(--muted);
-  font-size:12.5px;
-  display:block;
-  margin-top:2px;
-}
-.jl-review-form-wrap{
-  max-width:520px;
-  margin:0 auto;
-  background:var(--cream-card);
-  border:1px solid #d9a44130;
-  border-radius:20px;
-  padding:32px;
-  text-align:center;
-}
-.jl-review-form-wrap h3{
-  margin:0 0 20px;
-  font-size:20px;
-  font-weight:900;
-}
-.jl-reviews-stats{
-  margin-top:12px;
-  color:var(--gold);
-  font-weight:900;
-  font-size:14px;
-}
-.jl-review-honeypot{
-  position:absolute !important;
-  inline-size:1px !important;
-  block-size:1px !important;
-  opacity:0 !important;
-  pointer-events:none !important;
-  overflow:hidden !important;
-}
-.jl-review-moderation-note{
-  margin:10px 0 0;
-  color:var(--muted);
-  font-size:12px;
-  line-height:1.7;
-}
-.jl-review-form button:disabled{
-  opacity:.6;
-  cursor:not-allowed;
-}
-.jl-review-row{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-bottom:14px;
-}
-.jl-review-form input,
-.jl-review-form select,
-.jl-review-form textarea{
-  width:100%;
-  font-family:var(--font-display);
-  background:var(--cream);
-  border:1px solid #d9a44138;
-  border-radius:10px;
-  padding:11px 14px;
-  font-size:14px;
-  color:var(--navy);
-  box-sizing:border-box;
-  resize:vertical;
-  cursor:pointer;
-}
-.jl-review-form textarea{
-  margin-bottom:16px;
-  display:block;
-}
-.jl-review-stars{
-  font-size:30px;
-  color:#9a917a55;
-  margin-bottom:18px;
-  cursor:pointer;
-  letter-spacing:4px;
-}
-.jl-review-stars span{
-  transition:color .1s;
-}
-.jl-review-stars span.active{
-  color:var(--gold);
-}
-@media (width<=760px){
-  .jl-reviews-list{ grid-template-columns:1fr; }
-  .jl-review-row{ grid-template-columns:1fr; }
-}
-
-/* --- Extra polish animations --- */
-.jl-review-card:nth-child(1){ animation-delay:.05s; }
-.jl-review-card:nth-child(2){ animation-delay:.15s; }
-.jl-review-card:nth-child(3){ animation-delay:.25s; }
-
-.jl-reviews-head h2, .jl-mp-head h2, .jl-am-head h2, .jl-benefits-head h2{
-  animation:jlCardIn .5s ease both;
-}
-
-@keyframes jlStarPop{
-  0%{ transform:scale(1); }
-  40%{ transform:scale(1.3); }
-  100%{ transform:scale(1); }
-}
-.jl-review-stars span.active{
-  animation:jlStarPop .25s ease;
-}
-
-.jl-review-form-wrap{
-  transition:box-shadow .25s;
-}
-.jl-review-form-wrap:hover{
-  box-shadow:0 20px 40px #102a4324;
-}
-
-.jl-footer-col{
-  transition:transform .2s, box-shadow .2s;
-}
-.jl-footer-col:hover{
-  transform:translateY(-3px);
-  box-shadow:0 14px 30px #102a4320;
-}
-
-.jl-am-card .jl-am-photo{
-  transition:transform .3s ease;
-}
-.jl-am-card:hover .jl-am-photo{
-  transform:scale(1.03);
-}
-
-.jl-group-option{
-  animation:jlCardIn .35s ease both;
-}
-.jl-group-option:nth-child(2){ animation-delay:.08s; }
-.jl-group-option:nth-child(3){ animation-delay:.16s; }
-
-/* --- Monthly Path modal (opens from the nav link, keeps the homepage compact) --- */
-.jl-mp-overlay{
-  position:fixed;
-  inset:0;
-  background:#102a43b3;
-  display:none;
-  align-items:flex-start;
-  justify-content:center;
-  z-index:1300;
-  padding:80px 20px 40px;
-  overflow-y:auto;
-}
-.jl-mp-overlay.open{ display:flex; }
-.jl-mp-modal{
-  background:var(--cream);
-  border-radius:24px;
-  max-width:1100px;
-  width:100%;
-  padding:40px 32px;
-  position:relative;
-  box-shadow:0 30px 70px #102a4355;
-  animation:jlPanelIn .25s ease both;
-}
-.jl-mp-modal-close{
-  position:absolute;
-  top:18px;
-  inset-inline-end:18px;
-  width:34px;
-  height:34px;
-  border-radius:50%;
-  border:none;
-  background:#9a917a22;
-  color:var(--muted);
-  cursor:pointer;
-  font-size:16px;
-  z-index:2;
-}
-.jl-mp-modal-close:hover{ background:#9a917a44; }
-@media (width<=560px){
-  .jl-mp-modal{ padding:30px 18px; }
-  .jl-mp-overlay{ padding:70px 10px 24px; }
-}
-
-.jl-reviews-empty{
-  text-align:center;
-  color:var(--muted);
-  font-size:15px;
-  padding:30px;
-  grid-column:1 / -1;
-}
-
-/* --- Free lessons badge (hero) --- */
-.jl-free-badge{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  background:#6fcf9722;
-  color:#3f8f63;
-  border:1px solid #6fcf9755;
-  border-radius:999px;
-  padding:8px 16px;
-  font-size:13.5px;
-  font-weight:800;
-  margin-bottom:20px;
-  animation:jlCardIn .5s ease both;
-}
-[data-theme="dark"] .jl-free-badge{
-  background:#6fcf9718;
-  color:#8fe0ac;
-  border-color:#6fcf9744;
-}
-
-/* --- Monthly prizes badge (CTA) --- */
-.jl-prize-badge{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  color:var(--gold);
-  font-size:14px;
-  font-weight:800;
-  margin-top:16px;
-}
-
-/* --- Footer polish pass 2: fix width mismatch + better rhythm --- */
-.jl-footer{
-  border-top:3px solid var(--gold) !important;
-}
-.jl-footer-credit{
-  max-width:900px !important;
-}
-.jl-footer-grid-3{
-  align-items:stretch;
-}
-.jl-footer-col{
-  display:flex;
-  flex-direction:column;
-}
-.jl-footer-brand-col h4{
-  font-size:19px !important;
-}
-.jl-footer-brand-col .jl-footer-line{
-  flex:0 0 auto;
-}
-.jl-footer-col .jl-social-row{
-  margin-top:auto;
-  padding-top:14px;
-}
-
-/* ================= FINAL NAVBAR OVERRIDE (consolidated, thin + clean) ================= */
-.jl-nav{
-  position:fixed !important;
-  top:8px !important;
-  left:14px !important;
-  right:14px !important;
-  z-index:999 !important;
-  display:flex !important;
-  flex-wrap:nowrap !important;
-  align-items:center !important;
-  justify-content:space-between !important;
-  padding:7px 20px !important;
-  gap:8px !important;
-  border-radius:14px !important;
-  border:1px solid #d9a44138 !important;
-  border-bottom:1px solid #d9a44138 !important;
-  background:var(--cream-card) !important;
-  box-shadow:0 8px 24px #102a4326 !important;
-}
-[data-theme="dark"] .jl-nav{
-  border-color:#3b82f640 !important;
-}
-.jl-nav-start{
-  display:flex !important;
-  align-items:center !important;
-  gap:10px !important;
-  flex-shrink:0 !important;
-}
-.jl-nav img{
-  height:28px !important;
-  width:auto !important;
-  border-radius:8px !important;
-  display:block !important;
-}
-.jl-nav-brand{
-  font-size:14px !important;
-  font-weight:800 !important;
-  white-space:nowrap;
-}
-.jl-nav-hamburger{
-  width:30px !important;
-  height:30px !important;
-  font-size:14px !important;
-  border-radius:8px !important;
-}
-.jl-nav-links{
-  gap:14px !important;
-  font-size:12px !important;
-}
-.jl-nav-end{
-  display:flex !important;
-  align-items:center !important;
-  gap:6px !important;
-  flex-shrink:0 !important;
-}
-.jl-nav-reg{
-  padding:6px 14px !important;
-  font-size:11.5px !important;
-  white-space:nowrap;
-}
-.jl-lang-pill{
-  padding:5px 10px !important;
-  font-size:11px !important;
-  gap:4px !important;
-}
-.jl-theme-toggle{
-  padding:2px !important;
-}
-.jl-theme-opt{
-  padding:3px 7px !important;
-  font-size:11px !important;
-}
-.jl-chat-btn{
-  width:26px !important;
-  height:26px !important;
-}
-body{ padding-top:52px !important; }
-
-/* النافبار يفضل سطر واحد على كل المقاسات — الروابط بتفتح من الهمبرجر (Dropdown) مش جوه السطر */
-@media (width<=980px){
-  .jl-nav{ flex-wrap:nowrap !important; }
-}
-@media (width<=560px){
-  .jl-nav{
-    top:6px !important; left:6px !important; right:6px !important;
-    padding:6px 10px !important;
-    gap:4px !important;
+  var langButton=document.getElementById('jl-lang-pill');
+  if(langButton){
+    langButton.setAttribute('aria-label','تغيير لغة الموقع بين العربية والإنجليزية');
+    langButton.title='العربية / English';
   }
-  body{ padding-top:48px !important; }
-  .jl-nav-start{ gap:6px !important; }
-  .jl-nav-end{ gap:4px !important; }
-  .jl-nav img{ height:24px !important; }
-  .jl-nav-brand{ display:none; } /* بيتشال بس على أضيق الشاشات عشان يفضل الباقي على خط واحد */
-  .jl-nav-hamburger{ width:26px !important; height:26px !important; font-size:12px !important; }
-  .jl-nav-reg{ padding:6px 10px !important; font-size:10.5px !important; }
-  .jl-lang-pill{ padding:4px 7px !important; font-size:10px !important; }
-  .jl-theme-opt{ padding:3px 5px !important; font-size:10px !important; }
-  .jl-chat-btn, .jl-admin-btn, .jl-student-btn{ width:22px !important; height:22px !important; }
-  .jl-chat-btn{ display:none; } /* زرار المساعد لسه شكل مش شغال، نخبيه على الموبايل عشان نوفر مكان */
-}
-
-/* --- Monthly Path teaser card (same visual language as the CTA/subscribe card) --- */
-.jl-mp-teaser{
-  padding:0 56px 80px;
-}
-.jl-mp-teaser-card{
-  max-width:1100px;
-  margin:0 auto;
-  background:var(--navy);
-  border-radius:28px;
-  padding:36px 48px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:24px;
-  flex-wrap:wrap;
-}
-.jl-mp-teaser-copy h2{
-  color:var(--cream);
-  font-size:26px;
-  font-weight:900;
-  margin:0 0 6px;
-}
-.jl-mp-teaser-copy p{
-  color:#f7f4ecb3;
-  font-size:12.5px;
-  font-weight:500;
-  margin:0;
-}
-.jl-mp-teaser .jl-reg{
-  flex-shrink:0;
-}
-@media (width<=760px){
-  .jl-mp-teaser{ padding:0 20px 56px; }
-  .jl-mp-teaser-card{ padding:28px 26px; flex-direction:column; text-align:center; }
-}
-
-/* --- Admin panel icon in navbar --- */
-.jl-admin-btn{
-  width:26px;
-  height:26px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:var(--navy);
-  color:var(--cream);
-  transition:all .18s;
-  flex-shrink:0;
-}
-.jl-admin-btn:hover{
-  background:var(--gold);
-  transform:rotate(45deg);
-}
-[data-theme="dark"] .jl-admin-btn{
-  background:#3b82f6;
-  color:#fff;
-}
-
-/* --- Back to top button --- */
-.jl-back-top{
-  position:fixed;
-  bottom:24px;
-  inset-inline-end:24px;
-  width:44px;
-  height:44px;
-  border-radius:50%;
-  border:none;
-  background:var(--navy);
-  color:var(--cream);
-  font-size:20px;
-  cursor:pointer;
-  box-shadow:0 10px 24px #102a4340;
-  z-index:900;
-  opacity:0;
-  visibility:hidden;
-  transform:translateY(10px);
-  transition:all .25s;
-}
-.jl-back-top.show{
-  opacity:1;
-  visibility:visible;
-  transform:translateY(0);
-}
-.jl-back-top:hover{ background:var(--gold); }
-[data-theme="dark"] .jl-back-top{ background:#3b82f6; }
-
-/* --- Floating WhatsApp button (always reachable) --- */
-.jl-float-whatsapp{
-  position:fixed;
-  bottom:24px;
-  inset-inline-start:24px;
-  width:52px;
-  height:52px;
-  border-radius:50%;
-  background:#25D366;
-  color:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  box-shadow:0 10px 24px #25d36655;
-  z-index:900;
-  animation:jlWhatsPulse 2.5s ease-in-out infinite;
-}
-.jl-float-whatsapp:hover{ background:#1ebe5a; }
-@keyframes jlWhatsPulse{
-  0%,100%{ box-shadow:0 10px 24px #25d36655; }
-  50%{ box-shadow:0 10px 30px #25d366aa; }
-}
-@media (width<=560px){
-  .jl-back-top{ width:38px; height:38px; bottom:16px; inset-inline-end:16px; font-size:17px; }
-  .jl-float-whatsapp{ width:46px; height:46px; bottom:16px; inset-inline-start:16px; }
-  .jl-float-whatsapp svg{ width:22px; height:22px; }
-}
-
-/* --- Copy button for phone numbers --- */
-.jl-copy-btn{
-  background:none;
-  border:none;
-  cursor:pointer;
-  color:var(--muted);
-  font-size:12px;
-  margin-inline-start:6px;
-  vertical-align:middle;
-}
-.jl-copy-btn:hover{ color:var(--gold); }
-
-/* --- Confetti animation --- */
-@keyframes jlConfettiFall{
-  0%{ transform:translateY(0) rotate(0deg); opacity:1; }
-  100%{ transform:translateY(100vh) rotate(360deg); opacity:0; }
-}
-@keyframes jlConfettiFallSpin{
-  0%{ transform:translateY(0) rotate(0deg) scale(1); opacity:1; }
-  50%{ transform:translateY(50vh) rotate(200deg) scale(1.2); }
-  100%{ transform:translateY(100vh) rotate(500deg) scale(.8); opacity:0; }
-}
-
-/* --- Toast notification --- */
-.jl-toast{
-  position:fixed;
-  bottom:90px;
-  left:50%;
-  transform:translateX(-50%) translateY(20px);
-  background:var(--navy);
-  color:#fff;
-  padding:14px 26px;
-  border-radius:999px;
-  font-size:14px;
-  font-weight:800;
-  box-shadow:0 14px 30px #102a4340;
-  z-index:2100;
-  opacity:0;
-  pointer-events:none;
-  transition:all .3s;
-}
-.jl-toast.show{
-  opacity:1;
-  transform:translateX(-50%) translateY(0);
-}
-
-/* --- Hover tilt on benefit cards --- */
-.jl-benefit{
-  transition:transform .2s ease, box-shadow .2s ease;
-}
-.jl-benefit:hover{
-  transform:perspective(600px) rotateX(2deg) rotateY(-2deg) translateY(-4px);
-  box-shadow:0 20px 40px #102a4333;
-}
-
-/* --- Animated progress bar on month cards --- */
-.jl-mp-month-progress-bar{
-  width:100%;
-  height:4px;
-  background:#9a917a33;
-  border-radius:999px;
-  margin-top:8px;
-  overflow:hidden;
-}
-.jl-mp-month-progress-fill{
-  height:100%;
-  background:var(--gold);
-  border-radius:999px;
-  transition:width .5s ease;
-}
-.jl-mp-month-card.active .jl-mp-month-progress-bar{ background:#ffffff33; }
-
-.jl-countdown-badge{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  color:var(--muted);
-  font-size:13px;
-  font-weight:700;
-  margin-top:8px;
-}
-#jl-countdown-value{
-  color:var(--navy);
-  font-weight:900;
-  font-family:var(--font-mono);
-}
-
-/* --- Small-screen safety net (very small phones, e.g. iPhone SE 375px / 320px) --- */
-html, body{
-  overflow-x:hidden;
-  max-width:100vw;
-}
-@media (width<=380px){
-  .jl-hero h1{ font-size:30px !important; }
-  .jl-benefits-head h2, .jl-mp-head h2, .jl-am-head h2, .jl-reviews-head h2{ font-size:26px !important; }
-  .jl-cta-copy h2{ font-size:26px !important; }
-  .jl-mp-teaser-card{ padding:22px 18px !important; }
-  .jl-review-form-wrap{ padding:22px 16px !important; }
-  .jl-am-photo{ width:240px !important; height:240px !important; }
-}
-
-/* --- Student account icon --- */
-.jl-student-btn{
-  width:26px;
-  height:26px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:var(--gold);
-  color:#fff;
-  border:none;
-  cursor:pointer;
-  transition:all .18s;
-  flex-shrink:0;
-}
-.jl-student-btn:hover{ background:var(--navy); transform:translateY(-2px); }
-[data-theme="dark"] .jl-student-btn{ background:#3b82f6; }
-
-/* --- Student account modal --- */
-.jl-student-overlay{
-  position:fixed; inset:0; background:#102a43b3;
-  display:none; align-items:center; justify-content:center;
-  z-index:1400; padding:20px;
-}
-.jl-student-overlay.open{ display:flex; }
-.jl-student-modal{
-  background:var(--cream); border-radius:24px; max-width:420px; width:100%;
-  padding:36px 30px; position:relative; box-shadow:0 30px 70px #102a4355;
-  animation:jlPanelIn .25s ease both; text-align:center; max-height:88vh; overflow-y:auto;
-}
-.jl-student-close{
-  position:absolute; top:16px; inset-inline-end:16px; width:32px; height:32px;
-  border-radius:50%; border:none; background:#9a917a22; color:var(--muted);
-  cursor:pointer; font-size:15px;
-}
-.jl-student-close:hover{ background:#9a917a44; }
-.jl-student-tabs{ display:flex; gap:8px; margin-bottom:20px; }
-.jl-student-tab{
-  flex:1; font-family:var(--font-display); font-weight:800; font-size:14px;
-  padding:10px; border-radius:10px; border:none; background:#9a917a1a; color:var(--muted); cursor:pointer;
-}
-.jl-student-tab.active{ background:var(--navy); color:var(--cream); }
-.jl-student-form input{
-  width:100%; font-family:var(--font-display); background:#fff; border:1px solid #d9a44138;
-  border-radius:10px; padding:11px 14px; font-size:14px; margin-bottom:10px; box-sizing:border-box; color:var(--navy);
-}
-.jl-student-form .jl-review-row{ display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:10px; }
-.jl-student-form .jl-review-row input{ margin-bottom:0; }
-.jl-student-link{
-  background:none; border:none; color:var(--gold); font-size:13px; font-weight:700;
-  cursor:pointer; margin-top:10px; font-family:var(--font-display);
-}
-.jl-student-msg{ font-size:13px; margin-top:10px; min-height:16px; }
-.jl-student-hint{ color:var(--muted); font-size:12.5px; margin:0 0 12px; }
-
-.jl-profile-avatar-wrap{ position:relative; width:110px; height:110px; margin:0 auto 16px; }
-.jl-profile-avatar-wrap img{
-  width:110px; height:110px; border-radius:50%; object-fit:cover; border:3px solid var(--gold); background:#9a917a22;
-}
-.jl-avatar-edit-btn{
-  position:absolute; bottom:0; inset-inline-end:0; width:32px; height:32px; border-radius:50%;
-  background:var(--navy); color:#fff; display:flex; align-items:center; justify-content:center;
-  cursor:pointer; font-size:14px; border:2px solid var(--cream);
-}
-#jl-profile-name{ margin:0 0 4px; font-size:19px; font-weight:900; }
-.jl-logout-link{ color:var(--muted-2); display:block; margin:18px auto 0; }
-
-/* --- New student profile card (accent blue) --- */
-:root{
-  --accent:#2f6fed;
-  --accent-soft:#eaf1ff;
-  --accent-text:#1552b8;
-}
-[data-theme="dark"]{
-  --accent:#4f8bff;
-  --accent-soft:#12203f;
-  --accent-text:#8fb8ff;
-}
-.jl-student-modal.jl-pv-mode{
-  padding:0; max-width:400px; overflow-y:auto; overflow-x:hidden; text-align:initial;
-}
-.jl-student-modal.jl-pv-mode .jl-student-close{
-  background:#ffffffd9; color:var(--navy); z-index:5;
-}
-[data-theme="dark"] .jl-student-modal.jl-pv-mode .jl-student-close{
-  background:#0d1728d9; color:var(--ink);
-}
-.jl-pv-topbar{
-  height:64px; background:var(--accent-soft); position:relative;
-  display:flex; align-items:flex-start; justify-content:space-between;
-  padding:12px 18px; box-sizing:border-box;
-  border-radius:24px 24px 0 0;
-}
-.jl-pv-badge{
-  display:inline-flex; align-items:center; gap:5px; background:#fff;
-  color:var(--accent-text); font-size:11px; font-weight:800;
-  padding:5px 10px; border-radius:999px; box-shadow:0 2px 6px #0000001a; white-space:nowrap;
-}
-[data-theme="dark"] .jl-pv-badge{ background:#0d1728; }
-#jl-pv-member-since{
-  font-size:11px; color:var(--accent-text); font-weight:700; margin-top:5px; white-space:nowrap;
-}
-.jl-profile-avatar-wrap.jl-pv-avatar{ width:88px; height:88px; margin:-44px auto 0; }
-.jl-profile-avatar-wrap.jl-pv-avatar img{
-  width:88px; height:88px; border:3px solid var(--accent); background:var(--cream-card);
-}
-.jl-profile-avatar-wrap.jl-pv-avatar .jl-avatar-edit-btn{ background:var(--accent); border-color:var(--cream); }
-#jl-pv-verify-tick{
-  position:absolute; bottom:2px; inset-inline-start:2px; width:22px; height:22px;
-  border-radius:50%; background:var(--accent); color:#fff; display:none;
-  align-items:center; justify-content:center; font-size:11px; border:2px solid var(--cream-card);
-}
-#jl-pv-verify-tick.show{ display:flex; }
-.jl-pv-body{ padding:14px 24px 26px; text-align:center; }
-#jl-profile-name.jl-pv-name{ font-size:21px; margin:10px 0 12px; }
-.jl-pv-tags{ display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin-bottom:16px; }
-.jl-pv-tag{
-  display:inline-flex; align-items:center; gap:5px; background:var(--accent-soft);
-  color:var(--accent-text); font-size:12.5px; font-weight:800; padding:6px 12px; border-radius:999px;
-}
-.jl-pv-verify-inline{ margin-bottom:14px; }
-.jl-pv-verify-inline .jl-student-link{ margin:0; }
-.jl-pv-week-box{ background:#9a917a14; border-radius:14px; padding:12px 14px; margin-bottom:14px; }
-[data-theme="dark"] .jl-pv-week-box{ background:#ffffff0a; }
-.jl-pv-week-label{ font-size:12px; color:var(--muted); font-weight:700; margin-bottom:9px; }
-.jl-pv-week-days{ display:flex; gap:6px; justify-content:center; }
-.jl-pv-day{ width:26px; height:26px; border-radius:8px; background:#9a917a33; }
-.jl-pv-day.active{ background:var(--accent); }
-[data-theme="dark"] .jl-pv-day{ background:#ffffff14; }
-.jl-pv-stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:14px; }
-.jl-pv-stats.jl-pv-stats-2{ grid-template-columns:repeat(2,1fr); }
-.jl-pv-stat{ background:var(--accent-soft); border-radius:12px; padding:12px 6px; }
-.jl-pv-stat b{ display:block; color:var(--accent-text); font-size:18px; font-weight:900; }
-.jl-pv-stat span{ display:block; color:var(--accent-text); font-size:11px; font-weight:700; margin-top:3px; opacity:.85; }
-.jl-pv-tip{
-  display:flex; align-items:center; gap:9px; background:var(--accent-soft); color:var(--accent-text);
-  border-radius:12px; padding:11px 14px; font-size:12.5px; font-weight:700; margin-bottom:14px; text-align:start;
-}
-.jl-pv-tip svg{ flex-shrink:0; }
-.jl-pv-contact{ background:#9a917a14; border-radius:14px; padding:2px 14px; margin-bottom:16px; text-align:start; }
-[data-theme="dark"] .jl-pv-contact{ background:#ffffff0a; }
-.jl-pv-contact-row{ display:flex; align-items:center; gap:10px; padding:10px 0; font-size:13.5px; font-weight:700; color:var(--navy); }
-.jl-pv-contact-row + .jl-pv-contact-row{ border-top:1px solid #9a917a22; }
-.jl-pv-contact-row svg{ color:var(--accent); flex-shrink:0; }
-.jl-pv-copy-btn{ margin-inline-start:auto; background:none; border:none; cursor:pointer; color:var(--muted); opacity:.7; padding:4px; }
-.jl-pv-copy-btn:hover{ opacity:1; color:var(--accent); }
-.jl-pv-actions{ display:flex; gap:8px; margin-bottom:6px; }
-.jl-pv-action-btn{
-  flex:1; background:#9a917a14; border:none; border-radius:12px; padding:11px 6px;
-  font-family:var(--font-display); font-size:12.5px; font-weight:800; color:var(--navy);
-  cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:5px;
-}
-[data-theme="dark"] .jl-pv-action-btn{ background:#ffffff0a; color:var(--ink); }
-.jl-pv-action-btn:hover{ background:var(--accent-soft); color:var(--accent-text); }
-@media (width<=380px){
-  .jl-pv-stats{ gap:6px; }
-  .jl-pv-stat{ padding:10px 3px; }
-  .jl-pv-day{ width:22px; height:22px; }
-  .jl-pv-body{ padding:14px 16px 22px; }
-}
-
-/* --- Password field wrapper (show/hide toggle) --- */
-.jl-pass-wrap{
-  position:relative;
-  margin-bottom:10px;
-}
-.jl-pass-wrap input{
-  margin-bottom:0 !important;
-  padding-inline-end:42px !important;
-}
-.jl-pass-eye{
-  position:absolute;
-  top:50%;
-  inset-inline-end:10px;
-  transform:translateY(-50%);
-  background:none;
-  border:none;
-  cursor:pointer;
-  font-size:15px;
-  opacity:.6;
-}
-.jl-pass-eye:hover{ opacity:1; }
-.jl-pass-hint{
-  color:var(--muted);
-  font-size:11.5px;
-  margin:-4px 0 10px;
-  line-height:1.6;
-}
-
-/* --- Live password strength checklist --- */
-.jl-pass-strength-bar{
-  height:4px;
-  background:#9a917a33;
-  border-radius:999px;
-  overflow:hidden;
-  margin:-6px 0 8px;
-}
-.jl-pass-strength-bar span{
-  display:block;
-  height:100%;
-  width:0%;
-  background:#c0392b;
-  border-radius:999px;
-  transition:width .2s, background .2s;
-}
-.jl-pass-checklist{
-  list-style:none;
-  margin:0 0 12px;
-  padding:0;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:4px 10px;
-}
-.jl-pass-checklist li{
-  font-size:11.5px;
-  color:var(--muted);
-  position:relative;
-  padding-inline-start:16px;
-}
-.jl-pass-checklist li::before{
-  content:'○';
-  position:absolute;
-  inset-inline-start:0;
-  color:var(--muted-2);
-}
-.jl-pass-checklist li.ok{
-  color:#2e7d4f;
-}
-.jl-pass-checklist li.ok::before{
-  content:'✓';
-  color:#2e7d4f;
-}
-
-.jl-mp-share-btn{
-  background:none;
-  border:none;
-  cursor:pointer;
-  font-size:14px;
-  margin-inline-end:6px;
-  opacity:.7;
-  transition:opacity .15s, transform .15s;
-}
-.jl-mp-share-btn:hover{ opacity:1; transform:scale(1.15); }
-
-.jl-char-count{
-  font-size:11px;
-  color:var(--muted);
-  text-align:end;
-  margin:-8px 0 12px;
-}
-
-/* ============ الحزمة الشاملة: أنيميشن في كل حاجة تقريبًا ============ */
-
-/* 1) ظهور تدريجي حقيقي وقت السكرول */
-.jl-reveal{
-  opacity:0;
-  transform:translateY(24px);
-  transition:opacity .6s ease, transform .6s ease;
-}
-.jl-reveal.jl-revealed{
-  opacity:1;
-  transform:translateY(0);
-}
-
-/* 2) تأثير الموجة (Ripple) على الأزرار */
-.jl-reg, .jl-mp-quiz-btn, .jl-student-tab, .jl-lang-pill{
-  position:relative;
-  overflow:hidden;
-}
-.jl-ripple{
-  position:absolute;
-  border-radius:50%;
-  background:#ffffff55;
-  transform:scale(0);
-  animation:jlRippleAnim .55s ease-out forwards;
-  pointer-events:none;
-}
-@keyframes jlRippleAnim{
-  to{ transform:scale(3); opacity:0; }
-}
-
-/* 3) خط متحرك تحت لينكات النافبار */
-.jl-navlink{
-  position:relative;
-}
-.jl-navlink::after{
-  content:'';
-  position:absolute;
-  bottom:-4px;
-  inset-inline-start:0;
-  width:0;
-  height:2px;
-  background:var(--gold);
-  transition:width .25s ease;
-}
-.jl-navlink:hover::after{ width:100%; }
-
-/* 4) النافبار بيبقى أوضح لما تنزل تحت */
-.jl-nav.jl-scrolled{
-  box-shadow:0 12px 30px #102a4340 !important;
-}
-
-/* 5) نبضة على بادچ "أول حصتين مجانًا" */
-@keyframes jlBadgePulseGlow{
-  0%,100%{ box-shadow:0 0 0 0 #6fcf9755; }
-  50%{ box-shadow:0 0 0 8px #6fcf9700; }
-}
-.jl-free-badge{ animation:jlCardIn .5s ease both; }
-
-/* 6) نطة خفيفة لزرار الواتساب كل شوية */
-@keyframes jlWhatsBounce{
-  0%,80%,100%{ transform:translateY(0); }
-  90%{ transform:translateY(-8px); }
-}
-.jl-float-whatsapp{ animation:jlWhatsBounce 4s ease-in-out infinite; box-shadow:0 10px 24px #25d36655; }
-
-/* 7) المودالز تفتح بتكبير سلس */
-@keyframes jlModalScaleIn{
-  from{ opacity:0; transform:scale(.9) translateY(10px); }
-  to{ opacity:1; transform:scale(1) translateY(0); }
-}
-.jl-groups-card, .jl-mp-modal, .jl-student-modal{
-  animation:jlModalScaleIn .3s cubic-bezier(.2,.8,.3,1.2) both !important;
-}
-
-/* 8) اهتزاز أيقونات السوشيال ميديا عند الـ hover */
-@keyframes jlIconWiggle{
-  0%,100%{ transform:rotate(0deg); }
-  25%{ transform:rotate(-12deg); }
-  75%{ transform:rotate(12deg); }
-}
-.jl-social-icon:hover{ animation:jlIconWiggle .4s ease; }
-
-/* 9) توهج حول خانات الإدخال عند التركيز */
-.jl-student-form input:focus,
-.jl-student-form select:focus,
-.jl-student-form textarea:focus,
-.jl-review-form input:focus,
-.jl-review-form textarea:focus{
-  outline:none;
-  border-color:var(--gold) !important;
-  box-shadow:0 0 0 3px #d9a44133;
-  transition:box-shadow .2s, border-color .2s;
-}
-
-/* 10) اللوجو يلف بسيط عند الـ hover */
-.jl-nav-start a{ display:inline-flex; transition:transform .3s ease; }
-.jl-nav-start a:hover img{ transform:rotate(-8deg) scale(1.05); }
-.jl-nav img{ transition:transform .3s ease; }
-
-/* 11) أيقونات الفوتر بتعوم بهدوء */
-@keyframes jlFloatIcon{
-  0%,100%{ transform:translateY(0); }
-  50%{ transform:translateY(-4px); }
-}
-.jl-footer .jl-social-icon:nth-child(1){ animation:jlFloatIcon 3s ease-in-out infinite; }
-.jl-footer .jl-social-icon:nth-child(2){ animation:jlFloatIcon 3s ease-in-out infinite .5s; }
-
-/* 12) توهج النجوم عند الـ hover قبل الاختيار */
-.jl-review-stars span:hover ~ span,
-.jl-review-stars span:hover{
-  transform:scale(1.15);
-  transition:transform .12s;
-}
-
-/* 13) الهمبرجر بيتحول لـ X لما يتفتح */
-.jl-nav-hamburger{ transition:transform .3s ease; }
-.jl-nav-hamburger.jl-open{ transform:rotate(90deg); }
-
-/* 14) زرار اللغة بيعمل نطة صغيرة عند الدوس */
-.jl-lang-pill:active{ transform:scale(.92); }
-.jl-lang-pill{ transition:transform .12s; }
-
-/* 15) زرار النسخ بيعمل نطة لما تدوس عليه */
-.jl-copy-btn{ transition:transform .15s; }
-.jl-copy-btn:active{ transform:scale(1.3); }
-
-/* 16) كروت شهر المسار الشهري بتكبر شوية عند الـ hover */
-.jl-mp-month-card{ transition:transform .2s, box-shadow .2s, border-color .2s; }
-.jl-mp-month-card:hover{ transform:translateY(-4px) scale(1.02); }
-
-/* 17) صفوف الكويز بتلمع لما تتفتح */
-@keyframes jlUnlockGlow{
-  0%{ box-shadow:0 0 0 0 #d9a44166; }
-  100%{ box-shadow:0 0 0 10px #d9a44100; }
-}
-.jl-mp-quiz-row.unlocked{ animation:jlUnlockGlow 1s ease-out; }
-
-/* 18) زرار "ارجع لفوق" بيلف السهم عند الـ hover */
-.jl-back-top{ transition:all .25s; }
-.jl-back-top:hover{ transform:translateY(-3px) rotate(360deg); }
-
-/* 19) بادچ الجوائز بتلمع بتدرج متحرك */
-@keyframes jlShimmer{
-  0%{ background-position:-200% 0; }
-  100%{ background-position:200% 0; }
-}
-.jl-prize-badge{
-  background:linear-gradient(90deg, var(--gold) 0%, #e8d19a 50%, var(--gold) 100%);
-  background-size:200% auto;
-  -webkit-background-clip:text;
-  background-clip:text;
-  -webkit-text-fill-color:transparent;
-  animation:jlShimmer 3s linear infinite;
-}
-
-/* 20) توست بيدخل بنطة بدل ما يظهر عادي */
-@keyframes jlToastBounceIn{
-  0%{ transform:translateX(-50%) translateY(30px) scale(.8); opacity:0; }
-  60%{ transform:translateX(-50%) translateY(-6px) scale(1.05); opacity:1; }
-  100%{ transform:translateX(-50%) translateY(0) scale(1); opacity:1; }
-}
-.jl-toast.show{ animation:jlToastBounceIn .4s cubic-bezier(.34,1.56,.64,1); }
-
-/* 21) خط تحت الكلمة المظللة في الهيرو بيترسم */
-.jl-hero h1 mark{
-  position:relative;
-  overflow:hidden;
-}
-@keyframes jlMarkDraw{
-  from{ background-size:0% 100%; }
-  to{ background-size:100% 100%; }
-}
-.jl-hero h1 mark{
-  background-image:linear-gradient(#d9a44142, #d9a44142);
-  background-repeat:no-repeat;
-  background-position:0 0;
-  animation:jlMarkDraw 1s ease 1.3s both;
-}
-
-/* 22) صور الفريق بتكبر شوية جوه الإطار عند الـ hover */
-.jl-am-photo img{ transition:transform .4s ease; }
-.jl-am-card:hover .jl-am-photo img{ transform:scale(1.08); }
-
-/* 23) عداد الترم بينبض لما يتغيّر */
-@keyframes jlCountdownPulse{
-  0%{ transform:scale(1); }
-  50%{ transform:scale(1.15); color:var(--gold); }
-  100%{ transform:scale(1); }
-}
-#jl-countdown-value.jl-pulse{ animation:jlCountdownPulse .4s ease; }
-
-/* 24) خط تحت عناوين الأقسام بيترسم لما يظهر */
-.jl-benefits-head h2, .jl-mp-head h2, .jl-am-head h2, .jl-reviews-head h2, .jl-about-main h2, .jl-mp-teaser-copy h2{
-  position:relative;
-}
-
-/* 25) اسم الموقع في النافبار بيغيّر لونه عند الـ hover */
-.jl-nav-brand{ transition:color .2s; }
-.jl-nav-start a:hover .jl-nav-brand{ color:var(--gold); }
-
-/* 26) خانة البحث في اللوحة بتتوسع عند التركيز */
-#results-search{ transition:box-shadow .2s; }
-#results-search:focus{ box-shadow:0 0 0 3px #d9a44133; }
-
-/* 27) درجة الكويز بتظهر بنطة لما تتحسب */
-@keyframes jlScorePop{
-  0%{ transform:scale(0); opacity:0; }
-  60%{ transform:scale(1.2); opacity:1; }
-  100%{ transform:scale(1); }
-}
-.jl-mp-quiz-score{ animation:jlScorePop .4s ease both; display:inline-block; }
-
-/* 28) شريط قوة الباسورد بينبض لما يوصل 100% */
-@keyframes jlStrengthFull{
-  0%,100%{ box-shadow:0 0 0 0 #2e7d4f55; }
-  50%{ box-shadow:0 0 6px 2px #2e7d4f55; }
-}
-.jl-pass-strength-bar span[style*="100%"]{ animation:jlStrengthFull 1s ease-in-out infinite; }
-
-/* 29) زرار "الدخول الشهري" بيلمع حواليه بهدوء */
-@keyframes jlTeaserGlow{
-  0%,100%{ box-shadow:0 0 0 0 #d9a44133; }
-  50%{ box-shadow:0 0 0 6px #d9a44100; }
-}
-.jl-mp-teaser .jl-reg{ box-shadow:0 10px 24px #102a4340; }
-
-/* 30) كروت التقييمات بتترفع عند الـ hover */
-.jl-review-card{ transition:transform .2s, box-shadow .2s; }
-.jl-review-card:hover{ transform:translateY(-4px); box-shadow:0 16px 32px #102a4324; }
-
-/* ============ حزمة أنيميشن جديدة (دفعة تانية) ============ */
-
-/* 1) رموز كود عايمة في خلفية الهيرو */
-.jl-hero-symbols{ position:absolute; inset:0; pointer-events:none; overflow:hidden; z-index:0; }
-.jl-hero-symbol{
-  position:absolute;
-  font-family:var(--font-mono);
-  color:#d9a44122;
-  font-size:28px;
-  font-weight:800;
-  animation:jlSymbolDrift linear infinite;
-}
-[data-theme="dark"] .jl-hero-symbol{ color:#3b82f622; }
-@keyframes jlSymbolDrift{
-  0%{ transform:translateY(0) rotate(0deg); opacity:0; }
-  10%{ opacity:1; }
-  90%{ opacity:1; }
-  100%{ transform:translateY(-110vh) rotate(20deg); opacity:0; }
-}
-
-/* 2) توهج نابض مستمر حوالين زرار الاشتراك الرئيسي */
-@keyframes jlCtaGlowPulse{
-  0%,100%{ box-shadow:0 0 0 0 #d9a44155; }
-  50%{ box-shadow:0 0 22px 6px #d9a44133; }
-}
-.jl-cta-action .jl-reg{ box-shadow:0 10px 26px #d9a44140; }
-
-/* 3) تأثير مغناطيسي بسيط للأزرار الكبيرة عند الـ hover */
-.jl-reg{ transition:transform .15s ease, box-shadow .2s; }
-.jl-reg:hover{ transform:translateY(-3px) scale(1.03); }
-.jl-reg:active{ transform:translateY(-1px) scale(.98); }
-
-/* 4) اهتزاز خفيف لحقول الفورم عند الخطأ */
-@keyframes jlShakeError{
-  0%,100%{ transform:translateX(0); }
-  20%{ transform:translateX(-6px); }
-  40%{ transform:translateX(6px); }
-  60%{ transform:translateX(-4px); }
-  80%{ transform:translateX(4px); }
-}
-.jl-shake{ animation:jlShakeError .4s ease; }
-
-/* 5) انتقال سلس لكل الألوان عند تبديل الوضع الفاتح/الغامق */
-body, .jl-nav, .jl-hero, .jl-benefit, .jl-cta-card, .jl-am-card, .jl-review-card,
-.jl-footer, .jl-footer-col, .jl-mp-month-card, .jl-mp-panel-box, .jl-groups-card,
-.jl-student-modal, .jl-mp-modal{
-  transition:background-color .4s ease, color .4s ease, border-color .4s ease;
-}
-
-/* 6) دوران بطيء مستمر لأيقونة الإعدادات (لوحة التحكم) في وضع الخمول */
-@keyframes jlSlowSpin{
-  from{ transform:rotate(0deg); }
-  to{ transform:rotate(360deg); }
-}
-.jl-admin-btn svg{ transition:transform .3s; }
-.jl-admin-btn:hover svg{ animation:jlSlowSpin 1.2s linear infinite; }
-
-/* 7) نبضة هادئة مستمرة على أيقونة الشات (تلفت النظر إنها موجودة) */
-@keyframes jlChatPulse{
-  0%,100%{ transform:scale(1); }
-  50%{ transform:scale(1.12); }
-}
-.jl-chat-btn{ animation:jlChatPulse 2.8s ease-in-out infinite; }
-
-/* 8) موجة فاصلة متحركة بين الأقسام */
-.jl-wave-divider{
-  width:100%;
-  height:40px;
-  overflow:hidden;
-  position:relative;
-}
-.jl-wave-divider svg{
-  position:absolute;
-  width:200%;
-  height:100%;
-  animation:jlWaveMove 12s linear infinite;
-}
-@keyframes jlWaveMove{
-  from{ transform:translateX(0); }
-  to{ transform:translateX(-50%); }
-}
-
-/* 9) تدرّج لوني متحرك على نص "Code Hub" في الأماكن البارزة */
-@keyframes jlGradientText{
-  0%{ background-position:0% 50%; }
-  50%{ background-position:100% 50%; }
-  100%{ background-position:0% 50%; }
-}
-.jl-cta-brand{
-  background:linear-gradient(90deg, var(--gold), #e8d19a, var(--gold));
-  background-size:200% auto;
-  -webkit-background-clip:text;
-  background-clip:text;
-  -webkit-text-fill-color:transparent;
-  animation:jlGradientText 3s linear infinite;
-}
-
-/* 10) دخول مرن (Elastic) للوجو عند الدوس عليه */
-.jl-nav-start a:active img{ transform:scale(.85); transition:transform .1s; }
-
-/* 11) شيمر تحميل (Skeleton) للوحة التحكم وقت التحميل */
-@keyframes jlShimmerLoad{
-  0%{ background-position:-200% 0; }
-  100%{ background-position:200% 0; }
-}
-.jl-skeleton{
-  background:linear-gradient(90deg, #9a917a1a 25%, #9a917a33 50%, #9a917a1a 75%);
-  background-size:200% 100%;
-  animation:jlShimmerLoad 1.4s ease-in-out infinite;
-  border-radius:8px;
-  min-height:14px;
-}
-
-/* 12) نبض بطيء لبادچ المسار الشهري (تشجيع الدخول) */
-@keyframes jlTeaserPulseScale{
-  0%,100%{ transform:scale(1); }
-  50%{ transform:scale(1.015); }
-}
-.jl-mp-teaser-card{ animation:jlTeaserPulseScale 4s ease-in-out infinite; }
-
-/* 13) حركة عائمة هادئة للأيقونة داخل بادچ الحصص المجانية */
-@keyframes jlGiftFloat{
-  0%,100%{ transform:translateY(0) rotate(0deg); }
-  50%{ transform:translateY(-3px) rotate(-8deg); }
-}
-.jl-free-badge{ display:inline-flex; }
-
-/* 14) دخول متتابع لأرقام النتيجة */
-@keyframes jlNumberRoll{
-  from{ transform:translateY(8px); opacity:0; }
-  to{ transform:translateY(0); opacity:1; }
-}
-.jl-mp-quiz-score{ animation:jlScorePop .4s ease both, jlNumberRoll .3s ease both; }
-
-/* 15) خط النافبار السفلي يلمع بتدرج عند التمرير */
-.jl-nav.jl-scrolled{
-  border-image:linear-gradient(90deg, transparent, var(--gold), transparent) 1;
-}
-
-/* ============ إيقاف كل الحركات المستمرة لمن يفضّل تقليل الحركة (إمكانية وصول + أداء) ============ */
-@media (prefers-reduced-motion: reduce){
-  *, *::before, *::after{
-    animation-duration:0.001ms !important;
-    animation-iteration-count:1 !important;
-    transition-duration:0.001ms !important;
-    scroll-behavior:auto !important;
+});
+
+/* --- extracted script 7 --- */
+(function(){
+  var htmlEl = document.documentElement;
+  var lightBtn = document.querySelector('[data-theme-btn="light"]');
+  var darkBtn = document.querySelector('[data-theme-btn="dark"]');
+  function setTheme(mode){
+    if(mode === 'dark'){
+      htmlEl.setAttribute('data-theme','dark');
+      darkBtn && darkBtn.classList.add('active');
+      lightBtn && lightBtn.classList.remove('active');
+    } else {
+      htmlEl.removeAttribute('data-theme');
+      lightBtn && lightBtn.classList.add('active');
+      darkBtn && darkBtn.classList.remove('active');
+    }
   }
-  .jl-reveal{ opacity:1 !important; transform:none !important; }
-}
+  lightBtn && lightBtn.addEventListener('click', function(){ setTheme('light'); });
+  darkBtn && darkBtn.addEventListener('click', function(){ setTheme('dark'); });
 
-.jl-profile-verify{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  flex-wrap:wrap;
-  font-size:13px;
-  color:var(--muted);
-  margin:14px 0 4px;
-}
-#jl-verify-badge.verified{
-  color:#2e7d4f;
-  font-weight:800;
-}
-#jl-otp-form input{
-  width:100%;
-  font-family:var(--font-display);
-  background:var(--cream);
-  border:1px solid #d9a44138;
-  border-radius:10px;
-  padding:11px 14px;
-  font-size:14px;
-  color:var(--navy);
-  box-sizing:border-box;
-  text-align:center;
-}
+})();
 
-/* --- Floating call button (next to WhatsApp) --- */
-.jl-float-call{
-  position:fixed;
-  bottom:24px;
-  inset-inline-start:88px;
-  width:46px;
-  height:46px;
-  border-radius:50%;
-  background:var(--navy);
-  color:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  box-shadow:0 10px 24px #102a4355;
-  z-index:900;
-  transition:all .18s;
-}
-.jl-float-call:hover{ background:var(--gold); transform:translateY(-3px); }
-[data-theme="dark"] .jl-float-call{ background:#3b82f6; }
-@media (width<=560px){
-  .jl-float-call{ width:40px; height:40px; bottom:16px; inset-inline-start:70px; }
-  .jl-float-call svg{ width:19px; height:19px; }
-}
+/* --- extracted script 8 --- */
+(function(){
+  var CH_API_BASE_MP = window.CH_SITE_API_BASE || ''; // 👈 محتاجش تعدّل هنا، بس حط الرابط فوق أول الملف
 
-/* ============ المسار الشهري: تصميم قايمة منسدلة (Accordion) جديد ============ */
-.jl-mp-months{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  max-width:720px;
-  margin:0 auto;
-}
-.jl-mp-accordion-item{
-  background:var(--cream-card);
-  border:1px solid #d9a44138;
-  border-radius:16px;
-  overflow:hidden;
-  transition:border-color .2s;
-}
-.jl-mp-accordion-item.expanded{
-  border-color:var(--gold);
-}
-.jl-mp-accordion-item.locked{
-  opacity:.55;
-}
-.jl-mp-accordion-head{
-  width:100%;
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:16px 18px;
-  background:none;
-  border:none;
-  cursor:pointer;
-  font-family:var(--font-display);
-  text-align:start;
-}
-.jl-mp-accordion-item.locked .jl-mp-accordion-head{
-  cursor:not-allowed;
-}
-.jl-mp-lock-icon{ font-size:18px; flex-shrink:0; }
-.jl-mp-month-title{ font-weight:900; font-size:16px; color:var(--navy); flex:1; }
-.jl-mp-month-progress-txt{ font-family:var(--font-mono); font-size:12px; color:var(--muted); }
-.jl-mp-chevron{ font-size:11px; color:var(--gold); transition:transform .2s; }
-
-.jl-mp-month-progress-bar{ margin:0 18px 14px; height:4px; }
-.jl-mp-accordion-item .jl-mp-month-progress-bar{
-  width:calc(100% - 36px);
-  background:#9a917a26;
-  border-radius:999px;
-  overflow:hidden;
-}
-.jl-mp-accordion-item .jl-mp-month-progress-fill{
-  height:100%;
-  background:var(--gold);
-  border-radius:999px;
-  transition:width .5s ease;
-}
-
-.jl-mp-accordion-body{
-  padding:0 18px 18px;
-  animation:jlPanelIn .3s ease both;
-}
-
-.jl-mp-final-exam{
-  margin-top:14px;
-  padding-top:14px;
-  border-top:2px dashed #d9a44138;
-}
-.jl-mp-final-label{
-  font-size:12px;
-  font-weight:800;
-  color:var(--gold);
-  margin-bottom:8px;
-}
-.jl-mp-quiz-row.locked .jl-mp-final-btn{ background:#9a917a22; color:var(--muted-2); }
-.jl-mp-final-result{
-  margin-top:10px;
-  padding:12px 14px;
-  border-radius:10px;
-  font-size:13px;
-  font-weight:700;
-  text-align:center;
-}
-.jl-mp-final-result.pass{ background:#6fcf9722; color:#2e7d4f; }
-.jl-mp-final-result.fail{ background:#c0392b1a; color:#c0392b; }
-
-/* ============ حزمة أنيميشن ثالثة (دفعة إضافية) ============ */
-
-/* 1) اللوجو الجديد يعمل نبضة توهج خفيفة باستمرار */
-@keyframes jlLogoGlow{
-  0%,100%{ filter:drop-shadow(0 0 0px #7c5cff00); }
-  50%{ filter:drop-shadow(0 0 6px #7c5cff66); }
-}
-.jl-nav img{ animation:jlLogoGlow 3s ease-in-out infinite; }
-
-/* 2) بادچ الحصص المجانية يهتز بلطف كل شوية للفت النظر */
-@keyframes jlBadgeShake{
-  0%, 90%, 100%{ transform:rotate(0deg); }
-  92%{ transform:rotate(-3deg); }
-  94%{ transform:rotate(3deg); }
-  96%{ transform:rotate(-2deg); }
-  98%{ transform:rotate(2deg); }
-}
-.jl-free-badge{ animation:jlCardIn .5s ease both, jlBadgeShake 6s ease-in-out infinite; }
-
-/* 3) كروت "نبذة عني" تميل بسيط مع حركة الماوس (Tilt) */
-.jl-am-card{ transition:transform .25s ease, box-shadow .25s ease; }
-.jl-am-card:hover{ transform:perspective(800px) rotateY(-3deg) translateY(-4px); box-shadow:0 20px 40px #102a4333; }
-
-/* 4) خط تحت "Code Hub" في الفوتر بيترسم عند الظهور */
-.jl-footer-brand-col h4{ position:relative; display:inline-block; }
-@keyframes jlFooterUnderline{
-  from{ width:0; }
-  to{ width:100%; }
-}
-.jl-footer-brand-col h4::after{
-  content:'';
-  position:absolute;
-  bottom:-4px;
-  right:0;
-  height:2px;
-  background:var(--gold);
-  width:0;
-  animation:jlFooterUnderline 1s ease 1.5s forwards;
-}
-
-/* 5) أزرار الفورم (تسجيل/دخول) تنبض بلطف لما تبقى جاهزة (مش disabled) */
-@keyframes jlReadyPulse{
-  0%,100%{ box-shadow:0 0 0 0 #102a4333; }
-  50%{ box-shadow:0 0 0 5px #102a4300; }
-}
-.jl-student-form .jl-reg:not([disabled]){ animation:jlReadyPulse 2s ease-in-out infinite; }
-
-/* 6) أيقونة الترس بتلف تلقائيًا كل شوية حتى من غير hover */
-@keyframes jlGearIdle{
-  0%,85%,100%{ transform:rotate(0deg); }
-  92%{ transform:rotate(180deg); }
-}
-.jl-admin-btn{ animation:jlGearIdle 8s ease-in-out infinite; }
-
-/* 7) كروت المميزات تدور بزاوية بسيطة عند الـ hover (Tilt) */
-.jl-benefit{ transform-style:preserve-3d; }
-.jl-benefit:hover{ transform:perspective(700px) rotateX(3deg) rotateY(-3deg) translateY(-4px); }
-
-/* 8) أرقام الدرجة في التقييمات (نجوم) تدخل واحدة واحدة بالتتابع */
-@keyframes jlStarReveal{
-  from{ opacity:0; transform:scale(0) rotate(-90deg); }
-  to{ opacity:1; transform:scale(1) rotate(0deg); }
-}
-.jl-review-card-stars{ display:inline-block; }
-.jl-review-card-stars{ animation:jlStarReveal .5s ease both; }
-
-/* 9) خلفية القسم الخاص بالمسار الشهري بتومض بتدرج هادئ */
-@keyframes jlTeaserBgShift{
-  0%,100%{ background-position:0% 50%; }
-  50%{ background-position:100% 50%; }
-}
-.jl-mp-teaser-card{
-  background:linear-gradient(120deg, var(--navy), #241a4a, var(--navy));
-  background-size:200% 200%;
-  animation:jlTeaserPulseScale 4s ease-in-out infinite, jlTeaserBgShift 6s ease-in-out infinite;
-}
-
-/* 10) الأيقونات جوه كروت المميزات تكبر شوية عند hover الكارت */
-.jl-benefit-icon{ transition:transform .3s ease; }
-.jl-benefit:hover .jl-benefit-icon{ transform:scale(1.15) rotate(-6deg); }
-
-/* 11) زرار الطالب (أيقونة الحساب) ينبض لو الطالب مسجّل دخول */
-@keyframes jlAvatarPulse{
-  0%,100%{ box-shadow:0 0 0 0 #d9a44155; }
-  50%{ box-shadow:0 0 0 4px #d9a44100; }
-}
-.jl-student-btn{ animation:jlAvatarPulse 2.4s ease-in-out infinite; }
-
-/* 12) عناوين الأقسام تدخل من الجنب مع خط ذهبي متحرك بجانبها */
-.jl-about-main h2, .jl-reviews-head h2{ position:relative; padding-inline-start:16px; }
-.jl-about-main h2::before, .jl-reviews-head h2::before{
-  content:'';
-  position:absolute;
-  right:0;
-  top:8%;
-  height:84%;
-  width:4px;
-  background:var(--gold);
-  border-radius:4px;
-  animation:jlBarGrow .5s ease both;
-}
-@keyframes jlBarGrow{
-  from{ height:0; }
-  to{ height:84%; }
-}
-
-/* --- New wide logo (icon + wordmark + tagline together) --- */
-.jl-nav img{
-  height:42px !important;
-  width:auto !important;
-  border-radius:8px !important;
-}
-@media (width<=560px){
-  .jl-nav img{ height:32px !important; }
-}
-
-.jl-am-bio + .jl-am-bio{ margin-top:8px; }
-
-/* ============ شاشة أخذ الكويز الحقيقية ============ */
-.jl-mp-login-prompt{
-  text-align:center;
-  padding:30px 10px;
-}
-.jl-mp-login-prompt p{
-  color:var(--muted);
-  font-size:14px;
-  margin:0 0 18px;
-  line-height:1.8;
-}
-.jl-mp-error-msg{
-  text-align:center;
-  color:#c0392b;
-  font-size:13.5px;
-  padding:20px;
-}
-
-.jl-quiz-take{
-  max-width:600px;
-  margin:0 auto;
-  padding:10px;
-}
-.jl-quiz-take-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  font-size:13px;
-  color:var(--muted);
-  font-weight:700;
-  margin-bottom:12px;
-}
-.jl-quiz-take-progress{
-  height:6px;
-  background:#9a917a26;
-  border-radius:999px;
-  overflow:hidden;
-  margin-bottom:24px;
-}
-.jl-quiz-take-progress-fill{
-  height:100%;
-  background:var(--gold);
-  border-radius:999px;
-  transition:width .4s ease;
-}
-.jl-quiz-take-question{
-  font-size:19px;
-  font-weight:800;
-  color:var(--navy);
-  margin-bottom:20px;
-  line-height:1.6;
-}
-.jl-quiz-take-options{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  margin-bottom:24px;
-}
-.jl-quiz-option{
-  font-family:var(--font-display);
-  text-align:start;
-  background:var(--cream-card);
-  border:1.5px solid #d9a44138;
-  border-radius:12px;
-  padding:14px 18px;
-  font-size:15px;
-  cursor:pointer;
-  transition:all .15s;
-  color:var(--navy);
-}
-.jl-quiz-option:hover{
-  border-color:var(--gold);
-  background:#d9a4410d;
-}
-.jl-quiz-option.selected{
-  border-color:var(--gold);
-  background:var(--gold);
-  color:#fff;
-  font-weight:800;
-}
-
-.jl-quiz-result{
-  text-align:center;
-  padding:30px 10px;
-  max-width:400px;
-  margin:0 auto;
-}
-.jl-quiz-result-score{
-  font-size:48px;
-  font-weight:900;
-  color:var(--navy);
-  font-family:var(--font-mono);
-}
-.jl-quiz-result-pct{
-  font-size:16px;
-  color:var(--gold);
-  font-weight:800;
-  margin:6px 0 24px;
-}
-
-/* ============ خلفية نجوم + شهب بنفسجية (زي المرجع) ============ */
-.jl-stars-field{
-  position:absolute;
-  inset:0;
-  overflow:hidden;
-  pointer-events:none;
-  z-index:0;
-  opacity:0;
-  transition:opacity .6s ease;
-}
-.jl-stars-field{ opacity:.55; }
-[data-theme="dark"] .jl-stars-field{ opacity:1; }
-
-.jl-star-dot{
-  position:absolute;
-  width:2px;
-  height:2px;
-  background:var(--navy);
-  border-radius:50%;
-  animation:jlStarTwinkle ease-in-out infinite;
-}
-[data-theme="dark"] .jl-star-dot{
-  background:#fff;
-}
-@keyframes jlStarTwinkle{
-  0%,100%{ opacity:.15; }
-  50%{ opacity:1; }
-}
-
-.jl-meteor{
-  position:absolute;
-  width:90px;
-  height:2px;
-  background:linear-gradient(90deg, #a78bfa, transparent);
-  border-radius:2px;
-  filter:drop-shadow(0 0 6px #a78bfa);
-  transform:rotate(-35deg);
-  opacity:0;
-  animation:jlMeteorRun linear infinite;
-}
-@keyframes jlMeteorRun{
-  0%{ transform:translate(0,0) rotate(-35deg); opacity:0; }
-  8%{ opacity:1; }
-  25%{ opacity:0; }
-  100%{ transform:translate(-420px,420px) rotate(-35deg); opacity:0; }
-}
-
-/* --- إصلاح: قسم المميزات في الوضع الغامق --- */
-/* المشكلة: القسم ده مصمم بخلفية كحلي ونص كريمي ثابتين، لكن في الوضع الغامق
-   المتغيرات بتتقلب (الكحلي بيبقى فاتح) فبيبقى النص الأبيض على خلفية بيضا تقريبًا.
-   الحل: نثبّت خلفية غامقة ونص فاتح للقسم ده تحديدًا في الوضع الغامق. */
-[data-theme="dark"] .jl-benefits{
-  background:var(--cream-card) !important;
-  color:var(--ink) !important;
-}
-[data-theme="dark"] .jl-benefits-head p{ color:#dce6f5b3 !important; }
-[data-theme="dark"] .jl-benefit p{ color:#dce6f5a6 !important; }
-[data-theme="dark"] .jl-benefit{
-  background:#ffffff0d !important;
-  border-color:#3b82f638 !important;
-}
-[data-theme="dark"] .jl-benefit:hover{
-  background:#ffffff14 !important;
-  border-color:#3b82f680 !important;
-}
-[data-theme="dark"] .jl-benefit-icon{
-  background:#3b82f629 !important;
-  color:var(--gold-light) !important;
-}
-
-/* --- إصلاح: كارت "مسار الشهر" في الوضع الغامق (نفس مشكلة قسم المميزات بالظبط) --- */
-[data-theme="dark"] .jl-mp-teaser-card{
-  background:linear-gradient(120deg, var(--cream-card), #1a1030, var(--cream-card)) !important;
-  background-size:200% 200% !important;
-}
-[data-theme="dark"] .jl-mp-teaser-copy h2{ color:var(--ink) !important; }
-[data-theme="dark"] .jl-mp-teaser-copy p{ color:#dce6f5b3 !important; }
-
-/* --- إصلاح بسيط: أيقونات دائرية شفافة الخلفية بدل الكحلي الثابت، عشان تفضل متناسقة --- */
-[data-theme="dark"] .jl-audience-icon{
-  background:#3b82f629 !important;
-  color:var(--gold-light) !important;
-}
-[data-theme="dark"] .jl-social-icon{
-  background:#3b82f629 !important;
-  color:var(--ink) !important;
-}
-[data-theme="dark"] .jl-social-icon:hover{
-  background:var(--gold) !important;
-  color:#fff !important;
-}
-
-/* ============ 20 تحسين جديد ============ */
-
-/* 1) تأثير زجاجي (Glassmorphism) على الكروت */
-.jl-am-card, .jl-review-card, .jl-about-card{
-  backdrop-filter:blur(8px);
-  -webkit-backdrop-filter:blur(8px);
-}
-
-/* 2) زرار حقيقي بيتضغط لما تدوسه */
-.jl-reg:active, .jl-quiz-option:active, .jl-mp-quiz-btn:active{
-  transform:scale(.96) !important;
-  transition:transform .08s !important;
-}
-
-/* 3) كارت المدرّس يقلب عند الدوس (Flip Card) */
-.jl-am-card{ perspective:1200px; }
-.jl-am-flip-inner{
-  position:relative;
-  transition:transform .6s;
-  transform-style:preserve-3d;
-}
-.jl-am-card.flipped .jl-am-flip-inner{ transform:rotateY(180deg); }
-.jl-am-flip-back{
-  position:absolute;
-  inset:0;
-  backface-visibility:hidden;
-  transform:rotateY(180deg);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:20px;
-  background:var(--cream-card);
-  border-radius:16px;
-  font-size:13px;
-  color:var(--muted);
-  display:none;
-}
-
-/* 4) بطاقة الكود تفتح بمنظور ثلاثي الأبعاد */
-@keyframes jlCodeReveal3D{
-  from{ transform:rotate(-1.1deg) rotateY(25deg) scale(.9); opacity:0; }
-  to{ transform:rotate(-1.1deg) rotateY(0deg) scale(1); opacity:1; }
-}
-.jl-code{ animation:jlCodeReveal3D .8s ease both; transform-style:preserve-3d; }
-
-/* 5) زرار مغناطيسي بسيط (بيتحرك مع الماوس شوية) */
-.jl-reg{ will-change:transform; }
-
-/* 6) الأقسام تدخل بميلان بسيط وقت السكرول */
-.jl-reveal{ transform:translateY(24px) rotateX(4deg); }
-.jl-reveal.jl-revealed{ transform:translateY(0) rotateX(0); }
-
-/* 7) عداد الترم بيتقلب زي ساعة قديمة (Flip) */
-@keyframes jlFlipCounter{
-  0%{ transform:rotateX(0deg); }
-  50%{ transform:rotateX(90deg); opacity:.4; }
-  100%{ transform:rotateX(0deg); opacity:1; }
-}
-#jl-countdown-value.jl-pulse{ animation:jlFlipCounter .5s ease; transform-origin:center; display:inline-block; }
-
-/* 8) النجوم تدور 360 لما تتختار */
-@keyframes jlStarSpin{
-  from{ transform:rotate(0deg) scale(1); }
-  50%{ transform:rotate(180deg) scale(1.3); }
-  to{ transform:rotate(360deg) scale(1); }
-}
-.jl-review-stars span.active{ animation:jlStarSpin .4s ease; }
-
-/* 9) تركيز واضح لوحة المفاتيح (Accessibility) */
-a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible{
-  outline:3px solid var(--gold) !important;
-  outline-offset:2px !important;
-}
-
-/* 10) بادچ عدد الأسئلة أثناء الامتحان بينبض لما يتغيّر */
-.jl-quiz-take-head span:last-child{
-  background:var(--gold);
-  color:#fff;
-  padding:3px 10px;
-  border-radius:999px;
-  font-size:12px;
-}
-
-/* 11) تظليل عمق إضافي للكروت عند التحويم (Parallax-ish shadow) */
-.jl-benefit:hover, .jl-am-card:hover{
-  box-shadow:0 30px 60px -15px #102a4340 !important;
-}
-
-/* 12) خط توهج حوالين زرار البدء وقت الامتحان */
-.jl-quiz-option.selected{
-  box-shadow:0 0 0 3px #d9a44140;
-}
-
-/* 14) عرض الإجابة الصح/الغلط بعد المراجعة */
-.jl-review-answer{
-  border-radius:10px;
-  padding:10px 14px;
-  margin-top:8px;
-  font-size:13.5px;
-}
-.jl-review-answer.correct{ background:#6fcf9722; color:#2e7d4f; }
-.jl-review-answer.wrong{ background:#c0392b1a; color:#c0392b; }
-
-/* 15) سكيلتون تحميل محسّن للامتحان */
-.jl-skeleton{ position:relative; overflow:hidden; }
-
-/* ============ لابتوب متحرك بثري دي بدل بانل الكود ============ */
-.jl-laptop-scene{
-  perspective:1400px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  padding:20px 0;
-}
-.jl-laptop-3d{
-  position:relative;
-  width:100%;
-  max-width:480px;
-  transform-style:preserve-3d;
-  animation:jlLaptopFloat 5s ease-in-out infinite, jlLaptopTilt 9s ease-in-out infinite;
-  filter:drop-shadow(0 30px 40px #102a4340);
-  transition:transform .4s ease;
-}
-.jl-laptop-3d:hover{
-  animation-play-state:paused;
-  transform:rotateY(0deg) rotateX(4deg) translateY(-6px) scale(1.02);
-}
-@keyframes jlLaptopFloat{
-  0%,100%{ transform:translateY(0); }
-  50%{ transform:translateY(-14px); }
-}
-@keyframes jlLaptopTilt{
-  0%,100%{ transform:rotateY(-8deg) rotateX(4deg); }
-  50%{ transform:rotateY(6deg) rotateX(2deg); }
-}
-.jl-laptop-svg{ width:100%; height:auto; display:block; }
-
-/* شريط تقدّم بيتحرك جوه الشاشة */
-.jl-scr-bar{ animation:jlScrBarFill 3s ease-in-out infinite; }
-@keyframes jlScrBarFill{
-  0%{ width:0; }
-  60%{ width:300px; }
-  100%{ width:300px; }
-}
-/* كارت السؤال بينبض بهدوء */
-.jl-scr-card{ animation:jlScrCardPulse 3.5s ease-in-out infinite; }
-@keyframes jlScrCardPulse{
-  0%,100%{ opacity:.85; }
-  50%{ opacity:1; }
-}
-/* الاختيار الصح يلمع بالتبادل */
-.jl-scr-opt-2{ animation:jlScrOptGlow 2.2s ease-in-out infinite; }
-@keyframes jlScrOptGlow{
-  0%,100%{ filter:drop-shadow(0 0 0px #e8c57400); }
-  50%{ filter:drop-shadow(0 0 6px #e8c574aa); }
-}
-
-/* عناصر عايمة حوالين اللابتوب */
-.jl-laptop-float{
-  position:absolute;
-  font-family:var(--font-mono);
-  font-weight:800;
-  font-size:20px;
-  color:var(--gold);
-  background:var(--cream-card);
-  border:1.5px solid #d9a44155;
-  border-radius:12px;
-  padding:6px 10px;
-  box-shadow:0 10px 20px #102a4324;
-  animation:jlFloatItem ease-in-out infinite;
-}
-.jl-float-1{ top:0%; right:-4%; animation-duration:4s; }
-.jl-float-2{ bottom:8%; left:-6%; animation-duration:5s; animation-delay:.5s; }
-.jl-float-3{ top:38%; left:-8%; animation-duration:4.5s; animation-delay:1s; color:#6fcf97; }
-.jl-float-4{ bottom:-2%; right:12%; animation-duration:5.5s; animation-delay:1.5s; color:#3b82f6; }
-@keyframes jlFloatItem{
-  0%,100%{ transform:translateY(0) rotate(0deg); }
-  50%{ transform:translateY(-10px) rotate(-6deg); }
-}
-
-.jl-laptop-badge{
-  color:var(--gold-light);
-  letter-spacing:1px;
-  border:1px solid #e8c57466;
-  border-radius:999px;
-  align-items:center;
-  gap:9px;
-  margin-top:20px;
-  padding:8px 16px;
-  font-size:12px;
-  display:inline-flex;
-}
-.jl-laptop-badge i{
-  background:var(--green);
-  border-radius:50%;
-  width:9px;
-  height:9px;
-  display:block;
-}
-
-@media (width<=980px){
-  .jl-laptop-3d{ animation:jlLaptopFloat 5s ease-in-out infinite; }
-  .jl-laptop-float{ font-size:16px; padding:4px 8px; }
-}
-
-/* ============ مجرّة المهارات: الروبوت في المنتصف والمهارات بتدور حواليه ============ */
-.jl-orbit-scene{
-  position:relative;
-  width:100%;
-  max-width:440px;
-  aspect-ratio:1/1;
-  margin:20px auto;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.jl-orbit-glow{
-  position:absolute;
-  inset:8%;
-  border-radius:50%;
-  background:radial-gradient(circle, #d9a44126 0%, transparent 70%);
-  animation:jlOrbitGlowPulse 3s ease-in-out infinite;
-  z-index:0;
-}
-@keyframes jlOrbitGlowPulse{
-  0%,100%{ opacity:.6; transform:scale(1); }
-  50%{ opacity:1; transform:scale(1.08); }
-}
-
-.jl-orbit-center{
-  position:relative;
-  z-index:3;
-  width:120px;
-  height:120px;
-  border-radius:50%;
-  background:var(--cream-card);
-  border:3px solid var(--gold);
-  box-shadow:0 0 0 8px #d9a4411f, 0 20px 40px #102a4333;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  animation:jlOrbitCenterBob 3.5s ease-in-out infinite;
-}
-@keyframes jlOrbitCenterBob{
-  0%,100%{ transform:translateY(0) scale(1); }
-  50%{ transform:translateY(-6px) scale(1.03); }
-}
-.jl-orbit-robot{
-  width:76px;
-  height:76px;
-  object-fit:contain;
-  border-radius:14px;
-}
-
-.jl-orbit-ring{
-  position:absolute;
-  inset:0;
-  border:1.5px dashed #d9a44145;
-  border-radius:50%;
-  animation:jlOrbitSpin linear infinite;
-}
-.jl-orbit-ring-1{
-  inset:12%;
-  animation-duration:14s;
-}
-.jl-orbit-ring-2{
-  inset:-6%;
-  animation-duration:22s;
-  animation-direction:reverse;
-  border-color:#3b82f640;
-}
-@keyframes jlOrbitSpin{
-  from{ transform:rotate(0deg); }
-  to{ transform:rotate(360deg); }
-}
-
-.jl-orbit-badge{
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:rotate(var(--a)) translate(0, -50%) translateX(0) rotate(calc(-1 * var(--a)));
-  transform-origin:0 0;
-}
-/* نحط كل بادچ على محيط الدائرة باستخدام الزاوية --a */
-.jl-orbit-ring-1 .jl-orbit-badge{
-  transform:
-    rotate(var(--a))
-    translate(105px)
-    rotate(calc(-1 * var(--a)));
-  animation:jlOrbitCounterSpin1 14s linear infinite;
-}
-.jl-orbit-ring-2 .jl-orbit-badge{
-  transform:
-    rotate(var(--a))
-    translate(150px)
-    rotate(calc(-1 * var(--a)));
-  animation:jlOrbitCounterSpin2 22s linear infinite reverse;
-}
-@keyframes jlOrbitCounterSpin1{
-  from{ transform:rotate(var(--a)) translate(105px) rotate(calc(-1 * var(--a))); }
-  to{ transform:rotate(calc(var(--a) + 360deg)) translate(105px) rotate(calc(-1 * (var(--a) + 360deg))); }
-}
-@keyframes jlOrbitCounterSpin2{
-  from{ transform:rotate(var(--a)) translate(150px) rotate(calc(-1 * var(--a))); }
-  to{ transform:rotate(calc(var(--a) + 360deg)) translate(150px) rotate(calc(-1 * (var(--a) + 360deg))); }
-}
-.jl-orbit-badge{
-  position:absolute;
-  top:50%;
-  left:50%;
-  margin:-16px 0 0 -30px;
-  width:60px;
-  height:32px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:var(--cream-card);
-  border:1.5px solid var(--gold);
-  color:var(--navy);
-  border-radius:999px;
-  font-family:var(--font-mono);
-  font-size:11px;
-  font-weight:800;
-  box-shadow:0 8px 18px #102a4324;
-  z-index:2;
-}
-.jl-orbit-badge.alt{
-  border-color:#3b82f6;
-  color:#3b82f6;
-}
-
-.jl-orbit-caption{
-  position:absolute;
-  bottom:-6px;
-  left:50%;
-  transform:translateX(-50%);
-  font-size:13px;
-  color:var(--muted);
-  font-weight:700;
-  background:var(--cream);
-  padding:4px 14px;
-  border-radius:999px;
-  border:1px solid #d9a44138;
-  z-index:3;
-  white-space:nowrap;
-}
-
-@media (width<=980px){
-  .jl-orbit-scene{ max-width:340px; }
-  .jl-orbit-center{ width:96px; height:96px; }
-  .jl-orbit-robot{ width:60px; height:60px; }
-  .jl-orbit-ring-1 .jl-orbit-badge{ animation-duration:14s; }
-  .jl-orbit-ring-1{ inset:16%; }
-}
-
-@media (width<=560px){
-  .jl-orbit-scene{ max-width:280px; }
-  .jl-orbit-ring-1 .jl-orbit-badge{ animation-name:jlOrbitCounterSpin1Small; }
-  .jl-orbit-ring-2 .jl-orbit-badge{ animation-name:jlOrbitCounterSpin2Small; }
-  @keyframes jlOrbitCounterSpin1Small{
-    from{ transform:rotate(var(--a)) translate(72px) rotate(calc(-1 * var(--a))); }
-    to{ transform:rotate(calc(var(--a) + 360deg)) translate(72px) rotate(calc(-1 * (var(--a) + 360deg))); }
+  function getLoggedInStudent(){
+    var raw = localStorage.getItem('ch_student');
+    if (!raw) return null;
+    try {
+      var wrapper = JSON.parse(raw);
+      if (!wrapper.expiresAt || Date.now() > wrapper.expiresAt) return null;
+      return wrapper.student;
+    } catch (e) { return null; }
   }
-  @keyframes jlOrbitCounterSpin2Small{
-    from{ transform:rotate(var(--a)) translate(104px) rotate(calc(-1 * var(--a))); }
-    to{ transform:rotate(calc(var(--a) + 360deg)) translate(104px) rotate(calc(-1 * (var(--a) + 360deg))); }
+
+  function mpEsc(value){ return String(value == null ? '' : value).replace(/[&<>"']/g,function(ch){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];}); }
+
+  var PASS_PERCENT = 70;
+  var monthsCache = [];
+  var expandedMonthId = null;
+  var quizzesCache = {}; // month_id -> { weekly: [...], final: {...} }
+  var quizSessionActive = false;
+  var activeQuizCleanup = null;
+
+  var monthsEl = document.getElementById('jl-mp-months');
+  var panelEl = document.getElementById('jl-mp-panel');
+  if (!monthsEl || !panelEl) return;
+  panelEl.style.display = 'none';
+
+  function mpApi(path){
+    if (!CH_API_BASE_MP) return Promise.reject(new Error('الموقع لسه مش متربط بالباك إند'));
+    return fetch(CH_API_BASE_MP + path, { credentials: 'same-origin' }).then(function(r){
+      return r.json().then(function(data){
+        if (r.status === 401){ localStorage.removeItem('ch_student'); window.dispatchEvent(new Event('ch-auth-changed')); }
+        if (!r.ok) throw new Error(data.error || 'حصل خطأ');
+        return data;
+      });
+    });
   }
-  .jl-orbit-badge{ width:48px; height:26px; font-size:9.5px; margin:-13px 0 0 -24px; }
-}
 
-/* ============ روبوت Code Hub الشخصية التفاعلية ============ */
-.jl-buddy-scene{
-  position:relative;
-  width:100%;
-  max-width:340px;
-  margin:20px auto 0;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-}
-.jl-buddy{
-  width:100%;
-  cursor:pointer;
-  animation:jlBuddyIdle 3.2s ease-in-out infinite;
-  transform-origin:bottom center;
-}
-.jl-buddy-svg{ width:100%; height:auto; display:block; filter:drop-shadow(0 20px 30px #102a4333); }
-@keyframes jlBuddyIdle{
-  0%,100%{ transform:translateY(0) rotate(0deg); }
-  50%{ transform:translateY(-8px) rotate(-1deg); }
-}
-.jl-buddy-shadow{
-  width:120px;
-  height:16px;
-  background:#102a4322;
-  border-radius:50%;
-  margin-top:-10px;
-  animation:jlBuddyShadow 3.2s ease-in-out infinite;
-  filter:blur(2px);
-}
-@keyframes jlBuddyShadow{
-  0%,100%{ transform:scale(1); opacity:.5; }
-  50%{ transform:scale(.85); opacity:.3; }
-}
-
-/* رمش العين كل شوية */
-.jl-buddy-eye{ transform-origin:center; animation:jlBuddyBlink 4.5s ease-in-out infinite; }
-@keyframes jlBuddyBlink{
-  0%,92%,100%{ transform:scaleY(1); }
-  95%{ transform:scaleY(.08); }
-}
-.jl-buddy-pupil{ transition:transform .15s ease-out; }
-
-/* الهوائي بيهتز شوية */
-.jl-buddy-antenna{ animation:jlBuddyAntenna 2.4s ease-in-out infinite; transform-origin:150px 70px; }
-@keyframes jlBuddyAntenna{
-  0%,100%{ transform:rotate(0deg); }
-  50%{ transform:rotate(8deg); }
-}
-
-/* الدراع اليمين بتلوّح */
-.jl-buddy-arm-r{ animation:jlBuddyWave 2.6s ease-in-out infinite; }
-@keyframes jlBuddyWave{
-  0%,20%,100%{ transform:rotate(0deg); }
-  30%{ transform:rotate(-18deg); }
-  40%{ transform:rotate(-4deg); }
-  50%{ transform:rotate(-18deg); }
-  60%{ transform:rotate(0deg); }
-}
-
-/* دوسة الروبوت — نطة حماسية */
-.jl-buddy.jl-buddy-poked{ animation:jlBuddyPoke .5s ease; }
-@keyframes jlBuddyPoke{
-  0%{ transform:scale(1) rotate(0deg); }
-  30%{ transform:scale(1.12, .9) rotate(-3deg); }
-  60%{ transform:scale(.94, 1.08) rotate(3deg); }
-  100%{ transform:scale(1) rotate(0deg); }
-}
-
-/* فقاعة الكلام */
-.jl-buddy-bubble{
-  background:var(--cream-card);
-  border:1.5px solid #d9a44155;
-  border-radius:16px;
-  padding:10px 18px;
-  font-size:14px;
-  font-weight:700;
-  color:var(--navy);
-  box-shadow:0 10px 24px #102a4324;
-  margin-bottom:8px;
-  position:relative;
-  animation:jlBubbleFloat 3.2s ease-in-out infinite;
-  max-width:280px;
-  text-align:center;
-}
-.jl-buddy-bubble::after{
-  content:'';
-  position:absolute;
-  bottom:-8px;
-  left:50%;
-  transform:translateX(-50%);
-  width:16px;
-  height:16px;
-  background:var(--cream-card);
-  border-inline-end:1.5px solid #d9a44155;
-  border-block-end:1.5px solid #d9a44155;
-  clip-path:polygon(0 0, 100% 0, 100% 100%);
-}
-@keyframes jlBubbleFloat{
-  0%,100%{ transform:translateY(0); }
-  50%{ transform:translateY(-6px); }
-}
-#jl-buddy-bubble-text{ display:inline-block; }
-
-/* ============ عرض إحصائيات حديث بخلفية بلوبز متحركة (ستايل SaaS عصري) ============ */
-.jl-hero-stats-scene{
-  position:relative;
-  width:100%;
-  min-height:380px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-}
-
-.jl-blob{
-  position:absolute;
-  border-radius:50%;
-  filter:blur(40px);
-  opacity:.55;
-  animation:jlBlobMove ease-in-out infinite;
-  z-index:0;
-}
-.jl-blob-1{
-  width:220px; height:220px;
-  background:radial-gradient(circle, #d9a441, transparent 70%);
-  top:-10%; right:-5%;
-  animation-duration:9s;
-}
-.jl-blob-2{
-  width:180px; height:180px;
-  background:radial-gradient(circle, #3b82f6, transparent 70%);
-  bottom:-8%; left:-5%;
-  animation-duration:11s;
-  animation-delay:1s;
-}
-.jl-blob-3{
-  width:150px; height:150px;
-  background:radial-gradient(circle, #6fcf97, transparent 70%);
-  top:40%; left:35%;
-  animation-duration:8s;
-  animation-delay:2s;
-  opacity:.35;
-}
-@keyframes jlBlobMove{
-  0%,100%{ transform:translate(0,0) scale(1); }
-  33%{ transform:translate(20px,-25px) scale(1.15); }
-  66%{ transform:translate(-15px,15px) scale(.9); }
-}
-
-.jl-stats-glass{
-  position:relative;
-  z-index:1;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:18px;
-  width:100%;
-  max-width:400px;
-  background:#ffffff59;
-  backdrop-filter:blur(16px);
-  -webkit-backdrop-filter:blur(16px);
-  border:1.5px solid #ffffff70;
-  border-radius:26px;
-  padding:28px 24px;
-  box-shadow:0 30px 60px #102a4324;
-}
-[data-theme="dark"] .jl-stats-glass{
-  background:#ffffff0f;
-  border-color:#ffffff1f;
-}
-
-.jl-stat-item{
-  text-align:center;
-  padding:10px 4px;
-  border-radius:16px;
-  transition:transform .25s ease;
-}
-.jl-stat-item:hover{ transform:translateY(-4px); }
-.jl-stat-icon{
-  font-size:26px;
-  margin-bottom:6px;
-  animation:jlStatIconFloat 3s ease-in-out infinite;
-}
-.jl-stat-item:nth-child(2) .jl-stat-icon{ animation-delay:.4s; }
-.jl-stat-item:nth-child(3) .jl-stat-icon{ animation-delay:.8s; }
-.jl-stat-item:nth-child(4) .jl-stat-icon{ animation-delay:1.2s; }
-@keyframes jlStatIconFloat{
-  0%,100%{ transform:translateY(0); }
-  50%{ transform:translateY(-5px); }
-}
-.jl-stat-num{
-  font-family:var(--font-mono);
-  font-size:32px;
-  font-weight:900;
-  color:var(--navy);
-  line-height:1.1;
-}
-.jl-stat-num::after{ content:attr(data-suffix); color:var(--gold); }
-.jl-stat-label{
-  font-size:12.5px;
-  color:var(--muted);
-  font-weight:700;
-  margin-top:4px;
-}
-
-.jl-hero-stats-caption{
-  position:relative;
-  z-index:1;
-  margin-top:18px;
-  font-size:13px;
-  color:var(--muted);
-  font-weight:700;
-  background:var(--cream);
-  padding:5px 16px;
-  border-radius:999px;
-  border:1px solid #d9a44138;
-}
-
-@media (width<=560px){
-  .jl-blob{ display:none; }
-  .jl-stats-glass{ padding:22px 16px; gap:14px; }
-  .jl-stat-num{ font-size:26px; }
-}
-
-/* ============ محرّر كود بيتكتب لايف + ميلان ثلاثي الأبعاد يتابع الماوس ============ */
-.jl-tilt-scene{
-  position:relative;
-  width:100%;
-  perspective:1200px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px 0;
-}
-.jl-tilt-glow{
-  position:absolute;
-  inset:10%;
-  background:radial-gradient(circle, #d9a44133 0%, transparent 70%);
-  filter:blur(30px);
-  z-index:0;
-  animation:jlTiltGlowPulse 3.5s ease-in-out infinite;
-}
-@keyframes jlTiltGlowPulse{
-  0%,100%{ opacity:.6; }
-  50%{ opacity:1; }
-}
-.jl-tilt-card{
-  position:relative;
-  z-index:1;
-  width:100%;
-  max-width:440px;
-  background:#121831;
-  border-radius:18px;
-  padding:22px 26px 26px;
-  box-shadow:0 40px 70px -20px #12183166, 0 0 0 1px #e8c57422;
-  transform-style:preserve-3d;
-  transform:rotateX(6deg) rotateY(-8deg);
-  transition:transform .15s ease-out;
-  will-change:transform;
-}
-.jl-tilt-head{ display:flex; align-items:center; gap:12px; margin-bottom:18px; }
-.jl-tilt-filename{ color:var(--gold-light); font-size:13px; font-family:var(--font-mono); }
-.jl-tilt-body{
-  color:#cfd6ee;
-  direction:ltr;
-  text-align:left;
-  font-size:14px;
-  line-height:2;
-  font-family:var(--font-mono);
-  min-height:170px;
-  white-space:pre-wrap;
-  margin:0;
-}
-.jl-tilt-cursor{
-  color:var(--gold-light);
-  animation:jlTiltCursorBlink .8s steps(1) infinite;
-}
-@keyframes jlTiltCursorBlink{
-  0%,50%{ opacity:1; }
-  50.01%,100%{ opacity:0; }
-}
-.jl-tilt-badge{
-  color:var(--gold-light);
-  letter-spacing:1px;
-  border:1px solid #e8c57466;
-  border-radius:999px;
-  align-items:center;
-  gap:9px;
-  margin-top:16px;
-  padding:8px 16px;
-  font-size:12px;
-  display:inline-flex;
-}
-.jl-tilt-badge i{ background:var(--green); border-radius:50%; width:9px; height:9px; display:block; }
-
-.jl-tilt-float{
-  position:absolute;
-  font-size:22px;
-  z-index:2;
-  animation:jlTiltFloatItem ease-in-out infinite;
-  pointer-events:none;
-}
-.jl-tilt-float-1{ top:2%; right:6%; animation-duration:4s; }
-.jl-tilt-float-2{ bottom:10%; left:2%; animation-duration:4.6s; animation-delay:.6s; color:#6fcf97; font-weight:900; }
-.jl-tilt-float-3{ top:50%; left:-2%; animation-duration:5s; animation-delay:1.2s; color:#3b82f6; font-family:var(--font-mono); font-weight:800; }
-@keyframes jlTiltFloatItem{
-  0%,100%{ transform:translateY(0); }
-  50%{ transform:translateY(-10px); }
-}
-
-/* syntax highlight colors مكتوبة جوه الـJS، دي بس كلاسات الألوان */
-.jl-tk-kw{ color:#c77dbb; }
-.jl-tk-fn{ color:#e6c36b; }
-.jl-tk-str{ color:#8fb573; }
-.jl-tk-num{ color:#e2955c; }
-.jl-tk-com{ color:#5a6585; }
-.jl-tk-var{ color:#6b8fd4; }
-
-@media (width<=560px){
-  .jl-tilt-card{ transform:none; padding:18px 18px 22px; }
-  .jl-tilt-body{ font-size:12.5px; min-height:140px; }
-  .jl-tilt-float{ font-size:16px; }
-}
-
-/* ============ مشهد "الفك التشفيري" — سريع وقوي وغير متوقع، دهبي/كحلي ============ */
-.jl-decode-scene{
-  position:relative;
-  width:100%;
-  min-height:340px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-}
-
-.jl-decode-ring{
-  position:absolute;
-  border:2px solid #d9a441;
-  border-radius:50%;
-  opacity:0;
-  animation:jlDecodeRingBurst 2.4s cubic-bezier(.2,.8,.3,1) infinite;
-}
-.jl-decode-ring-a{ width:120px; height:120px; }
-.jl-decode-ring-b{ width:120px; height:120px; animation-delay:.7s; border-color:#3b82f6; }
-@keyframes jlDecodeRingBurst{
-  0%{ width:120px; height:120px; opacity:.9; border-width:3px; }
-  100%{ width:480px; height:480px; opacity:0; border-width:.5px; }
-}
-
-.jl-decode-card{
-  position:relative;
-  z-index:1;
-  width:100%;
-  max-width:440px;
-  min-height:220px;
-  background:var(--navy);
-  border-radius:22px;
-  overflow:hidden;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  padding:40px 20px;
-  box-shadow:0 0 0 1.5px #d9a44155, 0 40px 80px -20px #12183180;
-}
-
-.jl-decode-scanline{
-  position:absolute;
-  left:0; right:0;
-  height:3px;
-  background:linear-gradient(90deg, transparent, #e8c574, transparent);
-  box-shadow:0 0 16px 4px #e8c574aa;
-  animation:jlDecodeScan 2.4s ease-in-out infinite;
-  z-index:2;
-}
-@keyframes jlDecodeScan{
-  0%{ top:0%; opacity:0; }
-  8%{ opacity:1; }
-  92%{ opacity:1; }
-  100%{ top:100%; opacity:0; }
-}
-
-.jl-decode-text{
-  position:relative;
-  z-index:1;
-  font-family:var(--font-mono);
-  font-size:clamp(30px,6vw,46px);
-  font-weight:900;
-  letter-spacing:3px;
-  color:var(--gold-light);
-  text-shadow:0 0 20px #e8c57488, 0 0 50px #d9a44144;
-  direction:ltr;
-  text-align:center;
-}
-.jl-decode-sub{
-  position:relative;
-  z-index:1;
-  margin-top:14px;
-  font-size:15px;
-  font-weight:700;
-  color:#eef3fdcc;
-  letter-spacing:.5px;
-}
-
-.jl-decode-particles{ position:absolute; inset:0; pointer-events:none; z-index:3; }
-.jl-decode-particle{
-  position:absolute;
-  width:5px;
-  height:5px;
-  border-radius:50%;
-  background:var(--gold-light);
-  top:50%;
-  left:50%;
-  animation:jlDecodeParticleFly .9s cubic-bezier(.2,.8,.3,1) forwards;
-}
-@keyframes jlDecodeParticleFly{
-  0%{ transform:translate(-50%,-50%) scale(1); opacity:1; }
-  100%{ transform:translate(calc(-50% + var(--px)), calc(-50% + var(--py))) scale(0); opacity:0; }
-}
-
-@media (width<=560px){
-  .jl-decode-card{ padding:30px 16px; min-height:170px; }
-  .jl-decode-ring-a, .jl-decode-ring-b{ width:80px; height:80px; }
-  @keyframes jlDecodeRingBurst{
-    0%{ width:80px; height:80px; opacity:.9; border-width:2px; }
-    100%{ width:320px; height:320px; opacity:0; border-width:.5px; }
+  function renderLoginPrompt(){
+    monthsEl.innerHTML =
+      '<div class="jl-mp-login-prompt">' +
+        '<p>لازم تسجّل دخول الأول عشان تدخل على المسار الشهري وتاخد كويزاتك الحقيقية.</p>' +
+        '<button type="button" class="jl-reg" id="jl-mp-login-btn">تسجيل الدخول</button>' +
+      '</div>';
+    document.getElementById('jl-mp-login-btn').addEventListener('click', function(){
+      document.getElementById('jl-mp-overlay').classList.remove('open');
+      document.getElementById('jl-student-btn').click();
+    });
   }
-}
 
-/* ============ ترقية شكل كارت "الفك التشفيري" ============ */
-.jl-decode-text, .jl-decode-sub{
-  user-select:none;
-  -webkit-user-select:none;
-}
-
-.jl-decode-card{
-  background:linear-gradient(160deg, #102a43, #241a4a 60%, #102a43) !important;
-  border:1px solid #e8c57433 !important;
-  box-shadow:0 0 0 1px #d9a44140, 0 50px 90px -25px #12183199, inset 0 1px 0 #ffffff14 !important;
-}
-
-.jl-decode-text{
-  font-size:clamp(34px,7vw,52px) !important;
-  letter-spacing:5px !important;
-  background:linear-gradient(90deg, #e8d19a, #fff6df 40%, #e8c574);
-  background-size:200% auto;
-  -webkit-background-clip:text;
-  background-clip:text;
-  -webkit-text-fill-color:transparent;
-  text-shadow:0 0 30px #e8c57466;
-  animation:jlDecodeTextShine 4s linear infinite;
-}
-@keyframes jlDecodeTextShine{
-  0%{ background-position:0% center; }
-  100%{ background-position:200% center; }
-}
-
-.jl-decode-sub{
-  margin-top:16px !important;
-  font-size:16px !important;
-  color:#eef3fde0 !important;
-  letter-spacing:1px !important;
-}
-
-.jl-decode-particle{
-  width:6px !important;
-  height:6px !important;
-  box-shadow:0 0 8px 2px currentColor;
-}
-
-/* ============ مشهد SaaS عصري وهادي: كارت داشبورد أنيق بحركة ناعمة ============ */
-.jl-saas-scene{
-  position:relative;
-  width:100%;
-  min-height:340px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  padding:24px 16px;
-  perspective:1000px;
-}
-
-.jl-saas-orb{
-  position:absolute;
-  border-radius:50%;
-  filter:blur(50px);
-  opacity:.25;
-  z-index:0;
-  animation:jlSaasOrbDrift ease-in-out infinite;
-}
-.jl-saas-orb-1{
-  width:220px; height:220px;
-  background:var(--gold);
-  top:-6%; left:0%;
-  animation-duration:10s;
-}
-.jl-saas-orb-2{
-  width:200px; height:200px;
-  background:#3b82f6;
-  bottom:-8%; right:2%;
-  animation-duration:12s;
-  animation-delay:1.5s;
-}
-@keyframes jlSaasOrbDrift{
-  0%,100%{ transform:translate(0,0); }
-  50%{ transform:translate(18px,-14px); }
-}
-
-.jl-saas-window{
-  position:relative;
-  z-index:1;
-  width:100%;
-  max-width:420px;
-  background:var(--cream-card);
-  border:1px solid #d9a44126;
-  border-radius:18px;
-  overflow:hidden;
-  box-shadow:0 30px 60px -20px #102a4333;
-  animation:jlSaasFloat 6.5s ease-in-out infinite;
-  transition:transform .5s ease;
-}
-@keyframes jlSaasFloat{
-  0%,100%{ transform:translateY(0); }
-  50%{ transform:translateY(-10px); }
-}
-
-.jl-saas-topbar{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:14px 18px;
-  border-bottom:1px solid #d9a4411f;
-}
-.jl-saas-title{ font-size:13px; font-weight:700; color:var(--muted); }
-
-.jl-saas-body{ padding:22px; }
-
-.jl-saas-row{ display:flex; align-items:center; gap:12px; margin-bottom:22px; }
-.jl-saas-avatar{
-  width:38px; height:38px;
-  border-radius:50%;
-  background:linear-gradient(135deg, var(--gold), var(--gold-light));
-  flex-shrink:0;
-}
-.jl-saas-lines{ flex:1; display:flex; flex-direction:column; gap:6px; }
-.jl-saas-line{ height:8px; border-radius:4px; background:#9a917a26; }
-.jl-saas-line.w70{ width:70%; }
-.jl-saas-line.w40{ width:40%; }
-
-.jl-saas-progress-wrap{ margin-bottom:22px; }
-.jl-saas-progress-label{
-  display:flex;
-  justify-content:space-between;
-  font-size:12.5px;
-  font-weight:700;
-  color:var(--muted);
-  margin-bottom:8px;
-}
-.jl-saas-progress-pct{ color:var(--gold); }
-.jl-saas-progress-bar{
-  height:8px;
-  border-radius:999px;
-  background:#9a917a1f;
-  overflow:hidden;
-}
-.jl-saas-progress-fill{
-  height:100%;
-  width:0%;
-  border-radius:999px;
-  background:linear-gradient(90deg, var(--gold), var(--gold-light));
-  animation:jlSaasFillProgress 2.2s cubic-bezier(.2,.8,.3,1) .3s forwards;
-}
-@keyframes jlSaasFillProgress{
-  to{ width:72%; }
-}
-
-.jl-saas-cards{ display:flex; gap:10px; }
-.jl-saas-mini-card{
-  flex:1;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:6px;
-  padding:12px 6px;
-  border-radius:12px;
-  background:#9a917a12;
-  border:1px solid transparent;
-  font-size:11px;
-  font-weight:700;
-  color:var(--muted);
-  transition:all .3s ease;
-}
-.jl-saas-mini-card.active{
-  background:#d9a44114;
-  border-color:#d9a44155;
-  color:var(--navy);
-  animation:jlSaasCardPulse 2.4s ease-in-out infinite;
-}
-@keyframes jlSaasCardPulse{
-  0%,100%{ box-shadow:0 0 0 0 #d9a44122; }
-  50%{ box-shadow:0 0 0 6px #d9a44100; }
-}
-.jl-saas-mini-icon{
-  width:26px; height:26px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#6fcf9722;
-  color:#2e7d4f;
-  font-size:12px;
-}
-.jl-saas-mini-card.active .jl-saas-mini-icon{
-  background:var(--gold);
-  color:#fff;
-}
-
-.jl-saas-caption{
-  position:relative;
-  z-index:1;
-  margin-top:18px;
-  font-size:13px;
-  color:var(--muted);
-  font-weight:700;
-}
-
-@media (width<=560px){
-  .jl-saas-orb{ display:none; }
-  .jl-saas-body{ padding:18px; }
-}
-
-/* ============ تكوين الكريستال: نقطة ضوء بتتحول لتركيب هندسي دقيق ثم تتلاشى (Loop) ============ */
-.jl-crystal-scene{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  padding:16px 0;
-}
-.jl-crystal-frame{
-  width:100%;
-  max-width:360px;
-  aspect-ratio:1/1;
-  background:#171f2c;
-  border-radius:20px;
-  overflow:hidden;
-  box-shadow:0 30px 70px -20px #0a0e1866, inset 0 0 0 1px #3ee6ff14;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.jl-crystal-svg{ width:82%; height:82%; }
-
-.jl-crystal-point{
-  transform-box:fill-box;
-  transform-origin:center;
-  animation:jlCrystalCorePulse 5s ease-in-out infinite;
-}
-@keyframes jlCrystalCorePulse{
-  0%{ transform:scale(.5); opacity:1; }
-  15%{ transform:scale(1.3); opacity:1; }
-  65%{ transform:scale(1); opacity:1; }
-  75%{ transform:scale(.55); opacity:.6; }
-  88%{ transform:scale(.25); opacity:0; }
-  96%{ transform:scale(.1); opacity:0; }
-  100%{ transform:scale(.5); opacity:1; }
-}
-
-.jl-crystal-lines, .jl-crystal-dots{
-  transform-box:fill-box;
-  transform-origin:center;
-  animation:jlCrystalGrow 5s ease-in-out infinite;
-}
-.jl-crystal-dots{ animation-delay:.05s; }
-@keyframes jlCrystalGrow{
-  0%,8%{ transform:scale(0) rotate(-8deg); opacity:0; }
-  32%{ transform:scale(1) rotate(0deg); opacity:1; }
-  65%{ transform:scale(1) rotate(0deg); opacity:1; }
-  80%{ transform:scale(1.18) rotate(6deg); opacity:0; }
-  100%{ transform:scale(0) rotate(-8deg); opacity:0; }
-}
-
-.jl-cp{
-  transform-box:fill-box;
-  transform-origin:center;
-  animation:jlCrystalParticle 5s ease-in-out infinite;
-}
-@keyframes jlCrystalParticle{
-  0%,66%{ opacity:0; transform:rotate(var(--ang)) translateY(0); }
-  76%{ opacity:1; transform:rotate(var(--ang)) translateY(-8px); }
-  100%{ opacity:0; transform:rotate(var(--ang)) translateY(-58px); }
-}
-
-.jl-crystal-caption{
-  margin-top:14px;
-  font-size:12.5px;
-  color:var(--muted);
-  font-weight:700;
-}
-
-/* ============ ميدالية إنجاز ذهبية بتلف زي عملة، رمز نجاح مباشر ============ */
-.jl-medal-scene{
-  position:relative;
-  width:100%;
-  min-height:320px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  padding:30px 16px;
-  perspective:900px;
-}
-
-.jl-medal-glow{
-  position:absolute;
-  width:220px; height:220px;
-  border-radius:50%;
-  background:radial-gradient(circle, #f2c94c44 0%, transparent 70%);
-  filter:blur(20px);
-  animation:jlMedalGlowPulse 2.6s ease-in-out infinite;
-  z-index:0;
-}
-@keyframes jlMedalGlowPulse{
-  0%,100%{ transform:scale(1); opacity:.7; }
-  50%{ transform:scale(1.15); opacity:1; }
-}
-
-.jl-medal-ribbon-l, .jl-medal-ribbon-r{
-  position:absolute;
-  top:6%;
-  width:26px;
-  height:90px;
-  z-index:0;
-}
-.jl-medal-ribbon-l{
-  right:calc(50% + 24px);
-  background:linear-gradient(180deg, #c0392b, #922b21);
-  transform:rotate(-8deg);
-  clip-path:polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
-}
-.jl-medal-ribbon-r{
-  left:calc(50% + 24px);
-  background:linear-gradient(180deg, var(--navy), #0f1428);
-  transform:rotate(8deg);
-  clip-path:polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
-}
-
-.jl-medal-coin{
-  position:relative;
-  z-index:1;
-  width:170px;
-  height:170px;
-  transform-style:preserve-3d;
-  animation:jlMedalSpin 5s ease-in-out infinite;
-}
-@keyframes jlMedalSpin{
-  0%,15%{ transform:rotateY(0deg); }
-  45%,55%{ transform:rotateY(180deg); }
-  85%,100%{ transform:rotateY(360deg); }
-}
-
-.jl-medal-face{
-  position:absolute;
-  inset:0;
-  backface-visibility:hidden;
-  border-radius:50%;
-  overflow:hidden;
-  filter:drop-shadow(0 20px 30px #102a4340);
-}
-.jl-medal-face svg{ width:100%; height:100%; display:block; }
-.jl-medal-back{ transform:rotateY(180deg); }
-
-.jl-medal-shine{
-  position:absolute;
-  inset:0;
-  background:linear-gradient(115deg, transparent 30%, #ffffffaa 48%, transparent 65%);
-  background-size:250% 250%;
-  animation:jlMedalShineSweep 5s ease-in-out infinite;
-  mix-blend-mode:overlay;
-}
-@keyframes jlMedalShineSweep{
-  0%,20%{ background-position:150% 150%; }
-  35%{ background-position:-50% -50%; }
-  100%{ background-position:-50% -50%; }
-}
-
-.jl-medal-spark{
-  position:absolute;
-  color:#f2c94c;
-  font-size:16px;
-  z-index:2;
-  animation:jlMedalSparkTwinkle ease-in-out infinite;
-}
-.jl-medal-spark-1{ top:12%; left:22%; animation-duration:1.8s; }
-.jl-medal-spark-2{ top:20%; right:18%; animation-duration:2.2s; animation-delay:.5s; }
-.jl-medal-spark-3{ bottom:22%; right:26%; animation-duration:2s; animation-delay:1s; }
-@keyframes jlMedalSparkTwinkle{
-  0%,100%{ opacity:0; transform:scale(.5) rotate(0deg); }
-  50%{ opacity:1; transform:scale(1.2) rotate(90deg); }
-}
-
-.jl-medal-caption{
-  position:relative;
-  z-index:1;
-  margin-top:22px;
-  font-size:14px;
-  font-weight:800;
-  color:var(--navy);
-  background:var(--cream-card);
-  padding:7px 18px;
-  border-radius:999px;
-  border:1px solid #d9a44138;
-}
-
-/* ============ محرّر كود "Hello World" أنيق ومصقول ============ */
-.jl-hw-scene{
-  position:relative;
-  width:100%;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  padding:20px 0;
-}
-.jl-hw-glow{
-  position:absolute;
-  inset:12% 6%;
-  background:radial-gradient(circle, #d9a4412e 0%, transparent 70%);
-  filter:blur(30px);
-  z-index:0;
-  animation:jlHwGlowPulse 3.5s ease-in-out infinite;
-}
-@keyframes jlHwGlowPulse{
-  0%,100%{ opacity:.6; }
-  50%{ opacity:1; }
-}
-
-.jl-hw-card{
-  position:relative;
-  z-index:1;
-  width:100%;
-  max-width:440px;
-  background:#121831;
-  border-radius:16px;
-  overflow:hidden;
-  box-shadow:0 0 0 1px #e8c57422, 0 35px 70px -20px #12183180;
-  animation:jlHwFloat 5s ease-in-out infinite;
-}
-@keyframes jlHwFloat{
-  0%,100%{ transform:translateY(0); }
-  50%{ transform:translateY(-8px); }
-}
-
-.jl-hw-head{
-  display:flex;
-  align-items:center;
-  gap:16px;
-  padding:14px 18px;
-  border-bottom:1px solid #ffffff0f;
-}
-.jl-hw-tabs{ display:flex; gap:6px; }
-.jl-hw-tab{
-  font-family:var(--font-mono);
-  font-size:12px;
-  color:#6a7392;
-  padding:4px 10px;
-  border-radius:6px;
-}
-.jl-hw-tab.active{ background:#ffffff0f; color:var(--gold-light); }
-
-.jl-hw-body{
-  color:#cfd6ee;
-  direction:ltr;
-  text-align:left;
-  font-size:14.5px;
-  line-height:2;
-  font-family:var(--font-mono);
-  min-height:150px;
-  white-space:pre-wrap;
-  margin:0;
-  padding:20px 22px 6px;
-}
-.jl-hw-cursor{
-  color:var(--gold-light);
-  animation:jlHwCursorBlink .85s steps(1) infinite;
-}
-@keyframes jlHwCursorBlink{
-  0%,50%{ opacity:1; }
-  50.01%,100%{ opacity:0; }
-}
-
-.jl-hw-footer{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  padding:12px 22px 16px;
-  font-size:11.5px;
-  color:#6a7392;
-}
-.jl-hw-dot{
-  width:7px; height:7px;
-  border-radius:50%;
-  background:#6fcf97;
-  animation:jlHwDotPulse 1.6s ease-in-out infinite;
-}
-@keyframes jlHwDotPulse{
-  0%,100%{ box-shadow:0 0 0 0 #6fcf9755; }
-  50%{ box-shadow:0 0 0 5px #6fcf9700; }
-}
-
-.jl-hw-caption{
-  position:relative;
-  z-index:1;
-  margin-top:16px;
-  font-size:13px;
-  color:var(--muted);
-  font-weight:700;
-}
-
-.jl-hw-kw{ color:#c77dbb; }
-.jl-hw-fn{ color:#e6c36b; }
-.jl-hw-str{ color:#8fb573; }
-.jl-hw-com{ color:#5a6585; }
-
-@media (width<=560px){
-  .jl-hw-body{ font-size:13px; min-height:130px; padding:16px 18px 4px; }
-}
-
-/* ============ مساعد Code Hub الذكي — شات كامل زي ChatGPT ============ */
-.jl-ai-overlay{
-  position:fixed;
-  inset:0;
-  height:100vh;
-  background:#0000006e;
-  z-index:1200;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:16px;
-}
-.jl-ai-overlay.open{ display:flex; }
-
-.jl-ai-modal{
-  width:100%;
-  max-width:900px;
-  height:min(720px, 92vh);
-  background:var(--cream);
-  border-radius:18px;
-  overflow:hidden;
-  display:flex;
-  box-shadow:0 40px 80px #00000055;
-  animation:jlModalPop .25s ease;
-}
-
-.jl-ai-sidebar{
-  width:240px;
-  flex-shrink:0;
-  background:var(--navy);
-  color:var(--cream);
-  display:flex;
-  flex-direction:column;
-  border-inline-end:1px solid #ffffff14;
-}
-.jl-ai-sidebar-head{ padding:14px; }
-.jl-ai-new-btn{
-  width:100%;
-  background:#ffffff14;
-  color:var(--cream);
-  border:1px solid #ffffff26;
-  border-radius:10px;
-  padding:10px;
-  font-family:var(--font-display);
-  font-size:13.5px;
-  font-weight:700;
-  cursor:pointer;
-  transition:background .15s;
-}
-.jl-ai-new-btn:hover{ background:#ffffff26; }
-
-.jl-ai-conv-list{
-  flex:1;
-  overflow-y:auto;
-  padding:0 10px 10px;
-  display:flex;
-  flex-direction:column;
-  gap:4px;
-}
-.jl-ai-conv-item{
-  padding:9px 10px;
-  border-radius:8px;
-  font-size:12.5px;
-  color:#f7f4eccc;
-  cursor:pointer;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  transition:background .12s;
-}
-.jl-ai-conv-item:hover{ background:#ffffff10; }
-.jl-ai-conv-item.active{ background:#d9a44126; color:var(--gold-light); font-weight:700; }
-.jl-ai-conv-empty{ color:#f7f4ec66; font-size:12px; padding:10px; text-align:center; }
-
-.jl-ai-main{
-  flex:1;
-  display:flex;
-  flex-direction:column;
-  min-width:0;
-}
-
-.jl-ai-topbar{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:12px 16px;
-  border-bottom:1px solid #d9a44126;
-  background:var(--cream-card);
-  flex-shrink:0;
-}
-.jl-ai-back-btn{
-  display:none;
-  background:none;
-  border:none;
-  font-size:18px;
-  color:var(--navy);
-  cursor:pointer;
-  padding:4px 8px;
-}
-.jl-ai-exit-btn{
-  background:var(--cream);
-  border:1.5px solid #d9a44147;
-  border-radius:999px;
-  font-size:13px;
-  font-weight:800;
-  color:var(--navy);
-  cursor:pointer;
-  padding:6px 14px;
-  transition:background .18s, transform .18s;
-}
-.jl-ai-exit-btn:hover{ background:#d9a4411f; transform:translateX(-2px); }
-[dir=rtl] .jl-ai-exit-btn:hover{ transform:translateX(2px); }
-.jl-ai-hamburger{
-  background:none;
-  border:none;
-  font-size:16px;
-  color:var(--navy);
-  cursor:pointer;
-  padding:4px 8px;
-}
-.jl-ai-topbar-brand{
-  flex:1;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-}
-.jl-ai-topbar-logo{
-  width:32px;
-  height:32px;
-  object-fit:contain;
-  display:block;
-}
-.jl-ai-close-btn{
-  background:none;
-  border:none;
-  font-size:16px;
-  color:var(--muted);
-  cursor:pointer;
-  padding:4px 8px;
-}
-
-.jl-ai-thread{
-  flex:1;
-  overflow-y:auto;
-  padding:20px;
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-}
-.jl-ai-empty-state{
-  margin:auto;
-  text-align:center;
-  color:var(--muted);
-}
-.jl-ai-empty-icon{ font-size:36px; margin-bottom:10px; }
-
-.jl-ai-msg{
-  max-width:78%;
-  padding:11px 15px;
-  border-radius:14px;
-  font-size:14px;
-  line-height:1.8;
-  white-space:pre-wrap;
-}
-.jl-ai-msg.user{
-  align-self:flex-end;
-  background:var(--gold);
-  color:#fff;
-  border-bottom-left-radius:4px;
-}
-.jl-ai-msg.assistant{
-  align-self:flex-start;
-  background:var(--cream-card);
-  border:1px solid #d9a44126;
-  color:var(--ink);
-  border-bottom-right-radius:4px;
-}
-.jl-ai-msg.assistant .jl-ai-source-tag{
-  display:block;
-  font-size:11px;
-  color:var(--gold);
-  font-weight:700;
-  margin-bottom:5px;
-}
-.jl-ai-msg-img{
-  max-width:180px;
-  border-radius:8px;
-  margin-bottom:6px;
-  display:block;
-}
-.jl-ai-typing{
-  align-self:flex-start;
-  display:flex;
-  gap:4px;
-  padding:12px 15px;
-  background:var(--cream-card);
-  border-radius:14px;
-}
-.jl-ai-typing span{
-  width:6px; height:6px;
-  background:var(--muted);
-  border-radius:50%;
-  animation:jlTypingBounce 1.2s infinite;
-}
-.jl-ai-typing span:nth-child(2){ animation-delay:.15s; }
-.jl-ai-typing span:nth-child(3){ animation-delay:.3s; }
-@keyframes jlTypingBounce{
-  0%,60%,100%{ transform:translateY(0); opacity:.5; }
-  30%{ transform:translateY(-4px); opacity:1; }
-}
-
-.jl-ai-input-bar{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  padding:12px 16px;
-  border-top:1px solid #d9a44126;
-  background:var(--cream-card);
-  flex-shrink:0;
-}
-.jl-ai-plus-btn{
-  width:34px; height:34px;
-  flex-shrink:0;
-  border-radius:50%;
-  border:1.5px solid #d9a44155;
-  background:none;
-  color:var(--gold);
-  font-size:18px;
-  font-weight:800;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  transition:background .15s;
-}
-.jl-ai-plus-btn:hover{ background:#d9a4411a; }
-.jl-ai-input{
-  flex:1;
-  border:1.5px solid #d9a44138;
-  border-radius:999px;
-  padding:10px 16px;
-  font-family:var(--font-display);
-  font-size:14px;
-  background:var(--cream);
-  color:var(--ink);
-}
-.jl-ai-input:focus{ outline:none; border-color:var(--gold); }
-.jl-ai-send-btn{
-  width:36px; height:36px;
-  flex-shrink:0;
-  border-radius:50%;
-  border:none;
-  background:var(--gold);
-  color:#fff;
-  font-size:15px;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  transition:transform .15s;
-}
-.jl-ai-send-btn:hover{ transform:scale(1.06); }
-.jl-ai-send-btn:disabled{ opacity:.5; cursor:not-allowed; }
-
-.jl-ai-file-preview{
-  padding:8px 16px;
-  background:var(--cream-card);
-  display:flex;
-  align-items:center;
-  gap:8px;
-  font-size:12px;
-  color:var(--muted);
-}
-.jl-ai-file-preview img{ width:36px; height:36px; border-radius:6px; object-fit:cover; }
-.jl-ai-file-remove{ background:none; border:none; color:#c0392b; cursor:pointer; font-size:14px; }
-
-@keyframes jlModalPop{
-  from{ transform:scale(.94); opacity:0; }
-  to{ transform:scale(1); opacity:1; }
-}
-
-@media (width<=760px){
-  .jl-ai-modal{ height:100vh; max-width:100%; border-radius:0; }
-  .jl-ai-sidebar{
-    position:absolute;
-    inset:0;
-    z-index:2;
-    width:100%;
-    transform:translateX(100%);
-    transition:transform .25s ease;
+  function renderLoadError(msg){
+    monthsEl.innerHTML = '<p class="jl-mp-error-msg">⚠️ ' + mpEsc(msg) + '</p>';
   }
-  .jl-ai-sidebar.open{ transform:translateX(0); }
-  .jl-ai-back-btn{ display:inline-block; }
-  .jl-ai-msg{ max-width:88%; }
-}
 
-.jl-hero-chat-btn{
-  font-family:var(--font-mono);
-  background:var(--navy);
-  color:var(--cream);
-  border:none;
-  border-radius:12px;
-  cursor:pointer;
-  padding:12px 20px;
-  font-size:14px;
-  font-weight:800;
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  box-shadow:0 12px 26px #102a4342;
-  transition:transform .18s, box-shadow .18s;
-  animation:jlHeroChatGlow 2.4s ease-in-out infinite;
-  position:relative;
-}
-.jl-hero-chat-btn::before{
-  content:"";
-  position:absolute;
-  inset:-4px;
-  border-radius:16px;
-  border:2px solid var(--gold);
-  opacity:0;
-  animation:jlHeroChatRing 2.4s ease-out infinite;
-  pointer-events:none;
-}
-.jl-hero-chat-btn:hover{
-  transform:translateY(-4px) scale(1.04);
-  box-shadow:0 18px 34px #102a435c;
-  animation-play-state:paused;
-}
-@keyframes jlHeroChatFloat{
-  0%,100%{ transform:translateY(0); }
-  50%{ transform:translateY(-6px); }
-}
-@keyframes jlHeroChatGlow{
-  0%,100%{ box-shadow:0 12px 26px #102a4342; }
-  50%{ box-shadow:0 16px 36px #d9a4416b; }
-}
-@keyframes jlHeroChatRing{
-  0%{ opacity:.7; transform:scale(1); }
-  100%{ opacity:0; transform:scale(1.18); }
-}
-[data-theme="dark"] .jl-hero-chat-btn{
-  background:var(--gold);
-  color:#fff;
-}
+  function loadMonths(){
+    var student = getLoggedInStudent();
+    if (!student){ renderLoginPrompt(); return; }
 
-/* ============ FULL SITE-WIDE DARK THEME (not just hero) ============ */
-[data-theme="dark"] body{ background:#0d1226; }
-[data-theme="dark"] .jl-hero{ background:#0d1226; }
-[data-theme="dark"] .jl-audience{ background:#0f1530; }
-[data-theme="dark"] .jl-audience>h2{ color:#f7f4ec; }
-[data-theme="dark"] .jl-audience-item{ background:#1a2145; border-color:#3b82f640; }
-[data-theme="dark"] .jl-audience-item p{ color:#d7d3e0; }
-[data-theme="dark"] .jl-about{ background:#0d1226; }
-[data-theme="dark"] .jl-about-tag{ color:var(--gold-light); }
-[data-theme="dark"] .jl-about-main h2{ color:#f7f4ec; }
-[data-theme="dark"] .jl-about-tagline{ color:var(--gold-light); }
-[data-theme="dark"] .jl-about-main p{ color:#d7d3e0; }
-[data-theme="dark"] .jl-about-card{ background:#1a2145; border-color:#3b82f640; }
-[data-theme="dark"] .jl-about-card h3{ color:#f7f4ec; }
-[data-theme="dark"] .jl-about-card p{ color:#d7d3e0; }
-[data-theme="dark"] .jl-about-card-list li{ color:#d7d3e0; }
-[data-theme="dark"] .jl-cta-section{ background:#0d1226; }
-[data-theme="dark"] .jl-cta-card{ background:#1a2145 !important; border-color:#3b82f640; }
-[data-theme="dark"] .jl-cta-copy h2{ color:#f7f4ec; }
-[data-theme="dark"] .jl-cta-copy p{ color:#d7d3e0; }
-[data-theme="dark"] .jl-cta-bg{ color:#ffffff08; }
-[data-theme="dark"] .jl-am-head h2{ color:#f7f4ec; }
-[data-theme="dark"] .jl-am-head p{ color:#d7d3e0; }
-[data-theme="dark"] .jl-am-card{ background:#1a2145; border-color:#3b82f640; }
-[data-theme="dark"] .jl-am-card h3{ color:#f7f4ec; }
-[data-theme="dark"] .jl-am-role{ color:var(--gold-light); }
-[data-theme="dark"] .jl-am-bio{ color:#d7d3e0; }
-[data-theme="dark"] .jl-am-bio-title{ color:#f7f4ec; }
-[data-theme="dark"] .jl-am-bio-section{ color:var(--gold-light); }
-[data-theme="dark"] .jl-am-bio strong{ color:#f7f4ec; }
-[data-theme="dark"] .jl-reviews{ background:#0d1226; }
-[data-theme="dark"] .jl-reviews-head h2{ color:#f7f4ec; }
-[data-theme="dark"] .jl-reviews-head p{ color:#d7d3e0; }
-[data-theme="dark"] .jl-review-card{ background:#1a2145; border-color:#3b82f640; }
-[data-theme="dark"] .jl-review-card p{ color:#d7d3e0; }
-[data-theme="dark"] .jl-review-card h4{ color:#f7f4ec; }
-[data-theme="dark"] .jl-review-form-wrap{ background:#1a2145; border-color:#3b82f640; }
-[data-theme="dark"] .jl-review-form-wrap h3{ color:#f7f4ec; }
-[data-theme="dark"] .jl-review-form input,
-[data-theme="dark"] .jl-review-form select,
-[data-theme="dark"] .jl-review-form textarea{ background:#0d1226; color:#f7f4ec; border-color:#3b82f655; }
-[data-theme="dark"] .jl-char-count{ color:#8f8ba8; }
-[data-theme="dark"] .jl-mp-teaser{ background:#0d1226; }
-[data-theme="dark"] .jl-mp-teaser-copy h2{ color:#f7f4ec; }
-[data-theme="dark"] .jl-mp-teaser-copy p{ color:#d7d3e0; }
-[data-theme="dark"] .jl-footer{ background:#0a0e1e; border-color:#3b82f640; }
-[data-theme="dark"] .jl-footer p,
-[data-theme="dark"] .jl-footer-line,
-[data-theme="dark"] .jl-footer-line a{ color:#c9c5da; }
-[data-theme="dark"] .jl-footer-col h4{ color:#f7f4ec; }
-[data-theme="dark"] .jl-footer-navlink{ color:#d7d3e0; }
-[data-theme="dark"] .jl-footer-navlink:hover{ color:var(--gold-light); }
-[data-theme="dark"] .jl-navlink{ color:#e5e0d0; }
-[data-theme="dark"] .jl-hero-text p.sub{ color:#d7d3e0; }
-[data-theme="dark"] .jl-hero-text p.sub strong{ color:#f7f4ec; }
-[data-theme="dark"] .jl-hero h1{ color:#f7f4ec; }
-[data-theme="dark"] .jl-hw-glow{ opacity:.7; }
+    monthsEl.innerHTML = '<div class="jl-skeleton" style="height:60px;margin-bottom:10px;"></div><div class="jl-skeleton" style="height:60px;margin-bottom:10px;"></div><div class="jl-skeleton" style="height:60px;"></div>';
 
-/* ============ Decorative dot pattern, both themes ============ */
-.jl-hero{ position:relative; }
-.jl-audience{ position:relative; }
-.jl-about{ position:relative; }
-.jl-cta-section{ position:relative; }
-.jl-reviews{ position:relative; }
-.jl-mp-teaser{ position:relative; }
-.jl-dots-field{
-  position:absolute;
-  inset:0;
-  overflow:hidden;
-  pointer-events:none;
-  z-index:0;
-}
-.jl-dots-field span{
-  position:absolute;
-  width:3px;
-  height:3px;
-  border-radius:50%;
-  background:#e8c574;
-  box-shadow:0 0 6px 1.5px #e8c57490;
-  animation:jlStarTwinkle ease-in-out infinite;
-}
-[data-theme="dark"] .jl-dots-field span{
-  background:#fff;
-  box-shadow:0 0 6px 1px #ffffffb0;
-}
-
-/* ============ Scroll-reveal animation system (replays every time) ============ */
-.jl-reveal{
-  opacity:0;
-  transform:translateY(28px);
-  transition:opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);
-  will-change:opacity, transform;
-}
-.jl-reveal.jl-reveal-visible{
-  opacity:1;
-  transform:translateY(0);
-}
-.jl-reveal-scale{ transform:translateY(20px) scale(.92); }
-.jl-reveal-scale.jl-reveal-visible{ transform:translateY(0) scale(1); }
-.jl-reveal-left{ transform:translateX(-32px); }
-.jl-reveal-left.jl-reveal-visible{ transform:translateX(0); }
-.jl-reveal-right{ transform:translateX(32px); }
-.jl-reveal-right.jl-reveal-visible{ transform:translateX(0); }
-
-/* Stagger children within a revealed group */
-.jl-reveal-visible .jl-stagger > *{ animation:jlStaggerIn .55s cubic-bezier(.16,1,.3,1) both; }
-.jl-reveal-visible .jl-stagger > *:nth-child(1){ animation-delay:.04s; }
-.jl-reveal-visible .jl-stagger > *:nth-child(2){ animation-delay:.1s; }
-.jl-reveal-visible .jl-stagger > *:nth-child(3){ animation-delay:.16s; }
-.jl-reveal-visible .jl-stagger > *:nth-child(4){ animation-delay:.22s; }
-.jl-reveal-visible .jl-stagger > *:nth-child(5){ animation-delay:.28s; }
-.jl-reveal-visible .jl-stagger > *:nth-child(6){ animation-delay:.34s; }
-.jl-reveal-visible .jl-stagger > *:nth-child(7){ animation-delay:.4s; }
-.jl-reveal-visible .jl-stagger > *:nth-child(8){ animation-delay:.46s; }
-@keyframes jlStaggerIn{
-  0%{ opacity:0; transform:translateY(18px) scale(.94); }
-  100%{ opacity:1; transform:translateY(0) scale(1); }
-}
-
-/* Extra micro-interactions across the site */
-.jl-benefit, .jl-audience-item, .jl-about-card, .jl-am-card, .jl-review-card{
-  transition:transform .25s cubic-bezier(.16,1,.3,1), box-shadow .25s, border-color .25s, background .25s;
-}
-.jl-audience-item:hover{ transform:translateY(-4px); box-shadow:0 14px 30px #d9a44130; }
-.jl-about-card:hover{ transform:translateY(-4px); box-shadow:0 14px 30px #d9a44130; }
-.jl-am-card:hover{ transform:translateY(-3px); box-shadow:0 14px 30px #d9a44125; }
-.jl-audience-icon, .jl-about-card-icon, .jl-benefit-icon{ transition:transform .3s cubic-bezier(.34,1.56,.64,1); }
-.jl-audience-item:hover .jl-audience-icon,
-.jl-about-card:hover .jl-about-card-icon,
-.jl-benefit:hover .jl-benefit-icon{ transform:scale(1.12) rotate(-4deg); }
-.jl-social-icon{ transition:transform .25s cubic-bezier(.34,1.56,.64,1), background .2s; }
-.jl-social-icon:hover{ transform:translateY(-3px) scale(1.08); }
-.jl-copy-btn{ transition:transform .2s; }
-.jl-copy-btn:hover{ transform:scale(1.15); }
-.jl-nav-reg, .jl-reg{ transition:transform .2s, box-shadow .2s; }
-@keyframes jlPulseSoft{
-  0%,100%{ transform:scale(1); }
-  50%{ transform:scale(1.04); }
-}
-.jl-prize-badge, .jl-countdown-badge{ animation:jlPulseSoft 2.6s ease-in-out infinite; }
-
-/* ============ قسم الأسعار ============ */
-.jl-pricing{ background:var(--cream); padding:80px 56px; }
-.jl-pricing-head{ max-width:720px; margin:0 auto 44px; text-align:center; }
-.jl-pricing-head h2{ margin:0; font-size:38px; font-weight:900; }
-.jl-pricing-head p{ color:var(--ink); margin:14px 0 0; font-size:17px; font-weight:500; }
-.jl-pricing-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(320px, 420px));
-  gap:28px;
-  justify-content:center;
-  align-items:stretch;
-  max-width:900px;
-  margin:0 auto;
-}
-.jl-pricing-card{
-  max-width:420px;
-  width:100%;
-  margin:0 auto;
-  background:var(--cream-card);
-  border:2px solid var(--gold);
-  border-radius:24px;
-  padding:44px 40px;
-  text-align:center;
-  position:relative;
-  overflow:hidden;
-  box-shadow:0 20px 50px #d9a44133;
-  display:flex;
-  flex-direction:column;
-}
-[data-theme="dark"] .jl-pricing-card{ box-shadow:0 20px 50px #3b82f633; }
-.jl-pricing-card.jl-pricing-best{
-  border-color:var(--navy);
-  transform:scale(1.03);
-}
-[data-theme="dark"] .jl-pricing-card.jl-pricing-best{ border-color:var(--gold-light); }
-.jl-pricing-best-badge{
-  position:absolute;
-  top:0;
-  inset-inline-start:0;
-  inset-inline-end:0;
-  background:var(--navy);
-  color:var(--cream);
-  font-size:12px;
-  font-weight:800;
-  padding:8px;
-  letter-spacing:.3px;
-}
-[data-theme="dark"] .jl-pricing-best-badge{ background:var(--gold); color:#1a1206; }
-.jl-pricing-card.jl-pricing-best .jl-pricing-badge{ top:44px; }
-.jl-pricing-card.jl-pricing-best{ padding-top:56px; }
-.jl-pricing-badge{
-  position:absolute;
-  top:18px;
-  inset-inline-end:18px;
-  background:var(--navy);
-  color:var(--cream);
-  font-size:12px;
-  font-weight:800;
-  padding:6px 14px;
-  border-radius:999px;
-}
-.jl-pricing-title{ font-size:18px; font-weight:800; color:var(--gold); margin-bottom:6px; }
-.jl-pricing-amount{
-  font-family:var(--font-mono);
-  font-size:56px;
-  font-weight:900;
-  color:var(--navy);
-  line-height:1;
-  margin:12px 0;
-}
-.jl-pricing-amount span{ font-size:20px; font-weight:700; color:var(--muted); }
-.jl-pricing-old{
-  font-family:var(--font-mono);
-  font-size:22px;
-  font-weight:800;
-  color:var(--muted);
-  text-decoration:line-through;
-  text-decoration-color:#e15b5b;
-  text-decoration-thickness:2.5px;
-  margin:0 0 -4px;
-}
-.jl-pricing-save{
-  display:inline-block;
-  background:#2fae6533;
-  color:#1f8a4f;
-  font-size:12.5px;
-  font-weight:800;
-  padding:4px 12px;
-  border-radius:999px;
-  margin:6px 0 0;
-}
-[data-theme="dark"] .jl-pricing-save{ background:#2fae6540; color:#5ee6a0; }
-.jl-pricing-list{
-  list-style:none;
-  padding:0;
-  margin:28px 0;
-  text-align:right;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  flex:1;
-}
-[dir=ltr] .jl-pricing-list{ text-align:left; }
-.jl-pricing-list li{
-  display:flex;
-  align-items:flex-start;
-  gap:10px;
-  font-size:15px;
-  color:var(--ink);
-}
-.jl-pricing-list svg{ color:var(--green); flex-shrink:0; margin-top:3px; }
-
-/* ============ قسم تواصل معنا ============ */
-.jl-contact{ background:var(--cream-deep); padding:80px 56px; }
-.jl-contact-head{ max-width:720px; margin:0 auto 36px; text-align:center; }
-.jl-contact-head h2{ margin:0; font-size:clamp(30px,4vw,40px); font-weight:900; }
-.jl-contact-head p{ color:var(--ink); margin:12px 0 0; font-size:17px; font-weight:500; line-height:1.9; }
-.jl-contact-shell{
-  max-width:1040px; margin:0 auto; display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);
-  gap:22px; align-items:stretch;
-}
-.jl-contact-info{
-  background:var(--navy); color:#fff; border-radius:24px; padding:32px; position:relative; overflow:hidden;
-  display:flex; flex-direction:column; justify-content:space-between; min-height:100%;
-  box-shadow:0 18px 44px #10162d24;
-}
-.jl-contact-info::after{ content:"{ }"; position:absolute; inset-inline-end:-14px; bottom:-30px; font:900 116px/1 var(--font-mono); color:#ffffff0d; pointer-events:none; }
-.jl-contact-info h3{ margin:0 0 10px; font-size:24px; font-weight:900; }
-.jl-contact-info > p{ margin:0; color:#ffffffc9; line-height:1.9; font-size:14.5px; }
-.jl-contact-points{ display:grid; gap:12px; margin-top:28px; }
-.jl-contact-point{ display:flex; gap:12px; align-items:flex-start; padding:14px; border:1px solid #ffffff1c; background:#ffffff0a; border-radius:15px; }
-.jl-contact-point-icon{ width:38px; height:38px; flex:0 0 38px; border-radius:12px; display:grid; place-items:center; background:#d9a4412e; color:#f2cf79; font-size:18px; }
-.jl-contact-point strong{ display:block; font-size:14px; margin-bottom:3px; }
-.jl-contact-point span{ color:#ffffffb8; font-size:12.5px; line-height:1.7; }
-.jl-contact-form{
-  margin:0; background:var(--cream-card); border:1.5px solid #d9a4413d; border-radius:24px; padding:32px;
-  display:flex; flex-direction:column; gap:15px; box-shadow:0 18px 44px #10162d12;
-}
-.jl-contact-form label{ font-size:13.5px; font-weight:800; color:var(--navy); margin-bottom:-7px; }
-.jl-contact-form input, .jl-contact-form textarea{
-  width:100%; font-family:var(--font-display); border:1.5px solid #d9a44142; border-radius:12px; padding:13px 16px;
-  font-size:15px; background:var(--cream); color:var(--navy); outline:none; transition:border-color .18s, box-shadow .18s, background .18s;
-}
-.jl-contact-form input:hover, .jl-contact-form textarea:hover{ border-color:#d9a44173; }
-.jl-contact-form input:focus, .jl-contact-form textarea:focus{ border-color:var(--gold); box-shadow:0 0 0 3px #d9a44129; }
-.jl-contact-form input[aria-invalid="true"], .jl-contact-form textarea[aria-invalid="true"]{ border-color:#d84d4d; box-shadow:0 0 0 3px #d84d4d1f; }
-.jl-contact-form textarea{ resize:vertical; min-height:118px; }
-.jl-contact-submit{
-  font-family:var(--font-display); background:var(--gold); color:#fff; cursor:pointer; border:none; border-radius:999px;
-  padding:14px 30px; font-size:16px; font-weight:900; display:inline-flex; align-items:center; justify-content:center; gap:8px;
-  transition:transform .18s, box-shadow .18s, opacity .18s; box-shadow:0 10px 24px #d9a44157;
-}
-.jl-contact-submit:hover{ transform:translateY(-2px); box-shadow:0 16px 34px #d9a4416b; }
-.jl-contact-submit:focus-visible{ outline:3px solid #d9a44155; outline-offset:3px; }
-.jl-contact-note{ color:var(--muted); font-size:12.5px; text-align:center; margin:-3px 0 0; line-height:1.7; }
-.jl-contact-status{ min-height:20px; margin:0; text-align:center; font-size:13px; font-weight:800; }
-.jl-contact-status.err{ color:#bd3737; }
-.jl-contact-status.ok{ color:#218653; }
-[data-theme="dark"] .jl-contact-info{ background:#101a35; border:1px solid #ffffff12; }
-@media (max-width:820px){ .jl-contact-shell{ grid-template-columns:1fr; max-width:620px; } .jl-contact-info{ min-height:auto; } }
-@media (max-width:560px){ .jl-contact{ padding:58px 18px; } .jl-contact-head{ margin-bottom:26px; } .jl-contact-info,.jl-contact-form{ padding:24px 18px; border-radius:20px; } }
-
-/* ============ حزمة أنيميشن إضافية ============ */
-@keyframes jlHeroActionsFloat{
-  0%,100%{ transform:translateY(0); }
-  50%{ transform:translateY(-5px); }
-}
-.jl-hero-actions .jl-reg.dark{
-  animation:jlHeroActionsFloat 2.8s ease-in-out infinite;
-}
-[data-theme="dark"] .jl-hero-actions .jl-reg.dark{
-  animation:jlHeroActionsFloat 2.8s ease-in-out infinite, jlPulseGlowDark 2.8s ease-in-out infinite;
-}
-.jl-hero-actions .jl-reg.dark:hover,
-.jl-hero-actions .jl-hero-chat-btn:hover{
-  animation-play-state:paused;
-}
-@keyframes jlFloatY{
-  0%,100%{ transform:translateY(0); }
-  50%{ transform:translateY(-6px); }
-}
-@keyframes jlWiggle{
-  0%,100%{ transform:rotate(0deg); }
-  25%{ transform:rotate(-8deg); }
-  75%{ transform:rotate(8deg); }
-}
-@keyframes jlPulseGlow{
-  0%,100%{ box-shadow:0 10px 24px #d9a44157; }
-  50%{ box-shadow:0 16px 40px #d9a4418f; }
-}
-[data-theme="dark"] .jl-reg:not(.dark){ animation:jlPulseGlowDark 2.6s ease-in-out infinite; }
-@keyframes jlPulseGlowDark{
-  0%,100%{ box-shadow:0 10px 24px #3b82f657; }
-  50%{ box-shadow:0 16px 40px #3b82f68f; }
-}
-.jl-reg:not(.dark){ animation:jlPulseGlow 2.6s ease-in-out infinite; }
-@keyframes jlShine{
-  0%{ transform:translateX(-120%) skewX(-20deg); }
-  100%{ transform:translateX(220%) skewX(-20deg); }
-}
-.jl-benefit, .jl-about-card, .jl-audience-item{ position:relative; overflow:hidden; }
-.jl-benefit::after, .jl-about-card::after, .jl-audience-item::after{
-  content:"";
-  position:absolute;
-  top:0; left:-60%;
-  width:40%; height:100%;
-  background:linear-gradient(120deg, transparent, #ffffff33, transparent);
-  transform:translateX(-120%) skewX(-20deg);
-  pointer-events:none;
-}
-.jl-benefit:hover::after, .jl-about-card:hover::after, .jl-audience-item:hover::after{
-  animation:jlShine .9s ease forwards;
-}
-.jl-benefit-icon{ transition:transform .35s ease; }
-.jl-benefit:hover .jl-benefit-icon{ transform:rotate(-8deg) scale(1.12); }
-.jl-about-card-icon{ transition:transform .35s ease; }
-.jl-about-card:hover .jl-about-card-icon{ animation:jlWiggle .5s ease; }
-.jl-audience-icon{ transition:transform .35s ease; }
-.jl-audience-item:hover .jl-audience-icon{ transform:scale(1.14) rotate(8deg); }
-.jl-social-icon{ transition:transform .3s ease, background .3s ease; }
-.jl-social-icon:hover{ animation:jlWiggle .5s ease; }
-.jl-hero h1 mark{ position:relative; overflow:hidden; }
-.jl-hero h1 mark::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(100deg, transparent 30%, #ffffff5c 50%, transparent 70%);
-  background-size:220% 100%;
-  animation:jlMarkShimmer 3.2s ease-in-out infinite;
-  pointer-events:none;
-}
-@keyframes jlMarkShimmer{
-  0%{ background-position:130% 0; }
-  100%{ background-position:-30% 0; }
-}
-.jl-nav img{ animation:jlFloatY 4.5s ease-in-out infinite; }
-.jl-cta-card{ transition:box-shadow .3s ease; }
-.jl-cta-card:hover{ box-shadow:0 24px 60px #d9a4413d; }
-[data-theme="dark"] .jl-cta-card:hover{ box-shadow:0 24px 60px #3b82f63d; }
-.jl-am-card{ transition:transform .35s ease, box-shadow .35s ease; }
-.jl-am-card:hover{ transform:translateY(-5px); }
-.jl-benefit, .jl-about-card, .jl-audience-item{ transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease; }
-.jl-benefit:hover{ transform:translateY(-6px) scale(1.015); }
-.jl-about-card:hover{ transform:translateY(-6px); box-shadow:0 18px 40px #102a4321; }
-[data-theme="dark"] .jl-about-card:hover{ box-shadow:0 18px 40px #00000066; }
-.jl-audience-item:hover{ transform:translateY(-4px); }
-.jl-star-dot, .jl-dots-field span{ will-change:opacity; }
-
-/* ================= RESPONSIVE + CHAT LAYOUT FIX (2026-08-25) ================= */
-html, body{ width:100%; max-width:100%; overflow-x:hidden; }
-body{ padding-top:68px !important; }
-body.jl-ai-open{ overflow:hidden !important; }
-img, video, iframe{ max-width:100%; }
-
-/* Navbar: a little taller, readable, and never squeezed into one glued block. */
-.jl-nav{
-  top:10px !important;
-  left:clamp(8px, 1.2vw, 20px) !important;
-  right:clamp(8px, 1.2vw, 20px) !important;
-  min-height:58px !important;
-  padding:9px clamp(12px, 1.5vw, 24px) !important;
-  gap:12px !important;
-}
-.jl-nav-start{ gap:14px !important; }
-.jl-nav-end{ gap:9px !important; }
-.jl-nav img{ height:36px !important; }
-.jl-nav-hamburger{ width:36px !important; height:36px !important; font-size:17px !important; }
-.jl-nav-reg{ padding:8px 16px !important; font-size:13px !important; }
-.jl-lang-pill{ padding:7px 11px !important; font-size:12px !important; }
-.jl-chat-btn, .jl-admin-btn, .jl-student-btn{
-  width:34px !important; height:34px !important; min-width:34px !important; flex:0 0 34px !important;
-}
-
-/* Keep the main content fluid on phones, tablets, laptops and wide monitors. */
-.jl-hero, .jl-benefits, .jl-audience, .jl-cta-section, .jl-about,
-.jl-reviews, .jl-faq, .jl-contact{ padding-inline:clamp(18px, 4vw, 72px); }
-.jl-hero{
-  grid-template-columns:minmax(0, 1fr) minmax(0, 1.05fr);
-  gap:clamp(32px, 5vw, 76px);
-  padding-top:clamp(44px, 6vw, 86px);
-  padding-bottom:clamp(58px, 7vw, 104px);
-}
-.jl-hero-text, .jl-code-wrap, .jl-code{ min-width:0; max-width:100%; }
-.jl-hero h1{ font-size:clamp(38px, 4.2vw, 68px); }
-.jl-hero p.sub{ font-size:clamp(17px, 1.45vw, 21px); }
-.jl-code-body{ overflow-x:auto; }
-
-/* Chat window: old full chat layout, with a permanently reachable composer. */
-.jl-ai-overlay{
-  height:100dvh; min-height:100svh;
-  padding:clamp(8px, 1.5vw, 18px);
-  overscroll-behavior:contain;
-}
-.jl-ai-modal{
-  position:relative; width:min(1120px, 100%); max-width:1120px;
-  height:min(820px, calc(100dvh - 24px)); max-height:calc(100dvh - 24px); min-height:0;
-}
-.jl-ai-sidebar{ width:300px; min-width:300px; }
-.jl-ai-sidebar-head{ padding:18px 16px 12px; }
-.jl-ai-new-btn{ min-height:48px; padding:12px 14px; font-size:14px; }
-.jl-ai-conv-list{ gap:8px; padding:4px 14px 16px; }
-.jl-ai-conv-item{ min-height:42px; padding:11px 13px; font-size:13px; }
-.jl-ai-main{ min-height:0; overflow:hidden; }
-.jl-ai-topbar{ min-height:62px; padding:10px 16px; }
-.jl-ai-thread{
-  min-height:0; padding:20px clamp(14px, 2.5vw, 28px);
-  overscroll-behavior:contain; -webkit-overflow-scrolling:touch;
-}
-.jl-ai-input-bar{
-  position:relative; z-index:4; min-height:68px;
-  padding:10px 16px calc(10px + env(safe-area-inset-bottom));
-}
-.jl-ai-input{ min-width:0; height:46px; padding:10px 16px; font-size:16px; }
-.jl-ai-plus-btn, .jl-ai-send-btn{ width:42px; height:42px; min-width:42px; }
-.jl-ai-file-preview{ flex-shrink:0; }
-
-@media (width<=980px){
-  .jl-nav-links{ gap:6px !important; padding:12px !important; }
-  .jl-nav-links .jl-navlink{ min-height:42px; display:flex; align-items:center; }
-  .jl-hero{ grid-template-columns:1fr; gap:34px; }
-  .jl-hero-text, .jl-code-wrap{ width:min(100%, 720px); margin-inline:auto; }
-  .jl-code-wrap{ order:2; }
-  .jl-hero-text{ order:1; }
-}
-
-@media (width<=760px){
-  body{ padding-top:66px !important; }
-  .jl-nav{ top:7px !important; min-height:54px !important; padding:8px 10px !important; gap:8px !important; }
-  .jl-nav-start{ gap:8px !important; }
-  .jl-nav-end{ gap:7px !important; }
-  .jl-nav img{ height:32px !important; }
-  .jl-nav-brand{ display:none !important; }
-  .jl-nav-hamburger{ width:34px !important; height:34px !important; }
-  .jl-nav-reg{ padding:8px 12px !important; font-size:12px !important; }
-  .jl-lang-pill{ padding:6px 9px !important; font-size:11px !important; }
-  .jl-theme-toggle{ display:none !important; }
-  .jl-chat-btn{ display:flex !important; width:34px !important; height:34px !important; min-width:34px !important; }
-  .jl-admin-btn, .jl-student-btn{ width:32px !important; height:32px !important; min-width:32px !important; }
-
-  .jl-hero{ min-height:auto !important; padding-top:34px !important; padding-bottom:52px !important; gap:28px !important; }
-  .jl-hero h1{ font-size:clamp(32px, 9vw, 44px) !important; line-height:1.22; }
-  .jl-hero p.sub{ margin-top:20px; font-size:16px; line-height:1.8; }
-  .jl-code{ transform:none; padding:18px 16px 20px; }
-  .jl-code-body{ font-size:12.5px; }
-
-  .jl-ai-overlay{ padding:0; align-items:stretch; }
-  .jl-ai-modal{ width:100%; max-width:none; height:100dvh; max-height:100dvh; border-radius:0; }
-  .jl-ai-sidebar{
-    position:absolute; inset-block:0; inset-inline-start:0; inset-inline-end:auto; z-index:8;
-    width:min(86vw, 330px); min-width:0; transform:translateX(110%);
-    box-shadow:-14px 0 32px #00000042;
+    mpApi('/api/months?mine=1').then(function(data){
+      monthsCache = data.months;
+      if (data.pass_percent != null) PASS_PERCENT = Number(data.pass_percent) || PASS_PERCENT;
+      renderMonths();
+    }).catch(function(err){
+      renderLoadError(err.message);
+    });
   }
-  [dir="ltr"] .jl-ai-sidebar{ transform:translateX(-110%); box-shadow:14px 0 32px #00000042; }
-  .jl-ai-sidebar.open{ transform:translateX(0); }
-  .jl-ai-main{ width:100%; height:100%; }
-  .jl-ai-topbar{ min-height:60px; padding:8px 10px; }
-  .jl-ai-thread{ padding:16px 12px; gap:12px; }
-  .jl-ai-msg{ max-width:90%; font-size:14px; }
-  .jl-ai-input-bar{ min-height:66px; gap:7px; padding:9px 10px calc(9px + env(safe-area-inset-bottom)); }
-  .jl-ai-input{ height:46px; padding-inline:14px; }
-  .jl-ai-plus-btn, .jl-ai-send-btn{ width:40px; height:40px; min-width:40px; }
-}
 
-@media (width<=600px){
-  .jl-nav{ left:5px !important; right:5px !important; padding-inline:7px !important; }
-  .jl-nav-start{ gap:4px !important; }
-  .jl-nav-end{ gap:4px !important; flex-shrink:1 !important; min-width:0; }
-  .jl-nav img{ height:27px !important; max-width:72px; object-fit:contain; }
-  .jl-nav-reg{ width:76px; justify-content:center; padding:7px 5px !important; font-size:10.5px !important; }
-  .jl-lang-pill{ width:38px; justify-content:center; padding:6px 3px !important; font-size:9.5px !important; gap:2px !important; }
-  .jl-chat-btn, .jl-admin-btn, .jl-student-btn, .jl-nav-hamburger{
-    width:29px !important; height:29px !important; min-width:29px !important;
-    flex:0 0 29px !important; padding:0 !important;
+  function renderMonths(){
+    monthsEl.innerHTML = '';
+    monthsCache.forEach(function(month){
+      var locked = month.status === 'locked';
+      var isExpanded = expandedMonthId === month.id;
+      var passed = month.status === 'completed';
+
+      var row = document.createElement('div');
+      row.className = 'jl-mp-accordion-item' + (locked ? ' locked' : '') + (isExpanded ? ' expanded' : '');
+
+      var headerHtml =
+        '<button type="button" class="jl-mp-accordion-head" ' + (locked ? 'disabled' : '') + '>' +
+          '<span class="jl-mp-lock-icon">' + (locked ? '🔒' : (passed ? '✅' : '📖')) + '</span>' +
+          '<span class="jl-mp-month-title">' + mpEsc(month.name) + '</span>' +
+          '<span class="jl-mp-chevron">' + (isExpanded ? '▲' : '▼') + '</span>' +
+        '</button>';
+
+      var bodyHtml = isExpanded && !locked ? '<div class="jl-mp-accordion-body" id="jl-mp-body-' + month.id + '"><div class="jl-skeleton" style="height:40px;"></div></div>' : '';
+
+      row.innerHTML = headerHtml + bodyHtml;
+
+      var headBtn = row.querySelector('.jl-mp-accordion-head');
+      headBtn.addEventListener('click', function(){
+        if (locked) return;
+        expandedMonthId = isExpanded ? null : month.id;
+        renderMonths();
+        if (expandedMonthId) loadQuizzesForMonth(month.id);
+      });
+
+      monthsEl.appendChild(row);
+    });
   }
-  .jl-ai-topbar-brand{ justify-content:center; }
-  .jl-ai-exit-btn{ padding:6px 9px; font-size:12px; }
-  .jl-ai-input-bar{ gap:6px; padding-inline:8px; }
-  .jl-ai-plus-btn, .jl-ai-send-btn{ width:38px; height:38px; min-width:38px; }
-}
 
-/* With ten links, the desktop row only has enough room on genuinely wide screens. */
-@media (width<=1500px){
-  .jl-nav-hamburger{ display:flex !important; order:0; }
-  .jl-nav-links{
-    display:none !important;
-    position:absolute;
-    top:100%;
-    inset-inline:0;
-    margin-top:8px;
-    max-height:calc(100dvh - 90px);
-    overflow-y:auto;
-    background:var(--cream-card);
-    border:1px solid #d9a44138;
-    border-radius:14px;
-    flex-direction:column;
-    align-items:stretch;
-    gap:4px !important;
-    padding:12px !important;
-    box-shadow:0 14px 30px #102a4324;
+  function loadQuizzesForMonth(monthId){
+    var student = getLoggedInStudent();
+    if (!student) return;
+
+    mpApi('/api/quizzes?month_id=' + monthId).then(function(data){
+      if (data.pass_percent != null) PASS_PERCENT = Number(data.pass_percent) || PASS_PERCENT;
+      quizzesCache[monthId] = { weekly: data.quizzes, final: data.final_exam };
+      renderMonthBody(monthId);
+    }).catch(function(err){
+      var body = document.getElementById('jl-mp-body-' + monthId);
+      if (body) body.innerHTML = '<p class="jl-mp-error-msg">⚠️ ' + mpEsc(err.message) + '</p>';
+    });
   }
-  .jl-nav-links.open{ display:flex !important; }
-  .jl-nav-links .jl-navlink{
-    width:100%;
-    min-height:42px;
-    display:flex;
-    align-items:center;
-    padding:10px 12px;
-    border-radius:8px;
-    font-size:13.5px !important;
-  }
-  .jl-nav-links .jl-navlink:hover{ background:#9a917a1a; }
-}
 
-@media (min-width:1800px){
-  .jl-hero{ min-height:720px; align-content:center; }
-  .jl-hero-text, .jl-code-wrap{ max-width:760px; }
-  .jl-hero-text{ justify-self:start; }
-  .jl-code-wrap{ justify-self:end; width:100%; }
-  .jl-benefits-grid, .jl-audience-grid, .jl-about-cards,
-  .jl-pricing-grid, .jl-footer-grid, .jl-reviews-list{ max-width:1500px; margin-inline:auto; }
-}
+  function renderMonthBody(monthId){
+    var body = document.getElementById('jl-mp-body-' + monthId);
+    if (!body) return;
+    var cache = quizzesCache[monthId];
+    if (!cache) return;
 
-/* Team cards must never stay in two oversized columns on tablets. */
-.jl-am-card{ min-width:0; max-width:100%; }
-@media (width<=900px){
-  .jl-am-grid{
-    grid-template-columns:minmax(0, 1fr) !important;
-    width:min(100%, 620px);
-    margin-inline:auto;
-    gap:24px;
-  }
-  .jl-am-card{ width:100%; overflow:hidden; }
-  .jl-am-photo{
-    width:min(100%, 420px) !important;
-    height:auto !important;
-    aspect-ratio:1 / 1;
-    margin-inline:auto;
-  }
-  .jl-am-photo img{ width:100%; height:100%; object-fit:cover; }
-}
+    var weeksHtml = '';
+    for (var w = 1; w <= 4; w++){
+      var rows = '';
+      cache.weekly.forEach(function(quiz){
+        if (quiz.week_number !== w) return;
+        var status = quiz.status;
+        var hasQuestions = quiz.has_questions !== false;
+        var icon = status === 'completed' ? '✓' : (status === 'unlocked' ? (hasQuestions ? '▶' : '⏳') : '🔒');
+        var btnLabel = status === 'completed' ? 'خلصته' : (status === 'unlocked' ? (hasQuestions ? 'ابدأ' : 'لسه منزلش') : 'مقفول');
+        var scoreHtml = quiz.result ? '<span class="jl-mp-quiz-score">' + quiz.result.score + '/' + quiz.result.total + '</span>' : '';
+        var shareBtnHtml = quiz.result ? '<button class="jl-mp-share-btn" data-quiz-title="' + mpEsc(quiz.title) + '" data-score="' + quiz.result.score + '" data-total="' + quiz.result.total + '" title="شارك نتيجتك" aria-label="شارك نتيجتك">📤</button>' : '';
+        rows +=
+          '<div class="jl-mp-quiz-row ' + status + (hasQuestions ? '' : ' no-questions') + '" data-quiz-id="' + quiz.id + '" data-month-id="' + monthId + '">' +
+            '<span class="jl-mp-quiz-name"><span class="jl-mp-quiz-icon">' + icon + '</span>' + mpEsc(quiz.title) + '</span>' +
+            '<span>' + scoreHtml + shareBtnHtml + '<button class="jl-mp-quiz-btn" ' + (status !== 'unlocked' || !hasQuestions ? 'disabled' : '') + '>' + btnLabel + '</button></span>' +
+          '</div>';
+      });
+      weeksHtml += '<div class="jl-mp-week"><div class="jl-mp-week-label">الأسبوع ' + w + '</div>' + rows + '</div>';
+    }
 
-/* The very narrow phones use two clean navbar rows instead of clipping controls. */
-@media (width<=350px){
-  body{ padding-top:104px !important; }
-  .jl-nav{
-    flex-wrap:wrap !important;
-    min-height:92px !important;
-    row-gap:5px !important;
-    padding-block:7px !important;
-  }
-  .jl-nav-start{
-    width:100%;
-    justify-content:space-between;
-  }
-  .jl-nav-end{
-    width:100%;
-    justify-content:center;
-  }
-}
+    var fe = cache.final;
+    var finalHtml = '';
+    if (fe){
+      var feIcon = fe.status === 'completed' ? '✓' : (fe.status === 'unlocked' ? '🎯' : '🔒');
+      var feScoreHtml = fe.result ? '<span class="jl-mp-quiz-score">' + fe.result.score + '/' + fe.result.total + '</span>' : '';
+      var feBtnLabel, feBtnDisabled = true;
+      if (fe.status === 'completed'){ feBtnLabel = 'خلصته'; }
+      else if (fe.status === 'locked'){ feBtnLabel = 'مقفول'; }
+      else if (!fe.has_questions){ feBtnLabel = 'لسه الاختبار منزلش'; }
+      else { feBtnLabel = 'ابدأ الاختبار'; feBtnDisabled = false; }
 
-.jl-ai-msg a{
-  color:#2f6fed;
-  text-decoration:underline;
-  overflow-wrap:anywhere;
-}
-[data-theme="dark"] .jl-ai-msg a{ color:#8ab4ff; }
+      finalHtml =
+        '<div class="jl-mp-final-exam">' +
+          '<div class="jl-mp-final-label">🎯 الاختبار النهائي — لازم ' + PASS_PERCENT + '% عشان الشهر اللي بعده يتفتح</div>' +
+          '<div class="jl-mp-quiz-row ' + fe.status + '" data-quiz-id="' + fe.id + '" data-month-id="' + monthId + '" data-final="1">' +
+            '<span class="jl-mp-quiz-name"><span class="jl-mp-quiz-icon">' + feIcon + '</span>' + mpEsc(fe.title) + '</span>' +
+            '<span>' + feScoreHtml + '<button class="jl-mp-quiz-btn jl-mp-final-btn" ' + (feBtnDisabled ? 'disabled' : '') + '>' + feBtnLabel + '</button></span>' +
+          '</div>';
 
-/* ===== Final navigation, auth, footer and floating actions update ===== */
-.jl-hero-symbols, .jl-stars-field, .jl-streaks{ display:none !important; }
-.jl-nav{ overflow:visible !important; }
-.jl-nav-logo-link{ display:flex; align-items:center; min-width:0; }
-.jl-nav img{ width:clamp(96px, 10vw, 150px) !important; height:38px !important; object-fit:contain; border-radius:7px !important; animation:none !important; }
-.jl-nav-hamburger{ display:flex !important; align-items:center; justify-content:center; order:0; }
-.jl-nav-links{
-  display:none !important; position:absolute !important; top:calc(100% + 8px) !important;
-  inset-inline:0 !important; max-height:calc(100dvh - 90px); overflow-y:auto;
-  background:var(--cream-card); border:1px solid #d9a44138; border-radius:16px;
-  flex-direction:column !important; align-items:stretch !important; gap:4px !important;
-  padding:12px !important; box-shadow:0 18px 42px #102a432e; z-index:1001;
-}
-[data-theme="dark"] .jl-nav-links{ background:#111827; border-color:#3b82f640; }
-.jl-nav-links.open{ display:flex !important; }
-.jl-nav-links .jl-navlink{ width:100%; min-height:43px; display:flex; align-items:center; padding:10px 13px; border-radius:9px; font-size:14px !important; }
-.jl-nav-links .jl-navlink:hover, .jl-nav-links .jl-navlink:focus-visible{ background:#d9a44118; outline:none; }
-.jl-nav-scroll-track{ position:absolute; inset-inline:14px; bottom:-1px; height:3px; overflow:hidden; border-radius:999px; pointer-events:none; }
-.jl-nav-scroll-track span{ display:block; width:0; height:100%; background:linear-gradient(90deg,var(--gold),#7251d2); border-radius:inherit; transition:width .08s linear; }
-.jl-theme-toggle{ min-width:76px; padding:3px !important; background:#3c216c !important; border:0 !important; border-radius:999px !important; display:flex !important; }
-.jl-theme-opt{ width:34px; height:30px; padding:0 !important; display:grid; place-items:center; border-radius:999px !important; color:#fff; font-size:17px !important; }
-.jl-theme-opt.active{ background:#fff !important; color:#3c216c !important; box-shadow:0 2px 8px #0002 !important; }
-.jl-auth-nav-btn{ min-height:36px; padding:7px 20px; border-radius:11px; cursor:pointer; font-size:13px; font-weight:800; white-space:nowrap; transition:transform .18s, box-shadow .18s, background .18s; }
-.jl-auth-nav-btn:hover{ transform:translateY(-1px); }
-.jl-auth-register{ color:#fff; background:var(--navy); border:1px solid var(--navy); }
-.jl-auth-login{ color:var(--navy); background:transparent; border:2px solid var(--navy); }
-[data-theme="dark"] .jl-auth-register{ background:#3b82f6; border-color:#3b82f6; }
-[data-theme="dark"] .jl-auth-login{ color:#fff; border-color:#fff; }
-.jl-footer-grid-3{ align-items:stretch !important; }
-.jl-footer-col{ height:100%; min-height:360px; display:flex; flex-direction:column; }
-.jl-footer-brand-col .jl-social-row{ margin-top:auto !important; }
-.jl-footer-col > .jl-footer-navlink:last-child{ margin-bottom:0; }
-.jl-ai-topbar-logo{ width:150px !important; height:44px !important; object-fit:contain !important; border-radius:7px; }
-.jl-float-whatsapp, .jl-float-chat{ position:fixed !important; right:max(16px, env(safe-area-inset-right)); z-index:1200; border:0; cursor:pointer; box-shadow:0 10px 28px #10162d3d; }
-.jl-float-whatsapp{ bottom:max(18px, env(safe-area-inset-bottom)) !important; }
-.jl-float-chat{ bottom:calc(max(18px, env(safe-area-inset-bottom)) + 64px); min-height:50px; padding:0 15px; border-radius:999px; background:var(--navy); color:#fff; display:flex; align-items:center; gap:8px; font:800 13px var(--font-display); }
-.jl-float-chat:hover{ background:var(--gold); transform:translateY(-2px); }
-.jl-float-chat > span:first-child{ font-size:20px; }
-[data-theme="dark"] .jl-float-chat{ background:#3b82f6; }
-@media (width<=700px){
-  .jl-nav{ flex-wrap:nowrap !important; }
-  .jl-nav img{ width:82px !important; height:30px !important; }
-  .jl-nav-end{ gap:5px !important; }
-  .jl-lang-pill{ display:none !important; }
-  .jl-auth-nav-btn{ min-height:32px; padding:5px 9px; font-size:10.5px; border-radius:9px; }
-  .jl-theme-toggle{ min-width:58px; }
-  .jl-theme-opt{ width:26px; height:26px; font-size:14px !important; }
-  .jl-footer-col{ min-height:0; }
-  .jl-float-chat{ width:50px; height:50px; padding:0; justify-content:center; }
-  .jl-float-label{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
-}
-@media (width<=390px){
-  body{ padding-top:104px !important; }
-  .jl-nav{ flex-wrap:wrap !important; min-height:92px !important; row-gap:5px !important; padding-block:7px !important; }
-  .jl-nav-start, .jl-nav-end{ width:100%; justify-content:space-between; }
-  .jl-nav-end{ justify-content:center; }
-}
-@media (prefers-reduced-motion:reduce){ .jl-nav-scroll-track span, .jl-auth-nav-btn, .jl-float-chat{ transition:none !important; } }
-
-/* ---- preserved style block ---- */
-
-/* Final hero image: sharp, responsive and limited to the home section. */
-      .jl-hero .jl-hw-scene{
-        width:100%;
-        max-width:780px;
-        aspect-ratio:16 / 11;
-        min-height:0;
-        margin-inline:auto;
-        border:1px solid rgba(182,145,59,.38);
-        border-radius:24px;
-        background-color:#0a1024;
-        background-image:url("codehub-hero-tshirt-watch-v6.png");
-        background-repeat:no-repeat;
-        background-size:cover;
-        background-position:left center;
-        box-shadow:0 28px 58px rgba(10,16,36,.28);
-        overflow:hidden;
-        transform:none !important;
-        image-rendering:auto;
+      if (fe.status === 'completed'){
+        finalHtml += '<div class="jl-mp-final-result ' + (fe.passed ? 'pass' : 'fail') + '">' +
+          (fe.passed ? '🎉 مبروك! نجحت في الاختبار والشهر اللي بعده اتفتح.' : '😕 للأسف أقل من ' + PASS_PERCENT + '%. لازم تعيد اختبارات الشهر ده الأول قبل ما تكمل.') +
+        '</div>';
       }
-      .jl-hero .jl-hw-scene > *{display:none !important;}
-      [data-theme="dark"] .jl-hero .jl-hw-scene{
-        border-color:rgba(201,168,92,.42);
-        box-shadow:0 30px 64px rgba(0,0,0,.48);
+      finalHtml += '</div>';
+    }
+
+    body.innerHTML = weeksHtml + finalHtml;
+
+    body.querySelectorAll('.jl-mp-quiz-row.unlocked .jl-mp-quiz-btn').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var row = btn.closest('.jl-mp-quiz-row');
+        var isFinal = row.hasAttribute('data-final');
+        startQuiz(row.getAttribute('data-quiz-id'), row.getAttribute('data-month-id'), row.querySelector('.jl-mp-quiz-name').textContent.trim(), isFinal);
+      });
+    });
+  }
+
+  // ---------- شاشة أخذ الكويز الحقيقية ----------
+  function startQuiz(quizId, monthId, quizTitle, isFinal){
+    var student = getLoggedInStudent();
+    if (!student) return;
+
+    monthsEl.innerHTML = '<div class="jl-skeleton" style="height:200px;"></div>';
+
+    mpApi('/api/quiz-questions?quiz_id=' + quizId).then(function(data){
+      if (!data.questions.length){
+        monthsEl.innerHTML = '<p class="jl-mp-error-msg">لسه مفيش أسئلة للكويز ده.</p><button type="button" class="jl-reg" id="jl-mp-back-btn">← رجوع</button>';
+        document.getElementById('jl-mp-back-btn').addEventListener('click', function(){ renderMonths(); if (expandedMonthId) renderMonthBody(expandedMonthId); });
+        return;
       }
-      @media (max-width:980px){
-        .jl-hero .jl-hw-scene{
-          max-width:760px;
-          aspect-ratio:16 / 9;
-          background-position:left center;
-          border-radius:20px;
+      renderQuizTaking(quizId, monthId, quizTitle, data.questions, student.id, isFinal);
+    }).catch(function(err){
+      monthsEl.innerHTML = '<p class="jl-mp-error-msg">⚠️ ' + mpEsc(err.message) + '</p>';
+    });
+  }
+
+  function renderQuizTaking(quizId, monthId, quizTitle, questions, studentId, isFinal){
+    var savedKey = 'ch_quiz_progress_' + studentId + '_' + quizId;
+    var questionFingerprint = questions.map(function(q){ return String(q.id); }).join('|');
+    var currentIndex = 0;
+    var answers = {}; // question_id -> selected_index or text answer
+    var examExitWarningOn = false;
+    function quizEsc(value){ return String(value == null ? '' : value).replace(/[&<>"']/g,function(ch){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];}); }
+
+    // 18) استرجاع تقدّم محفوظ لو حصل قطع نت أو قفل الصفحة غلط
+    try {
+      var saved = JSON.parse(localStorage.getItem(savedKey) || 'null');
+      // نحافظ على تقدّم الطالب حتى لو المدرس عدّل أسئلة الكويز بعد ذلك.
+      // الإجابات المرتبطة بأسئلة ما زالت موجودة تفضل محفوظة، والأسئلة الجديدة تبدأ بدون إجابة.
+      if (saved && saved.answers) {
+        answers = saved.answers;
+        currentIndex = Math.min(Math.max(saved.currentIndex || 0, 0), questions.length - 1);
+      }
+    } catch (e) {}
+
+    function saveProgress(){
+      try { localStorage.setItem(savedKey, JSON.stringify({ answers: answers, currentIndex: currentIndex, fingerprint: questionFingerprint, savedAt: Date.now() })); } catch (e) {}
+    }
+    function clearProgress(){
+      try { localStorage.removeItem(savedKey); } catch (e) {}
+    }
+
+    // 17) تحذير لو الطالب حاول يقفل الصفحة في نص الامتحان
+    function beforeUnloadHandler(e){ e.preventDefault(); e.returnValue = ''; }
+    function startExitWarning(){
+      if (examExitWarningOn) return;
+      examExitWarningOn = true;
+      window.addEventListener('beforeunload', beforeUnloadHandler);
+    }
+    function stopExitWarning(){
+      examExitWarningOn = false;
+      window.removeEventListener('beforeunload', beforeUnloadHandler);
+    }
+    startExitWarning();
+    quizSessionActive = true;
+    activeQuizCleanup = function(){
+      stopExitWarning();
+      quizSessionActive = false;
+      activeQuizCleanup = null;
+    };
+    var submittingQuiz = false;
+
+    function renderQuestion(){
+      var q = questions[currentIndex];
+      var progress = Math.round(((currentIndex + 1) / questions.length) * 100);
+      var isLast = currentIndex === questions.length - 1;
+
+      var answerMode = q.answer_mode || 'choice';
+      var currentAnswer = answers[q.id];
+      var hasAnswer = answerMode === 'choice' ? currentAnswer != null : String(currentAnswer || '').trim().length > 0;
+      var answerHtml = answerMode === 'choice'
+        ? '<div class="jl-quiz-take-options">' + (q.options || []).map(function(opt, idx){
+            var checked = currentAnswer === idx ? ' selected' : '';
+            return '<button type="button" class="jl-quiz-option' + checked + '" data-idx="' + idx + '">' + quizEsc(opt) + '</button>';
+          }).join('') + '</div>'
+        : (q.question_type === 'essay'
+            ? '<textarea id="jl-quiz-text-answer" maxlength="4000" rows="7" placeholder="اكتب إجابتك بالتفصيل..." style="width:100%;border:1px solid #b6913b66;border-radius:14px;padding:14px;background:#fff;color:#1a2142;font:600 15px Cairo,sans-serif;resize:vertical">' + quizEsc(currentAnswer || '') + '</textarea>'
+            : '<input id="jl-quiz-text-answer" maxlength="1000" placeholder="اكتب الإجابة هنا" value="' + quizEsc(currentAnswer || '') + '" style="width:100%;border:1px solid #b6913b66;border-radius:14px;padding:14px;background:#fff;color:#1a2142;font:600 15px Cairo,sans-serif">');
+
+      monthsEl.innerHTML =
+        '<div class="jl-quiz-take">' +
+          '<div class="jl-quiz-take-head"><span>' + quizEsc(quizTitle) + '</span><span>سؤال ' + (currentIndex + 1) + ' من ' + questions.length + '</span></div>' +
+          '<div class="jl-quiz-take-progress"><div class="jl-quiz-take-progress-fill" style="width:' + progress + '%"></div></div>' +
+          '<div style="display:inline-flex;background:#b6913b1f;color:#80631f;border-radius:999px;padding:5px 11px;font-weight:800;font-size:12px;margin-bottom:10px">' + quizEsc(q.type_label || 'اختياري') + '</div>' +
+          '<div class="jl-quiz-take-question">' + quizEsc(q.question_text) + '</div>' + answerHtml +
+          '<div class="jl-quiz-save-note">✓ إجاباتك بتتحفظ تلقائيًا على الجهاز</div>' +
+          '<div class="jl-quiz-nav-actions">' +
+            '<button type="button" class="jl-quiz-prev-btn" id="jl-quiz-prev-btn" ' + (currentIndex === 0 ? 'disabled' : '') + '>السابق</button>' +
+            '<button type="button" class="jl-reg jl-quiz-next-main" id="jl-quiz-next-btn" ' + (!hasAnswer ? 'disabled' : '') + '>' + (isLast ? 'إنهاء وتسليم' : 'التالي') + '</button>' +
+          '</div>' +
+        '</div>';
+
+      monthsEl.querySelectorAll('.jl-quiz-option').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          monthsEl.querySelectorAll('.jl-quiz-option').forEach(function(b){ b.classList.remove('selected'); });
+          btn.classList.add('selected');
+          answers[q.id] = parseInt(btn.getAttribute('data-idx'), 10);
+          document.getElementById('jl-quiz-next-btn').disabled = false;
+          saveProgress();
+        });
+      });
+
+      var textAnswer = document.getElementById('jl-quiz-text-answer');
+      if (textAnswer) textAnswer.addEventListener('input', function(){
+        answers[q.id] = textAnswer.value;
+        document.getElementById('jl-quiz-next-btn').disabled = !textAnswer.value.trim();
+        saveProgress();
+      });
+
+      var prevBtn = document.getElementById('jl-quiz-prev-btn');
+      if (prevBtn) prevBtn.addEventListener('click', function(){
+        if (currentIndex > 0){ currentIndex--; saveProgress(); renderQuestion(); }
+      });
+
+      document.getElementById('jl-quiz-next-btn').addEventListener('click', function(){
+        if (isLast){
+          if (window.confirm('متأكد إنك جاوبت كل الأسئلة وعايز تسلّم الاختبار؟')) submitQuiz();
+        } else {
+          currentIndex++;
+          saveProgress();
+          renderQuestion();
+        }
+      });
+    }
+
+    function submitQuiz(){
+      if (submittingQuiz) return;
+      submittingQuiz = true;
+      stopExitWarning();
+      monthsEl.innerHTML = '<div class="jl-skeleton" style="height:120px;"></div>';
+      var payload = {
+        quiz_id: quizId,
+        // نرسل فقط إجابات الأسئلة الموجودة حاليًا في الكويز، مع الاحتفاظ بالتقدم القديم محليًا.
+        answers: questions.filter(function(q){ return Object.prototype.hasOwnProperty.call(answers, q.id); }).map(function(q){
+          var qId = q.id;
+          return typeof answers[qId] === 'number'
+            ? { question_id: qId, selected_index: answers[qId] }
+            : { question_id: qId, text_answer: String(answers[qId] || '') };
+        })
+      };
+      fetch(CH_API_BASE_MP + '/api/submit-result', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(function(r){ return r.json().then(function(data){ if (!r.ok) throw new Error(data.error); return data; }); })
+        .then(function(data){
+          submittingQuiz = false;
+          clearProgress();
+          if (activeQuizCleanup) activeQuizCleanup();
+          if (window.jlConfetti) window.jlConfetti();
+          var pct = Math.round((data.result.score / data.result.total) * 100);
+
+          // 20) مراجعة الإجابات الصح والغلط
+          var reviewHtml = (data.breakdown || []).map(function(b, i){
+            var status = b.is_correct ? 'correct' : 'wrong';
+            var yourAnswer = b.answer_mode === 'text' ? (b.student_answer || 'من غير إجابة') : (b.selected_index != null ? b.options[b.selected_index] : 'من غير إجابة');
+            var correctAnswer = b.answer_mode === 'text' ? b.correct_answer : b.options[b.correct_index];
+            var similarityText = b.similarity != null ? ' — نسبة التشابه: ' + b.similarity + '%' : '';
+            return '<div class="jl-review-answer ' + status + '">' +
+              '<strong>' + (i + 1) + '. ' + quizEsc(b.question_text) + '</strong><br>' +
+              (b.is_correct ? '✓ إجابتك صح: ' + quizEsc(yourAnswer) : '✗ إجابتك: ' + quizEsc(yourAnswer) + ' — الإجابة النموذجية: ' + quizEsc(correctAnswer)) + similarityText +
+            '</div>';
+          }).join('');
+
+          monthsEl.innerHTML =
+            '<div class="jl-quiz-result">' +
+              '<div class="jl-quiz-result-score">' + data.result.score + ' / ' + data.result.total + '</div>' +
+              '<div class="jl-quiz-result-pct">' + pct + '%</div>' +
+              '<div class="jl-quiz-result-note ' + (data.review_locked ? 'fail' : 'ok') + '">' +
+                (data.review_locked ? 'النهائي محتاج ' + (data.pass_percent || PASS_PERCENT) + '% للنجاح. راجع وحاول تاني.' : 'تم حفظ نتيجتك وتحديث المسار بنجاح.') +
+              '</div>' +
+              '<button type="button" class="jl-reg" id="jl-quiz-back-btn">← رجوع للمسار</button>' +
+              (data.review_locked ? '' : '<button type="button" class="jl-student-link" id="jl-quiz-review-btn" style="margin-top:12px;">مراجعة الإجابات</button>') +
+              (data.review_locked ? '' : '<div id="jl-quiz-review-list" style="display:none;text-align:start;margin-top:16px;">' + reviewHtml + '</div>') +
+            '</div>';
+          document.getElementById('jl-quiz-back-btn').addEventListener('click', function(){
+            delete quizzesCache[monthId];
+            loadMonths();
+            expandedMonthId = monthId;
+          });
+          var reviewBtn = document.getElementById('jl-quiz-review-btn');
+          if (reviewBtn) reviewBtn.addEventListener('click', function(){
+            var list = document.getElementById('jl-quiz-review-list');
+            if (list) list.style.display = list.style.display === 'none' ? 'block' : 'none';
+          });
+        }).catch(function(err){
+          submittingQuiz = false;
+          startExitWarning();
+          quizSessionActive = true;
+          monthsEl.innerHTML =
+            '<div class="jl-quiz-submit-error">' +
+              '<p class="jl-mp-error-msg">⚠️ ' + mpEsc(err.message || 'تعذر إرسال النتيجة') + '</p>' +
+              '<p>إجاباتك محفوظة. تقدر تعيد الإرسال من غير ما تبدأ من الأول.</p>' +
+              '<div class="jl-quiz-nav-actions">' +
+                '<button type="button" class="jl-quiz-prev-btn" id="jl-quiz-return-btn">راجع الإجابات</button>' +
+                '<button type="button" class="jl-reg jl-quiz-next-main" id="jl-quiz-retry-btn">إعادة الإرسال</button>' +
+              '</div>' +
+            '</div>';
+          document.getElementById('jl-quiz-return-btn').addEventListener('click', renderQuestion);
+          document.getElementById('jl-quiz-retry-btn').addEventListener('click', submitQuiz);
+        });
+    }
+
+    renderQuestion();
+  }
+
+  loadMonths();
+  var mpAlreadyOpenedOnce = false;
+  document.querySelectorAll('.jl-open-mp').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      if (mpAlreadyOpenedOnce) loadMonths(); // نحدّث البيانات كل مرة يفتح فيها الطالب المودال
+      mpAlreadyOpenedOnce = true;
+    });
+  });
+
+  // ---------- مشاركة النتيجة (كارت فيه لوجو Code Hub + الاسم + الدرجة) ----------
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest && e.target.closest('.jl-mp-share-btn');
+    if (!btn) return;
+
+    var quizTitle = btn.getAttribute('data-quiz-title');
+    var score = btn.getAttribute('data-score');
+    var total = btn.getAttribute('data-total') || '10';
+    var logoImg = document.querySelector('img[alt="Code Hub"]');
+
+    var canvas = document.createElement('canvas');
+    canvas.width = 800;
+    canvas.height = 500;
+    var ctx = canvas.getContext('2d');
+
+    function drawCard(){
+      // خلفية متدرجة
+      var grad = ctx.createLinearGradient(0, 0, 800, 500);
+      grad.addColorStop(0, '#1a2142');
+      grad.addColorStop(1, '#2a1512');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 800, 500);
+
+      // إطار دهبي
+      ctx.strokeStyle = '#b6913b';
+      ctx.lineWidth = 6;
+      ctx.strokeRect(16, 16, 768, 468);
+
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#f3eee1';
+      ctx.font = 'bold 30px Arial';
+      ctx.fillText('Code Hub', 400, 100);
+
+      ctx.fillStyle = '#c9a85c';
+      ctx.font = '22px Arial';
+      ctx.fillText(quizTitle, 400, 230);
+
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 90px Arial';
+      ctx.fillText(score + ' / ' + total, 400, 340);
+
+      ctx.fillStyle = '#f3eee1aa';
+      ctx.font = '18px Arial';
+      ctx.fillText('codehub-blue-kappa.vercel.app', 400, 440);
+
+      canvas.toBlob(function(blob){
+        var file = new File([blob], 'codehub-result.png', { type: 'image/png' });
+        if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })){
+          navigator.share({ files: [file], title: 'Code Hub', text: 'خلصت ' + quizTitle + ' بدرجة ' + score + '/' + total + ' في Code Hub! 🎉' }).catch(function(){});
+        } else {
+          var link = document.createElement('a');
+          link.href = URL.createObjectURL(blob);
+          link.download = 'codehub-result.png';
+          link.click();
+        }
+      });
+    }
+
+    if (logoImg && logoImg.complete){
+      var logo = new Image();
+      logo.onload = function(){
+        drawCard();
+        ctx.drawImage(logo, 360, 20, 80, 80); // اللوجو فوق الكارت (اختياري، الكارت شغال حتى لو الصورة اتأخرت)
+      };
+      logo.src = logoImg.src;
+    }
+    drawCard();
+  });
+
+  // Open/close the Monthly Path modal from the nav/footer links
+  var mpOverlay = document.getElementById('jl-mp-overlay');
+  var mpClose = document.getElementById('jl-mp-modal-close');
+  document.querySelectorAll('.jl-open-mp').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      mpOverlay.classList.add('open');
+    });
+  });
+  function closeMonthlyPath(){
+    if (quizSessionActive){
+      var leave = window.confirm('أنت في منتصف اختبار. إجاباتك محفوظة، لكن هل تريد إغلاق الاختبار الآن؟');
+      if (!leave) return;
+      if (activeQuizCleanup) activeQuizCleanup();
+    }
+    mpOverlay.classList.remove('open');
+  }
+  mpClose && mpClose.addEventListener('click', closeMonthlyPath);
+  mpOverlay && mpOverlay.addEventListener('click', function(e){
+    if (e.target === mpOverlay) closeMonthlyPath();
+  });
+})();
+
+/* --- extracted script 9 --- */
+(function(){
+  // ---------- Language toggle (AR <-> EN) ----------
+  var translations = {
+    "nav-home": {ar:"الرئيسية", en:"Home"},
+    "nav-benefits": {ar:"✨ المميزات", en:"✨ Features"},
+    "nav-cta": {ar:"💳 الاشتراك", en:"💳 Join"},
+    "nav-about": {ar:"ℹ️ عن المنصّة", en:"ℹ️ About"},
+    "nav-path": {ar:"🗓️ المسار الشهري", en:"🗓️ Monthly Path"},
+    "btn-join": {ar:"ابدأ رحلتك", en:"Start Your Journey"},
+    "btn-subscribe": {ar:"انضم لـ CODE HUB", en:"Join CODE HUB"},
+    "hero-h1": {ar:"مستقبلك في البرمجة", en:"Your Future in Programming"},
+    "hero-h1-mark": {ar:"يبدأ من هنا", en:"Starts Here"},
+    "hero-sub": {ar:"اتعلّم، طبّق، اختبر نفسك وتابع تقدمك خطوة بخطوة.", en:"Learn, practice, test yourself, and track your progress step by step."},
+    "benefits-h": {ar:"إيه اللي هتاخده", en:"What You'll"},
+    "benefits-h-mark": {ar:"معانا؟", en:"Get With Us"},
+    "benefits-sub": {ar:"كل اللي محتاجه عشان تفهم، تطبّق، وتحقّق أعلى الدرجات — في مكان واحد.", en:"Everything you need to understand, practice, and score higher — all in one place."},
+    "audience-h": {ar:"CODE HUB مناسبة لمين؟", en:"Who Is CODE HUB For?"},
+    "path-h": {ar:"المسار", en:"Monthly"},
+    "path-h-mark": {ar:"الشهري", en:"Path"},
+    "path-sub": {ar:"افتح الشهر وابدأ اختباراتك بالترتيب — كل ما تخلّص كويز، اللي بعده يفتح تلقائي.", en:"Open a month and take your quizzes in order — finish one, the next unlocks automatically."},
+    "cta-eyebrow": {ar:"ابدأ النهارده · تقدر تلغي في أي وقت ———", en:"Start today · Cancel anytime ———"},
+    "cta-h": {ar:'جاهز تبدأ؟', en:'Ready to Start?'},
+    "about-tag": {ar:"عن Code Hub", en:"About Code Hub"},
+    "about-h": {ar:"ليه CODE HUB؟", en:"Why CODE HUB?"},
+    "about-tagline": {ar:"مستقبل التعليم يبدأ من هنا", en:"The future of education starts here"},
+    "why-1-h": {ar:"شرح يخليك تفهم مش تحفظ", en:"Understand, Don’t Memorize"},
+    "why-1-p": {ar:"شرح مبسّط وتطبيقي لمادة البرمجة والذكاء الاصطناعي لطلاب أولى وثانية ثانوي.", en:"Clear, practical Programming & AI lessons for first- and second-year secondary students."},
+    "why-2-h": {ar:"اختبارات تتابع مستواك", en:"Tests That Track Your Level"},
+    "why-2-p": {ar:"اختبارات بعد كل حصة، أسبوعية وشهرية، عشان تعرف مستواك ونقاط ضعفك أول بأول.", en:"Session, weekly, and monthly tests help you track your level and weak points continuously."},
+    "why-3-h": {ar:"مهارات للمستقبل", en:"Skills for the Future"},
+    "why-3-p": {ar:"مش هدفنا الامتحان بس؛ هدفنا إنك تفهم، تطبّق، تحل المشكلات وتبني أساس قوي للجامعة وسوق العمل.", en:"Our goal goes beyond exams: understand, apply, solve problems, and build a strong foundation for university and work."},
+    "faq-h": {ar:"عندك سؤال؟", en:"Have a Question?"},
+    "faq-sub": {ar:"كل اللي محتاج تعرفه عن CODE HUB قبل ما تبدأ.", en:"Everything you need to know about CODE HUB before you start."},
+    "faq-q1": {ar:"الاشتراك شهري ولا سنوي؟", en:"Is the subscription monthly or yearly?"},
+    "faq-a1": {ar:"الاشتراك بيكون حسب نظام الدراسة المتاح، وهتلاقي كل التفاصيل والأسعار موضحة قبل الاشتراك.", en:"Subscriptions follow the available study plan, with all details and prices shown clearly before you subscribe."},
+    "faq-q2": {ar:"هل الدروس شرح بس ولا فيها تطبيق واختبارات؟", en:"Are lessons explanation only, or do they include practice and tests?"},
+    "faq-a2": {ar:"لأ، الشرح بيكون عملي ونظري، ومعاه تطبيق أثناء الدرس واختبارات تساعدك تتأكد إنك فهمت وتتابع مستواك.", en:"Lessons combine theory and hands-on practice, with tests that confirm understanding and track progress."},
+    "faq-q3": {ar:"إزاي المحتوى متوافق مع منهج المدرسة؟", en:"How does the content match the school curriculum?"},
+    "faq-a3": {ar:"المحتوى مترتب بما يتناسب مع منهج البرمجة والذكاء الاصطناعي لطلاب أولى وثانية ثانوي، مع شرح وتدريبات على كل جزء.", en:"Content is organized around the Programming & AI curriculum for first- and second-year secondary students, with explanations and practice for every part."},
+    "faq-q4": {ar:"هل الشرح مناسب لو أنا مبتدئ ومليش أي خلفية في البرمجة؟", en:"Is it suitable if I’m a complete beginner in programming?"},
+    "faq-a4": {ar:"أيوه، بنبدأ من الأساسيات خطوة بخطوة، فمش محتاج تكون عندك خبرة سابقة في البرمجة.", en:"Yes. We start from the basics step by step, so no previous programming experience is required."},
+    "faq-q5": {ar:"إزاي أتابع مستوايا وتقدمي؟", en:"How can I track my level and progress?"},
+    "faq-a5": {ar:"من خلال الاختبارات والنتائج داخل حسابك، تقدر تعرف مستواك وتتابع تقدمك باستمرار.", en:"Your account shows tests and results so you can continuously monitor your level and progress."},
+    "faq-q6": {ar:"لو واجهت مشكلة، هل فيه دعم فني؟", en:"Is technical support available if I have a problem?"},
+    "faq-a6": {ar:"أيوه، لو واجهتك أي مشكلة في الحساب أو استخدام المنصة، تقدر تتواصل مع الدعم ونساعدك في حلها.", en:"Yes. If you have any account or platform issue, contact support and we’ll help you solve it."},
+    "footer-info-h": {ar:"تواصل معنا", en:"Contact Us"},
+    "footer-tagline": {ar:"بنعلّم البرمجة والذكاء الاصطناعي بشغف.", en:"We teach programming and AI with passion."},
+    "footer-address": {ar:"شارع 10 - سنتر كيان - الدور التاني - أمام مكتبة الروضة وبجوار سوبر ماركت الشعب", en:"10th St. - Kayan Center - 2nd Floor - opposite Al-Rawda Library, next to Al-Shaab Supermarket"},
+    "b-offline-h": {ar:"محاضرات أوف لاين", en:"Offline Lectures"},
+    "b-offline-p": {ar:"شرح مسجل بجودة عالية تقدر تتفرج عليه في وقتك المناسب، وترجع له وقت ما تحتاج تراجع أي جزء.", en:"High-quality recorded lessons you can watch whenever suits you, and revisit any part when you need to review."},
+    "b-quiz-h": {ar:"اختبارات إلكترونية ذكية كل حصة", en:"Smart Quizzes After Every Session"},
+    "b-quiz-p": {ar:"اختبر مستواك بعد كل حصة مع تصحيح فوري وتحليل مفصل للأداء.", en:"Test your level after every session with instant grading and detailed performance analysis."},
+    "b-content-h": {ar:"محتوى تعليمي متكامل", en:"Complete Learning Content"},
+    "b-content-p": {ar:"شرح مبسط، وأمثلة عملية، وتمارين تغطي جميع أجزاء المنهج.", en:"Simplified explanations, practical examples, and exercises covering every part of the curriculum."},
+    "b-projects-h": {ar:"واجبات ومشروعات عملية", en:"Assignments & Practical Projects"},
+    "b-projects-p": {ar:"تطبيق عملي يساعدك على اكتساب مهارات البرمجة وحل المشكلات.", en:"Hands-on practice that helps you build programming and problem-solving skills."},
+    "b-ai-h": {ar:"مساعد ذكي بالذكاء الاصطناعي", en:"Smart AI Assistant"},
+    "b-ai-p": {ar:"اسأل في المنهج أو أي موضوع عام، واكتب سؤالك أو ارفع صورة ليحللها ويشرحها لك بوضوح.", en:"Ask about the curriculum or any general topic, type your question or upload an image for clear analysis and explanation."},
+    "b-track-h": {ar:"متابعة مستمرة", en:"Continuous Progress Tracking"},
+    "b-track-p": {ar:"تقارير توضح تقدمك، ونقاط القوة، والموضوعات التي تحتاج إلى مراجعة.", en:"Reports showing your progress, strengths, and topics that need review."},
+    "b-errors-h": {ar:"سجل الأخطاء البرمجية", en:"Coding Mistakes Log"},
+    "b-errors-p": {ar:"تحتفظ المنصة بأخطائك البرمجية لمساعدتك على التعلم منها وعدم تكرارها.", en:"The platform keeps a record of your coding mistakes to help you learn from them and avoid repeating them."},
+    "b-support-h": {ar:"دعم فني وتعليمي", en:"Technical & Educational Support"},
+    "b-support-p": {ar:"فريق متخصص جاهز لمساعدتك والإجابة عن استفساراتك.", en:"A dedicated team ready to help you and answer your questions."},
+    "aud-1": {ar:"طلاب الصف الأول والثاني الثانوي.", en:"1st and 2nd year secondary school students."},
+    "aud-2": {ar:"الطلاب الذين يرغبون في تحقيق أعلى الدرجات في مادة البرمجة والذكاء الاصطناعي.", en:"Students aiming for top grades in Programming & AI."},
+    "aud-3": {ar:"الطلاب الذين يريدون تعلم البرمجة بطريقة عملية وحديثة.", en:"Students who want to learn programming in a practical, modern way."},
+    "aud-4": {ar:"أولياء الأمور الباحثون عن تعليم احترافي يجمع بين الجودة والمتابعة.", en:"Parents looking for professional education that combines quality and follow-up."},
+    "aud-5": {ar:"الطلاب المهتمين بمجال الذكاء الاصطناعي واستخداماته العملية من سن مبكرة.", en:"Students interested in AI and its practical applications from an early age."},
+    "aud-6": {ar:"الطلاب اللي عايزين يبنوا سيرة ذاتية قوية ومشاريع حقيقية قبل الجامعة.", en:"Students who want to build a strong resume and real projects before university."},
+    "about-p1": {ar:"Code Hub هي أول منصة تعليمية متخصصة في تدريس مادة البرمجة والذكاء الاصطناعي لطلاب الصف الأول والثاني الثانوي في مصر، برؤية تجمع بين جودة التعليم، والتكنولوجيا الحديثة، والذكاء الاصطناعي، لتقديم تجربة تعليمية تفاعلية تساعد الطالب على تحقيق التفوق الحقيقي.", en:"Code Hub is the first educational platform dedicated to teaching Programming & AI to 1st and 2nd year secondary school students in Egypt, with a vision that combines quality education, modern technology, and AI to deliver an interactive learning experience that helps students achieve real excellence."},
+    "about-p2": {ar:"نحن لا نقدم مجرد شرح للمنهج، بل نبني بيئة تعليمية متكاملة تجعل الطالب يفهم، ويطبق، ويحل المشكلات، ويكتسب المهارات التي يحتاجها في الجامعة وسوق العمل.", en:"We don't just explain the curriculum — we build a complete learning environment where students understand, apply, solve problems, and gain the skills they need for university and the job market."},
+    "about-p3": {ar:"وعشان كده بنينا داخل المنصة قسم خاص بالامتحانات والاختبارات الإلكترونية لكل حصة، بتصحيح فوري وتحليل دقيق لأداء الطالب — علشان تعرف بالظبط انت قوي في إيه ومحتاج تراجع إيه، قبل ما تدخل امتحان المدرسة الحقيقي وانت واثق من نفسك. مفيش مفاجآت، ومفيش مذاكرة عشوائية؛ كل كويز بيقولك مكانك بالظبط وبيجهزك للخطوة اللي بعدها.", en:"That's why we built a dedicated exams section inside the platform, with instant grading and detailed performance analysis — so you know exactly what you're strong at and what needs review, before you walk into your real school exam with confidence. No surprises, no random studying; every quiz tells you exactly where you stand and prepares you for the next step."},
+    "vision-h": {ar:"رؤيتنا", en:"Our Vision"},
+    "vision-p": {ar:"أن تصبح Code Hub المنصة التعليمية المرجعية في مصر والعالم العربي لتعليم البرمجة والذكاء الاصطناعي، وأن تساهم في إعداد جيل يمتلك المعرفة والمهارات الرقمية اللازمة للمستقبل.", en:"For Code Hub to become the go-to educational platform in Egypt and the Arab world for teaching Programming & AI, and to help prepare a generation equipped with the digital knowledge and skills the future demands."},
+    "mission-h": {ar:"رسالتنا", en:"Our Mission"},
+    "mission-p": {ar:"تقديم تعليم رقمي احترافي يجمع بين جودة المحتوى، والتفاعل المستمر، والتطبيق العملي، والذكاء الاصطناعي، بما يساعد كل طالب على تحقيق أعلى مستوى من الفهم والتفوق والثقة.", en:"To deliver professional digital education that combines quality content, continuous interaction, hands-on practice, and AI — helping every student reach their highest level of understanding, excellence, and confidence."},
+    "values-h": {ar:"قيمنا", en:"Our Values"},
+    "val-1": {ar:"الجودة والاحترافية.", en:"Quality & professionalism."},
+    "val-2": {ar:"الابتكار المستمر.", en:"Continuous innovation."},
+    "val-3": {ar:"التعلم القائم على التطبيق.", en:"Application-based learning."},
+    "val-4": {ar:"الشفافية والالتزام.", en:"Transparency & commitment."},
+    "val-5": {ar:"دعم الطالب في كل مرحلة من رحلته التعليمية.", en:"Supporting students at every stage of their learning journey."},
+    "groups-tag": {ar:"اختر الصف الدراسي", en:"Choose your grade"},
+    "groups-h": {ar:"💬 انضم إلى مجموعة واتساب", en:"💬 Join Your WhatsApp Group"},
+    "groups-p": {ar:"اختر صفك الدراسي وسيتم تحويلك مباشرة إلى مجموعة واتساب.", en:"Choose your grade and you'll be taken directly to the WhatsApp group."},
+    "groups-g1": {ar:"💡 أولى ثانوي | البرمجة من الصفر", en:"💡 First Secondary | Programming from Zero"},
+    "groups-g2": {ar:"🚀 ثانية ثانوي | مستقبل البكالوريا", en:"🚀 Second Secondary | Baccalaureate Future"},
+    "footer-links-h2": {ar:"روابط سريعة", en:"Quick Links"},
+    "footer-nav-audience": {ar:"لمن المنصة", en:"Who It's For"},
+    "nav-reviews": {ar:"⭐ التقييمات", en:"⭐ Reviews"},
+    "reviews-h": {ar:"طلابنا قالوا", en:"What Our Students"},
+    "reviews-h-mark": {ar:"إيه؟", en:"Say"},
+    "reviews-sub": {ar:"تقييمات حقيقية من الطلاب وأولياء الأمور والزوار. أي حد يقدر يشارك تجربته.", en:"Real reviews from students, parents, and visitors. Anyone can share their experience."},
+    "review-form-h": {ar:"شاركنا تقييمك", en:"Share Your Review"},
+    "review-submit": {ar:"أضف تقييمك", en:"Submit Review"},
+    "review-name-ph": {ar:"اسمك", en:"Your name"},
+    "review-course-ph": {ar:"اختار صفتك", en:"Choose who you are"},
+    "review-parent": {ar:"ولي أمر", en:"Parent"},
+    "review-guest": {ar:"زائر", en:"Visitor"},
+    "review-moderation-note": {ar:"التقييم بيتحفظ عندنا ويظهر للزوار بعد المراجعة.", en:"Your review is saved and becomes public after moderation."},
+    "review-comment-ph": {ar:"اكتب رأيك هنا...", en:"Write your review here..."},
+    "grade-1": {ar:"طالب أولى ثانوي", en:"1st Year Secondary Student"},
+    "grade-2": {ar:"طالب ثانية ثانوي", en:"2nd Year Secondary Student"},
+    "free-badge": {ar:"أول حصتين مجانًا تمامًا لكل الطلاب", en:"First 2 sessions completely free for all students"},
+    "prize-badge": {ar:"جوائز شهرية للطلاب المتفوقين", en:"Monthly prizes for top students"},
+    "mp-teaser-h": {ar:"رحلتك خلال الشهر", en:"Your Monthly Journey"},
+    "mp-teaser-p": {ar:"كويزاتك مرتبة شهر شهر، كل ما تخلّص كويز اللي بعده يفتح تلقائي.", en:"Your quizzes organized month by month — finish one, the next unlocks automatically."},
+    "mp-teaser-btn": {ar:"الدخول الشهري ←", en:"Monthly Access →"},
+    "countdown-label": {ar:"الترم الجديد يبدأ خلال", en:"New term starts in"},
+    "nav-aboutme": {ar:"👨‍🏫 المدرسين", en:"👨‍🏫 Instructors"},
+    "am-h": {ar:"فريق CODE HUB", en:"CODE HUB Team"},
+    "am-sub": {ar:"تعرف على المدرسين المسؤولين عن شرح ومتابعة مادة البرمجة والذكاء الاصطناعي.", en:"Meet the instructors responsible for teaching and supporting Programming & AI."},
+    "am-name-mabrouk": {ar:"المهندس محمد مبروك", en:"Eng. Mohamed Mabrouk"},
+    "am-name-ibrahim": {ar:"المهندس محمود إبراهيم", en:"Eng. Mahmoud Ibrahim"},
+    "am-qualification": {ar:"خريج هندسة - تقدير امتياز", en:"Engineering graduate - Excellent grade"},
+    "am-specialty": {ar:"متخصص في تطوير الويب والذكاء الاصطناعي.", en:"Specialized in web development and AI."},
+    "am-specialty2": {ar:"متخصص في تطوير الويب والذكاء الاصطناعي.", en:"Specialized in web development and AI."},
+    "am-bio-mabrouk": {ar:"يعمل فريلانسر منذ أكتر من سنتين، وشغوف بتبسيط البرمجة والذكاء الاصطناعي للطلاب.", en:"Has been working as a freelancer for over two years, passionate about simplifying programming and AI for students."},
+    "am-bio-ibrahim": {ar:"يعمل فريلانسر منذ أكتر من سنتين، وشغوف بتبسيط البرمجة والذكاء الاصطناعي للطلاب.", en:"Has been working as a freelancer for over two years, passionate about simplifying programming and AI for students."}
+  };
+
+  var htmlEl = document.documentElement;
+  var langPill = document.getElementById('jl-lang-pill');
+  var langLabel = document.getElementById('jl-lang-pill-label');
+  var currentLang = 'ar';
+
+  function applyLang(lang){
+    currentLang = lang;
+    htmlEl.setAttribute('lang', lang);
+    htmlEl.setAttribute('dir', lang === 'en' ? 'ltr' : 'rtl');
+    if (langLabel) langLabel.textContent = lang === 'en' ? 'AR' : 'EN';
+    if (langPill){ langPill.setAttribute('aria-label', lang === 'ar' ? 'Switch to English' : 'التبديل إلى العربية'); langPill.title = lang === 'ar' ? 'English' : 'العربية'; }
+
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      var entry = translations[el.getAttribute('data-i18n')];
+      if (entry) el.innerHTML = entry[lang];
+    });
+    document.querySelectorAll('[data-i18n-inner]').forEach(function(el){
+      var entry = translations[el.getAttribute('data-i18n-inner')];
+      if (entry) el.textContent = entry[lang];
+    });
+    document.querySelectorAll('[data-i18n-ph]').forEach(function(el){
+      var entry = translations[el.getAttribute('data-i18n-ph')];
+      if (entry) el.setAttribute('placeholder', entry[lang]);
+    });
+  }
+
+  // Navbar menu is wired once in the final stability controller below.
+  // Keeping one owner prevents double-toggle bugs after repeated UI updates.
+
+  langPill && langPill.addEventListener('click', function(){
+    applyLang(currentLang === 'ar' ? 'en' : 'ar');
+  });
+
+  // ---------- WhatsApp groups picker modal (replaces the old register page) ----------
+  var overlay = document.getElementById('jl-groups-overlay');
+  var closeBtn = document.getElementById('jl-groups-close');
+  document.querySelectorAll('.jl-open-groups').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      if (overlay) overlay.classList.add('open');
+    });
+  });
+  closeBtn && closeBtn.addEventListener('click', function(){
+    overlay.classList.remove('open');
+  });
+  overlay && overlay.addEventListener('click', function(e){
+    if (e.target === overlay) overlay.classList.remove('open');
+  });
+})();
+
+/* --- extracted script 10 --- */
+(function(){
+  // ---------- تقييمات عامة محفوظة في قاعدة البيانات ----------
+  var listEl = document.getElementById('jl-reviews-list');
+  var formEl = document.getElementById('jl-review-form');
+  var starsEl = document.getElementById('jl-rv-stars');
+  var statsEl = document.getElementById('jl-reviews-stats');
+  var selectedStars = 0;
+  if (!listEl || !formEl || !starsEl) return;
+
+  var rvCommentEl = document.getElementById('jl-rv-comment');
+  var rvCommentCount = document.getElementById('jl-rv-comment-count');
+  if (rvCommentEl && rvCommentCount){
+    rvCommentEl.addEventListener('input', function(){
+      rvCommentCount.textContent = rvCommentEl.value.length + ' / 400';
+    });
+  }
+
+  function escapeHtml(str){
+    var div = document.createElement('div');
+    div.textContent = String(str == null ? '' : str);
+    return div.innerHTML;
+  }
+
+  function reviewApi(path, opts){
+    opts = opts || {};
+    opts.credentials = 'same-origin';
+    opts.headers = Object.assign({'Content-Type':'application/json'}, opts.headers || {});
+    return fetch((window.CH_SITE_API_BASE || window.location.origin) + path, opts).then(function(r){
+      return r.json().catch(function(){ return {}; }).then(function(data){
+        if (!r.ok) throw new Error(data.error || 'حصل خطأ');
+        return data;
+      });
+    });
+  }
+
+  function renderStats(data){
+    if (!statsEl) return;
+    var count = Number(data.count || 0);
+    var average = Number(data.average || 0);
+    if (!count){ statsEl.textContent = ''; return; }
+    statsEl.textContent = average.toFixed(1).replace('.0','') + ' / 5  ·  ' + count + ' تقييم منشور';
+  }
+
+  function renderReviews(reviews){
+    if (!reviews.length){
+      listEl.innerHTML = '<p class="jl-reviews-empty">لسه مفيش تقييمات منشورة — شاركنا تجربتك.</p>';
+      return;
+    }
+    listEl.innerHTML = reviews.map(function(r){
+      var starsHtml = '';
+      for (var i = 1; i <= 5; i++) starsHtml += (i <= Number(r.stars) ? '★' : '☆');
+      return '<article class="jl-review-card">' +
+        '<div class="jl-review-card-stars" aria-label="' + Number(r.stars) + ' من 5">' + starsHtml + '</div>' +
+        '<p>' + escapeHtml(r.comment) + '</p>' +
+        '<span class="jl-review-card-name">' + escapeHtml(r.name) + '</span>' +
+        '<span class="jl-review-card-course">' + escapeHtml(r.audience || 'زائر') + '</span>' +
+        '</article>';
+    }).join('');
+  }
+
+  function loadReviews(){
+    listEl.innerHTML = '<p class="jl-reviews-empty">جاري تحميل التقييمات...</p>';
+    reviewApi('/api/reviews').then(function(data){
+      renderReviews(data.reviews || []);
+      renderStats(data);
+    }).catch(function(err){
+      listEl.innerHTML = '<p class="jl-reviews-empty">' + escapeHtml(err.message) + '</p>';
+    });
+  }
+
+  var starSpans = starsEl.querySelectorAll('span');
+  starSpans.forEach(function(span){
+    span.addEventListener('click', function(){
+      selectedStars = parseInt(span.getAttribute('data-star'), 10);
+      starSpans.forEach(function(s){
+        s.classList.toggle('active', parseInt(s.getAttribute('data-star'), 10) <= selectedStars);
+      });
+    });
+  });
+
+  formEl.addEventListener('submit', function(e){
+    e.preventDefault();
+    var submit = formEl.querySelector('button[type="submit"]');
+    var name = document.getElementById('jl-rv-name').value.trim();
+    var audience = document.getElementById('jl-rv-course').value.trim();
+    var comment = document.getElementById('jl-rv-comment').value.trim();
+    var website = document.getElementById('jl-rv-website');
+    if (!name || !audience || !comment || selectedStars === 0){
+      alert('من فضلك املأ البيانات واختار تقييم بالنجوم');
+      return;
+    }
+
+    if (submit){ submit.disabled = true; submit.textContent = 'جاري الإرسال...'; }
+    reviewApi('/api/reviews', {
+      method: 'POST',
+      body: JSON.stringify({ name:name, audience:audience, comment:comment, stars:selectedStars, website:website ? website.value : '' })
+    }).then(function(){
+      formEl.reset();
+      selectedStars = 0;
+      starSpans.forEach(function(s){ s.classList.remove('active'); });
+      if (rvCommentCount) rvCommentCount.textContent = '0 / 400';
+      if (window.jlConfetti) window.jlConfetti();
+      var toast = document.getElementById('jl-toast');
+      if (toast){
+        toast.textContent = 'شكرًا ليك ✅ تقييمك اتحفظ وهيظهر بعد المراجعة.';
+        toast.classList.add('show');
+        setTimeout(function(){ toast.classList.remove('show'); }, 3800);
+      }
+    }).catch(function(err){
+      alert(err.message);
+    }).finally(function(){
+      if (submit){ submit.disabled = false; submit.textContent = 'أضف تقييمك'; }
+    });
+  });
+
+  loadReviews();
+})();
+
+/* --- extracted script 11 --- */
+(function(){
+  // ============ ربط اختياري بالباك إند (وضع الصيانة + إخفاء أقسام + تتبع الزيارات) ============
+  // سيبها فاضية لو لسه مش رافع الباك إند — الموقع هيشتغل عادي من غيرها.
+  var CH_API_BASE = window.CH_SITE_API_BASE || ''; // 👈 محتاجش تعدّل هنا، بس حط الرابط فوق أول الملف
+
+  if (!CH_API_BASE) return;
+
+  // تسجيل الزيارة (صامت، ما بيأثرش على الصفحة لو فشل)
+  // لو الرابط فيه ?src=street (اللي هيكون مكتوب في كود QR باللافتة)، بنسجّلها منفصلة عن باقي الزيارات
+  // عشان تعرف بالظبط كام حد دخل من كود الـQR في الشارع.
+  try {
+    var qrSource = new URLSearchParams(location.search).get('src');
+    var pageLabel = (location.hash ? location.hash.replace('#','') : 'home') + (qrSource ? '-' + qrSource : '');
+    fetch(CH_API_BASE + '/api/track-visit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ page: pageLabel })
+    }).catch(function(){});
+  } catch (e) {}
+
+  // التحقق من وضع الصيانة + الأقسام المخفية
+  fetch(CH_API_BASE + '/api/settings')
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      var settings = data.settings;
+      if (!settings) return;
+
+      if (settings.maintenance_mode) {
+        document.body.innerHTML =
+          '<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;font-family:Cairo,sans-serif;text-align:center;padding:20px;">' +
+          '<div style="font-size:50px;">🛠️</div>' +
+          '<h1 style="margin:0;">الموقع تحت الصيانة حاليًا</h1>' +
+          '<p style="color:#7a7460;">هنرجع قريب، شكرًا لصبرك 🙏</p>' +
+          '</div>';
+        return;
+      }
+
+      (settings.hidden_sections || []).forEach(function(id){
+        var el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+      });
+    })
+    .catch(function(){});
+
+  // تطبيق النصوص التي يعدلها الأدمن مباشرة على العناصر المربوطة بمفاتيح المحتوى.
+  fetch(CH_API_BASE + '/api/content', { credentials: 'same-origin' })
+    .then(function(r){ if (!r.ok) throw new Error('content'); return r.json(); })
+    .then(function(data){
+      var content = data && data.content;
+      if (!content || typeof content !== 'object') return;
+      document.querySelectorAll('[data-content-key],[data-i18n],[data-i18n-inner]').forEach(function(el){
+        var key = el.getAttribute('data-content-key') || el.getAttribute('data-i18n') || el.getAttribute('data-i18n-inner');
+        if (!key || !Object.prototype.hasOwnProperty.call(content, key)) return;
+        var value = content[key];
+        if (value == null || typeof value === 'object') return;
+        if (el.hasAttribute('data-i18n-inner')) el.textContent = String(value);
+        else if (el.matches('input,textarea')) el.setAttribute('placeholder', String(value));
+        else el.textContent = String(value);
+      });
+    })
+    .catch(function(){});
+})();
+
+/* --- extracted script 12 --- */
+(function(){
+  // ---------- زرار "ارجع لفوق" ----------
+  var backTop = document.getElementById('jl-back-top');
+  window.addEventListener('scroll', function(){
+    backTop.classList.toggle('show', window.scrollY > 500);
+  });
+  backTop.addEventListener('click', function(){
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // ---------- نسخ الأرقام بلمسة واحدة ----------
+  document.querySelectorAll('.jl-copy-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var text = btn.getAttribute('data-copy');
+      var done = function(){
+        var original = btn.textContent;
+        btn.textContent = '✅';
+        setTimeout(function(){ btn.textContent = original; }, 1500);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done).catch(function(){});
+      } else {
+        var tmp = document.createElement('textarea');
+        tmp.value = text;
+        document.body.appendChild(tmp);
+        tmp.select();
+        try { document.execCommand('copy'); done(); } catch (e) {}
+        document.body.removeChild(tmp);
+      }
+    });
+  });
+
+  // ---------- تذكّر اختيار الوضع الفاتح/الغامق ----------
+  var savedTheme = localStorage.getItem('ch_theme');
+  if (savedTheme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    var darkBtn = document.querySelector('[data-theme-btn="dark"]');
+    var lightBtn = document.querySelector('[data-theme-btn="light"]');
+    darkBtn && darkBtn.classList.add('active');
+    lightBtn && lightBtn.classList.remove('active');
+  }
+  document.querySelectorAll('[data-theme-btn]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      localStorage.setItem('ch_theme', btn.getAttribute('data-theme-btn'));
+    });
+  });
+
+  // ---------- عداد بداية الترم الجديد ----------
+  // 👈 غيّر التاريخ ده لتاريخ بداية الترم الفعلي عندك
+  var NEXT_TERM_DATE = new Date('2026-09-15T00:00:00');
+  var countdownEl = document.getElementById('jl-countdown-value');
+  function updateCountdown(){
+    if (!countdownEl) return;
+    var diff = NEXT_TERM_DATE - new Date();
+    if (diff <= 0){
+      countdownEl.textContent = 'دلوقتي!';
+      return;
+    }
+    var days = Math.floor(diff / 86400000);
+    countdownEl.textContent = days + ' يوم';
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 3600000);
+
+  // ---------- احتفال بسيط (كونفيتي) لما تبعت تقييم ----------
+  window.jlConfetti = function(){
+    var colors = ['#b6913b', '#c9a85c', '#6fcf97', '#3b82f6', '#e63946'];
+    var shapes = ['2px', '50%']; // بعضها مربع دائري وبعضها دائرة كاملة
+    for (var i = 0; i < 34; i++){
+      var piece = document.createElement('span');
+      var size = 6 + Math.random() * 8;
+      var isCircle = Math.random() > 0.5;
+      piece.style.cssText = 'position:fixed;top:-10px;left:' + (Math.random()*100) + 'vw;' +
+        'width:' + size + 'px;height:' + size + 'px;' +
+        'background:' + colors[i % colors.length] + ';' +
+        'z-index:2000;border-radius:' + (isCircle ? '50%' : '2px') + ';' +
+        'pointer-events:none;opacity:.9;';
+      var duration = (1.6 + Math.random() * 1.6);
+      var rotate = Math.random() > 0.5 ? 'jlConfettiFall' : 'jlConfettiFallSpin';
+      piece.style.animation = rotate + ' ' + duration + 's ease-in forwards';
+      document.body.appendChild(piece);
+      (function(p){ setTimeout(function(){ p.remove(); }, 3200); })(piece);
+    }
+  };
+
+  // اهتزاز خفيف لأي فورم فيه خطأ تحقق
+  window.jlShakeInvalid = function(el){
+    if (!el) return;
+    el.classList.remove('jl-shake');
+    void el.offsetWidth;
+    el.classList.add('jl-shake');
+  };
+})();
+
+/* --- extracted script 13 --- */
+(function(){
+  var CH_API_BASE_STUDENT = window.CH_SITE_API_BASE || ''; // 👈 محتاجش تعدّل هنا، بس حط الرابط فوق أول الملف
+  var overlay = document.getElementById('jl-student-overlay');
+  var studentBtn = document.getElementById('jl-student-btn');
+  var closeBtn = document.getElementById('jl-student-close');
+  var authView = document.getElementById('jl-student-auth-view');
+  var profileView = document.getElementById('jl-student-profile-view');
+  if (!overlay || !studentBtn || !authView || !profileView) return;
+
+  function api(path, opts){
+    opts = opts || {};
+    opts.credentials = 'same-origin';
+    opts.headers = Object.assign({ 'Content-Type': 'application/json' }, opts.headers || {});
+    return fetch(CH_API_BASE_STUDENT + path, opts).then(function(r){
+      return r.json().then(function(data){
+        if (r.status === 401){ localStorage.removeItem('ch_student'); window.dispatchEvent(new Event('ch-auth-changed')); }
+        if (!r.ok) throw new Error(data.error || 'حصل خطأ، حاول تاني');
+        return data;
+      });
+    });
+  }
+
+  var SESSION_DAYS = 7; // مدة صلاحية الجلسة قبل ما تسجّل دخول تاني
+
+  function getStudent(){
+    var raw = localStorage.getItem('ch_student');
+    if (!raw) return null;
+    var wrapper = JSON.parse(raw);
+    if (!wrapper.expiresAt || Date.now() > wrapper.expiresAt){
+      localStorage.removeItem('ch_student'); // الجلسة انتهت
+      return null;
+    }
+    return wrapper.student;
+  }
+  function setStudent(s){
+    // localStorage مجرد cache للواجهة، مش مصدر صلاحية. ما نخزنش فيه توكن ولي الأمر.
+    var safeStudent = Object.assign({}, s || {});
+    delete safeStudent.parent_token;
+    localStorage.setItem('ch_student', JSON.stringify({
+      student: safeStudent,
+      expiresAt: Date.now() + SESSION_DAYS * 86400000
+    }));
+    window.dispatchEvent(new Event('ch-auth-changed'));
+  }
+
+  var PV_ARABIC_MONTHS = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+  var PV_WEEK_LABELS = ['س','ح','ن','ث','ر','خ','ج']; // السبت للجمعة، حرف واحد لكل مربع
+
+  function renderProfile(){
+    var s = getStudent();
+    if (!s) return;
+    document.getElementById('jl-profile-name').textContent = s.first_name + ' ' + s.last_name;
+    document.getElementById('jl-profile-phone').textContent = s.phone;
+    document.getElementById('jl-profile-email').textContent = s.email || '—';
+    document.getElementById('jl-profile-avatar').src = s.avatar_url || 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="110" height="110"><rect width="110" height="110" fill="%23e5ded0"/></svg>';
+
+    var badge = document.getElementById('jl-verify-badge');
+    var requestBtn = document.getElementById('jl-request-otp-btn');
+    var verifyTick = document.getElementById('jl-pv-verify-tick');
+    var verifyBlock = document.getElementById('jl-profile-verify');
+    if (s.phone_verified){
+      badge.textContent = '✅ الرقم متحقق منه';
+      badge.classList.add('verified');
+      requestBtn.style.display = 'none';
+      verifyTick.classList.add('show');
+      verifyBlock.style.display = 'none';
+    } else {
+      badge.textContent = '📱 غير متحقق منه';
+      badge.classList.remove('verified');
+      requestBtn.style.display = 'inline';
+      verifyTick.classList.remove('show');
+      verifyBlock.style.display = 'block';
+    }
+
+    loadProfileStats();
+  }
+
+  function loadProfileStats(){
+    api('/api/profile-stats')
+      .then(function(stats){ renderProfileStats(stats); })
+      .catch(function(){ /* لو فشل الطلب، الكارت يفضل شغال من غير الإحصائيات */ });
+  }
+
+  function renderProfileStats(stats){
+    // عضو منذ
+    var memberSinceEl = document.getElementById('jl-pv-member-since');
+    if (stats.member_since){
+      var d = new Date(stats.member_since);
+      memberSinceEl.textContent = 'عضو منذ ' + PV_ARABIC_MONTHS[d.getMonth()] + ' ' + d.getFullYear();
+    } else {
+      memberSinceEl.textContent = '';
+    }
+
+    // تاجات: الأيام المتتالية + الترتيب
+    var streakTag = document.getElementById('jl-pv-streak-tag');
+    if (stats.streak_days && stats.streak_days > 0){
+      document.getElementById('jl-pv-streak-value').textContent = stats.streak_days;
+      streakTag.style.display = 'inline-flex';
+    } else {
+      streakTag.style.display = 'none';
+    }
+
+    var rankTag = document.getElementById('jl-pv-rank-tag');
+    var rankCard = document.getElementById('jl-pv-stat-rank-card');
+    var statsGrid = document.getElementById('jl-pv-stats');
+    if (stats.percentile != null){
+      document.getElementById('jl-pv-rank-value').textContent = stats.percentile;
+      document.getElementById('jl-pv-stat-rank').textContent = 'أفضل ' + stats.percentile + '٪';
+      rankTag.style.display = 'inline-flex';
+      rankCard.style.display = 'block';
+      statsGrid.classList.remove('jl-pv-stats-2');
+    } else {
+      rankTag.style.display = 'none';
+      rankCard.style.display = 'none';
+      statsGrid.classList.add('jl-pv-stats-2');
+    }
+
+    // نشاط الأسبوع
+    var weekWrap = document.getElementById('jl-pv-week-days');
+    weekWrap.innerHTML = '';
+    (stats.weekly_activity || []).forEach(function(day){
+      var d = new Date(day.date);
+      var box = document.createElement('div');
+      box.className = 'jl-pv-day' + (day.active ? ' active' : '');
+      box.title = day.date;
+      weekWrap.appendChild(box);
+    });
+
+    // كروت الإحصائيات
+    document.getElementById('jl-pv-stat-completed').textContent = stats.quizzes_completed || 0;
+    document.getElementById('jl-pv-stat-avg').textContent = (stats.avg_score_percent != null) ? (stats.avg_score_percent + '٪') : '—';
+
+    // صندوق التلميح
+    var tipBox = document.getElementById('jl-pv-tip');
+    var tipText = document.getElementById('jl-pv-tip-text');
+    if (stats.all_months_done){
+      tipText.textContent = 'مبروك! خلّصت كل شهور المسار 🎉';
+      tipBox.style.display = 'flex';
+    } else if (stats.current_month_title && stats.remaining_quizzes_this_month > 0){
+      tipText.textContent = 'باقي ' + stats.remaining_quizzes_this_month + ' كويز بس تخلّص ' + stats.current_month_title;
+      tipBox.style.display = 'flex';
+    } else {
+      tipBox.style.display = 'none';
+    }
+  }
+
+  // ---------- تحقق رقم الموبايل ----------
+  document.getElementById('jl-request-otp-btn').addEventListener('click', function(){
+    var s = getStudent();
+    api('/api/auth/request-phone-otp', { method: 'POST', body: '{}' })
+      .then(function(data){
+        document.getElementById('jl-otp-form').style.display = 'block';
+        document.getElementById('profile-msg').textContent = data.message;
+        document.getElementById('profile-msg').className = 'jl-student-msg ok';
+      }).catch(function(err){
+        document.getElementById('profile-msg').textContent = err.message;
+        document.getElementById('profile-msg').className = 'jl-student-msg err';
+      });
+  });
+
+  document.getElementById('jl-verify-otp-btn').addEventListener('click', function(){
+    var s = getStudent();
+    var code = document.getElementById('jl-otp-code').value.trim();
+    api('/api/auth/verify-phone-otp', { method: 'POST', body: JSON.stringify({ code: code }) })
+      .then(function(data){
+        setStudent(data.student);
+        renderProfile();
+        document.getElementById('jl-otp-form').style.display = 'none';
+        document.getElementById('profile-msg').textContent = 'تم التحقق من رقمك ✓';
+        document.getElementById('profile-msg').className = 'jl-student-msg ok';
+      }).catch(function(err){
+        document.getElementById('profile-msg').textContent = err.message;
+        document.getElementById('profile-msg').className = 'jl-student-msg err';
+      });
+  });
+
+  // ---------- لينك متابعة ولي الأمر ----------
+  document.getElementById('jl-parent-link-btn').addEventListener('click', function(){
+    api('/api/auth/session?include_parent=1').then(function(data){
+      var token = data && data.student && data.student.parent_token;
+      if (!token) throw new Error('تعذر إنشاء لينك المتابعة');
+      var link = location.origin + location.pathname.replace(/[^/]*$/, '') + 'parent.html?token=' + encodeURIComponent(token);
+      var done = function(){
+        document.getElementById('profile-msg').textContent = 'اتنسخ اللينك ✓ ابعته لولي أمرك';
+        document.getElementById('profile-msg').className = 'jl-student-msg ok';
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(link).then(done).catch(function(){
+          document.getElementById('profile-msg').textContent = 'تعذر نسخ اللينك تلقائيًا';
+          document.getElementById('profile-msg').className = 'jl-student-msg err';
+        });
+      } else {
+        var tmp = document.createElement('textarea');
+        tmp.value = link;
+        document.body.appendChild(tmp);
+        tmp.select();
+        try { document.execCommand('copy'); done(); } catch (e) {}
+        document.body.removeChild(tmp);
+      }
+    }).catch(function(err){
+      document.getElementById('profile-msg').textContent = err.message;
+      document.getElementById('profile-msg').className = 'jl-student-msg err';
+    });
+  });
+
+  function showProfileOrAuth(){
+    var s = getStudent();
+    var modal = document.getElementById('jl-student-modal');
+    if (s){
+      authView.style.display = 'none';
+      profileView.style.display = 'block';
+      modal && modal.classList.add('jl-pv-mode');
+      renderProfile();
+    } else {
+      authView.style.display = 'block';
+      profileView.style.display = 'none';
+      modal && modal.classList.remove('jl-pv-mode');
+    }
+  }
+
+  studentBtn && studentBtn.addEventListener('click', function(){
+    overlay.classList.add('open');
+    showProfileOrAuth();
+  });
+  closeBtn && closeBtn.addEventListener('click', function(){ overlay.classList.remove('open'); });
+  overlay && overlay.addEventListener('click', function(e){ if (e.target === overlay) overlay.classList.remove('open'); });
+
+  // تبديل بين دخول / حساب جديد
+  document.querySelectorAll('.jl-student-tab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      document.querySelectorAll('.jl-student-tab').forEach(function(t){ t.classList.remove('active'); });
+      tab.classList.add('active');
+      document.getElementById('jl-login-form').style.display = tab.getAttribute('data-form') === 'login' ? 'block' : 'none';
+      document.getElementById('jl-register-form').style.display = tab.getAttribute('data-form') === 'register' ? 'block' : 'none';
+      document.getElementById('jl-forgot-form').style.display = 'none';
+    });
+  });
+
+  document.getElementById('jl-forgot-link').addEventListener('click', function(){
+    document.getElementById('jl-login-form').style.display = 'none';
+    document.getElementById('jl-register-form').style.display = 'none';
+    document.getElementById('jl-forgot-form').style.display = 'block';
+  });
+
+  // دخول
+  document.getElementById('jl-login-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    var msg = document.getElementById('li-msg');
+    msg.textContent = '...جاري الدخول';
+    msg.className = 'jl-student-msg';
+    api('/api/auth/login', {
+      method: 'POST',
+      body: JSON.stringify({
+        email: document.getElementById('li-email').value.trim(),
+        password: document.getElementById('li-password').value
+      })
+    }).then(function(data){
+      setStudent(data.student);
+      showProfileOrAuth();
+    }).catch(function(err){
+      msg.textContent = err.message;
+      msg.className = 'jl-student-msg err'; if (window.jlShakeInvalid) window.jlShakeInvalid(msg);
+    });
+  });
+
+  // ---------- مؤشر قوة الباسورد الحي ----------
+  function wirePasswordChecklist(inputId, checklistId){
+    var input = document.getElementById(inputId);
+    var checklist = document.getElementById(checklistId);
+    if (!input || !checklist) return;
+    var bar = input.closest('.jl-student-form').querySelector('#' + checklistId).previousElementSibling.querySelector('span');
+
+    input.addEventListener('input', function(){
+      var v = input.value;
+      var rules = {
+        len: v.length >= 8,
+        upper: /[A-Z]/.test(v),
+        lower: /[a-z]/.test(v),
+        num: /\d/.test(v),
+        sym: /[^A-Za-z0-9]/.test(v)
+      };
+      var passCount = 0;
+      checklist.querySelectorAll('li').forEach(function(li){
+        var ok = rules[li.getAttribute('data-rule')];
+        li.classList.toggle('ok', ok);
+        if (ok) passCount++;
+      });
+      var pct = (passCount / 5) * 100;
+      bar.style.width = pct + '%';
+      bar.style.background = pct < 40 ? '#c0392b' : (pct < 100 ? '#e2a53a' : '#2e7d4f');
+    });
+  }
+  wirePasswordChecklist('rg-password', 'rg-pass-checklist');
+  wirePasswordChecklist('fp-newpass', 'fp-pass-checklist');
+
+  // ---------- زرار إظهار/إخفاء الباسورد ----------
+  document.querySelectorAll('.jl-pass-eye').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var target = document.getElementById(btn.getAttribute('data-target'));
+      if (!target) return;
+      var isHidden = target.type === 'password';
+      target.type = isHidden ? 'text' : 'password';
+      btn.textContent = isHidden ? '🙈' : '👁️';
+    });
+  });
+
+  // ---------- قواعد التحقق (بنفس الشروط اللي في السيرفر) ----------
+  var NAME_RE = /^[A-Za-z\u0600-\u06FF\s]{2,}$/;
+  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  var PASSWORD_RE = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/;
+  var PHONE_RE = /^01[0125]\d{8}$/; // رقم مصري: 01 + رقم شبكة (0/1/2/5) + 8 أرقام = 11 رقم بالظبط
+  var DISPOSABLE_DOMAINS = ['tempmail.com','10minutemail.com','guerrillamail.com','mailinator.com','yopmail.com','trashmail.com'];
+
+  function validateName(v){ return NAME_RE.test(v.trim()); }
+  function validateEmail(v){ return EMAIL_RE.test(v.trim()); }
+  function validatePassword(v){ return PASSWORD_RE.test(v); }
+  function validatePhone(v){ return PHONE_RE.test(v.trim()); }
+  function normalizeEmail(v){ return v.trim().toLowerCase(); }
+  function isDisposableEmail(v){
+    var domain = normalizeEmail(v).split('@')[1] || '';
+    return DISPOSABLE_DOMAINS.indexOf(domain) !== -1;
+  }
+
+  // تسجيل حساب جديد
+  var rgSubmitBtn = document.querySelector('#jl-register-form button[type="submit"]');
+
+  function checkRegisterFormValid(){
+    var pass1 = document.getElementById('rg-password').value;
+    var pass2 = document.getElementById('rg-password2').value;
+    var ok = validateName(document.getElementById('rg-first').value) &&
+             validateName(document.getElementById('rg-last').value) &&
+             validatePhone(document.getElementById('rg-phone').value) &&
+             validateEmail(document.getElementById('rg-email').value) &&
+             validatePassword(pass1) &&
+             pass1 === pass2 && pass1 !== '';
+    rgSubmitBtn.disabled = !ok;
+    rgSubmitBtn.style.opacity = ok ? '1' : '.5';
+    rgSubmitBtn.style.cursor = ok ? 'pointer' : 'not-allowed';
+    return ok;
+  }
+  ['rg-first','rg-last','rg-phone','rg-email','rg-password','rg-password2'].forEach(function(id){
+    document.getElementById(id).addEventListener('input', checkRegisterFormValid);
+  });
+  checkRegisterFormValid();
+
+  document.getElementById('jl-register-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    var msg = document.getElementById('rg-msg');
+    var first = document.getElementById('rg-first').value.trim();
+    var last = document.getElementById('rg-last').value.trim();
+    var phone = document.getElementById('rg-phone').value.trim();
+    var email = normalizeEmail(document.getElementById('rg-email').value);
+    var pass1 = document.getElementById('rg-password').value;
+    var pass2 = document.getElementById('rg-password2').value;
+
+    if (!validateName(first) || !validateName(last)){
+      msg.textContent = 'الاسم يقبل حروف عربي أو إنجليزي بس، من غير أرقام أو رموز.';
+      msg.className = 'jl-student-msg err'; if (window.jlShakeInvalid) window.jlShakeInvalid(msg);
+      return;
+    }
+    if (!validatePhone(phone)){
+      msg.textContent = 'اكتب رقم موبايل مصري صحيح (11 رقم، يبدأ بـ 010 أو 011 أو 012 أو 015).';
+      msg.className = 'jl-student-msg err'; if (window.jlShakeInvalid) window.jlShakeInvalid(msg);
+      return;
+    }
+    if (!validateEmail(email)){
+      msg.textContent = 'اكتب إيميل صحيح (مثال: name@gmail.com).';
+      msg.className = 'jl-student-msg err'; if (window.jlShakeInvalid) window.jlShakeInvalid(msg);
+      return;
+    }
+    if (isDisposableEmail(email)){
+      msg.textContent = 'من فضلك استخدم إيميل حقيقي (Gmail أو مشابه)، مش إيميل مؤقت.';
+      msg.className = 'jl-student-msg err'; if (window.jlShakeInvalid) window.jlShakeInvalid(msg);
+      return;
+    }
+    if (!validatePassword(pass1)){
+      msg.textContent = 'الباسورد لازم 8 حروف على الأقل، وفيه حرف كابيتال وحرف سمول ورقم ورمز.';
+      msg.className = 'jl-student-msg err'; if (window.jlShakeInvalid) window.jlShakeInvalid(msg);
+      return;
+    }
+    if (pass1 !== pass2){
+      msg.textContent = 'الباسورد وتأكيد الباسورد مش متطابقين.';
+      msg.className = 'jl-student-msg err'; if (window.jlShakeInvalid) window.jlShakeInvalid(msg);
+      return;
+    }
+
+    msg.textContent = '...جاري إنشاء الحساب';
+    msg.className = 'jl-student-msg';
+    api('/api/auth/register', {
+      method: 'POST',
+      body: JSON.stringify({
+        first_name: first,
+        last_name: last,
+        phone: phone,
+        email: email,
+        password: pass1
+      })
+    }).then(function(data){
+      setStudent(data.student);
+      showProfileOrAuth();
+    }).catch(function(err){
+      msg.textContent = err.message;
+      msg.className = 'jl-student-msg err'; if (window.jlShakeInvalid) window.jlShakeInvalid(msg);
+    });
+  });
+
+  // نسيت الباسورد
+  document.getElementById('jl-forgot-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    var msg = document.getElementById('fp-msg');
+    api('/api/auth/forgot-password', {
+      method: 'POST',
+      body: JSON.stringify({ email: document.getElementById('fp-email').value.trim() })
+    }).then(function(data){
+      msg.textContent = data.message;
+      msg.className = 'jl-student-msg ok';
+    }).catch(function(err){
+      msg.textContent = err.message;
+      msg.className = 'jl-student-msg err'; if (window.jlShakeInvalid) window.jlShakeInvalid(msg);
+    });
+  });
+  var fpResetBtn = document.getElementById('fp-reset-btn');
+  function checkResetFormValid(){
+    var p1 = document.getElementById('fp-newpass').value;
+    var p2 = document.getElementById('fp-newpass2').value;
+    var ok = validatePassword(p1) && p1 === p2 && p1 !== '';
+    fpResetBtn.disabled = !ok;
+    fpResetBtn.style.opacity = ok ? '1' : '.5';
+    fpResetBtn.style.cursor = ok ? 'pointer' : 'not-allowed';
+  }
+  ['fp-newpass','fp-newpass2'].forEach(function(id){
+    document.getElementById(id).addEventListener('input', checkResetFormValid);
+  });
+  checkResetFormValid();
+
+  document.getElementById('fp-reset-btn').addEventListener('click', function(){
+    var msg = document.getElementById('fp-msg');
+    var newPass1 = document.getElementById('fp-newpass').value;
+    var newPass2 = document.getElementById('fp-newpass2').value;
+
+    if (!validatePassword(newPass1)){
+      msg.textContent = 'الباسورد لازم 8 حروف على الأقل، وفيه حرف كابيتال وحرف سمول ورقم ورمز.';
+      msg.className = 'jl-student-msg err'; if (window.jlShakeInvalid) window.jlShakeInvalid(msg);
+      return;
+    }
+    if (newPass1 !== newPass2){
+      msg.textContent = 'الباسورد وتأكيد الباسورد مش متطابقين.';
+      msg.className = 'jl-student-msg err'; if (window.jlShakeInvalid) window.jlShakeInvalid(msg);
+      return;
+    }
+
+    api('/api/auth/reset-password', {
+      method: 'POST',
+      body: JSON.stringify({
+        email: document.getElementById('fp-email').value.trim(),
+        code: document.getElementById('fp-code').value.trim(),
+        new_password: newPass1
+      })
+    }).then(function(){
+      msg.textContent = 'اتغيّر الباسورد بنجاح ✓ ادخل تاني';
+      msg.className = 'jl-student-msg ok';
+      document.querySelector('.jl-student-tab[data-form="login"]').click();
+    }).catch(function(err){
+      msg.textContent = err.message;
+      msg.className = 'jl-student-msg err'; if (window.jlShakeInvalid) window.jlShakeInvalid(msg);
+    });
+  });
+
+  // تعديل الاسم
+  document.getElementById('jl-edit-name-btn').addEventListener('click', function(){
+    var s = getStudent();
+    document.getElementById('ed-first').value = s.first_name;
+    document.getElementById('ed-last').value = s.last_name;
+    document.getElementById('jl-edit-name-form').style.display = 'block';
+  });
+  document.getElementById('jl-save-name-btn').addEventListener('click', function(){
+    var s = getStudent();
+    api('/api/auth/update-profile', {
+      method: 'POST',
+      body: JSON.stringify({
+        first_name: document.getElementById('ed-first').value.trim(),
+        last_name: document.getElementById('ed-last').value.trim()
+      })
+    }).then(function(data){
+      setStudent(data.student);
+      renderProfile();
+      document.getElementById('jl-edit-name-form').style.display = 'none';
+      document.getElementById('profile-msg').textContent = 'تم الحفظ ✓';
+      document.getElementById('profile-msg').className = 'jl-student-msg ok';
+    }).catch(function(err){
+      document.getElementById('profile-msg').textContent = err.message;
+      document.getElementById('profile-msg').className = 'jl-student-msg err';
+    });
+  });
+
+  // رفع صورة البروفايل — بتفضل محفوظة (بتستبدل القديمة، وما بتتمسحش لوحدها)
+  // دالة تصغير الصورة قبل الرفع — بتحل مشكلة "الصورة كبيرة أوي" (413 error)
+  function resizeImageForUpload(file, maxSize, quality) {
+    return new Promise(function(resolve, reject){
+      var reader = new FileReader();
+      reader.onload = function(e){
+        var img = new Image();
+        img.onload = function(){
+          var w = img.width, h = img.height;
+          if (w > h && w > maxSize) { h = Math.round(h * (maxSize / w)); w = maxSize; }
+          else if (h > maxSize) { w = Math.round(w * (maxSize / h)); h = maxSize; }
+          var canvas = document.createElement('canvas');
+          canvas.width = w; canvas.height = h;
+          canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+          resolve(canvas.toDataURL('image/jpeg', quality));
+        };
+        img.onerror = reject;
+        img.src = e.target.result;
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  document.getElementById('jl-avatar-input').addEventListener('change', function(e){
+    var file = e.target.files[0];
+    if (!file) return;
+    var s = getStudent();
+    resizeImageForUpload(file, 500, 0.75).then(function(resizedDataUrl){
+      api('/api/auth/update-profile', {
+        method: 'POST',
+        body: JSON.stringify({ avatar_base64: resizedDataUrl })
+      }).then(function(data){
+        setStudent(data.student);
+        renderProfile();
+        document.getElementById('profile-msg').textContent = 'اتغيّرت الصورة ✓';
+        document.getElementById('profile-msg').className = 'jl-student-msg ok';
+      }).catch(function(err){
+        document.getElementById('profile-msg').textContent = err.message;
+        document.getElementById('profile-msg').className = 'jl-student-msg err';
+      });
+    }).catch(function(){
+      document.getElementById('profile-msg').textContent = 'حصلت مشكلة في معالجة الصورة، جرّب صورة تانية';
+      document.getElementById('profile-msg').className = 'jl-student-msg err';
+    });
+  });
+
+  // خروج
+  document.getElementById('jl-student-logout').addEventListener('click', function(){
+    api('/api/auth/logout', { method: 'POST', body: '{}' }).catch(function(){}).finally(function(){
+      localStorage.removeItem('ch_student');
+      window.dispatchEvent(new Event('ch-auth-changed'));
+      showProfileOrAuth();
+    });
+  });
+
+  // مزامنة بيانات الحساب مع جلسة السيرفر الآمنة عند فتح الصفحة.
+  api('/api/auth/session').then(function(data){
+    if (data && data.student) setStudent(data.student);
+  }).catch(function(){
+    localStorage.removeItem('ch_student');
+    window.dispatchEvent(new Event('ch-auth-changed'));
+  });
+
+  // زرار "الصورة" في أسفل الكارت — بيفتح نفس مربع رفع الصورة الأصلي
+  var pvPhotoBtn = document.getElementById('jl-pv-photo-btn');
+  pvPhotoBtn && pvPhotoBtn.addEventListener('click', function(){
+    document.getElementById('jl-avatar-input').click();
+  });
+
+  // نسخ رقم التليفون للكليبورد
+  var pvCopyPhoneBtn = document.getElementById('jl-pv-copy-phone');
+  pvCopyPhoneBtn && pvCopyPhoneBtn.addEventListener('click', function(){
+    var s = getStudent();
+    if (!s) return;
+    var done = function(){
+      document.getElementById('profile-msg').textContent = 'اتنسخ رقم التليفون ✓';
+      document.getElementById('profile-msg').className = 'jl-student-msg ok';
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(s.phone).then(done).catch(function(){});
+    } else {
+      var tmp = document.createElement('textarea');
+      tmp.value = s.phone;
+      document.body.appendChild(tmp);
+      tmp.select();
+      try { document.execCommand('copy'); done(); } catch (e) {}
+      document.body.removeChild(tmp);
+    }
+  });
+})();
+
+/* --- extracted script 14 --- */
+(function(){
+  // ---------- 1) تفعيل الأقسام تظهر تدريجيًا وقت السكرول ----------
+  var revealTargets = document.querySelectorAll(
+    '.jl-benefits-head, .jl-benefit, .jl-audience>h2, .jl-audience-item, .jl-mp-teaser-card, ' +
+    '.jl-am-head, .jl-am-card, .jl-cta-card, .jl-about-main, .jl-about-card, .jl-reviews-head, ' +
+    '.jl-review-card, .jl-review-form-wrap, .jl-footer-col, .jl-hero-text, .jl-hw-scene, ' +
+    '.jl-cta-copy, .jl-cta-action'
+  );
+  revealTargets.forEach(function(el){ el.classList.add('jl-reveal'); });
+
+  // Grids get staggered-children reveal
+  var staggerTargets = document.querySelectorAll('.jl-benefits-grid, .jl-audience-grid, .jl-about-cards');
+  staggerTargets.forEach(function(el){ el.classList.add('jl-reveal', 'jl-stagger'); });
+
+  if ('IntersectionObserver' in window){
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){
+          entry.target.classList.add('jl-revealed', 'jl-reveal-visible');
+        } else {
+          entry.target.classList.remove('jl-revealed', 'jl-reveal-visible');
+        }
+      });
+    }, { threshold: 0.12 });
+    revealTargets.forEach(function(el){ observer.observe(el); });
+    staggerTargets.forEach(function(el){ observer.observe(el); });
+  } else {
+    revealTargets.forEach(function(el){ el.classList.add('jl-revealed', 'jl-reveal-visible'); });
+    staggerTargets.forEach(function(el){ el.classList.add('jl-revealed', 'jl-reveal-visible'); });
+  }
+
+  // ---------- 2) تأثير الموجة (Ripple) على الأزرار ----------
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest && e.target.closest('.jl-reg, .jl-mp-quiz-btn, .jl-student-tab, .jl-lang-pill');
+    if (!btn || btn.disabled) return;
+    var rect = btn.getBoundingClientRect();
+    var ripple = document.createElement('span');
+    var size = Math.max(rect.width, rect.height);
+    ripple.className = 'jl-ripple';
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+    ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+    btn.appendChild(ripple);
+    setTimeout(function(){ ripple.remove(); }, 550);
+  });
+
+  // ---------- 3) النافبار يبان أوضح لما تنزل تحت ----------
+  var navEl = document.querySelector('.jl-nav');
+  if (navEl){
+    window.addEventListener('scroll', function(){
+      navEl.classList.toggle('jl-scrolled', window.scrollY > 30);
+    });
+  }
+
+  // Hamburger state is handled by the final stability controller.
+
+  // ---------- 5) نبضة على عداد الترم لما يتغيّر ----------
+  var lastCountdownText = '';
+  var countdownObserverEl = document.getElementById('jl-countdown-value');
+  if (countdownObserverEl){
+    var pulseCountdown = new MutationObserver(function(){
+      if (countdownObserverEl.textContent !== lastCountdownText){
+        lastCountdownText = countdownObserverEl.textContent;
+        countdownObserverEl.classList.remove('jl-pulse');
+        void countdownObserverEl.offsetWidth; // إعادة تشغيل الأنيميشن
+        countdownObserverEl.classList.add('jl-pulse');
+      }
+    });
+    pulseCountdown.observe(countdownObserverEl, { childList: true, characterData: true, subtree: true });
+  }
+})();
+
+/* --- extracted script 15 --- */
+(function(){
+  // ---------- نظام نقط زخرفية عشوائية على مستوى الصفحة كلها (30 نقطة بس، بعيدة عن بعض) ----------
+  var TOTAL_DOTS = 100;
+  var sectionIds = ['home', 'benefits', 'audience', 'about', 'cta', 'reviews', 'monthly-path'];
+  var containers = [];
+  sectionIds.forEach(function(id){
+    var el = document.getElementById(id);
+    if (el) containers.push(el);
+  });
+  if (!containers.length) return;
+
+  // وزّع الـ30 نقطة على الأقسام المتاحة بالتساوي تقريبًا
+  var base = Math.floor(TOTAL_DOTS / containers.length);
+  var extra = TOTAL_DOTS % containers.length;
+  var minDistPct = 12; // أقل مسافة مسموحة بين نقطتين (بالنسبة المئوية) عشان محدش يبقى جنب التاني
+
+  containers.forEach(function(container, idx){
+    var count = base + (idx < extra ? 1 : 0);
+    if (count <= 0) return;
+
+    var fieldEl = document.createElement('div');
+    fieldEl.className = 'jl-dots-field';
+    fieldEl.setAttribute('aria-hidden', 'true');
+
+    var placed = [];
+    var attempts = 0;
+    while (placed.length < count && attempts < count * 40){
+      attempts++;
+      var x = Math.random() * 100;
+      var y = Math.random() * 100;
+      var ok = true;
+      for (var p = 0; p < placed.length; p++){
+        var dx = placed[p].x - x, dy = placed[p].y - y;
+        if (Math.sqrt(dx * dx + dy * dy) < minDistPct){ ok = false; break; }
+      }
+      if (ok) placed.push({x: x, y: y});
+    }
+    // لو مش لاقي أماكن كفاية بالمسافة المطلوبة، كمّل الباقي عشوائي عادي
+    while (placed.length < count){
+      placed.push({x: Math.random() * 100, y: Math.random() * 100});
+    }
+
+    placed.forEach(function(pos){
+      var dot = document.createElement('span');
+      dot.style.left = pos.x + '%';
+      dot.style.top = pos.y + '%';
+      dot.style.animationDuration = (1.5 + Math.random() * 2.5) + 's';
+      dot.style.animationDelay = (Math.random() * 4) + 's';
+      fieldEl.appendChild(dot);
+    });
+
+    container.insertBefore(fieldEl, container.firstChild);
+  });
+
+  // شهب (نيازك) بنفسجية موزّعة على أكتر من قسم زي المرجع
+  var meteorHosts = [document.getElementById('jl-stars-field')];
+  ['benefits','audience','cta','reviews'].forEach(function(id){
+    var sec = document.getElementById(id);
+    if (sec){
+      var mf = document.createElement('div');
+      mf.className = 'jl-dots-field';
+      mf.setAttribute('aria-hidden', 'true');
+      sec.appendChild(mf);
+      meteorHosts.push(mf);
+    }
+  });
+  meteorHosts.forEach(function(host){
+    if (!host) return;
+    var frag = document.createDocumentFragment();
+    var n = host.id === 'jl-stars-field' ? 5 : 2;
+    for (var m = 0; m < n; m++){
+      var meteor = document.createElement('span');
+      meteor.className = 'jl-meteor';
+      meteor.style.top = (Math.random() * 50) + '%';
+      meteor.style.left = (40 + Math.random() * 55) + '%';
+      meteor.style.animationDuration = (5 + Math.random() * 5) + 's';
+      meteor.style.animationDelay = (Math.random() * 8) + 's';
+      frag.appendChild(meteor);
+    }
+    host.appendChild(frag);
+  });
+})();
+
+/* --- extracted script 16 --- */
+(function(){
+  // ---------- عدّ تصاعدي للأرقام لما تظهر على الشاشة ----------
+  var statEls = document.querySelectorAll('.jl-stat-num');
+  if (!statEls.length) return;
+
+  function animateCount(el){
+    var target = parseInt(el.getAttribute('data-target'), 10);
+    var duration = 1400;
+    var startTime = null;
+    function step(ts){
+      if (!startTime) startTime = ts;
+      var progress = Math.min((ts - startTime) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(eased * target);
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  if ('IntersectionObserver' in window){
+    var statsObserver = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){
+          animateCount(entry.target);
+          statsObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    statEls.forEach(function(el){ statsObserver.observe(el); });
+  } else {
+    statEls.forEach(function(el){ animateCount(el); });
+  }
+})();
+
+/* --- extracted script 17 --- */
+(function(){
+  // ---------- كود "Code Hub" بيتكتب لايف مع تلوين ----------
+  var codeEl = document.getElementById('jl-hw-code');
+  var fileEl = document.querySelector('.jl-hw-tab.active');
+  if (!codeEl) return;
+
+  var snippets = [
+    { file: 'codehub.py', lines: [
+      "<span class='jl-hw-kw'>class</span> <span class='jl-hw-fn'>CodeHub</span>:",
+      "    <span class='jl-hw-kw'>def</span> <span class='jl-hw-fn'>start</span>(self):",
+      "        <span class='jl-hw-kw'>print</span>(<span class='jl-hw-str'>'من الصفر للاحتراف 🚀'</span>)",
+      "        <span class='jl-hw-kw'>return</span> <span class='jl-hw-str'>'جاهز!'</span>",
+      "",
+      "<span class='jl-hw-com'># ابدأ رحلتك دلوقتي</span>",
+      "CodeHub().start()"
+    ]},
+    { file: 'student.js', lines: [
+      "<span class='jl-hw-kw'>const</span> student = {",
+      "  name: <span class='jl-hw-str'>'أنت'</span>,",
+      "  goal: <span class='jl-hw-str'>'احتراف البرمجة'</span>",
+      "};",
+      "",
+      "<span class='jl-hw-com'>// Code Hub بيوصلك لهدفك</span>",
+      "<span class='jl-hw-fn'>joinCodeHub</span>(student);"
+    ]}
+  ];
+
+  var snippetIndex = 0;
+
+  function typeSnippet(){
+    var snippet = snippets[snippetIndex];
+    if (fileEl) fileEl.textContent = snippet.file;
+    var fullHtml = snippet.lines.join('\n');
+    var plain = fullHtml.replace(/<[^>]+>/g, '');
+    var i = 0;
+    codeEl.innerHTML = '';
+
+    function typeChar(){
+      i++;
+      var htmlSoFar = '';
+      var plainCount = 0;
+      var j = 0;
+      while (j < fullHtml.length && plainCount < i){
+        if (fullHtml[j] === '<'){
+          var closeIdx = fullHtml.indexOf('>', j);
+          htmlSoFar += fullHtml.substring(j, closeIdx + 1);
+          j = closeIdx + 1;
+        } else {
+          htmlSoFar += fullHtml[j];
+          plainCount++;
+          j++;
         }
       }
-      @media (max-width:560px){
-        .jl-hero .jl-hw-scene{
-          width:100%;
-          aspect-ratio:4 / 3;
-          border-radius:16px;
-          background-position:left center;
-          box-shadow:0 18px 36px rgba(10,16,36,.24);
-        }
+      codeEl.innerHTML = htmlSoFar;
+      if (i < plain.length){
+        setTimeout(typeChar, 22 + Math.random() * 28);
+      } else {
+        setTimeout(function(){
+          snippetIndex = (snippetIndex + 1) % snippets.length;
+          typeSnippet();
+        }, 2600);
       }
-
-/* ---- preserved style block ---- */
-
-/* Unified hero: real copy over the image so it stays crisp and responsive. */
-      .jl-hero{
-        grid-template-columns:1fr !important;
-        min-height:clamp(620px,58vw,860px);
-        padding:64px 56px 92px !important;
-        isolation:isolate;
-      }
-      .jl-hero .jl-hw-scene{
-        grid-area:1 / 1;
-        align-self:center;
-        justify-self:center;
-        width:100%;
-        max-width:1400px;
-        aspect-ratio:16 / 9;
-        border-radius:28px;
-        background-position:left center;
-      }
-      .jl-hero .jl-hero-text{
-        position:absolute !important;
-        z-index:6 !important;
-        top:50%;
-        right:max(72px,calc((100% - 1400px)/2 + 52px));
-        width:min(39vw,560px);
-        transform:translateY(-50%);
-        color:#fff;
-        text-align:right;
-        padding:28px 10px;
-      }
-      .jl-hero .jl-free-badge{
-        width:max-content;
-        max-width:100%;
-        color:#c9f6db;
-        background:rgba(46,125,86,.22);
-        border-color:rgba(111,207,151,.5);
-        backdrop-filter:blur(8px);
-      }
-      .jl-hero .jl-hero-text h1{
-        color:#fff;
-        font-size:clamp(38px,4vw,64px);
-        line-height:1.16;
-        text-shadow:0 7px 24px rgba(0,0,0,.32);
-      }
-      .jl-hero .jl-hero-text h1 mark{
-        color:#f8df9f;
-        background:linear-gradient(90deg,rgba(182,145,59,.52),rgba(182,145,59,.16));
-      }
-      .jl-hero .jl-hero-text p.sub{
-        color:rgba(255,255,255,.84);
-        max-width:520px;
-        margin-top:22px;
-        font-size:clamp(16px,1.35vw,20px);
-        line-height:1.9;
-        text-shadow:0 3px 14px rgba(0,0,0,.35);
-      }
-      .jl-hero .jl-hero-actions{gap:12px;margin-top:28px;}
-      .jl-hero .jl-course-btn{
-        display:inline-flex;
-        align-items:center;
-        justify-content:center;
-        min-height:54px;
-        padding:13px 26px;
-        border:1.5px solid rgba(255,255,255,.72);
-        border-radius:999px;
-        color:#fff;
-        background:rgba(255,255,255,.08);
-        font-weight:900;
-        backdrop-filter:blur(9px);
-        transition:.2s ease;
-      }
-      .jl-hero .jl-course-btn:hover{background:#fff;color:#101936;transform:translateY(-2px);}
-      .jl-hero-symbols,.jl-streaks{display:none !important;}
-      .jl-wall-code{
-        --wall-x:0px;
-        --wall-y:0px;
-        position:absolute;
-        inset:-48px -30px;
-        pointer-events:none;
-        z-index:-1;
-        opacity:.62;
-        transform:translate3d(var(--wall-x),var(--wall-y),0);
-        transition:transform .22s ease-out;
-      }
-      .jl-wall-code span{
-        position:absolute;
-        font-family:var(--font-mono);
-        color:rgba(122,165,255,.5);
-        text-shadow:0 0 18px rgba(92,125,255,.34);
-        animation:jlWallFloat 7s ease-in-out infinite;
-      }
-      .jl-wall-code span:nth-child(1){top:4%;right:7%;font-size:22px;animation-delay:-1s;}
-      .jl-wall-code span:nth-child(2){top:18%;left:5%;font-size:26px;animation-delay:-3s;}
-      .jl-wall-code span:nth-child(3){top:43%;right:2%;font-size:18px;animation-delay:-5s;}
-      .jl-wall-code span:nth-child(4){bottom:17%;left:12%;font-size:20px;animation-delay:-2s;}
-      .jl-wall-code span:nth-child(5){bottom:1%;right:25%;font-size:24px;animation-delay:-4s;}
-      .jl-wall-code span:nth-child(6){top:3%;left:36%;font-size:16px;animation-delay:-6s;}
-      @keyframes jlWallFloat{0%,100%{translate:0 0;opacity:.34}50%{translate:0 -12px;opacity:.82}}
-      @media (max-width:980px){
-        .jl-hero{min-height:560px;padding:38px 24px 70px !important;}
-        .jl-hero .jl-hero-text{right:42px;width:43vw;}
-        .jl-hero .jl-hero-text h1{font-size:clamp(28px,4.2vw,42px);}
-      }
-      @media (max-width:700px){
-        .jl-hero{display:flex !important;min-height:0;padding:30px 16px 64px !important;gap:18px;}
-        .jl-hero .jl-hw-scene{order:1;aspect-ratio:4 / 3;max-width:560px;background-position:left center;border-radius:18px;}
-        .jl-hero .jl-hero-text{
-          order:2;
-          position:relative !important;
-          inset:auto !important;
-          width:100%;
-          max-width:560px;
-          margin:0 auto;
-          transform:none;
-          border-radius:18px;
-          padding:24px 20px;
-          background:linear-gradient(145deg,#111b3c,#080f24);
-          box-shadow:0 18px 38px rgba(8,15,36,.25);
-        }
-        .jl-hero .jl-hero-text h1{font-size:34px !important;}
-        .jl-hero .jl-hero-actions{display:grid;grid-template-columns:1fr 1fr;}
-        .jl-hero .jl-hero-actions .jl-reg,.jl-hero .jl-course-btn{width:100%;padding-inline:14px;font-size:15px;}
-        .jl-wall-code{inset:0;overflow:hidden;border-radius:18px;}
-      }
-      @media (max-width:420px){
-        .jl-hero .jl-hero-text h1{font-size:29px !important;}
-        .jl-hero .jl-hero-actions{grid-template-columns:1fr;}
-      }
-      @media (prefers-reduced-motion:reduce){.jl-wall-code,.jl-wall-code span{animation:none !important;transition:none !important;}}
-
-/* ---- preserved style block ---- */
-
-/* Light/dark logo variants. The dark-theme asset stays exactly as it was. */
-      .jl-nav-logo-link img{
-        content:url("codehub-logo-light-v8.png") !important;
-        mix-blend-mode:multiply;
-      }
-      [data-theme="dark"] .jl-nav-logo-link img{
-        content:url("codehub-logo.png") !important;
-        mix-blend-mode:normal;
-      }
-
-      /* Clear bilingual language control without the old globe badge. */
-      .jl-lang-pill{
-        min-width:70px !important;
-        min-height:38px !important;
-        padding:7px 12px !important;
-        justify-content:center !important;
-        gap:0 !important;
-        border:1px solid rgba(23,27,54,.18) !important;
-        font-weight:900 !important;
-        letter-spacing:.2px;
-      }
-      .jl-lang-pill span{display:none !important;}
-      .jl-lang-pill::before{content:"ع  |  EN";}
-      [data-theme="dark"] .jl-lang-pill{border-color:rgba(255,255,255,.22) !important;}
-
-      /* Stable 100% desktop sizing. */
-      .jl-hero{
-        display:grid !important;
-        place-items:center !important;
-        min-height:0 !important;
-        padding:clamp(20px,2.5vw,42px) clamp(14px,4vw,72px) 76px !important;
-      }
-      .jl-hero .jl-hw-scene{
-        grid-area:1 / 1 !important;
-        width:min(1400px,calc(100vw - clamp(28px,8vw,144px))) !important;
-        max-width:1400px !important;
-        height:auto !important;
-        aspect-ratio:16 / 9 !important;
-        margin:0 auto !important;
-        border-radius:clamp(18px,2vw,30px) !important;
-        background-size:cover !important;
-        background-position:left center !important;
-      }
-      .jl-hero .jl-hero-text{
-        right:max(54px,calc((100% - 1400px)/2 + 48px)) !important;
-        width:min(38vw,550px) !important;
-      }
-      .jl-hero .jl-hero-text p.sub{color:#fff !important;}
-      .jl-hero .jl-hero-actions{grid-template-columns:1fr !important;max-width:230px;}
-      .jl-hero .jl-hero-actions .jl-reg{width:100% !important;}
-      .jl-hero .jl-course-btn{display:none !important;}
-
-      /* The decorative code stays inside the hero frame. */
-      .jl-hero .jl-hero-text{overflow:visible;}
-      .jl-wall-code{z-index:-1 !important;overflow:hidden !important;}
-
-      /* A clearer account entry point; the existing modal handles login/profile/editing. */
-      #jl-student-btn::before{content:"👤";margin-inline-end:5px;}
-
-      /* Stronger, equal-height final section. */
-      .jl-footer{
-        padding:72px clamp(18px,5vw,80px) 26px !important;
-        background:
-          radial-gradient(circle at 10% 10%,rgba(182,145,59,.13),transparent 32%),
-          linear-gradient(180deg,var(--cream),#e9e0ca) !important;
-      }
-      [data-theme="dark"] .jl-footer{
-        background:radial-gradient(circle at 10% 10%,rgba(79,139,255,.14),transparent 34%),#090e20 !important;
-      }
-      .jl-footer-grid-3{
-        width:min(1160px,100%) !important;
-        margin-inline:auto !important;
-        display:grid !important;
-        grid-template-columns:repeat(3,minmax(0,1fr)) !important;
-        align-items:stretch !important;
-        gap:24px !important;
-      }
-      .jl-footer-grid-3 .jl-footer-col{
-        min-height:390px !important;
-        height:100% !important;
-        display:flex !important;
-        flex-direction:column !important;
-        padding:30px 28px !important;
-        border:1px solid rgba(182,145,59,.24) !important;
-        border-radius:24px !important;
-        box-shadow:0 18px 42px rgba(32,30,44,.08) !important;
-      }
-      .jl-footer-grid-3 .jl-footer-col h3{
-        padding-bottom:12px;
-        border-bottom:2px solid rgba(182,145,59,.72);
-      }
-      .jl-footer-grid-3 .jl-social-row{margin-top:auto !important;}
-      .jl-footer-grid-3 .jl-footer-links{display:grid;gap:8px;}
-      .jl-footer-grid-3 .jl-footer-links a{
-        padding:5px 8px;border-radius:9px;transition:background .18s ease,transform .18s ease;
-      }
-      .jl-footer-grid-3 .jl-footer-links a:hover{background:rgba(182,145,59,.12);transform:translateX(-3px);}
-
-      @media (max-width:980px){
-        .jl-hero .jl-hero-text{right:5.5vw !important;width:42vw !important;}
-        .jl-hero .jl-hero-text h1{font-size:clamp(25px,4.7vw,42px) !important;}
-        .jl-hero .jl-hero-text p.sub{font-size:clamp(11px,1.55vw,16px) !important;line-height:1.7 !important;}
-        .jl-footer-grid-3{gap:16px !important;}
-        .jl-footer-grid-3 .jl-footer-col{padding:24px 20px !important;}
-      }
-
-      /* Mobile keeps the same unified laptop composition instead of splitting into two cards. */
-      @media (max-width:700px){
-        .jl-nav{padding-inline:8px !important;}
-        .jl-nav-end{gap:5px !important;}
-        .jl-nav-logo-link img{width:86px !important;max-width:86px !important;}
-        .jl-auth-nav-btn{padding:7px 9px !important;font-size:10.5px !important;min-height:32px !important;}
-        .jl-lang-pill{min-width:48px !important;width:48px !important;min-height:32px !important;font-size:9px !important;padding:4px !important;}
-
-        .jl-hero{
-          display:grid !important;
-          min-height:0 !important;
-          padding:18px 8px 52px !important;
-          gap:0 !important;
-        }
-        .jl-hero .jl-hw-scene{
-          order:initial !important;
-          grid-area:1 / 1 !important;
-          width:100% !important;
-          max-width:none !important;
-          aspect-ratio:16 / 10 !important;
-          border-radius:16px !important;
-          background-position:left center !important;
-          box-shadow:0 18px 36px rgba(8,15,36,.28) !important;
-        }
-        .jl-hero .jl-hero-text{
-          order:initial !important;
-          grid-area:1 / 1 !important;
-          position:relative !important;
-          inset:auto !important;
-          align-self:center !important;
-          justify-self:end !important;
-          width:47% !important;
-          max-width:none !important;
-          margin:0 3.5% 0 0 !important;
-          padding:8px 3px !important;
-          transform:none !important;
-          border-radius:0 !important;
-          background:transparent !important;
-          box-shadow:none !important;
-          text-align:right !important;
-          overflow:visible !important;
-        }
-        .jl-hero .jl-free-badge{
-          font-size:clamp(6.5px,2.05vw,10px) !important;
-          padding:5px 7px !important;
-          margin-bottom:6px !important;
-        }
-        .jl-hero .jl-hero-text h1{
-          font-size:clamp(16px,5.8vw,30px) !important;
-          line-height:1.12 !important;
-          margin:0 !important;
-        }
-        .jl-hero .jl-hero-text p.sub{
-          display:block !important;
-          color:#fff !important;
-          font-size:clamp(6.4px,2.05vw,10.5px) !important;
-          line-height:1.55 !important;
-          margin:8px 0 0 !important;
-          max-width:100% !important;
-        }
-        .jl-hero .jl-hero-actions{display:block !important;margin-top:10px !important;max-width:125px !important;}
-        .jl-hero .jl-hero-actions .jl-reg{
-          min-height:31px !important;
-          padding:6px 10px !important;
-          font-size:clamp(8px,2.55vw,12px) !important;
-          border-radius:999px !important;
-        }
-        .jl-wall-code{inset:-10px !important;border-radius:0 !important;opacity:.45 !important;}
-        .jl-wall-code span{font-size:clamp(8px,2.8vw,14px) !important;}
-
-        .jl-footer{padding-top:50px !important;}
-        .jl-footer-grid-3{grid-template-columns:1fr !important;max-width:560px !important;}
-        .jl-footer-grid-3 .jl-footer-col{min-height:0 !important;height:auto !important;}
-      }
-
-      @media (max-width:390px){
-        .jl-nav-logo-link img{width:70px !important;max-width:70px !important;}
-        .jl-auth-nav-btn{font-size:9px !important;padding:6px 7px !important;}
-        .jl-lang-pill{display:none !important;}
-        .jl-hero .jl-free-badge{display:none !important;}
-        .jl-hero .jl-hero-text h1{font-size:clamp(15px,5.6vw,22px) !important;}
-        .jl-hero .jl-hero-text p.sub{font-size:clamp(5.8px,1.9vw,7.5px) !important;line-height:1.45 !important;}
-      }
-
-/* ---- preserved style block ---- */
-
-/* Final light logo: no white robot panel; original logo remains for dark theme. */
-      .jl-nav-logo-link img,
-      .jl-ai-topbar-logo{
-        content:url("codehub-logo-light-v8.png") !important;
-        mix-blend-mode:normal !important;
-      }
-      [data-theme="dark"] .jl-nav-logo-link img,
-      [data-theme="dark"] .jl-ai-topbar-logo{
-        content:url("codehub-logo.png") !important;
-        mix-blend-mode:normal !important;
-      }
-
-      /* Clean language switch: show the language the button will switch to. */
-      .jl-lang-pill{
-        width:92px !important;
-        min-width:92px !important;
-        min-height:38px !important;
-        border-radius:999px !important;
-        background:linear-gradient(135deg,rgba(255,255,255,.96),rgba(235,226,205,.92)) !important;
-        border:1px solid rgba(21,26,54,.18) !important;
-        color:#151a36 !important;
-        box-shadow:0 5px 14px rgba(21,26,54,.08) !important;
-      }
-      .jl-lang-pill::before{content:"English" !important;font-size:11px;letter-spacing:.3px;}
-      html[lang="en"] .jl-lang-pill::before{content:"العربية" !important;font-family:var(--font-display);}
-      .jl-lang-pill::after{
-        content:"A";
-        display:grid;
-        place-items:center;
-        width:24px;
-        height:24px;
-        margin-inline-start:7px;
-        border-radius:50%;
-        color:#fff;
-        background:#151a36;
-        font-family:Arial,sans-serif;
-        font-size:11px;
-        font-weight:900;
-      }
-      html[lang="en"] .jl-lang-pill::after{content:"ع";font-family:var(--font-display);}
-      [data-theme="dark"] .jl-lang-pill{
-        background:rgba(255,255,255,.08) !important;
-        border-color:rgba(255,255,255,.2) !important;
-        color:#fff !important;
-      }
-      [data-theme="dark"] .jl-lang-pill::after{background:#fff;color:#151a36;}
-
-      /* Login and register are always the same dimensions. */
-      .jl-auth-nav-btn{
-        width:116px !important;
-        min-width:116px !important;
-        min-height:38px !important;
-        display:inline-flex !important;
-        align-items:center !important;
-        justify-content:center !important;
-        padding:7px 12px !important;
-      }
-
-      /* Glass panel over the dark wall so the copy area is visually intentional. */
-      .jl-hero .jl-hero-text{
-        padding:clamp(18px,2vw,30px) !important;
-        border:1px solid rgba(255,255,255,.16) !important;
-        border-radius:24px !important;
-        background:
-          radial-gradient(circle at 88% 6%,rgba(75,107,218,.19),transparent 38%),
-          linear-gradient(145deg,rgba(6,15,38,.36),rgba(5,11,28,.58)) !important;
-        box-shadow:0 24px 60px rgba(0,0,0,.2),inset 0 1px rgba(255,255,255,.08) !important;
-        backdrop-filter:blur(7px) !important;
-      }
-      .jl-hero .jl-hero-text::after{
-        content:"{  AI  }   </>   01";
-        position:absolute;
-        inset-inline-end:22px;
-        bottom:10px;
-        color:rgba(116,163,255,.23);
-        font-family:var(--font-mono);
-        font-size:12px;
-        letter-spacing:5px;
-        pointer-events:none;
-      }
-
-      /* Code symbols move about five times faster. */
-      .jl-wall-code{transition:transform .045s linear !important;}
-      .jl-wall-code span{animation-duration:1.4s !important;}
-
-      /* Private chat: the student is on the right, assistant on the left. */
-      .jl-ai-thread{direction:rtl;}
-      .jl-ai-msg.user{
-        align-self:flex-start !important;
-        text-align:right !important;
-        border-bottom-right-radius:4px !important;
-        border-bottom-left-radius:14px !important;
-      }
-      .jl-ai-msg.assistant,
-      .jl-ai-typing{
-        align-self:flex-end !important;
-        text-align:right !important;
-        border-bottom-left-radius:4px !important;
-        border-bottom-right-radius:14px !important;
-      }
-      .jl-ai-msg-img{width:min(260px,100%);max-width:100% !important;height:auto;}
-
-      @media (max-width:700px){
-        .jl-auth-nav-btn{
-          width:82px !important;
-          min-width:82px !important;
-          min-height:32px !important;
-          padding:5px 7px !important;
-          font-size:9.5px !important;
-        }
-        .jl-lang-pill{width:58px !important;min-width:58px !important;min-height:32px !important;padding:4px 5px !important;}
-        .jl-lang-pill::before{font-size:8px !important;}
-        .jl-lang-pill::after{width:20px;height:20px;margin-inline-start:3px;font-size:9px;}
-        .jl-hero .jl-hero-text{
-          position:absolute !important;
-          top:50% !important;
-          right:3.5% !important;
-          left:auto !important;
-          bottom:auto !important;
-          width:47% !important;
-          margin:0 !important;
-          transform:translateY(-50%) !important;
-          justify-self:auto !important;
-          padding:8px 7px !important;
-          border-radius:12px !important;
-          background:linear-gradient(145deg,rgba(6,15,38,.42),rgba(5,11,28,.6)) !important;
-          backdrop-filter:blur(3px) !important;
-        }
-        .jl-hero .jl-hero-text::after{display:none;}
-      }
-      @media (max-width:390px){
-        .jl-auth-nav-btn{width:72px !important;min-width:72px !important;font-size:8.8px !important;}
-        .jl-lang-pill{display:inline-flex !important;width:46px !important;min-width:46px !important;}
-        .jl-lang-pill::before{display:none !important;}
-        .jl-lang-pill::after{margin:0 !important;}
-      }
-      @media (prefers-reduced-motion:reduce){.jl-wall-code span{animation:none !important;}}
-
-/* ---- preserved style block ---- */
-
-/* Code Hub v9: final, cache-safe responsive layer */
-      .jl-nav-logo-link img,.jl-ai-topbar-logo{
-        content:url("codehub-logo-light-v9.png?v=9") !important;
-        mix-blend-mode:multiply !important;
-      }
-      [data-theme="dark"] .jl-nav-logo-link img,[data-theme="dark"] .jl-ai-topbar-logo{
-        content:url("codehub-logo.png?v=9") !important;
-        mix-blend-mode:normal !important;
-      }
-      .jl-lang-pill{
-        display:inline-flex !important;align-items:center !important;justify-content:center !important;
-        gap:7px !important;width:76px !important;min-width:76px !important;height:42px !important;
-        padding:0 10px !important;border:1px solid rgba(20,30,70,.18) !important;
-        border-radius:14px !important;background:rgba(255,255,255,.86) !important;color:#111a43 !important;
-        font-family:Arial,sans-serif !important;font-weight:800 !important;line-height:1 !important;
-      }
-      .jl-lang-pill span{display:none !important}
-      .jl-lang-pill::before{content:"🌐" !important;font-size:15px !important;display:block !important}
-      .jl-lang-pill::after{
-        content:"EN" !important;display:block !important;width:auto !important;height:auto !important;
-        margin:0 !important;background:none !important;color:inherit !important;font-size:12px !important;
-        border:0 !important;border-radius:0 !important;box-shadow:none !important;
-      }
-      html[lang="en"] .jl-lang-pill::after{content:"عربي" !important}
-      [data-theme="dark"] .jl-lang-pill{background:rgba(14,22,52,.9) !important;color:#fff !important;border-color:rgba(255,255,255,.18) !important}
-      .jl-auth-nav-btn{
-        width:118px !important;min-width:118px !important;height:42px !important;min-height:42px !important;
-        display:inline-flex !important;align-items:center !important;justify-content:center !important;
-        padding:0 12px !important;white-space:nowrap !important;
-      }
-      #jl-student-btn::before{content:"👤";font-size:13px;margin-inline-end:5px}
-
-      .jl-hero{padding:12px clamp(10px,4vw,76px) 56px !important;min-height:auto !important;display:block !important}
-      .jl-hw-scene{
-        position:relative !important;display:block !important;width:min(100%,1750px) !important;
-        aspect-ratio:16/9 !important;min-height:0 !important;margin:0 auto !important;overflow:hidden !important;
-        border-radius:30px !important;background-image:url("codehub-hero-tshirt-watch-v6.png") !important;
-        background-size:cover !important;background-position:left center !important;background-repeat:no-repeat !important;
-        box-shadow:0 24px 54px rgba(8,17,39,.2) !important;isolation:isolate !important;
-      }
-      .jl-hw-scene::before{
-        content:"" !important;display:block !important;position:absolute !important;inset:0 !important;z-index:1 !important;
-        background:linear-gradient(90deg,transparent 42%,rgba(3,10,28,.14) 58%,rgba(3,9,25,.42) 100%) !important;
-        pointer-events:none !important;
-      }
-      .jl-hw-scene::after{
-        content:"" !important;display:block !important;position:absolute !important;right:3.5% !important;top:8% !important;
-        width:43% !important;height:84% !important;z-index:2 !important;border:1px solid rgba(120,175,255,.14) !important;
-        border-radius:26px !important;background:linear-gradient(145deg,rgba(8,25,58,.23),rgba(2,8,22,.43)) !important;
-        box-shadow:inset 0 0 45px rgba(38,100,190,.1) !important;backdrop-filter:blur(1.5px) !important;pointer-events:none !important;
-      }
-      .jl-hw-scene>.jl-hero-code-field{display:block !important}
-      .jl-wall-code{display:none !important}
-      .jl-hero-code-field{position:absolute;inset:0;z-index:3;overflow:hidden;pointer-events:none;transform:translate(var(--code-x,0),var(--code-y,0));transition:transform .12s linear}
-      .jl-hero-code-field span{
-        position:absolute;color:#79a9ff;font:700 clamp(12px,1.15vw,23px)/1 "Courier New",monospace;
-        opacity:.25;text-shadow:0 0 18px rgba(72,139,255,.75);animation:jlCodeDriftV9 1.35s ease-in-out infinite alternate;
-      }
-      .jl-hero-code-field span:nth-child(1){right:7%;top:13%}.jl-hero-code-field span:nth-child(2){right:34%;top:18%;animation-delay:-.3s}
-      .jl-hero-code-field span:nth-child(3){right:12%;top:37%;animation-delay:-.7s}.jl-hero-code-field span:nth-child(4){right:39%;top:42%;animation-delay:-1s}
-      .jl-hero-code-field span:nth-child(5){right:25%;top:59%;animation-delay:-.45s}.jl-hero-code-field span:nth-child(6){right:5%;top:69%;animation-delay:-.85s}
-      .jl-hero-code-field span:nth-child(7){right:43%;top:76%;animation-delay:-.15s}.jl-hero-code-field span:nth-child(8){right:30%;top:88%;animation-delay:-.65s}
-      .jl-hero-code-field span:nth-child(9){right:48%;top:10%;animation-delay:-.9s}.jl-hero-code-field span:nth-child(10){right:18%;top:27%;animation-delay:-.25s}
-      .jl-hero-code-field span:nth-child(11){right:46%;top:58%;animation-delay:-.55s}.jl-hero-code-field span:nth-child(12){right:9%;top:87%;animation-delay:-1.1s}
-      .jl-hero-code-field span:nth-child(13){right:35%;top:68%;animation-delay:-.4s}.jl-hero-code-field span:nth-child(14){right:21%;top:45%;animation-delay:-.75s}
-      @keyframes jlCodeDriftV9{from{transform:translate3d(-3px,-4px,0) scale(.94);opacity:.13}to{transform:translate3d(7px,6px,0) scale(1.08);opacity:.42}}
-      .jl-hero .jl-hero-text{
-        display:flex !important;position:absolute !important;right:5.5% !important;left:auto !important;top:50% !important;bottom:auto !important;
-        z-index:6 !important;width:39% !important;max-width:680px !important;height:auto !important;margin:0 !important;
-        padding:clamp(16px,2vw,34px) !important;transform:translateY(-50%) !important;box-sizing:border-box !important;
-        border:1px solid rgba(129,179,255,.18) !important;border-radius:24px !important;
-        background:linear-gradient(145deg,rgba(7,18,43,.48),rgba(3,10,28,.68)) !important;
-        box-shadow:0 22px 50px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.08) !important;
-        backdrop-filter:blur(4px) !important;text-align:right !important;align-items:flex-start !important;
-      }
-      .jl-hero .jl-hero-text h1{font-size:clamp(38px,4vw,78px) !important;line-height:1.05 !important;margin:0 0 18px !important;color:#fff !important}
-      .jl-hero .jl-hero-text mark{color:#f2d89c !important;background:linear-gradient(90deg,rgba(164,118,31,.65),rgba(209,172,92,.3)) !important;padding:0 .1em !important}
-      .jl-hero .jl-hero-text p{font-size:clamp(15px,1.25vw,23px) !important;line-height:1.85 !important;color:#dce6f8 !important;margin:0 0 20px !important}
-      .jl-hero .jl-free-badge{font-size:clamp(11px,.9vw,16px) !important;color:#c5f4de !important}
-      .jl-course-btn{display:none !important}
-      .jl-hero-actions{justify-content:flex-start !important;width:100% !important}
-      .jl-hero-primary{min-width:190px !important}
-
-      .jl-ai-thread{direction:rtl !important}
-      .jl-ai-msg.user{margin-left:auto !important;margin-right:0 !important;align-self:auto !important;text-align:right !important}
-      .jl-ai-msg.assistant,.jl-ai-typing{margin-right:auto !important;margin-left:0 !important;align-self:auto !important;text-align:right !important}
-      .jl-ai-msg-img{display:block !important;width:min(280px,100%) !important;max-height:310px !important;object-fit:contain !important;border-radius:14px !important;margin:0 0 10px !important;border:1px solid rgba(194,148,47,.32) !important}
-      .jl-ai-file-preview{max-width:100% !important}
-      #jl-ai-plus-btn{display:inline-flex !important}
-
-      .jl-footer-grid{align-items:stretch !important;grid-auto-rows:1fr !important}
-      .jl-footer-card{height:100% !important;min-height:365px !important;display:flex !important;flex-direction:column !important;background:rgba(255,255,255,.68) !important;backdrop-filter:blur(8px) !important}
-      .jl-footer-socials{margin-top:auto !important}
-      [data-theme="dark"] .jl-footer-card{background:rgba(16,25,52,.75) !important}
-
-      @media(max-width:700px){
-        .jl-nav{padding:8px !important;gap:5px !important}
-        .jl-nav-start{gap:4px !important;flex-wrap:nowrap !important}
-        .jl-nav-logo-link img{width:88px !important;max-width:88px !important}
-        .jl-auth-nav-btn{width:78px !important;min-width:78px !important;height:34px !important;min-height:34px !important;padding:0 5px !important;font-size:9px !important}
-        #jl-student-btn::before{font-size:9px;margin-inline-end:2px}
-        .jl-lang-pill{width:40px !important;min-width:40px !important;height:34px !important;padding:0 !important;border-radius:11px !important}
-        .jl-lang-pill::before{font-size:13px !important}.jl-lang-pill::after{display:none !important}
-        .jl-hero{padding:14px 7px 46px !important}
-        .jl-hw-scene{width:100% !important;aspect-ratio:16/9 !important;border-radius:15px !important;background-position:left center !important}
-        .jl-hw-scene::after{right:2.5% !important;top:5% !important;width:46% !important;height:90% !important;border-radius:13px !important}
-        .jl-hw-scene::before{background:linear-gradient(90deg,transparent 40%,rgba(3,10,28,.18) 55%,rgba(3,9,25,.48) 100%) !important}
-        .jl-hero .jl-hero-text{
-          right:3.2% !important;top:50% !important;width:44% !important;max-width:none !important;padding:5px !important;
-          border-radius:10px !important;background:rgba(4,12,32,.32) !important;box-shadow:none !important;backdrop-filter:blur(1px) !important;
-        }
-        .jl-hero .jl-hero-text h1{font-size:clamp(11px,4.25vw,19px) !important;line-height:1.02 !important;margin:0 0 4px !important;letter-spacing:-.3px !important}
-        .jl-hero .jl-hero-text p{font-size:clamp(4.4px,1.38vw,6.8px) !important;line-height:1.45 !important;margin:0 0 5px !important;color:#e5ecfa !important;max-height:none !important;overflow:visible !important}
-        .jl-hero .jl-free-badge{font-size:clamp(4.5px,1.45vw,7px) !important;padding:3px 5px !important;margin-bottom:4px !important}
-        .jl-hero-actions{margin-top:0 !important;gap:3px !important}
-        .jl-hero-primary{min-width:0 !important;width:78% !important;height:23px !important;min-height:23px !important;padding:0 5px !important;font-size:7px !important;border-radius:9px !important}
-        .jl-hero-code-field span{font-size:clamp(5px,1.8vw,9px) !important;opacity:.25}
-        .jl-footer-grid{grid-auto-rows:auto !important}.jl-footer-card{min-height:260px !important}
-      }
-      @media(max-width:390px){
-        .jl-nav-logo-link img{width:74px !important;max-width:74px !important}
-        .jl-auth-nav-btn{width:68px !important;min-width:68px !important;font-size:8px !important}
-        .jl-lang-pill{width:34px !important;min-width:34px !important}.jl-lang-pill::before{font-size:12px !important}
-      }
-      @media(prefers-reduced-motion:reduce){.jl-hero-code-field span{animation:none !important}.jl-hero-code-field{transform:none !important}}
-
-/* ---- preserved style block ---- */
-
-/* Hero v10: the copy is physically inside the image frame. */
-      .jl-hero{position:relative !important;display:block !important;padding:12px clamp(10px,4vw,76px) 56px !important;overflow:visible !important}
-      .jl-hw-scene{
-        position:relative !important;display:block !important;width:min(100%,1750px) !important;aspect-ratio:16/9 !important;
-        min-height:0 !important;margin:0 auto !important;overflow:hidden !important;border-radius:30px !important;
-        background-image:url("codehub-hero-v11.png?v=11") !important;background-size:cover !important;
-        background-position:center !important;background-repeat:no-repeat !important;
-      }
-      .jl-hw-scene::before{background:linear-gradient(90deg,transparent 48%,rgba(1,7,20,.06) 58%,rgba(1,6,18,.26) 100%) !important}
-      .jl-hw-scene::after{display:none !important}
-      .jl-hw-scene>.jl-hero-text{display:flex !important}
-      .jl-hw-scene .jl-hero-text{
-        position:absolute !important;right:4.2% !important;left:auto !important;top:50% !important;bottom:auto !important;
-        z-index:8 !important;width:39% !important;max-width:none !important;height:auto !important;margin:0 !important;
-        padding:clamp(14px,2vw,32px) !important;transform:translateY(-50%) !important;box-sizing:border-box !important;
-        border:0 !important;border-radius:22px !important;background:linear-gradient(135deg,rgba(5,16,42,.22),rgba(2,8,23,.46)) !important;
-        box-shadow:none !important;backdrop-filter:blur(1.5px) !important;text-align:right !important;
-        align-items:stretch !important;justify-content:center !important;overflow:hidden !important;
-      }
-      .jl-hw-scene .jl-hero-text>*{width:100% !important;max-width:100% !important;box-sizing:border-box !important;writing-mode:horizontal-tb !important;word-break:normal !important;overflow-wrap:normal !important}
-      .jl-hw-scene .jl-hero-text h1{font-size:clamp(34px,3.55vw,70px) !important;line-height:1.05 !important;margin:0 0 16px !important;color:#fff !important}
-      .jl-hw-scene .jl-hero-text p{display:block !important;font-size:clamp(13px,1.1vw,21px) !important;line-height:1.7 !important;margin:0 0 18px !important;color:#e8eefc !important;white-space:normal !important}
-      .jl-hw-scene .jl-hero-actions{display:flex !important;width:100% !important;justify-content:flex-start !important}
-      .jl-auth-register{
-        width:auto !important;min-width:0 !important;background:transparent !important;color:#18234c !important;border:0 !important;
-        box-shadow:none !important;text-decoration:underline !important;text-underline-offset:5px !important;padding-inline:8px !important;
-      }
-      [data-theme="dark"] .jl-auth-register{color:#fff !important}
-      @media(max-width:700px){
-        .jl-hero{padding:12px 7px 42px !important}
-        .jl-hw-scene{width:100% !important;aspect-ratio:16/9 !important;border-radius:15px !important;background-position:center !important}
-        .jl-hw-scene .jl-hero-text{
-          right:3% !important;top:50% !important;width:43% !important;padding:4px 5px !important;border-radius:9px !important;
-          background:linear-gradient(135deg,rgba(5,16,42,.12),rgba(2,8,23,.36)) !important;backdrop-filter:none !important;
-        }
-        .jl-hw-scene .jl-hero-text h1{font-size:clamp(10px,4vw,18px) !important;line-height:1.03 !important;margin:0 0 3px !important;letter-spacing:-.25px !important}
-        .jl-hw-scene .jl-hero-text p{font-size:clamp(4px,1.32vw,6.5px) !important;line-height:1.38 !important;margin:0 0 4px !important;color:#f0f4ff !important}
-        .jl-hw-scene .jl-free-badge{font-size:clamp(4px,1.35vw,6.5px) !important;padding:2px 4px !important;margin-bottom:3px !important}
-        .jl-hw-scene .jl-hero-primary{height:21px !important;min-height:21px !important;width:74% !important;font-size:6.5px !important;padding:0 4px !important}
-        .jl-auth-register{width:auto !important;min-width:0 !important;padding-inline:4px !important;font-size:8.5px !important}
-      }
-
-/* ---- preserved style block ---- */
-
-.jl-hw-scene{
-        background-image:url("codehub-hero-v11.png?v=11") !important;
-        background-size:cover !important;background-position:center !important;background-repeat:no-repeat !important;
-      }
-      .jl-hw-scene::before,.jl-hw-scene::after{display:none !important}
-      .jl-hw-scene>.jl-hero-text{display:none !important}
-      .jl-hw-scene>.jl-hero-actions{
-        display:flex !important;position:absolute !important;right:7.5% !important;left:auto !important;bottom:5.5% !important;
-        z-index:12 !important;width:34% !important;margin:0 !important;justify-content:flex-start !important;align-items:center !important;
-      }
-      .jl-hw-scene>.jl-hero-actions .jl-hero-chat-btn{display:none !important}
-      .jl-hw-scene>.jl-hero-actions .jl-reg{
-        display:inline-flex !important;align-items:center !important;justify-content:center !important;min-width:190px !important;
-        min-height:48px !important;padding:0 24px !important;border-radius:15px !important;background:#18234f !important;
-        color:#fff !important;border:1px solid rgba(255,255,255,.18) !important;box-shadow:0 12px 28px rgba(0,0,0,.24) !important;
-      }
-      @media(max-width:700px){
-        .jl-hw-scene>.jl-hero-actions{right:7% !important;bottom:4.5% !important;width:35% !important}
-        .jl-hw-scene>.jl-hero-actions .jl-reg{min-width:0 !important;width:76% !important;min-height:20px !important;height:20px !important;padding:0 4px !important;border-radius:7px !important;font-size:6px !important}
-      }
-
-/* ===== Hero motion polish: stronger first-screen animation without changing layout ===== */
-.jl-hw-scene{
-  --jl-hero-light-x:72%;
-  --jl-hero-light-y:34%;
-  isolation:isolate;
-  animation:jlHeroFrameEnter .9s cubic-bezier(.2,.8,.25,1) both;
-  transform-origin:center center;
-  box-shadow:0 26px 70px rgba(4,12,34,.18);
-}
-@keyframes jlHeroFrameEnter{
-  0%{ opacity:0; transform:translateY(22px) scale(.975); filter:saturate(.88) brightness(.86); }
-  65%{ opacity:1; transform:translateY(-2px) scale(1.003); filter:saturate(1.04) brightness(1.02); }
-  100%{ opacity:1; transform:translateY(0) scale(1); filter:none; }
-}
-
-/* Moving cinematic light: visual only; does not touch the baked hero artwork. */
-.jl-hw-scene::before{
-  content:"" !important;
-  display:block !important;
-  position:absolute !important;
-  inset:-18% !important;
-  z-index:4 !important;
-  pointer-events:none !important;
-  background:
-    radial-gradient(circle at var(--jl-hero-light-x) var(--jl-hero-light-y), rgba(92,154,255,.18), transparent 22%),
-    linear-gradient(112deg, transparent 24%, rgba(255,255,255,.025) 41%, rgba(255,214,133,.13) 49%, rgba(255,255,255,.025) 57%, transparent 74%) !important;
-  background-size:auto, 220% 100% !important;
-  background-position:center, 135% 0 !important;
-  mix-blend-mode:screen;
-  opacity:.72;
-  animation:jlHeroLightSweep 6.8s ease-in-out 1s infinite;
-  transition:background-position .18s linear;
-}
-@keyframes jlHeroLightSweep{
-  0%,18%{ background-position:center,135% 0; opacity:.4; }
-  45%{ opacity:.82; }
-  68%,100%{ background-position:center,-45% 0; opacity:.42; }
-}
-
-/* Soft depth pulse around the frame, not a constant distracting bounce. */
-.jl-hw-scene::after{
-  content:"" !important;
-  display:block !important;
-  position:absolute !important;
-  inset:0 !important;
-  z-index:5 !important;
-  pointer-events:none !important;
-  border-radius:inherit !important;
-  background:radial-gradient(circle at 28% 42%, rgba(64,135,255,.08), transparent 34%) !important;
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.055), inset 0 -34px 70px rgba(1,6,18,.09) !important;
-  animation:jlHeroDepthPulse 5.2s ease-in-out infinite !important;
-}
-@keyframes jlHeroDepthPulse{
-  0%,100%{ opacity:.55; }
-  50%{ opacity:.92; }
-}
-
-/* Make the existing code particles feel alive, while keeping them behind the CTA. */
-.jl-hero-code-field{ z-index:6 !important; }
-.jl-hero-code-field span{
-  opacity:.22 !important;
-  text-shadow:0 0 18px rgba(75,143,255,.72), 0 0 34px rgba(75,143,255,.2) !important;
-  animation-duration:2.4s !important;
-}
-.jl-hero-code-field span:nth-child(3n){ animation-duration:3.1s !important; }
-.jl-hero-code-field span:nth-child(4n){ animation-duration:3.7s !important; }
-
-/* CTA enters after the frame, then gets a restrained pulse. */
-.jl-hw-scene>.jl-hero-actions{
-  animation:jlHeroCtaEnter .7s cubic-bezier(.2,.82,.25,1) .55s both;
-}
-@keyframes jlHeroCtaEnter{
-  from{ opacity:0; transform:translateY(15px) scale(.96); }
-  to{ opacity:1; transform:translateY(0) scale(1); }
-}
-.jl-hw-scene>.jl-hero-actions .jl-reg{
-  position:relative;
-  overflow:hidden;
-  animation:jlHeroButtonBreath 3.4s ease-in-out 1.4s infinite;
-}
-.jl-hw-scene>.jl-hero-actions .jl-reg::after{
-  content:"";
-  position:absolute;
-  inset:-2px;
-  background:linear-gradient(110deg,transparent 25%,rgba(255,255,255,.24) 48%,transparent 68%);
-  transform:translateX(115%);
-  animation:jlHeroButtonShine 5.5s ease-in-out 2.2s infinite;
-  pointer-events:none;
-}
-@keyframes jlHeroButtonBreath{
-  0%,100%{ box-shadow:0 12px 28px rgba(0,0,0,.24),0 0 0 0 rgba(201,168,92,0); }
-  50%{ box-shadow:0 16px 34px rgba(0,0,0,.3),0 0 0 7px rgba(201,168,92,.08); }
-}
-@keyframes jlHeroButtonShine{
-  0%,64%{ transform:translateX(115%); }
-  82%,100%{ transform:translateX(-135%); }
-}
-
-@media(max-width:700px){
-  .jl-hw-scene::before{ opacity:.48; animation-duration:8s; }
-  .jl-hw-scene::after{ opacity:.5; }
-  .jl-hero-code-field span{ opacity:.12 !important; }
-}
-
-@media(prefers-reduced-motion:reduce){
-  .jl-hw-scene,
-  .jl-hw-scene::before,
-  .jl-hw-scene::after,
-  .jl-hw-scene>.jl-hero-actions,
-  .jl-hw-scene>.jl-hero-actions .jl-reg,
-  .jl-hw-scene>.jl-hero-actions .jl-reg::after{
-    animation:none !important;
+    }
+    typeChar();
   }
-}
 
+  typeSnippet();
+})();
 
-/* ==========================================================
-   Code Hub v12 — first screen + language control
-   Purpose: readable hero on desktop/mobile, no baked hero copy,
-   no continuous/parallax motion, compact language switch.
-   ========================================================== */
-.jl-lang-pill{
-  width:auto !important; min-width:98px !important; height:40px !important;
-  padding:4px 6px !important; gap:4px !important;
-  display:inline-grid !important; grid-template-columns:24px 1fr 1px 1fr !important;
-  align-items:center !important; justify-items:center !important;
-  border-radius:13px !important; border:1px solid rgba(23,35,77,.16) !important;
-  background:rgba(255,255,255,.94) !important; color:#16234b !important;
-  box-shadow:0 5px 16px rgba(20,31,71,.08) !important;
-  cursor:pointer !important; transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease !important;
-}
-.jl-lang-pill:hover{transform:translateY(-1px) !important;box-shadow:0 8px 20px rgba(20,31,71,.12) !important;border-color:rgba(39,69,132,.28) !important}
-.jl-lang-pill::before,.jl-lang-pill::after{display:none !important;content:none !important}
-.jl-lang-pill span{display:inline-flex !important}
-.jl-lang-globe{font-size:15px !important;line-height:1 !important}
-.jl-lang-divider{width:1px !important;height:18px !important;background:rgba(28,43,88,.14) !important}
-.jl-lang-option{
-  min-width:26px !important;height:28px !important;border-radius:9px !important;
-  align-items:center !important;justify-content:center !important;
-  font:800 11px/1 Arial,sans-serif !important;color:#6b7285 !important;
-  transition:background .18s ease,color .18s ease,box-shadow .18s ease !important;
-}
-html[lang="ar"] .jl-lang-ar,html[lang="en"] .jl-lang-en{
-  background:#172554 !important;color:#fff !important;box-shadow:0 3px 9px rgba(23,37,84,.18) !important;
-}
-[data-theme="dark"] .jl-lang-pill{background:rgba(13,22,49,.92) !important;border-color:rgba(255,255,255,.14) !important;color:#fff !important}
-[data-theme="dark"] .jl-lang-option{color:#aeb9d5 !important}
-[data-theme="dark"] html[lang="ar"] .jl-lang-ar,[data-theme="dark"] html[lang="en"] .jl-lang-en{background:#f0d28b !important;color:#142149 !important}
+/* --- extracted script 18 --- */
+(function(){
+  // ---------- مساعد Code Hub الذكي: شات كامل بسجل محادثات ----------
+  var openBtn = document.getElementById('jl-chat-open-btn');
+  var heroOpenBtn = document.getElementById('jl-hero-chat-btn');
+  var overlay = document.getElementById('jl-ai-overlay');
+  if (!openBtn || !overlay) return;
 
-.jl-hero{
-  position:relative !important; display:block !important;
-  min-height:0 !important; padding:16px clamp(14px,4vw,72px) 34px !important;
-  overflow:visible !important;
-}
-.jl-hero-shell{
-  position:relative !important; width:min(100%,1740px) !important; margin:0 auto !important;
-  min-height:clamp(520px,61vw,840px) !important; border-radius:28px !important; overflow:hidden !important;
-  background:#07152f !important; box-shadow:0 24px 58px rgba(8,17,39,.18) !important;
-  isolation:isolate !important; animation:jlHeroEnterV12 .62s cubic-bezier(.2,.7,.2,1) both !important;
-}
-.jl-hw-scene{
-  position:absolute !important; inset:0 !important; width:100% !important; height:100% !important;
-  min-height:0 !important; margin:0 !important; border-radius:0 !important;
-  background-image:url("codehub-hero-tshirt-watch-v6.png?v=12") !important;
-  background-size:cover !important; background-position:left center !important; background-repeat:no-repeat !important;
-  box-shadow:none !important; transform:none !important; transition:none !important;
-}
-.jl-hw-scene::before{
-  content:"" !important;position:absolute !important;inset:0 !important;display:block !important;
-  background:linear-gradient(90deg,rgba(4,12,30,.02) 0%,rgba(4,12,30,.04) 46%,rgba(4,12,30,.48) 68%,rgba(4,12,30,.82) 100%) !important;
-  z-index:1 !important;pointer-events:none !important;
-}
-.jl-hw-scene::after,.jl-hero-code-field,.jl-wall-code,.jl-hero-symbols,.jl-streaks,.jl-stars-field{display:none !important}
-.jl-hero-text{
-  position:absolute !important; z-index:4 !important; right:5.4% !important; left:auto !important; top:50% !important;
-  width:min(39%,620px) !important; max-width:620px !important; transform:translateY(-50%) !important;
-  display:flex !important; flex-direction:column !important; align-items:flex-start !important; text-align:right !important;
-  padding:clamp(22px,2.2vw,38px) !important; margin:0 !important;
-  border:1px solid rgba(255,255,255,.11) !important; border-radius:24px !important;
-  background:linear-gradient(145deg,rgba(5,17,42,.74),rgba(3,10,27,.56)) !important;
-  box-shadow:0 18px 48px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.06) !important;
-  backdrop-filter:blur(8px) !important; animation:jlHeroCopyV12 .64s .08s cubic-bezier(.2,.7,.2,1) both !important;
-}
-html[lang="en"] .jl-hero-text{text-align:left !important;align-items:flex-start !important}
-.jl-hero-text .jl-free-badge{
-  display:inline-flex !important;align-items:center !important;gap:7px !important;
-  width:auto !important;margin:0 0 14px !important;padding:8px 12px !important;
-  border:1px solid rgba(204,235,219,.2) !important;border-radius:999px !important;
-  background:rgba(15,107,81,.28) !important;color:#dcfff1 !important;
-  font-size:clamp(12px,.92vw,15px) !important;font-weight:800 !important;
-}
-.jl-hero-text h1{
-  margin:0 0 16px !important;color:#fff !important;
-  font-size:clamp(38px,4.15vw,70px) !important;line-height:1.05 !important;letter-spacing:-1.1px !important;
-}
-.jl-hero-text h1 span,.jl-hero-text h1 mark{display:block !important}
-.jl-hero-text h1 mark{
-  width:max-content !important;max-width:100% !important;margin-top:7px !important;padding:0 .08em .08em !important;
-  color:#f2d89c !important;background:linear-gradient(90deg,rgba(170,122,35,.58),rgba(218,184,101,.13)) !important;
-  border-radius:7px !important;
-}
-.jl-hero-text .sub{
-  margin:0 0 22px !important;color:#e7edf9 !important;
-  font-size:clamp(15px,1.15vw,20px) !important;line-height:1.85 !important;font-weight:500 !important;
-}
-.jl-hero-actions{display:flex !important;width:100% !important;justify-content:flex-start !important;gap:10px !important;margin:0 !important}
-html[dir="rtl"] .jl-hero-actions{justify-content:flex-start !important}
-.jl-hero-actions .jl-reg{
-  min-width:180px !important;min-height:48px !important;padding:0 24px !important;border-radius:14px !important;
-  font-size:15px !important;font-weight:900 !important;box-shadow:0 10px 24px rgba(0,0,0,.18) !important;
-}
-@keyframes jlHeroEnterV12{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-@keyframes jlHeroCopyV12{from{opacity:0;transform:translateY(calc(-50% + 12px))}to{opacity:1;transform:translateY(-50%)}}
+  var closeBtn = document.getElementById('jl-ai-close-btn');
+  var hamburger = document.getElementById('jl-ai-hamburger');
+  var backBtn = document.getElementById('jl-ai-back-btn');
+  var sidebar = document.getElementById('jl-ai-sidebar');
+  var convList = document.getElementById('jl-ai-conv-list');
+  var newBtn = document.getElementById('jl-ai-new-btn');
+  var thread = document.getElementById('jl-ai-thread');
+  var emptyState = document.getElementById('jl-ai-empty-state');
+  var form = document.getElementById('jl-ai-input-form');
+  var input = document.getElementById('jl-ai-input');
+  var sendBtn = document.getElementById('jl-ai-send-btn');
+  var plusBtn = document.getElementById('jl-ai-plus-btn');
+  var fileInput = document.getElementById('jl-ai-file-input');
+  var filePreview = document.getElementById('jl-ai-file-preview');
 
-@media(max-width:700px){
-  .jl-nav{padding:7px 8px !important;gap:5px !important}
-  .jl-nav-logo-link img{width:82px !important;max-width:82px !important}
-  .jl-lang-pill{min-width:72px !important;height:34px !important;padding:3px 4px !important;grid-template-columns:18px 1fr 1px 1fr !important;border-radius:11px !important}
-  .jl-lang-globe{font-size:12px !important}.jl-lang-divider{height:14px !important}.jl-lang-option{min-width:19px !important;height:24px !important;border-radius:7px !important;font-size:9px !important}
-  .jl-auth-nav-btn{height:34px !important;min-height:34px !important}
+  var currentConversationId = null;
+  var currentMessages = [];
+  var pendingImage = null;
+  var pendingImageMime = null;
 
-  .jl-hero{padding:10px 8px 18px !important}
-  .jl-hero-shell{
-    display:flex !important;flex-direction:column !important;min-height:0 !important;border-radius:18px !important;
-    overflow:hidden !important;background:#07152f !important;box-shadow:0 16px 34px rgba(8,17,39,.16) !important;
+  function getLoggedInStudentAI(){
+    var raw = localStorage.getItem('ch_student');
+    if (!raw) return null;
+    try {
+      var wrapper = JSON.parse(raw);
+      if (!wrapper.expiresAt || Date.now() > wrapper.expiresAt) return null;
+      return wrapper.student;
+    } catch (e) { return null; }
   }
-  .jl-hw-scene{
-    position:relative !important;inset:auto !important;width:100% !important;height:auto !important;aspect-ratio:4/3 !important;
-    background-size:cover !important;background-position:30% center !important;flex:0 0 auto !important;
+
+  function aiApi(path, opts){
+    if (!CH_SITE_API_BASE) return Promise.reject(new Error('الموقع لسه مش متربط بالباك إند'));
+    opts = opts || {};
+    opts.credentials = 'same-origin';
+    return fetch(CH_SITE_API_BASE + path, opts).then(function(r){
+      return r.text().then(function(raw){
+        var data = {};
+        try { data = raw ? JSON.parse(raw) : {}; } catch (e) { data = {}; }
+        if (r.status === 401){ localStorage.removeItem('ch_student'); window.dispatchEvent(new Event('ch-auth-changed')); }
+        if (!r.ok) throw new Error(data.error || ('حصل خطأ في الاتصال (' + r.status + ')'));
+        return data;
+      });
+    });
   }
-  .jl-hw-scene::before{background:linear-gradient(180deg,transparent 62%,rgba(5,16,38,.68) 100%) !important}
-  .jl-hero-text{
-    position:relative !important;right:auto !important;left:auto !important;top:auto !important;bottom:auto !important;
-    width:100% !important;max-width:none !important;transform:none !important;padding:20px 18px 21px !important;
-    border:0 !important;border-radius:0 !important;background:linear-gradient(180deg,#081a39,#07152f) !important;
-    box-shadow:none !important;backdrop-filter:none !important;text-align:right !important;align-items:flex-start !important;
-    animation:jlHeroCopyMobileV12 .55s .07s ease both !important;
+
+  function openModal(){
+    var student = getLoggedInStudentAI();
+    if (!student){
+      var toast = document.getElementById('jl-toast');
+      if (toast){
+        toast.textContent = 'سجّل دخول كطالب الأول عشان تستخدم المساعد الذكي.';
+        toast.classList.add('show');
+        setTimeout(function(){ toast.classList.remove('show'); }, 3200);
+      }
+      var loginBtn = document.getElementById('jl-student-btn');
+      if (loginBtn) loginBtn.click();
+      return;
+    }
+    overlay.classList.add('open');
+    document.body.classList.add('jl-ai-open');
+    sidebar.classList.remove('open');
+    window.setTimeout(function(){
+      if (input) input.focus({ preventScroll:true });
+    }, 120);
+    loadConversationList(student.id);
   }
-  html[lang="en"] .jl-hero-text{text-align:left !important}
-  .jl-hero-text .jl-free-badge{font-size:11px !important;padding:7px 10px !important;margin-bottom:11px !important}
-  .jl-hero-text h1{font-size:clamp(29px,8.4vw,40px) !important;line-height:1.08 !important;margin-bottom:12px !important;letter-spacing:-.6px !important}
-  .jl-hero-text h1 mark{margin-top:5px !important}
-  .jl-hero-text .sub{font-size:14px !important;line-height:1.75 !important;margin-bottom:17px !important;color:#e9eff9 !important}
-  .jl-hero-actions{width:100% !important}
-  .jl-hero-actions .jl-reg{width:100% !important;min-width:0 !important;min-height:46px !important;height:46px !important;font-size:14px !important;border-radius:13px !important}
-  @keyframes jlHeroCopyMobileV12{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-}
-@media(max-width:390px){
-  .jl-lang-pill{min-width:66px !important}.jl-lang-globe{display:none !important}.jl-lang-pill{grid-template-columns:1fr 1px 1fr !important}
-  .jl-hero-text{padding:18px 15px 19px !important}
-  .jl-hero-text h1{font-size:28px !important}
-  .jl-hero-text .sub{font-size:13px !important}
-}
-@media(prefers-reduced-motion:reduce){
-  .jl-hero-shell,.jl-hero-text{animation:none !important}
-}
-
-/* v12.1 — stop legacy hero motion and keep mobile nav clean */
-.jl-hw-scene{
-  animation:none !important;
-  filter:none !important;
-}
-.jl-hw-scene::before{
-  animation:none !important;
-  transition:none !important;
-}
-.jl-lang-pill{direction:ltr !important}
-html[data-theme="dark"][lang="ar"] .jl-lang-ar,
-html[data-theme="dark"][lang="en"] .jl-lang-en{
-  background:#f0d28b !important;color:#142149 !important;
-}
-@media(max-width:700px){
-  body{padding-top:66px !important}
-  .jl-nav{flex-wrap:nowrap !important;min-height:54px !important}
-  .jl-theme-toggle{display:none !important}
-  .jl-auth-nav-btn{width:70px !important;min-width:70px !important;padding:0 5px !important;font-size:9.5px !important}
-  .jl-lang-pill{min-width:58px !important;width:58px !important;grid-template-columns:1fr 1px 1fr !important;padding:3px !important}
-  .jl-lang-globe{display:none !important}
-}
-@media(max-width:390px){
-  body{padding-top:66px !important}
-  .jl-nav{flex-wrap:nowrap !important;min-height:54px !important;row-gap:0 !important}
-  .jl-nav-start,.jl-nav-end{width:auto !important}
-  .jl-nav-end{justify-content:flex-start !important}
-  .jl-auth-nav-btn{width:64px !important;min-width:64px !important;font-size:9px !important}
-  .jl-lang-pill{min-width:52px !important;width:52px !important}
-}
-
-
-/* ================= CODE HUB FINAL DESIGN BATCH =================
-   Approved visual polish only. Floating AI/WhatsApp positions, dark-mode control,
-   and middle navbar links intentionally remain unchanged. */
-
-/* Language control: cleaner AR | EN treatment without moving it */
-.jl-lang-pill{
-  min-width:86px !important;
-  justify-content:center !important;
-  border:1.5px solid #d9a44155 !important;
-  background:linear-gradient(180deg,#fffdf8,#f4ecdc) !important;
-  box-shadow:0 5px 14px #102a4312 !important;
-}
-.jl-lang-divider{ width:1px; height:15px; background:#d9a44166; display:inline-block; }
-.jl-lang-option{ opacity:.58; font-weight:900; transition:color .18s,opacity .18s; }
-html[lang="ar"] .jl-lang-ar, html[lang="en"] .jl-lang-en{ color:var(--gold); opacity:1; }
-
-/* Benefits: tighter rhythm, clearer copy, equal cards, centered last row */
-.jl-benefits-head{ margin-bottom:40px !important; }
-.jl-benefits-grid{ grid-template-columns:repeat(6,minmax(0,1fr)) !important; gap:20px !important; }
-.jl-benefit{ grid-column:span 2; min-height:206px; display:flex; flex-direction:column; }
-.jl-benefit:nth-last-child(2){ grid-column:2 / span 2; }
-.jl-benefit:last-child{ grid-column:4 / span 2; }
-.jl-benefit-icon{ margin-bottom:14px !important; }
-.jl-benefit p{ color:#f7f4ecc9 !important; font-size:15.5px !important; }
-.jl-benefit:hover{ transform:translateY(-5px) !important; border-color:#e8c574a8 !important; box-shadow:0 14px 34px #e8c5741f; }
-
-/* Audience: more compact and balanced */
-.jl-audience>h2{ margin-bottom:28px !important; }
-.jl-audience-grid{ max-width:1480px; margin-inline:auto; gap:18px !important; }
-.jl-audience-item{ min-height:100px; }
-
-/* Why CODE HUB: replace heavy paragraphs with three clear value cards */
-.jl-about-main{ margin-bottom:34px !important; }
-.jl-why-grid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; margin-top:26px; }
-.jl-why-card{ background:var(--cream-card); border:1.5px solid #d9a44147; border-radius:18px; padding:24px; min-height:190px; box-shadow:0 12px 28px #102a430c; }
-.jl-why-icon{ display:flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:13px; background:#d9a4411f; margin-bottom:14px; font-size:20px; }
-.jl-why-card h3{ margin:0 0 9px; font-size:19px; font-weight:900; color:var(--navy); }
-.jl-why-card p{ margin:0 !important; font-size:15.5px !important; line-height:1.85 !important; color:var(--ink) !important; }
-[data-theme="dark"] .jl-why-card{ background:#1a2145; border-color:#3b82f640; }
-[data-theme="dark"] .jl-why-card h3{ color:#f7f4ec; }
-[data-theme="dark"] .jl-why-card p{ color:#d7d3e0 !important; }
-
-/* Vision / Mission / Values: equal visual weight and denser internal spacing */
-.jl-about-cards{ align-items:stretch !important; }
-.jl-about-card{ min-height:330px; display:flex; flex-direction:column; justify-content:flex-start; padding:30px 32px !important; }
-.jl-about-card-icon{ margin-bottom:12px !important; }
-.jl-about-card h3{ margin-bottom:10px !important; }
-.jl-about-card p,.jl-about-card-list li{ font-size:16px !important; }
-
-/* Pricing: make the 3-month plan the clear premium choice */
-.jl-pricing-card.jl-pricing-best{
-  background:var(--navy) !important;
-  color:var(--cream) !important;
-  border-color:var(--gold) !important;
-  box-shadow:0 24px 60px #102a433d !important;
-}
-.jl-pricing-card.jl-pricing-best .jl-pricing-best-badge{ background:var(--gold) !important; color:var(--navy) !important; }
-.jl-pricing-card.jl-pricing-best .jl-pricing-badge{ background:#fbf8f016 !important; color:var(--cream) !important; border:1px solid #e8c57466; }
-.jl-pricing-card.jl-pricing-best .jl-pricing-title,
-.jl-pricing-card.jl-pricing-best .jl-pricing-old{ color:var(--gold-light) !important; }
-.jl-pricing-card.jl-pricing-best .jl-pricing-amount{ color:#fff !important; }
-.jl-pricing-card.jl-pricing-best .jl-pricing-amount span{ color:#f7f4ecc7 !important; }
-.jl-pricing-card.jl-pricing-best .jl-pricing-list li{ color:#f7f4ece6 !important; }
-.jl-pricing-card.jl-pricing-best .jl-pricing-list svg{ color:var(--gold-light) !important; }
-.jl-pricing-card.jl-pricing-best .jl-pricing-save{ background:#e8c57424 !important; color:#f0cf7b !important; border:1px solid #e8c57455; }
-.jl-pricing-card.jl-pricing-best .jl-reg{ background:var(--gold) !important; color:var(--navy) !important; box-shadow:0 12px 26px #00000033 !important; }
-
-/* CTA: a single strong dark section before the end */
-.jl-cta-card{ background:var(--navy) !important; border-color:#e8c5747a !important; box-shadow:0 22px 54px #102a432d !important; }
-.jl-cta-copy h2{ color:#fff !important; }
-.jl-cta-eyebrow{ color:var(--gold-light) !important; }
-.jl-prize-badge{ color:#f0cf7b !important; }
-.jl-countdown-badge{ color:#f7f4ecc2 !important; }
-#jl-countdown-value{ color:#fff !important; }
-.jl-cta-action .jl-reg{ background:var(--gold) !important; color:var(--navy) !important; }
-
-/* FAQ: remove the huge unused left area while keeping RTL alignment */
-.jl-faq-head,.jl-faq-list{ width:min(100%,960px); margin-inline:auto !important; }
-.jl-faq-head{ margin-bottom:28px !important; }
-.jl-faq-list{ gap:11px !important; }
-.jl-faq-q{ padding:18px 22px !important; }
-.jl-faq-item{ box-shadow:0 8px 22px #102a430a; }
-
-/* WhatsApp group picker: more polished modal, same behavior and links */
-.jl-groups-overlay{ backdrop-filter:blur(7px); background:#11172dbf !important; }
-.jl-groups-card{
-  max-width:500px !important;
-  padding:34px 30px 30px !important;
-  border:1.5px solid #e8c57466;
-  box-shadow:0 34px 90px #090d1f73 !important;
-  background:linear-gradient(160deg,#fffaf0 0%,#f4eddd 100%) !important;
-}
-.jl-groups-card::before{ content:""; position:absolute; inset:0; border-radius:24px; pointer-events:none; background:radial-gradient(circle at 15% 0%,#e8c57420,transparent 35%); }
-.jl-groups-tag{ display:inline-flex; position:relative; padding:5px 11px; border-radius:999px; background:#d9a44117; border:1px solid #d9a4413d; margin-bottom:12px !important; }
-.jl-groups-card h3{ position:relative; font-size:24px !important; margin-bottom:8px !important; }
-.jl-groups-card p{ position:relative; font-size:14.5px !important; line-height:1.8; margin-bottom:20px !important; }
-.jl-groups-whatsapp{ font-size:19px; }
-.jl-group-option{ position:relative; min-height:66px; padding:16px 18px !important; border-radius:16px !important; background:#fffaf4 !important; border:1.5px solid #d9a44147 !important; transition:transform .18s,box-shadow .18s,border-color .18s !important; }
-.jl-group-option:hover{ transform:translateY(-2px); border-color:#d9a44199 !important; box-shadow:0 10px 24px #d9a4411c; }
-.jl-group-name{ font-weight:900; color:var(--navy); }
-.jl-group-arrow{ width:30px; height:30px; display:flex; align-items:center; justify-content:center; border-radius:50%; background:#d9a44117; color:var(--gold); }
-
-/* Footer: reduce dead space and strengthen hierarchy */
-.jl-footer-grid-3{ gap:24px !important; align-items:stretch !important; }
-.jl-footer-col{ min-height:260px !important; padding:26px 28px !important; }
-.jl-footer-brand-logo{ height:42px !important; width:auto !important; margin:0 auto 8px !important; object-fit:contain; }
-.jl-footer-col h4{ margin-bottom:12px !important; }
-.jl-footer-credit{ font-size:13.5px !important; color:#6d6653 !important; }
-.jl-social-row{ gap:12px !important; }
-.jl-social-icon{ width:44px !important; height:44px !important; }
-
-@media (width<=980px){
-  .jl-benefits-grid{ grid-template-columns:repeat(2,minmax(0,1fr)) !important; }
-  .jl-benefit,.jl-benefit:nth-last-child(2),.jl-benefit:last-child{ grid-column:auto !important; }
-  .jl-why-grid{ grid-template-columns:1fr !important; }
-  .jl-about-card{ min-height:0; }
-}
-@media (width<=560px){
-  .jl-benefits-grid{ grid-template-columns:1fr !important; }
-  .jl-benefit{ min-height:0; }
-  .jl-lang-pill{ min-width:72px !important; }
-  .jl-groups-card{ padding:30px 18px 20px !important; border-radius:20px !important; }
-  .jl-groups-card h3{ font-size:21px !important; }
-  .jl-group-option{ min-height:62px; padding:14px 13px !important; }
-  .jl-footer-col{ min-height:0 !important; }
-}
-
-/* ================= CODE HUB CUMULATIVE FINAL — post-deploy polish =================
-   Consolidates every visual change approved after the last GitHub deployment.
-   Floating WhatsApp + AI chat positions remain unchanged. */
-
-:root{
-  --brand-navy:#102A43;
-  --brand-offwhite:#F7F4EC;
-  --brand-gold:#D9A441;
-  --brand-gold-soft:#E8C574;
-  --cream:#F7F4EC;
-  --cream-deep:#F0E9DA;
-  --cream-card:#FBF8F0;
-  --navy:#102A43;
-  --gold:#D9A441;
-  --gold-light:#E8C574;
-  --ink:#514B3D;
-  --muted:#77705F;
-  --muted-2:#9B927F;
-}
-
-/* Light theme: warmer off-white + stronger readable contrast */
-body{ background:var(--brand-offwhite) !important; }
-.jl-audience,.jl-faq,.jl-footer{ background:var(--cream-deep) !important; }
-.jl-about-me,.jl-about,.jl-cta-section,.jl-reviews,.jl-mp-teaser,.jl-pricing{ background:var(--brand-offwhite) !important; }
-.jl-about-card,.jl-why-card,.jl-audience-item,.jl-faq-item,.jl-review-card,.jl-review-form-wrap,.jl-footer-col,.jl-pricing-card{ background:var(--cream-card); }
-.jl-about-card,.jl-why-card,.jl-audience-item,.jl-faq-item,.jl-review-card,.jl-review-form-wrap,.jl-footer-col,.jl-pricing-card{
-  border-color:color-mix(in srgb,var(--brand-gold) 30%,transparent) !important;
-}
-
-/* Compact NAV dropdown: navy instead of the oversized cream panel */
-.jl-nav-links{
-  inset-inline:auto !important;
-  inset-inline-start:0 !important;
-  width:min(340px,calc(100vw - 28px)) !important;
-  max-width:340px !important;
-  max-height:min(68dvh,560px) !important;
-  padding:10px !important;
-  gap:2px !important;
-  background:var(--brand-navy) !important;
-  border:1px solid rgba(217,164,65,.52) !important;
-  border-radius:14px !important;
-  box-shadow:0 18px 44px rgba(16,42,67,.30) !important;
-  overflow-y:auto !important;
-}
-.jl-nav-links .jl-navlink{
-  min-height:40px !important;
-  padding:9px 12px !important;
-  color:var(--brand-offwhite) !important;
-  border:1px solid transparent;
-  border-radius:9px !important;
-  font-size:13.5px !important;
-  transition:background-color .18s ease,color .18s ease,border-color .18s ease,transform .18s ease !important;
-}
-.jl-nav-links .jl-navlink::after{ display:none !important; }
-.jl-nav-links .jl-navlink:hover,.jl-nav-links .jl-navlink:focus-visible{
-  background:rgba(217,164,65,.14) !important;
-  color:#FFE6A8 !important;
-  border-color:rgba(217,164,65,.26) !important;
-  transform:translateX(-2px);
-}
-html[lang="en"] .jl-nav-links .jl-navlink:hover,
-html[lang="en"] .jl-nav-links .jl-navlink:focus-visible{ transform:translateX(2px); }
-
-/* Keep the navbar itself clean; only make palette consistent */
-.jl-nav{
-  background:rgba(251,248,240,.97) !important;
-  border-color:rgba(217,164,65,.28) !important;
-  box-shadow:0 8px 24px rgba(16,42,67,.12) !important;
-}
-.jl-nav-scroll-track span{ background:linear-gradient(90deg,var(--brand-gold),var(--brand-navy)) !important; }
-.jl-auth-register{ background:var(--brand-navy) !important; border-color:var(--brand-navy) !important; }
-.jl-auth-login{ color:var(--brand-navy) !important; border-color:var(--brand-navy) !important; }
-
-/* Language control: same position, cleaner brand treatment */
-.jl-lang-pill{
-  background:linear-gradient(180deg,#fffdf8,#f7f1e5) !important;
-  border-color:rgba(217,164,65,.45) !important;
-  color:var(--brand-navy) !important;
-}
-html[lang="ar"] .jl-lang-ar,html[lang="en"] .jl-lang-en{ color:var(--brand-gold) !important; }
-
-/* Benefits: clean premium hover, no 3D tilt */
-.jl-benefit{
-  transition:transform .22s cubic-bezier(.22,.61,.36,1),border-color .22s ease,box-shadow .22s ease,background-color .22s ease !important;
-  transform-style:flat !important;
-}
-.jl-benefit:hover{
-  transform:translateY(-4px) !important;
-  border-color:rgba(232,197,116,.62) !important;
-  box-shadow:0 14px 30px rgba(16,42,67,.16) !important;
-}
-.jl-benefit-icon{ transition:transform .22s ease,background-color .22s ease !important; }
-.jl-benefit:hover .jl-benefit-icon{ transform:scale(1.07) !important; }
-
-/* Team cards: premium but restrained */
-.jl-am-card{ transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease !important; }
-.jl-am-card:hover{ transform:translateY(-4px) !important; box-shadow:0 16px 34px rgba(16,42,67,.14) !important; }
-.jl-am-card:hover .jl-am-photo img{ transform:scale(1.035) !important; }
-
-/* Audience and FAQ compactness/alignment */
-.jl-audience>h2{ margin-bottom:24px !important; }
-.jl-audience-item{ transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease !important; }
-.jl-audience-item:hover{ transform:translateY(-3px) !important; box-shadow:0 12px 26px rgba(16,42,67,.10); }
-.jl-faq-head{ margin-bottom:24px !important; }
-.jl-faq-list{ gap:10px !important; }
-.jl-faq-q{ min-height:62px; }
-
-/* Vision / mission / values equal spacing */
-.jl-about-card{ min-height:310px !important; padding:28px 30px !important; }
-.jl-about-card-icon{ margin-bottom:10px !important; }
-.jl-about-card h3{ margin-bottom:9px !important; }
-
-/* Pricing + CTA use the exact brand navy/gold */
-.jl-pricing-card.jl-pricing-best,.jl-cta-card{ background:var(--brand-navy) !important; }
-.jl-pricing-card.jl-pricing-best{ border-color:var(--brand-gold) !important; }
-.jl-pricing-card.jl-pricing-best .jl-pricing-best-badge,
-.jl-pricing-card.jl-pricing-best .jl-reg,
-.jl-cta-action .jl-reg{ background:var(--brand-gold) !important; color:var(--brand-navy) !important; }
-.jl-pricing-card.jl-pricing-best .jl-pricing-save{
-  background:rgba(217,164,65,.15) !important;
-  color:#FFE09A !important;
-  border-color:rgba(232,197,116,.42) !important;
-}
-
-/* WhatsApp group picker: same behavior, more balanced card */
-.jl-groups-card{
-  width:min(500px,calc(100vw - 30px)) !important;
-  background:linear-gradient(160deg,#FFFDF8 0%,#F7F1E5 100%) !important;
-  border-color:rgba(217,164,65,.48) !important;
-  box-shadow:0 30px 80px rgba(16,42,67,.34) !important;
-}
-.jl-group-option{ background:#FFFCF6 !important; border-color:rgba(217,164,65,.35) !important; }
-.jl-group-option:hover{ border-color:rgba(217,164,65,.72) !important; box-shadow:0 10px 24px rgba(217,164,65,.13) !important; }
-
-/* Footer: stronger hierarchy without dead space */
-.jl-footer-col{ min-height:245px !important; }
-.jl-footer-credit{ color:#625C4D !important; font-weight:700; }
-.jl-footer .jl-social-icon{ animation:none !important; }
-.jl-social-icon{ transition:transform .18s ease,background-color .18s ease !important; }
-.jl-social-icon:hover{ transform:translateY(-3px) !important; }
-
-/* ========= Motion pass: remove distracting perpetual movement ========= */
-.jl-float-whatsapp{ animation:none !important; }
-.jl-chat-btn,.jl-student-btn,.jl-admin-btn{ animation:none !important; }
-.jl-mp-teaser-card{ animation:none !important; }
-.jl-student-form .jl-reg:not([disabled]){ animation:none !important; }
-.jl-cta-brand{ animation:none !important; background-position:50% 50% !important; }
-.jl-free-badge{ animation:jlCardIn .45s ease both !important; }
-.jl-review-stars span.active{ animation:none !important; transform:scale(1.06); }
-.jl-back-top{ transition:transform .18s ease,background-color .18s ease,box-shadow .18s ease !important; }
-.jl-back-top:hover{ transform:translateY(-2px) !important; }
-.jl-groups-card,.jl-mp-modal,.jl-student-modal{ animation:jlModalScaleIn .26s cubic-bezier(.22,.61,.36,1) both !important; }
-.jl-reveal{ transform:translateY(18px); transition:opacity .48s ease,transform .48s cubic-bezier(.22,.61,.36,1) !important; }
-.jl-reveal.jl-revealed{ transform:translateY(0); }
-
-/* Floating WhatsApp + AI chat: explicitly preserve the current fixed position */
-.jl-float-whatsapp,.jl-float-chat{ right:max(16px,env(safe-area-inset-right)) !important; }
-.jl-float-whatsapp{ bottom:max(18px,env(safe-area-inset-bottom)) !important; }
-.jl-float-chat{ bottom:calc(max(18px,env(safe-area-inset-bottom)) + 64px) !important; }
-
-/* ========= Lighter, premium dark theme (navy — not near-black) ========= */
-[data-theme="dark"]{
-  --cream:#102A43;
-  --cream-deep:#12324E;
-  --cream-card:#173B5A;
-  --navy:#F7F4EC;
-  --gold:#D9A441;
-  --gold-light:#E8C574;
-  --ink:#ECE6D9;
-  --muted:#C5BDAA;
-  --muted-2:#A69D8B;
-}
-[data-theme="dark"] body,
-[data-theme="dark"] .jl-hero,
-[data-theme="dark"] .jl-about,
-[data-theme="dark"] .jl-about-me,
-[data-theme="dark"] .jl-reviews,
-[data-theme="dark"] .jl-cta-section,
-[data-theme="dark"] .jl-mp-teaser,
-[data-theme="dark"] .jl-pricing{ background:#102A43 !important; }
-[data-theme="dark"] .jl-audience,
-[data-theme="dark"] .jl-faq{ background:#12324E !important; }
-[data-theme="dark"] .jl-benefits{ background:#0E2740 !important; }
-[data-theme="dark"] .jl-about-card,
-[data-theme="dark"] .jl-why-card,
-[data-theme="dark"] .jl-audience-item,
-[data-theme="dark"] .jl-faq-item,
-[data-theme="dark"] .jl-review-card,
-[data-theme="dark"] .jl-review-form-wrap,
-[data-theme="dark"] .jl-footer-col,
-[data-theme="dark"] .jl-pricing-card:not(.jl-pricing-best){
-  background:#173B5A !important;
-  border-color:rgba(217,164,65,.28) !important;
-}
-[data-theme="dark"] .jl-nav{
-  background:rgba(23,59,90,.97) !important;
-  border-color:rgba(217,164,65,.34) !important;
-  box-shadow:0 10px 28px rgba(4,18,31,.24) !important;
-}
-[data-theme="dark"] .jl-nav-links{
-  background:#0E2740 !important;
-  border-color:rgba(217,164,65,.48) !important;
-}
-[data-theme="dark"] .jl-navlink{ color:#F7F4EC !important; }
-[data-theme="dark"] .jl-auth-register{ background:var(--brand-gold) !important; border-color:var(--brand-gold) !important; color:#102A43 !important; }
-[data-theme="dark"] .jl-auth-login{ color:#F7F4EC !important; border-color:rgba(247,244,236,.78) !important; }
-[data-theme="dark"] .jl-lang-pill{
-  background:#1A4264 !important;
-  color:#F7F4EC !important;
-  border-color:rgba(217,164,65,.42) !important;
-}
-[data-theme="dark"] .jl-theme-toggle{ background:#0E2740 !important; border:1px solid rgba(217,164,65,.28) !important; }
-[data-theme="dark"] .jl-theme-opt{ color:#EDE6D9 !important; }
-[data-theme="dark"] .jl-theme-opt.active{ background:#F7F4EC !important; color:#102A43 !important; }
-[data-theme="dark"] .jl-faq-q,
-[data-theme="dark"] .jl-about-card h3,
-[data-theme="dark"] .jl-why-card h3,
-[data-theme="dark"] .jl-audience>h2,
-[data-theme="dark"] .jl-reviews-head h2,
-[data-theme="dark"] .jl-am-head h2{ color:#F7F4EC !important; }
-[data-theme="dark"] .jl-faq-a,
-[data-theme="dark"] .jl-about-card p,
-[data-theme="dark"] .jl-about-card-list li,
-[data-theme="dark"] .jl-why-card p,
-[data-theme="dark"] .jl-audience-item p,
-[data-theme="dark"] .jl-review-card p,
-[data-theme="dark"] .jl-am-head p,
-[data-theme="dark"] .jl-am-bio{ color:#D8D1C4 !important; }
-[data-theme="dark"] .jl-review-form input,
-[data-theme="dark"] .jl-review-form select,
-[data-theme="dark"] .jl-review-form textarea{ background:#102A43 !important; color:#F7F4EC !important; border-color:rgba(217,164,65,.30) !important; }
-[data-theme="dark"] .jl-footer{ background:#0E2740 !important; border-color:rgba(217,164,65,.34) !important; }
-[data-theme="dark"] .jl-footer-credit{ color:#BFB6A3 !important; }
-[data-theme="dark"] .jl-groups-card{ background:linear-gradient(160deg,#173B5A,#12324E) !important; color:#F7F4EC !important; }
-[data-theme="dark"] .jl-group-option{ background:#102A43 !important; border-color:rgba(217,164,65,.32) !important; }
-[data-theme="dark"] .jl-group-name{ color:#F7F4EC !important; }
-[data-theme="dark"] .jl-groups-card p{ color:#D8D1C4 !important; }
-[data-theme="dark"] .jl-float-chat{ background:#173B5A !important; color:#F7F4EC !important; }
-[data-theme="dark"] .jl-float-chat:hover{ background:var(--brand-gold) !important; color:#102A43 !important; }
-[data-theme="dark"] .jl-back-top{ background:#173B5A !important; color:#F7F4EC !important; }
-
-@media (max-width:700px){
-  .jl-nav-links{
-    width:min(320px,calc(100vw - 20px)) !important;
-    max-width:none !important;
-    top:calc(100% + 6px) !important;
-    padding:8px !important;
+  function closeModal(){
+    overlay.classList.remove('open');
+    sidebar.classList.remove('open');
+    document.body.classList.remove('jl-ai-open');
   }
-  .jl-nav-links .jl-navlink{ min-height:38px !important; padding:8px 10px !important; font-size:12.5px !important; }
-  .jl-about-card{ min-height:0 !important; }
-}
 
-@media (prefers-reduced-motion:reduce){
-  .jl-float-whatsapp,.jl-chat-btn,.jl-student-btn,.jl-admin-btn,.jl-mp-teaser-card,.jl-free-badge,.jl-cta-brand{ animation:none !important; }
-}
+  openBtn.addEventListener('click', openModal);
+  if (heroOpenBtn) heroOpenBtn.addEventListener('click', openModal);
+  closeBtn && closeBtn.addEventListener('click', closeModal);
+  var exitBtn = document.getElementById('jl-ai-exit-btn');
+  if (exitBtn) exitBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', function(e){ if (e.target === overlay) closeModal(); });
 
-/* =====================================================================
-   CODE HUB FINAL 100 PASS — 2026-08-30
-   Fixes: compact navy hamburger menu, auth modals, hero code-symbol motion.
-   WhatsApp + AI floating buttons keep their exact fixed positions.
-   ===================================================================== */
+  hamburger && hamburger.addEventListener('click', function(){ sidebar && sidebar.classList.toggle('open'); });
+  backBtn && backBtn.addEventListener('click', function(){ sidebar && sidebar.classList.add('open'); });
 
-/* --- Navbar: eliminate the oversized blank menu at every viewport --- */
-.jl-nav-start{ position:relative !important; }
-.jl-nav-hamburger{
-  display:flex !important;
-  align-items:center !important;
-  justify-content:center !important;
-  flex:0 0 auto !important;
-}
-.jl-nav-links{
-  display:none !important;
-  position:absolute !important;
-  top:calc(100% + 12px) !important;
-  inset-inline-start:0 !important;
-  inset-inline-end:auto !important;
-  margin:0 !important;
-  width:min(330px,calc(100vw - 28px)) !important;
-  max-width:330px !important;
-  max-height:min(68dvh,540px) !important;
-  flex-direction:column !important;
-  align-items:stretch !important;
-  padding:9px !important;
-  gap:2px !important;
-  overflow-y:auto !important;
-  overscroll-behavior:contain !important;
-  background:#102A43 !important;
-  border:1px solid rgba(217,164,65,.52) !important;
-  border-radius:14px !important;
-  box-shadow:0 20px 48px rgba(7,25,42,.34) !important;
-  z-index:1100 !important;
-}
-.jl-nav-links.open{ display:flex !important; }
-.jl-nav-links .jl-navlink{
-  width:100% !important;
-  min-height:40px !important;
-  display:flex !important;
-  align-items:center !important;
-  padding:9px 12px !important;
-  border:1px solid transparent !important;
-  border-radius:9px !important;
-  color:#F7F4EC !important;
-  font-size:13.5px !important;
-  line-height:1.35 !important;
-}
-.jl-nav-links .jl-navlink:hover,.jl-nav-links .jl-navlink:focus-visible{
-  background:rgba(217,164,65,.14) !important;
-  border-color:rgba(217,164,65,.25) !important;
-  color:#FFE4A0 !important;
-  transform:none !important;
-}
-.jl-auth-register{
-  color:#fff !important;
-  background:#102A43 !important;
-  border-color:#102A43 !important;
-}
-.jl-auth-login{ color:#102A43 !important; border-color:#102A43 !important; }
-[data-theme="dark"] .jl-auth-register{
-  color:#102A43 !important;
-  background:#D9A441 !important;
-  border-color:#D9A441 !important;
-}
-[data-theme="dark"] .jl-auth-login{ color:#F7F4EC !important; border-color:rgba(247,244,236,.78) !important; }
+  function loadConversationList(studentId){
+    aiApi('/api/ai-conversations').then(function(data){
+      renderConversationList(data.conversations || []);
+    }).catch(function(){ convList.innerHTML = '<div class="jl-ai-conv-empty">مفيش محادثات لسه</div>'; });
+  }
 
-/* --- Student login/register: cleaner hierarchy and compact registration --- */
-.jl-student-overlay{ background:rgba(7,24,42,.76) !important; backdrop-filter:blur(6px) !important; }
-.jl-student-modal{
-  width:min(480px,calc(100vw - 28px)) !important;
-  max-width:480px !important;
-  padding:34px 34px 30px !important;
-  border:1px solid rgba(217,164,65,.30) !important;
-  border-radius:24px !important;
-  background:#F7F4EC !important;
-  color:#102A43 !important;
-  box-shadow:0 34px 90px rgba(5,20,35,.38) !important;
-  overflow-x:hidden !important;
-}
-.jl-student-close{
-  top:14px !important;
-  inset-inline-end:14px !important;
-  width:34px !important;
-  height:34px !important;
-  display:grid !important;
-  place-items:center !important;
-  background:#EEE8DB !important;
-  color:#7A7465 !important;
-  border:1px solid rgba(16,42,67,.06) !important;
-  z-index:10 !important;
-}
-.jl-student-close:hover{ background:#E5DDCE !important; color:#102A43 !important; }
-.jl-student-tabs{ gap:10px !important; margin:4px 0 20px !important; padding-inline:0 !important; }
-.jl-student-tab{
-  min-height:48px !important;
-  border-radius:11px !important;
-  font-size:15px !important;
-  font-weight:900 !important;
-  background:#EEE9DD !important;
-  color:#766F60 !important;
-}
-.jl-student-tab.active{ background:#102A43 !important; color:#fff !important; box-shadow:0 8px 18px rgba(16,42,67,.16) !important; }
-.jl-student-form input{
-  min-height:50px !important;
-  padding:11px 15px !important;
-  margin-bottom:10px !important;
-  border:1px solid rgba(217,164,65,.30) !important;
-  border-radius:11px !important;
-  background:#FFFDF8 !important;
-  color:#102A43 !important;
-  box-shadow:none !important;
-}
-.jl-student-form input:focus{
-  border-color:rgba(217,164,65,.82) !important;
-  box-shadow:0 0 0 3px rgba(217,164,65,.12) !important;
-}
-.jl-pass-wrap{ margin-bottom:10px !important; }
-.jl-pass-eye{ inset-inline-end:12px !important; opacity:.62 !important; }
+  function renderConversationList(conversations){
+    if (!conversations.length){
+      convList.innerHTML = '<div class="jl-ai-conv-empty">مفيش محادثات لسه</div>';
+      return;
+    }
+    convList.innerHTML = conversations.map(function(c){
+      var active = c.id === currentConversationId ? ' active' : '';
+      return '<div class="jl-ai-conv-item' + active + '" data-id="' + escapeHtmlAI(c.id) + '">' + escapeHtmlAI(c.title || 'محادثة') + '</div>';
+    }).join('');
+    convList.querySelectorAll('.jl-ai-conv-item').forEach(function(item){
+      item.addEventListener('click', function(){
+        openConversation(item.getAttribute('data-id'));
+        sidebar.classList.remove('open');
+      });
+    });
+  }
 
-#jl-login-form > .jl-reg{
-  width:132px !important;
-  min-height:50px !important;
-  display:flex !important;
-  justify-content:center !important;
-  margin:10px auto 0 !important;
-  padding:0 22px !important;
-  background:#D9A441 !important;
-  color:#fff !important;
-  border-radius:999px !important;
-  box-shadow:0 12px 26px rgba(217,164,65,.30) !important;
-}
-#jl-login-form > .jl-student-link{
-  display:block !important;
-  width:max-content !important;
-  margin:10px auto 0 !important;
-  color:#C68D1E !important;
-  font-size:13px !important;
-}
+  function openConversation(id){
+    var student = getLoggedInStudentAI();
+    if (!student) return;
+    aiApi('/api/ai-conversations?id=' + encodeURIComponent(id)).then(function(data){
+      currentConversationId = data.conversation.id;
+      currentMessages = data.conversation.messages || [];
+      renderThread();
+      loadConversationList(student.id);
+    });
+  }
 
-#jl-register-form .jl-review-row{ gap:10px !important; margin-bottom:8px !important; }
-#jl-register-form .jl-review-row input{ min-width:0 !important; margin-bottom:0 !important; }
-#jl-register-form input{ min-height:46px !important; margin-bottom:8px !important; }
-#jl-register-form .jl-pass-wrap{ margin-bottom:8px !important; }
-#jl-register-form .jl-pass-strength-bar{ margin:-4px 0 7px !important; height:4px !important; }
-#jl-register-form .jl-pass-checklist{
-  grid-template-columns:1fr 1fr !important;
-  gap:5px 14px !important;
-  margin:0 0 9px !important;
-  padding:9px 11px !important;
-  border:1px solid rgba(217,164,65,.20) !important;
-  border-radius:11px !important;
-  background:#F1ECDF !important;
-}
-#jl-register-form .jl-pass-checklist li{ font-size:10.8px !important; line-height:1.45 !important; }
-#jl-register-form > .jl-reg{
-  width:210px !important;
-  min-height:52px !important;
-  display:flex !important;
-  justify-content:center !important;
-  margin:12px auto 0 !important;
-  padding:0 22px !important;
-  background:#102A43 !important;
-  color:#fff !important;
-  border-radius:999px !important;
-  box-shadow:0 12px 28px rgba(16,42,67,.22) !important;
-}
-#jl-register-form > .jl-reg:hover{ background:#173B5A !important; }
+  function startNewConversation(){
+    currentConversationId = null;
+    currentMessages = [];
+    renderThread();
+    sidebar.classList.remove('open');
+  }
+  newBtn && newBtn.addEventListener('click', startNewConversation);
 
-/* Auth popup stays light and readable even while the site is in dark theme. */
-[data-theme="dark"] .jl-student-modal{ background:#F7F4EC !important; color:#102A43 !important; border-color:rgba(217,164,65,.34) !important; }
-[data-theme="dark"] .jl-student-form input{ background:#FFFDF8 !important; color:#102A43 !important; border-color:rgba(217,164,65,.32) !important; }
-[data-theme="dark"] .jl-student-tab{ background:#EEE9DD !important; color:#766F60 !important; }
-[data-theme="dark"] .jl-student-tab.active{ background:#102A43 !important; color:#fff !important; }
-[data-theme="dark"] #jl-register-form > .jl-reg{ background:#102A43 !important; color:#fff !important; }
+  function escapeHtmlAI(s){
+    var d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+  }
 
-/* --- Hero: restore the floating code-symbol animation over the photo --- */
-.jl-hero-code-field{
-  display:block !important;
-  position:absolute !important;
-  inset:0 !important;
-  overflow:hidden !important;
-  pointer-events:none !important;
-  z-index:2 !important;
-}
-.jl-hero-code-field span{
-  position:absolute !important;
-  display:block !important;
-  font-family:var(--font-mono) !important;
-  font-weight:800 !important;
-  line-height:1 !important;
-  color:rgba(232,197,116,.28) !important;
-  text-shadow:0 0 18px rgba(217,164,65,.18) !important;
-  user-select:none !important;
-  animation:jlHeroCodeFloat100 6.8s ease-in-out infinite !important;
-  will-change:transform,opacity !important;
-}
-.jl-hero-code-field span:nth-child(1){left:7%;top:14%;font-size:28px;animation-delay:-.4s !important;}
-.jl-hero-code-field span:nth-child(2){left:38%;top:11%;font-size:23px;animation-delay:-2.2s !important;}
-.jl-hero-code-field span:nth-child(3){left:31%;top:74%;font-size:20px;animation-delay:-4.1s !important;}
-.jl-hero-code-field span:nth-child(4){left:54%;top:67%;font-size:19px;animation-delay:-1.1s !important;}
-.jl-hero-code-field span:nth-child(5){left:59%;top:20%;font-size:20px;animation-delay:-3.1s !important;}
-.jl-hero-code-field span:nth-child(6){left:48%;top:48%;font-size:22px;animation-delay:-5.0s !important;}
-.jl-hero-code-field span:nth-child(7){left:18%;top:55%;font-size:18px;animation-delay:-1.8s !important;}
-.jl-hero-code-field span:nth-child(8){left:63%;top:83%;font-size:18px;animation-delay:-3.7s !important;}
-@keyframes jlHeroCodeFloat100{
-  0%,100%{ transform:translate3d(0,0,0) rotate(-2deg); opacity:.22; }
-  50%{ transform:translate3d(0,-14px,0) rotate(3deg); opacity:.55; }
-}
+  function formatAnswerAI(s){
+    return escapeHtmlAI(s)
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
+  }
 
-/* Keep hero text above the animated symbols and preserve the fixed floating buttons. */
-.jl-hero-text{ z-index:4 !important; }
-.jl-float-whatsapp,.jl-float-chat{ right:max(16px,env(safe-area-inset-right)) !important; }
-.jl-float-whatsapp{ bottom:max(18px,env(safe-area-inset-bottom)) !important; }
-.jl-float-chat{ bottom:calc(max(18px,env(safe-area-inset-bottom)) + 64px) !important; }
+  function renderThread(){
+    if (!currentMessages.length){
+      thread.innerHTML = '';
+      thread.appendChild(emptyState);
+      return;
+    }
+    thread.innerHTML = currentMessages.map(function(m){
+      var cls = m.role === 'user' ? 'user' : 'assistant';
+      var text = m.content || '';
+      var sourceMatch = text.match(/^\[(المصدر:[^\]]+|معلومة عامة|مصدر خارجي موثوق)\]\s*/);
+      if (sourceMatch) text = text.slice(sourceMatch[0].length);
+      var body = formatAnswerAI(text);
+      body = body.replace(/\[سؤال مقترح\]:?\s*(.*)/, '<br><br><em>💡 $1</em>');
+      var safeImage = typeof m.image === 'string' && /^data:image\/jpeg;base64,[A-Za-z0-9+/=]+$/.test(m.image) ? m.image : '';
+      var imageHtml = safeImage ? '<img class="jl-ai-msg-img" src="' + safeImage + '" alt="الصورة المرسلة">' : '';
+      return '<div class="jl-ai-msg ' + cls + '">' + imageHtml + body + '</div>';
+    }).join('');
+    thread.scrollTop = thread.scrollHeight;
+  }
 
-@media(max-width:700px){
-  .jl-student-modal{ width:min(460px,calc(100vw - 20px)) !important; padding:28px 18px 24px !important; border-radius:20px !important; }
-  .jl-student-close{ top:12px !important; inset-inline-end:12px !important; width:31px !important; height:31px !important; }
-  .jl-student-tabs{ margin-top:4px !important; }
-  .jl-student-tab{ min-height:46px !important; font-size:13.5px !important; }
-  #jl-register-form .jl-review-row{ grid-template-columns:1fr 1fr !important; gap:8px !important; }
-  #jl-register-form .jl-pass-checklist{ gap:4px 8px !important; padding:8px !important; }
-  #jl-register-form .jl-pass-checklist li{ font-size:9.8px !important; }
-  #jl-register-form > .jl-reg{ width:190px !important; min-height:50px !important; }
-  .jl-hero-code-field span{ font-size:14px !important; opacity:.20; }
-  .jl-hero-code-field span:nth-child(2),.jl-hero-code-field span:nth-child(4),.jl-hero-code-field span:nth-child(8){ display:none !important; }
-  .jl-nav-links{ width:min(300px,calc(100vw - 20px)) !important; max-width:300px !important; top:calc(100% + 8px) !important; }
-}
+  // ---------- رفع صورة ----------
+  plusBtn.addEventListener('click', function(){ fileInput.click(); });
+  fileInput.addEventListener('change', function(){
+    var file = fileInput.files[0];
+    if (!file) return;
+    if (!file.type || file.type.indexOf('image/') !== 0){
+      alert('من فضلك اختار صورة فقط');
+      fileInput.value = '';
+      return;
+    }
+    if (file.size > 12 * 1024 * 1024){
+      alert('حجم الصورة كبير. اختار صورة أقل من 12 ميجابايت');
+      fileInput.value = '';
+      return;
+    }
+    var reader = new FileReader();
+    reader.onload = function(){
+      var image = new Image();
+      image.onload = function(){
+        var maxSide = 1280;
+        var scale = Math.min(1, maxSide / Math.max(image.naturalWidth, image.naturalHeight));
+        var canvas = document.createElement('canvas');
+        canvas.width = Math.max(1, Math.round(image.naturalWidth * scale));
+        canvas.height = Math.max(1, Math.round(image.naturalHeight * scale));
+        var context = canvas.getContext('2d');
+        context.drawImage(image, 0, 0, canvas.width, canvas.height);
+        pendingImage = canvas.toDataURL('image/jpeg', .82);
+        pendingImageMime = 'image/jpeg';
+        filePreview.style.display = 'flex';
+        filePreview.innerHTML = '<img src="' + pendingImage + '" alt="معاينة الصورة"><span>الصورة جاهزة للتحليل مع سؤالك</span><button type="button" class="jl-ai-file-remove" id="jl-ai-file-remove" aria-label="حذف الصورة">✕</button>';
+        document.getElementById('jl-ai-file-remove').addEventListener('click', function(){
+          pendingImage = null;
+          pendingImageMime = null;
+          filePreview.style.display = 'none';
+          fileInput.value = '';
+        });
+      };
+      image.onerror = function(){
+        alert('الصورة دي مش قابلة للقراءة. جرّب صورة تانية');
+        fileInput.value = '';
+      };
+      image.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  });
 
-@media(max-width:380px){
-  #jl-register-form .jl-review-row{ grid-template-columns:1fr !important; }
-}
+  // ---------- إرسال سؤال ----------
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var question = input.value.trim();
+    if (!question && !pendingImage) return;
+    if (!question) question = 'اشرح محتوى الصورة بالتفصيل.';
 
-@media(prefers-reduced-motion:reduce){
-  .jl-hero-code-field span{ animation:none !important; }
-}
+    var student = getLoggedInStudentAI();
+    if (!student){
+      currentMessages.push({ role: 'assistant', content: 'لازم تسجّل دخول الأول عشان تستخدم المساعد الذكي.' });
+      renderThread();
+      return;
+    }
+
+    var imageToSend = pendingImage;
+    var imageMimeToSend = pendingImageMime;
+    currentMessages.push({ role: 'user', content: question, image: imageToSend });
+    input.value = '';
+    pendingImage = null;
+    pendingImageMime = null;
+    filePreview.style.display = 'none';
+    fileInput.value = '';
+
+    renderThread();
+    sendBtn.disabled = true;
+
+    // فقاعة "بيكتب..."
+    var typingEl = document.createElement('div');
+    typingEl.className = 'jl-ai-typing';
+    typingEl.innerHTML = '<span></span><span></span><span></span>';
+    thread.appendChild(typingEl);
+    thread.scrollTop = thread.scrollHeight;
+
+    var historyForApi = currentMessages.slice(0, -1).map(function(m){ return { role: m.role, content: m.content }; });
+
+    aiApi('/api/ai-chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        question: question,
+        history: historyForApi,
+        conversation_id: currentConversationId,
+        image_data: imageToSend ? imageToSend.split(',')[1] : null,
+        image_mime: imageToSend ? (imageMimeToSend || 'image/jpeg') : null
+      })
+    }).then(function(data){
+      typingEl.remove();
+      currentMessages.push({ role: 'assistant', content: data.answer });
+      currentConversationId = data.conversation_id || currentConversationId;
+      renderThread();
+      loadConversationList(student.id);
+    }).catch(function(err){
+      typingEl.remove();
+      currentMessages.push({ role: 'assistant', content: '⚠️ ' + err.message });
+      renderThread();
+    }).finally(function(){
+      sendBtn.disabled = false;
+    });
+  });
+})();
+
+/* --- extracted script 19 --- */
+(function(){
+  // ---------- أكورديون الأسئلة الشائعة ----------
+  var items = document.querySelectorAll('.jl-faq-item');
+  items.forEach(function(item){
+    var q = item.querySelector('.jl-faq-q');
+    if (!q) return;
+    q.addEventListener('click', function(){
+      var wasOpen = item.classList.contains('open');
+      items.forEach(function(i){ i.classList.remove('open'); });
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+})();
+
+/* --- extracted script 21 --- */
+(function(){
+  var menuButton = document.getElementById('jl-nav-hamburger');
+  var menu = document.getElementById('jl-nav-links');
+  var scrollBar = document.getElementById('jl-nav-scroll-bar');
+  var loginButton = document.getElementById('jl-student-btn');
+  var registerButton = document.getElementById('jl-register-nav-btn');
+
+  function closeMenu(){
+    if (!menu || !menuButton) return;
+    menu.classList.remove('open');
+    menuButton.classList.remove('jl-open');
+    menuButton.setAttribute('aria-expanded','false');
+    menuButton.setAttribute('aria-label','فتح القائمة');
+  }
+  menuButton && menuButton.addEventListener('click', function(event){
+    event.preventDefault();
+    event.stopPropagation();
+    if (!menu) return;
+    var shouldOpen = !menu.classList.contains('open');
+    menu.classList.toggle('open', shouldOpen);
+    menuButton.classList.toggle('jl-open', shouldOpen);
+    menuButton.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
+    menuButton.setAttribute('aria-label', shouldOpen ? 'إغلاق القائمة' : 'فتح القائمة');
+  });
+  menu && menu.querySelectorAll('a[href]').forEach(function(link){
+    link.addEventListener('click', function(){ closeMenu(); });
+  });
+  document.addEventListener('click', function(event){
+    if (menu && menu.classList.contains('open') && !event.target.closest('.jl-nav')) closeMenu();
+  });
+  document.addEventListener('keydown', function(event){ if (event.key === 'Escape') closeMenu(); });
+
+  function updateScrollProgress(){
+    if (!scrollBar) return;
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    var percent = max > 0 ? Math.min(100, Math.max(0, (window.scrollY / max) * 100)) : 0;
+    scrollBar.style.width = percent + '%';
+  }
+  updateScrollProgress();
+  window.addEventListener('scroll', updateScrollProgress, { passive:true });
+  window.addEventListener('resize', updateScrollProgress);
+
+  function savedStudent(){
+    try {
+      var value = JSON.parse(localStorage.getItem('ch_student') || 'null');
+      return value && value.student && value.expiresAt > Date.now() ? value.student : null;
+    } catch (error) { return null; }
+  }
+  function updateAuthButtons(){
+    var loggedIn = !!savedStudent();
+    if (registerButton) registerButton.style.display = loggedIn ? 'none' : '';
+    if (loginButton){
+      loginButton.textContent = loggedIn ? 'حسابي' : 'تسجيل الدخول';
+      loginButton.setAttribute('data-auth-target', loggedIn ? 'profile' : 'login');
+    }
+  }
+  registerButton && registerButton.addEventListener('click', function(){
+    loginButton && loginButton.click();
+    window.setTimeout(function(){
+      var tab = document.querySelector('.jl-student-tab[data-form="register"]');
+      tab && tab.click();
+    }, 0);
+  });
+  loginButton && loginButton.addEventListener('click', function(){
+    if (loginButton.getAttribute('data-auth-target') !== 'profile'){
+      window.setTimeout(function(){
+        var tab = document.querySelector('.jl-student-tab[data-form="login"]');
+        tab && tab.click();
+      }, 0);
+    }
+  });
+  window.addEventListener('ch-auth-changed', updateAuthButtons);
+  window.addEventListener('storage', updateAuthButtons);
+  updateAuthButtons();
+})();
+
+/* Hero pointer-light polish. Keeps the visual responsive without changing content. */
+document.addEventListener('DOMContentLoaded', function(){
+  var scene = document.querySelector('.jl-hw-scene');
+  if (!scene || !window.matchMedia('(pointer:fine)').matches || window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  scene.addEventListener('pointermove', function(event){
+    var rect = scene.getBoundingClientRect();
+    var x = ((event.clientX - rect.left) / rect.width * 100).toFixed(1) + '%';
+    var y = ((event.clientY - rect.top) / rect.height * 100).toFixed(1) + '%';
+    scene.style.setProperty('--jl-hero-light-x', x);
+    scene.style.setProperty('--jl-hero-light-y', y);
+  }, {passive:true});
+  scene.addEventListener('pointerleave', function(){
+    scene.style.setProperty('--jl-hero-light-x', '72%');
+    scene.style.setProperty('--jl-hero-light-y', '34%');
+  }, {passive:true});
+});
