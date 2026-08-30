@@ -1,0 +1,15 @@
+/* CODE HUB reviews hotfix 16.2 */
+
+/* If there is only one public review, center it instead of leaving two empty grid columns. */
+.jl-reviews-list > .jl-review-card:only-child{
+  grid-column:1 / -1 !important;
+  width:min(100%, 520px) !important;
+  justify-self:center !important;
+}
+
+/* Keep the single review visually balanced on wide screens. */
+@media (min-width:761px){
+  .jl-reviews-list > .jl-review-card:only-child{
+    min-height:190px;
+  }
+}
