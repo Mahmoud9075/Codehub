@@ -381,6 +381,7 @@ document.addEventListener('DOMContentLoaded', function(){
           clearProgress();
           if (activeQuizCleanup) activeQuizCleanup();
           if (window.jlConfetti) window.jlConfetti();
+      reviewStatus('شكرًا ليك ✅ تقييمك اتحفظ وهيظهر بعد المراجعة.', 'ok');
           var pct = Math.round((data.result.score / data.result.total) * 100);
 
           // 20) مراجعة الإجابات الصح والغلط
@@ -542,10 +543,13 @@ document.addEventListener('DOMContentLoaded', function(){
   // ---------- Language toggle (AR <-> EN) ----------
   var translations = {
     "nav-home": {ar:"الرئيسية", en:"Home"},
-    "nav-benefits": {ar:"✨ المميزات", en:"✨ Features"},
-    "nav-cta": {ar:"💳 الاشتراك", en:"💳 Join"},
-    "nav-about": {ar:"ℹ️ عن المنصّة", en:"ℹ️ About"},
-    "nav-path": {ar:"🗓️ المسار الشهري", en:"🗓️ Monthly Path"},
+    "nav-benefits": {ar:"إيه اللي هتاخده معانا؟", en:"What You Get"},
+    "nav-cta": {ar:"جاهز تبدأ؟", en:"Ready to Start?"},
+    "nav-about": {ar:"ليه CODE HUB؟", en:"Why CODE HUB?"},
+    "nav-path": {ar:"رحلتك خلال الشهر", en:"Your Monthly Journey"},
+    "nav-audience": {ar:"CODE HUB مناسبة لمين؟", en:"Who CODE HUB Is For"},
+    "nav-pricing": {ar:"اختار خطتك", en:"Choose Your Plan"},
+    "nav-faq": {ar:"عندك سؤال؟", en:"Have a Question?"},
     "btn-join": {ar:"ابدأ رحلتك", en:"Start Your Journey"},
     "btn-subscribe": {ar:"انضم لـ CODE HUB", en:"Join CODE HUB"},
     "hero-h1": {ar:"مستقبلك في البرمجة", en:"Your Future in Programming"},
@@ -586,8 +590,8 @@ document.addEventListener('DOMContentLoaded', function(){
     "footer-info-h": {ar:"تواصل معنا", en:"Contact Us"},
     "footer-tagline": {ar:"بنعلّم البرمجة والذكاء الاصطناعي بشغف.", en:"We teach programming and AI with passion."},
     "footer-address": {ar:"شارع 10 - سنتر كيان - الدور التاني - أمام مكتبة الروضة وبجوار سوبر ماركت الشعب", en:"10th St. - Kayan Center - 2nd Floor - opposite Al-Rawda Library, next to Al-Shaab Supermarket"},
-    "b-offline-h": {ar:"محاضرات أوف لاين", en:"Offline Lectures"},
-    "b-offline-p": {ar:"شرح مسجل بجودة عالية تقدر تتفرج عليه في وقتك المناسب، وترجع له وقت ما تحتاج تراجع أي جزء.", en:"High-quality recorded lessons you can watch whenever suits you, and revisit any part when you need to review."},
+    "b-offline-h": {ar:"دروس LIVE أونلاين", en:"LIVE Online Lessons"},
+    "b-offline-p": {ar:"شرح مباشر وتفاعل أثناء الحصة من أي مكان، مع تطبيق ومتابعة خطوة بخطوة.", en:"Live interactive lessons you can join from anywhere, with hands-on practice and step-by-step follow-up."},
     "b-quiz-h": {ar:"اختبارات إلكترونية ذكية كل حصة", en:"Smart Quizzes After Every Session"},
     "b-quiz-p": {ar:"اختبر مستواك بعد كل حصة مع تصحيح فوري وتحليل مفصل للأداء.", en:"Test your level after every session with instant grading and detailed performance analysis."},
     "b-content-h": {ar:"محتوى تعليمي متكامل", en:"Complete Learning Content"},
@@ -622,13 +626,14 @@ document.addEventListener('DOMContentLoaded', function(){
     "val-4": {ar:"الشفافية والالتزام.", en:"Transparency & commitment."},
     "val-5": {ar:"دعم الطالب في كل مرحلة من رحلته التعليمية.", en:"Supporting students at every stage of their learning journey."},
     "groups-tag": {ar:"اختر الصف الدراسي", en:"Choose your grade"},
-    "groups-h": {ar:"💬 انضم إلى مجموعة واتساب", en:"💬 Join Your WhatsApp Group"},
-    "groups-p": {ar:"اختر صفك الدراسي وسيتم تحويلك مباشرة إلى مجموعة واتساب.", en:"Choose your grade and you'll be taken directly to the WhatsApp group."},
-    "groups-g1": {ar:"💡 أولى ثانوي | البرمجة من الصفر", en:"💡 First Secondary | Programming from Zero"},
-    "groups-g2": {ar:"🚀 ثانية ثانوي | مستقبل البكالوريا", en:"🚀 Second Secondary | Baccalaureate Future"},
+    "groups-h": {ar:"انضم إلى مجموعة واتساب", en:"Join Your WhatsApp Group"},
+    "groups-p": {ar:"اختر صفك الدراسي، أو مجموعة الأونلاين، وسيتم تحويلك مباشرة إلى مجموعة واتساب.", en:"Choose your grade or the online group and you’ll be taken directly to WhatsApp."},
+    "groups-g1": {ar:"أولى ثانوي | البرمجة من الصفر", en:"First Secondary | Programming from Zero"},
+    "groups-g2": {ar:"ثانية ثانوي | مستقبل البكالوريا", en:"Second Secondary | Baccalaureate Future"},
+    "groups-online": {ar:"CODE HUB أونلاين", en:"CODE HUB Online"},
     "footer-links-h2": {ar:"روابط سريعة", en:"Quick Links"},
     "footer-nav-audience": {ar:"لمن المنصة", en:"Who It's For"},
-    "nav-reviews": {ar:"⭐ التقييمات", en:"⭐ Reviews"},
+    "nav-reviews": {ar:"طلابنا قالوا إيه؟", en:"What Students Say"},
     "reviews-h": {ar:"طلابنا قالوا", en:"What Our Students"},
     "reviews-h-mark": {ar:"إيه؟", en:"Say"},
     "reviews-sub": {ar:"تقييمات حقيقية من الطلاب وأولياء الأمور والزوار. أي حد يقدر يشارك تجربته.", en:"Real reviews from students, parents, and visitors. Anyone can share their experience."},
@@ -642,13 +647,14 @@ document.addEventListener('DOMContentLoaded', function(){
     "review-comment-ph": {ar:"اكتب رأيك هنا...", en:"Write your review here..."},
     "grade-1": {ar:"طالب أولى ثانوي", en:"1st Year Secondary Student"},
     "grade-2": {ar:"طالب ثانية ثانوي", en:"2nd Year Secondary Student"},
+    "online-badge": {ar:"LIVE أونلاين", en:"LIVE Online"},
     "free-badge": {ar:"أول حصتين مجانًا تمامًا لكل الطلاب", en:"First 2 sessions completely free for all students"},
     "prize-badge": {ar:"جوائز شهرية للطلاب المتفوقين", en:"Monthly prizes for top students"},
     "mp-teaser-h": {ar:"رحلتك خلال الشهر", en:"Your Monthly Journey"},
     "mp-teaser-p": {ar:"كويزاتك مرتبة شهر شهر، كل ما تخلّص كويز اللي بعده يفتح تلقائي.", en:"Your quizzes organized month by month — finish one, the next unlocks automatically."},
     "mp-teaser-btn": {ar:"الدخول الشهري ←", en:"Monthly Access →"},
     "countdown-label": {ar:"الترم الجديد يبدأ خلال", en:"New term starts in"},
-    "nav-aboutme": {ar:"👨‍🏫 المدرسين", en:"👨‍🏫 Instructors"},
+    "nav-aboutme": {ar:"فريق CODE HUB", en:"CODE HUB Team"},
     "am-h": {ar:"فريق CODE HUB", en:"CODE HUB Team"},
     "am-sub": {ar:"تعرف على المدرسين المسؤولين عن شرح ومتابعة مادة البرمجة والذكاء الاصطناعي.", en:"Meet the instructors responsible for teaching and supporting Programming & AI."},
     "am-name-mabrouk": {ar:"المهندس محمد مبروك", en:"Eng. Mohamed Mabrouk"},
@@ -717,7 +723,14 @@ document.addEventListener('DOMContentLoaded', function(){
   var starsEl = document.getElementById('jl-rv-stars');
   var statsEl = document.getElementById('jl-reviews-stats');
   var selectedStars = 0;
+  var rvStatusEl = document.getElementById('jl-review-form-status');
   if (!listEl || !formEl || !starsEl) return;
+
+  function reviewStatus(message, kind){
+    if (!rvStatusEl) return;
+    rvStatusEl.textContent = message || '';
+    rvStatusEl.className = 'jl-review-form-status' + (kind ? ' ' + kind : '');
+  }
 
   var rvCommentEl = document.getElementById('jl-rv-comment');
   var rvCommentCount = document.getElementById('jl-rv-comment-count');
@@ -798,10 +811,11 @@ document.addEventListener('DOMContentLoaded', function(){
     var comment = document.getElementById('jl-rv-comment').value.trim();
     var website = document.getElementById('jl-rv-website');
     if (!name || !audience || !comment || selectedStars === 0){
-      alert('من فضلك املأ البيانات واختار تقييم بالنجوم');
+      reviewStatus('من فضلك املأ البيانات واختار تقييم بالنجوم.', 'err');
       return;
     }
 
+    reviewStatus('', '');
     if (submit){ submit.disabled = true; submit.textContent = 'جاري الإرسال...'; }
     reviewApi('/api/reviews', {
       method: 'POST',
@@ -819,7 +833,7 @@ document.addEventListener('DOMContentLoaded', function(){
         setTimeout(function(){ toast.classList.remove('show'); }, 3800);
       }
     }).catch(function(err){
-      alert(err.message);
+      reviewStatus(err.message || 'تعذر حفظ التقييم.', 'err');
     }).finally(function(){
       if (submit){ submit.disabled = false; submit.textContent = 'أضف تقييمك'; }
     });
