@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function(){
   function renderLoginPrompt(){
     monthsEl.innerHTML =
       '<div class="jl-mp-login-prompt">' +
-        '<p>لازم تسجّل دخول الأول عشان تدخل على المسار الشهري وتاخد كويزاتك الحقيقية.</p>' +
+        '<p>سجّل دخولك الأول، وبعدها افتح الشهر واضغط على الكويز اللي عليه كلمة ابدأ.</p>' +
         '<button type="button" class="jl-reg" id="jl-mp-login-btn">تسجيل الدخول</button>' +
       '</div>';
     document.getElementById('jl-mp-login-btn').addEventListener('click', function(){
@@ -98,7 +98,9 @@ document.addEventListener('DOMContentLoaded', function(){
   }
 
   function renderLoadError(msg){
-    monthsEl.innerHTML = '<p class="jl-mp-error-msg">⚠️ ' + mpEsc(msg) + '</p>';
+    monthsEl.innerHTML = '<div class="jl-mp-login-prompt"><p class="jl-mp-error-msg">⚠️ ' + mpEsc(msg) + '</p><button type="button" class="jl-reg" id="jl-mp-retry-btn">إعادة المحاولة</button></div>';
+    var retryBtn = document.getElementById('jl-mp-retry-btn');
+    if (retryBtn) retryBtn.addEventListener('click', loadMonths);
   }
 
   function loadMonths(){
@@ -118,6 +120,10 @@ document.addEventListener('DOMContentLoaded', function(){
 
   function renderMonths(){
     monthsEl.innerHTML = '';
+    if (!monthsCache.length){
+      monthsEl.innerHTML = '<div class="jl-mp-login-prompt"><p>لسه مفيش شهور أو اختبارات مضافة دلوقتي.</p></div>';
+      return;
+    }
     monthsCache.forEach(function(month){
       var locked = month.status === 'locked';
       var isExpanded = expandedMonthId === month.id;
@@ -381,7 +387,6 @@ document.addEventListener('DOMContentLoaded', function(){
           clearProgress();
           if (activeQuizCleanup) activeQuizCleanup();
           if (window.jlConfetti) window.jlConfetti();
-      reviewStatus('شكرًا ليك ✅ تقييمك اتحفظ وهيظهر بعد المراجعة.', 'ok');
           var pct = Math.round((data.result.score / data.result.total) * 100);
 
           // 20) مراجعة الإجابات الصح والغلط
@@ -643,7 +648,7 @@ document.addEventListener('DOMContentLoaded', function(){
     "review-course-ph": {ar:"اختار صفتك", en:"Choose who you are"},
     "review-parent": {ar:"ولي أمر", en:"Parent"},
     "review-guest": {ar:"زائر", en:"Visitor"},
-    "review-moderation-note": {ar:"التقييم بيتحفظ عندنا ويظهر للزوار بعد المراجعة.", en:"Your review is saved and becomes public after moderation."},
+    "review-moderation-note": {ar:"التقييمات النظيفة بتظهر مباشرة، وأي تقييم مش واضح بنراجعه الأول.", en:"Clean reviews appear right away, while unclear ones are reviewed first."},
     "review-comment-ph": {ar:"اكتب رأيك هنا...", en:"Write your review here..."},
     "grade-1": {ar:"طالب أولى ثانوي", en:"1st Year Secondary Student"},
     "grade-2": {ar:"طالب ثانية ثانوي", en:"2nd Year Secondary Student"},
@@ -758,12 +763,24 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   }
 
+  var reviewStatsCache = { count: 0, average: 0 };
+
   function renderStats(data){
     if (!statsEl) return;
     var count = Number(data.count || 0);
     var average = Number(data.average || 0);
-    if (!count){ statsEl.textContent = ''; return; }
-    statsEl.textContent = average.toFixed(1).replace('.0','') + ' / 5  ·  ' + count + ' تقييم منشور';
+    reviewStatsCache.count = count;
+    reviewStatsCache.average = average;
+    if (!count){
+      statsEl.innerHTML = '<span class="jl-reviews-stat-pill">⭐ كن أول واحد يضيف تقييم</span>';
+      return;
+    }
+    var stars = '';
+    for (var i = 1; i <= 5; i++) stars += (i <= Math.round(average) ? '★' : '☆');
+    statsEl.innerHTML =
+      '<span class="jl-reviews-stat-pill"><strong>' + average.toFixed(1).replace('.0','') + '</strong> من 5</span>' +
+      '<span class="jl-reviews-stat-pill jl-reviews-stat-stars" aria-label="متوسط التقييم">' + stars + '</span>' +
+      '<span class="jl-reviews-stat-pill">' + count + ' تقييم منشور</span>';
   }
 
   function renderReviews(reviews){
@@ -775,10 +792,12 @@ document.addEventListener('DOMContentLoaded', function(){
       var starsHtml = '';
       for (var i = 1; i <= 5; i++) starsHtml += (i <= Number(r.stars) ? '★' : '☆');
       return '<article class="jl-review-card">' +
-        '<div class="jl-review-card-stars" aria-label="' + Number(r.stars) + ' من 5">' + starsHtml + '</div>' +
+        '<div class="jl-review-card-top">' +
+          '<div class="jl-review-card-stars" aria-label="' + Number(r.stars) + ' من 5">' + starsHtml + '</div>' +
+          '<span class="jl-review-card-course">' + escapeHtml(r.audience || 'زائر') + '</span>' +
+        '</div>' +
         '<p>' + escapeHtml(r.comment) + '</p>' +
         '<span class="jl-review-card-name">' + escapeHtml(r.name) + '</span>' +
-        '<span class="jl-review-card-course">' + escapeHtml(r.audience || 'زائر') + '</span>' +
         '</article>';
     }).join('');
   }
@@ -820,15 +839,17 @@ document.addEventListener('DOMContentLoaded', function(){
     reviewApi('/api/reviews', {
       method: 'POST',
       body: JSON.stringify({ name:name, audience:audience, comment:comment, stars:selectedStars, website:website ? website.value : '' })
-    }).then(function(){
+    }).then(function(data){
       formEl.reset();
       selectedStars = 0;
       starSpans.forEach(function(s){ s.classList.remove('active'); });
       if (rvCommentCount) rvCommentCount.textContent = '0 / 400';
-      if (window.jlConfetti) window.jlConfetti();
+      reviewStatus(data && data.message ? data.message : 'تم إرسال التقييم.', 'ok');
+      if (!(data && data.pending) && window.jlConfetti) window.jlConfetti();
+      loadReviews();
       var toast = document.getElementById('jl-toast');
       if (toast){
-        toast.textContent = 'شكرًا ليك ✅ تقييمك اتحفظ وهيظهر بعد المراجعة.';
+        toast.textContent = data && data.message ? data.message : 'تم إرسال التقييم.';
         toast.classList.add('show');
         setTimeout(function(){ toast.classList.remove('show'); }, 3800);
       }
