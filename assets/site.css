@@ -6883,3 +6883,129 @@ body,button,input,textarea,select{font-family:"Cairo",sans-serif !important;}
   .jl-online-badge{font-size:11px;padding:7px 10px;}
   .jl-pricing-online{font-size:11.5px;padding:6px 10px;}
 }
+
+/* === UI refresh: reviews + monthly path simplification === */
+.jl-reviews-head{gap:14px !important}
+.jl-reviews-stats{
+  display:flex !important;
+  flex-wrap:wrap !important;
+  gap:10px !important;
+  margin-top:14px !important;
+  justify-content:center !important;
+}
+.jl-reviews-stat-pill{
+  display:inline-flex !important;
+  align-items:center !important;
+  gap:8px !important;
+  padding:10px 16px !important;
+  border-radius:999px !important;
+  background:#fff !important;
+  border:1px solid rgba(16,42,67,.08) !important;
+  color:#102A43 !important;
+  font-weight:800 !important;
+  box-shadow:0 10px 26px rgba(16,42,67,.06) !important;
+}
+.jl-reviews-stat-stars{color:#D9A441 !important; letter-spacing:2px !important;}
+.jl-reviews-list{
+  margin-top:22px !important;
+  gap:16px !important;
+}
+.jl-review-card{
+  padding:22px 20px !important;
+  border-radius:20px !important;
+  border:1px solid rgba(16,42,67,.08) !important;
+  background:#fff !important;
+  box-shadow:0 16px 34px rgba(16,42,67,.06) !important;
+}
+.jl-review-card-top{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  gap:10px !important;
+  margin-bottom:12px !important;
+  flex-wrap:wrap !important;
+}
+.jl-review-card-stars{font-size:21px !important; color:#D9A441 !important; letter-spacing:2px !important;}
+.jl-review-card p{margin:0 0 14px !important; line-height:1.9 !important; color:#30455E !important;}
+.jl-review-card-name{
+  display:inline-block !important;
+  font-weight:900 !important;
+  color:#102A43 !important;
+}
+.jl-review-card-course{
+  display:inline-flex !important;
+  align-items:center !important;
+  padding:6px 12px !important;
+  border-radius:999px !important;
+  background:#F7F4EC !important;
+  color:#7D6540 !important;
+  font-size:12px !important;
+  font-weight:800 !important;
+}
+.jl-review-form-wrap{
+  margin-top:24px !important;
+  padding:24px !important;
+  border-radius:24px !important;
+  background:#fff !important;
+  border:1px solid rgba(16,42,67,.08) !important;
+  box-shadow:0 18px 34px rgba(16,42,67,.06) !important;
+}
+.jl-review-form{gap:14px !important}
+.jl-review-form .jl-reg{width:100% !important; justify-content:center !important;}
+.jl-review-form-status.ok{color:#247A45 !important; font-weight:800 !important;}
+.jl-review-form-status.err{color:#B42318 !important; font-weight:800 !important;}
+.jl-review-moderation-note{margin-top:4px !important; color:#6B7280 !important;}
+.jl-mp-login-prompt{
+  border:1px dashed rgba(16,42,67,.16) !important;
+  background:#fff !important;
+  border-radius:22px !important;
+  padding:24px 18px !important;
+  text-align:center !important;
+}
+.jl-mp-login-prompt p{margin:0 0 14px !important; color:#30455E !important; line-height:1.9 !important;}
+.jl-mp-accordion-item{
+  border:1px solid rgba(16,42,67,.08) !important;
+  background:#fff !important;
+  box-shadow:0 14px 28px rgba(16,42,67,.05) !important;
+}
+.jl-mp-accordion-head{padding:18px 16px !important;}
+.jl-mp-month-title{font-size:17px !important;}
+.jl-mp-accordion-body{padding:0 16px 16px !important;}
+.jl-mp-week{
+  background:#FAF8F3 !important;
+  border:1px solid rgba(182,145,59,.12) !important;
+  border-radius:18px !important;
+  padding:14px !important;
+  margin-bottom:12px !important;
+}
+.jl-mp-week-label{margin-bottom:10px !important;}
+.jl-mp-quiz-row{
+  border-radius:16px !important;
+  padding:14px !important;
+  background:#fff !important;
+  border:1px solid rgba(16,42,67,.07) !important;
+}
+.jl-mp-quiz-name{gap:12px !important; line-height:1.7 !important;}
+.jl-mp-quiz-btn{min-width:108px !important;}
+[data-theme="dark"] .jl-reviews-stat-pill,
+[data-theme="dark"] .jl-review-card,
+[data-theme="dark"] .jl-review-form-wrap,
+[data-theme="dark"] .jl-mp-login-prompt,
+[data-theme="dark"] .jl-mp-accordion-item,
+[data-theme="dark"] .jl-mp-week,
+[data-theme="dark"] .jl-mp-quiz-row{
+  background:#102A43 !important;
+  border-color:rgba(247,244,236,.08) !important;
+  color:#F7F4EC !important;
+}
+[data-theme="dark"] .jl-review-card p,
+[data-theme="dark"] .jl-mp-login-prompt p{color:#DCE6F5 !important;}
+[data-theme="dark"] .jl-review-card-name,
+[data-theme="dark"] .jl-mp-month-title{color:#F7F4EC !important;}
+[data-theme="dark"] .jl-review-card-course{background:rgba(217,164,65,.14) !important; color:#E8C574 !important;}
+[data-theme="dark"] .jl-mp-week-label{color:#E8C574 !important;}
+@media (max-width: 720px){
+  .jl-review-form-wrap{padding:18px !important; border-radius:18px !important;}
+  .jl-review-card{padding:18px 16px !important;}
+  .jl-reviews-stat-pill{width:100% !important; justify-content:center !important;}
+}
