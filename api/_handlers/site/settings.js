@@ -16,7 +16,7 @@ module.exports = async (req, res) => {
     .eq('id', 1)
     .single();
 
-  if (error) return res.status(500).json({ error: error.message });
+  if (error) return res.status(500).json({ error: 'تعذر تحميل الإعدادات' });
 
   return res.status(200).json({ settings: data });
 };

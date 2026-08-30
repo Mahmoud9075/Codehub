@@ -1,5 +1,16 @@
 const { supabase } = require('../../_lib/supabase');
 const { applyCors } = require('../../_lib/cors');
+const { requireStudent } = require('../../_lib/student-auth');
+const { getPassPercent } = require('../../_lib/quiz-access');
+
+
+const cairoFormatter = new Intl.DateTimeFormat('en-US', {
+  timeZone: 'Africa/Cairo', year: 'numeric', month: '2-digit', day: '2-digit',
+});
+function cairoDayKey(value) {
+  const parts = Object.fromEntries(cairoFormatter.formatToParts(new Date(value)).map((part) => [part.type, part.value]));
+  return `${parts.year}-${parts.month}-${parts.day}`;
+}
 
 // GET /api/profile-stats?student_id=...
 // بيرجع كل بيانات كارت البروفايل الجديد: تاريخ الانضمام، الأيام المتتالية،
@@ -14,10 +25,9 @@ module.exports = async (req, res) => {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { student_id } = req.query;
-  if (!student_id) {
-    return res.status(400).json({ error: 'student_id مطلوب' });
-  }
+  const session = await requireStudent(req, res);
+  if (!session) return;
+  const student_id = session.id;
 
   const { data: student, error: sErr } = await supabase
     .from('students')
@@ -25,7 +35,7 @@ module.exports = async (req, res) => {
     .eq('id', student_id)
     .maybeSingle();
 
-  if (sErr) return res.status(500).json({ error: sErr.message });
+  if (sErr) return res.status(500).json({ error: 'تعذر تحميل بيانات الحساب' });
   if (!student) return res.status(404).json({ error: 'الطالب مش موجود' });
 
   const { data: myResults, error: rErr } = await supabase
@@ -33,41 +43,38 @@ module.exports = async (req, res) => {
     .select('quiz_id, score, total, completed_at')
     .eq('student_id', student_id);
 
-  if (rErr) return res.status(500).json({ error: rErr.message });
+  if (rErr) return res.status(500).json({ error: 'تعذر تحميل نتائجك' });
 
   const results = myResults || [];
-  const quizzesCompleted = results.length;
+  const passPercent = await getPassPercent();
+  const { data: allQuizzes, error: qErr } = await supabase.from('quizzes').select('id, month_id, type');
+  if (qErr) return res.status(500).json({ error: 'تعذر تحميل بيانات الاختبارات' });
+  const quizById = Object.fromEntries((allQuizzes || []).map((quiz) => [String(quiz.id), quiz]));
+  const completedResults = results.filter((result) => {
+    const quiz = quizById[String(result.quiz_id)];
+    if (!quiz || quiz.type !== 'final') return true;
+    return Boolean(result.total && Math.round((result.score / result.total) * 100) >= passPercent);
+  });
+  const quizzesCompleted = completedResults.length;
 
   let avgScorePercent = null;
-  if (quizzesCompleted > 0) {
+  if (results.length > 0) {
     const sumPercent = results.reduce((acc, r) => acc + (r.total ? (r.score / r.total) * 100 : 0), 0);
-    avgScorePercent = Math.round(sumPercent / quizzesCompleted);
+    avgScorePercent = Math.round(sumPercent / results.length);
   }
 
-  const dateSet = new Set(results.map((r) => new Date(r.completed_at).toISOString().slice(0, 10)));
+  const dateSet = new Set(results.map((r) => cairoDayKey(r.completed_at)));
   let streakDays = 0;
-  {
-    const cursor = new Date();
-    while (true) {
-      const key = cursor.toISOString().slice(0, 10);
-      if (dateSet.has(key)) {
-        streakDays++;
-        cursor.setDate(cursor.getDate() - 1);
-      } else {
-        break;
-      }
-    }
+  for (let i = 0; i < 366; i++) {
+    const key = cairoDayKey(Date.now() - i * 24 * 60 * 60 * 1000);
+    if (!dateSet.has(key)) break;
+    streakDays++;
   }
 
   const weeklyActivity = [];
-  {
-    const today = new Date();
-    for (let i = 6; i >= 0; i--) {
-      const d = new Date(today);
-      d.setDate(d.getDate() - i);
-      const key = d.toISOString().slice(0, 10);
-      weeklyActivity.push({ date: key, active: dateSet.has(key) });
-    }
+  for (let i = 6; i >= 0; i--) {
+    const key = cairoDayKey(Date.now() - i * 24 * 60 * 60 * 1000);
+    weeklyActivity.push({ date: key, active: dateSet.has(key) });
   }
 
   let percentile = null;
@@ -100,10 +107,7 @@ module.exports = async (req, res) => {
   let remainingQuizzesThisMonth = 0;
   let allMonthsDone = false;
   {
-    const { data: months } = await supabase.from('months').select('*').order('order_index', { ascending: true });
-    const { data: settings } = await supabase.from('site_settings').select('final_exam_pass_percent').eq('id', 1).maybeSingle();
-    const passPercent = settings?.final_exam_pass_percent || 70;
-    const { data: allQuizzes } = await supabase.from('quizzes').select('id, month_id, type');
+    const { data: months } = await supabase.from('months').select('id, name, order_index').order('order_index', { ascending: true });
     const resultByQuizId = Object.fromEntries(results.map((r) => [r.quiz_id, r]));
 
     let previousPassed = true;
@@ -112,7 +116,7 @@ module.exports = async (req, res) => {
       const monthQuizzes = (allQuizzes || []).filter((q) => q.month_id === month.id);
       const finalExam = monthQuizzes.find((q) => q.type === 'final');
       const finalResult = finalExam ? resultByQuizId[finalExam.id] : null;
-      const passed = finalResult ? Math.round((finalResult.score / finalResult.total) * 100) >= passPercent : false;
+      const passed = Boolean(finalResult?.total && Math.round((finalResult.score / finalResult.total) * 100) >= passPercent);
 
       if (passed) {
         previousPassed = true;
@@ -120,7 +124,12 @@ module.exports = async (req, res) => {
       }
       if (previousPassed) {
         currentMonthTitle = month.name || null;
-        remainingQuizzesThisMonth = monthQuizzes.filter((q) => !resultByQuizId[q.id]).length;
+        remainingQuizzesThisMonth = monthQuizzes.filter((q) => {
+          const result = resultByQuizId[q.id];
+          if (!result) return true;
+          if (q.type !== 'final') return false;
+          return !result.total || Math.round((result.score / result.total) * 100) < passPercent;
+        }).length;
         found = true;
       }
       break;

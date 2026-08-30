@@ -30,7 +30,9 @@ function prepareQuestion(body) {
   let threshold = Number(body.similarity_threshold);
   if (!Number.isFinite(threshold)) threshold = questionType === 'essay' ? 0.55 : 0.7;
   threshold = Math.max(0.3, Math.min(1, threshold));
-  return { question_text: cleanText(body.question_text, MAX_LENGTHS.question), options: { schema_version: 2, type: questionType, type_label: customTypeName || TYPE_LABELS[questionType], custom_type_name: customTypeName, answer_mode: answerMode, choices, correct_answer: correctAnswer, similarity_threshold: threshold }, correct_index: answerMode === 'choice' ? correctIndex : 0, order_index: Math.max(1, Number(body.order_index) || 1) };
+  const questionText = cleanText(body.question_text, MAX_LENGTHS.question);
+  if (!questionText) throw new Error('اكتب نص السؤال');
+  return { question_text: questionText, options: { schema_version: 2, type: questionType, type_label: customTypeName || TYPE_LABELS[questionType], custom_type_name: customTypeName, answer_mode: answerMode, choices, correct_answer: correctAnswer, similarity_threshold: threshold }, correct_index: answerMode === 'choice' ? correctIndex : 0, order_index: Math.max(1, Number(body.order_index) || 1) };
 }
 
 module.exports = async (req, res) => {
@@ -41,7 +43,7 @@ module.exports = async (req, res) => {
     const { quiz_id } = req.query;
     if (!quiz_id) return res.status(400).json({ error: 'quiz_id مطلوب' });
     const { data, error } = await supabase.from('quiz_questions').select('*').eq('quiz_id', quiz_id).order('order_index', { ascending: true });
-    if (error) return res.status(500).json({ error: error.message });
+    if (error) return res.status(500).json({ error: 'تعذر تحميل الأسئلة' });
     return res.status(200).json({ questions: (data || []).map(expandQuestion) });
   }
   if (req.method === 'POST') {
@@ -50,7 +52,7 @@ module.exports = async (req, res) => {
     if (!withinMaxLength(req.body.question_text, MAX_LENGTHS.question)) return res.status(400).json({ error: 'نص السؤال طويل قوي' });
     let prepared; try { prepared = prepareQuestion(req.body); } catch (error) { return res.status(400).json({ error: error.message }); }
     const { data, error } = await supabase.from('quiz_questions').insert({ quiz_id, ...prepared }).select().single();
-    if (error) return res.status(500).json({ error: error.message });
+    if (error) return res.status(500).json({ error: 'تعذر إضافة السؤال' });
     await logAdminAction(auth.identity, 'add_question', { quiz_id, question_text: prepared.question_text, type: prepared.options.type });
     return res.status(201).json({ question: expandQuestion(data) });
   }
@@ -59,7 +61,7 @@ module.exports = async (req, res) => {
     if (!id) return res.status(400).json({ error: 'id مطلوب' });
     let prepared; try { prepared = prepareQuestion(req.body); } catch (error) { return res.status(400).json({ error: error.message }); }
     const { data, error } = await supabase.from('quiz_questions').update(prepared).eq('id', id).select().single();
-    if (error) return res.status(500).json({ error: error.message });
+    if (error) return res.status(500).json({ error: 'تعذر تعديل السؤال' });
     await logAdminAction(auth.identity, 'update_question', { id, question_text: prepared.question_text, type: prepared.options.type });
     return res.status(200).json({ question: expandQuestion(data) });
   }
@@ -67,7 +69,7 @@ module.exports = async (req, res) => {
     const { id } = req.query;
     if (!id) return res.status(400).json({ error: 'id مطلوب' });
     const { error } = await supabase.from('quiz_questions').delete().eq('id', id);
-    if (error) return res.status(500).json({ error: error.message });
+    if (error) return res.status(500).json({ error: 'تعذر حذف السؤال' });
     await logAdminAction(auth.identity, 'delete_question', { id });
     return res.status(200).json({ ok: true });
   }

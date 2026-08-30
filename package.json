@@ -10,5 +10,8 @@
   },
   "engines": {
     "node": "24.x"
+  },
+  "scripts": {
+    "test": "node test_security.js && node test_static_security.js"
   }
 }

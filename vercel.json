@@ -1,7 +1,55 @@
 {
   "rewrites": [
-    { "source": "/api/auth/:route", "destination": "/api/auth?route=:route" },
-    { "source": "/api/admin/:route", "destination": "/api/admin?route=:route" },
-    { "source": "/api/:route(ai-chat|ai-conversations|content|months|parent-view|ping|profile-stats|quiz-questions|quizzes|settings|submit-result|track-visit)", "destination": "/api/site?route=:route" }
+    {
+      "source": "/api/auth/:route",
+      "destination": "/api/auth?route=:route"
+    },
+    {
+      "source": "/api/admin/:route",
+      "destination": "/api/admin?route=:route"
+    },
+    {
+      "source": "/api/:route(ai-chat|ai-conversations|content|months|parent-view|ping|profile-stats|quiz-questions|quizzes|settings|submit-result|track-visit|reviews)",
+      "destination": "/api/site?route=:route"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "no-referrer"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=31536000; includeSubDomains"
+        },
+        {
+          "key": "Cross-Origin-Opener-Policy",
+          "value": "same-origin"
+        },
+        {
+          "key": "Cross-Origin-Resource-Policy",
+          "value": "same-origin"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob: https://*.supabase.co; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'"
+        }
+      ]
+    }
   ]
 }

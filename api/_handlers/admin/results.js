@@ -24,11 +24,12 @@ module.exports = async (req, res) => {
       students ( first_name, last_name, phone ),
       quizzes ( title, week_number, quiz_number_in_week, months ( name ) )
     `)
-    .order('completed_at', { ascending: false });
+    .order('completed_at', { ascending: false })
+    .limit(2000);
 
-  if (error) return res.status(500).json({ error: error.message });
+  if (error) return res.status(500).json({ error: 'تعذر تحميل النتائج' });
 
-  const rows = data.map((r) => ({
+  const rows = (data || []).map((r) => ({
     student_name: r.students ? `${r.students.first_name} ${r.students.last_name}` : null,
     student_phone: r.students?.phone,
     month: r.quizzes?.months?.name,

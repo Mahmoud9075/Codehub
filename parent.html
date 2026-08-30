@@ -51,42 +51,7 @@
     </div>
   </div>
 
-<script>
-(function(){
-  var API_BASE = 'https://codehub-blue-kappa.vercel.app'; // 👈 حط هنا رابط فيرسيل بتاعك، نفس ما حطيته في الموقع الرئيسي
 
-  var params = new URLSearchParams(location.search);
-  var token = params.get('token');
-
-  if (!token || !API_BASE){
-    document.getElementById('student-name').textContent = 'اللينك غير صحيح';
-    document.getElementById('results-list').innerHTML = '<p class="msg">تأكد إنك فاتح اللينك اللي بعته لك الطالب بالظبط.</p>';
-    return;
-  }
-
-  fetch(API_BASE + '/api/parent-view?token=' + encodeURIComponent(token))
-    .then(function(r){ return r.json().then(function(data){ if (!r.ok) throw new Error(data.error); return data; }); })
-    .then(function(data){
-      document.getElementById('student-name').textContent = data.student.first_name + ' ' + data.student.last_name;
-
-      document.getElementById('stat-grid').innerHTML =
-        '<div class="stat-box"><div class="num">' + data.quizzes_completed + '</div><div class="lbl">كويزات مكتملة</div></div>' +
-        '<div class="stat-box"><div class="num">' + (data.average_percent != null ? data.average_percent + '%' : '—') + '</div><div class="lbl">المعدل العام</div></div>';
-
-      var list = document.getElementById('results-list');
-      if (!data.results.length){
-        list.innerHTML = '<p class="msg">لسه مفيش نتائج مسجّلة.</p>';
-        return;
-      }
-      list.innerHTML = data.results.map(function(r){
-        return '<div class="row"><span>' + (r.month || '') + ' — ' + (r.quiz || '') + '</span><span class="score">' + r.score + '/' + r.total + '</span></div>';
-      }).join('');
-    })
-    .catch(function(err){
-      document.getElementById('student-name').textContent = 'حصل خطأ';
-      document.getElementById('results-list').innerHTML = '<p class="msg">' + err.message + '</p>';
-    });
-})();
-</script>
+<script src="assets/parent.js" defer></script>
 </body>
 </html>

@@ -9,21 +9,23 @@ const handlers = {
   'content': require('./_handlers/admin/content'),
   'dashboard-stats': require('./_handlers/admin/dashboard-stats'),
   'login-pin': require('./_handlers/admin/login-pin'),
+  'logout': require('./_handlers/admin/logout'),
   'questions': require('./_handlers/admin/questions'),
+  'quizzes': require('./_handlers/admin/quizzes'),
   'results': require('./_handlers/admin/results'),
+  'reviews': require('./_handlers/admin/reviews'),
   'settings': require('./_handlers/admin/settings'),
+  'session': require('./_handlers/admin/session'),
   'students': require('./_handlers/admin/students'),
   'super-login-request': require('./_handlers/admin/super-login-request'),
   'super-login-verify': require('./_handlers/admin/super-login-verify'),
 };
 
 module.exports = async (req, res) => {
-  const route = req.query.route || (req.url || '').split('?')[0].split('/').filter(Boolean).pop();
-  const handler = handlers[route];
-
-  if (!handler) {
+  const rawRoute = req.query.route || (req.url || '').split('?')[0].split('/').filter(Boolean).pop();
+  const route = typeof rawRoute === 'string' ? rawRoute : '';
+  if (!Object.prototype.hasOwnProperty.call(handlers, route)) {
     return res.status(404).json({ error: 'Not found' });
   }
-
-  return handler(req, res);
+  return handlers[route](req, res);
 };

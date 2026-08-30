@@ -1,86 +1,70 @@
 const { supabase } = require('../../_lib/supabase');
 const { applyCors } = require('../../_lib/cors');
+const { requireStudent } = require('../../_lib/student-auth');
+const { getPassPercent, isMonthUnlocked } = require('../../_lib/quiz-access');
 
-// GET /api/quizzes?month_id=...&student_id=...
-// بيرجع كويزات الشهر الأسبوعية + الاختبار النهائي، وكل واحد معاه حالته لنفس الطالب:
-// "completed" / "unlocked" / "locked"
-// الكويزات الأسبوعية بتتفتح ورا بعض زي الأول. الاختبار النهائي بيتفتح لما كل الكويزات الأسبوعية تخلص.
-// لو الاختبار النهائي مفتوح بس لسه مفيهوش أسئلة، بنرجّع has_questions:false عشان الموقع يقول للطالب "لسه مش متاح".
 module.exports = async (req, res) => {
   if (applyCors(req, res)) return;
+  if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
 
-  if (req.method !== 'GET') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
+  const monthId = String(req.query.month_id || '').trim();
+  if (!monthId) return res.status(400).json({ error: 'month_id مطلوب' });
+  const session = await requireStudent(req, res);
+  if (!session) return;
+  const studentId = session.id;
 
-  const { month_id, student_id } = req.query;
-
-  if (!month_id || !student_id) {
-    return res.status(400).json({ error: 'month_id و student_id مطلوبين' });
-  }
+  const passPercent = await getPassPercent();
+  let monthUnlocked = false;
+  try { monthUnlocked = await isMonthUnlocked(studentId, monthId, passPercent); }
+  catch (error) { return res.status(500).json({ error: 'تعذر التحقق من حالة الشهر' }); }
+  if (!monthUnlocked) return res.status(403).json({ error: 'الشهر ده لسه مقفول' });
 
   const { data: allQuizzes, error: qErr } = await supabase
     .from('quizzes')
-    .select('*')
-    .eq('month_id', month_id)
+    .select('id, month_id, title, type, week_number, quiz_number_in_week, order_index')
+    .eq('month_id', monthId)
     .order('order_index', { ascending: true });
+  if (qErr) return res.status(500).json({ error: 'تعذر تحميل الكويزات' });
 
-  if (qErr) return res.status(500).json({ error: qErr.message });
-
-  const weeklyQuizzes = allQuizzes.filter((q) => q.type !== 'final');
-  const finalExam = allQuizzes.find((q) => q.type === 'final');
-
-  const quizIds = allQuizzes.map((q) => q.id);
+  const weeklyQuizzes = (allQuizzes || []).filter((quiz) => quiz.type !== 'final');
+  const finalExam = (allQuizzes || []).find((quiz) => quiz.type === 'final');
+  const quizIds = (allQuizzes || []).map((quiz) => quiz.id);
 
   const { data: results, error: rErr } = await supabase
     .from('results')
     .select('quiz_id, score, total')
-    .eq('student_id', student_id)
+    .eq('student_id', studentId)
     .in('quiz_id', quizIds.length ? quizIds : ['00000000-0000-0000-0000-000000000000']);
+  if (rErr) return res.status(500).json({ error: 'تعذر تحميل النتائج' });
 
-  if (rErr) return res.status(500).json({ error: rErr.message });
-
-  const resultByQuiz = Object.fromEntries((results || []).map((r) => [r.quiz_id, r]));
-
-  // 1) حالة الكويزات الأسبوعية (تتفتح ورا بعض)
-  let previousCompleted = true; // أول كويز أسبوعي دايمًا مفتوح
+  const resultByQuiz = Object.fromEntries((results || []).map((result) => [String(result.quiz_id), result]));
+  let previousCompleted = true;
   const weeklyWithStatus = weeklyQuizzes.map((quiz) => {
-    const result = resultByQuiz[quiz.id];
-    let status;
-    if (result) status = 'completed';
-    else if (previousCompleted) status = 'unlocked';
-    else status = 'locked';
-    previousCompleted = Boolean(result);
+    const result = resultByQuiz[String(quiz.id)];
+    const status = result ? 'completed' : (previousCompleted ? 'unlocked' : 'locked');
+    previousCompleted = previousCompleted && Boolean(result);
     return { ...quiz, status, result: result || null };
   });
 
-  const allWeeklyDone = weeklyWithStatus.every((q) => q.status === 'completed');
-
-  // 2) حالة الاختبار النهائي (يتفتح بعد كل الكويزات الأسبوعية)
+  const allWeeklyDone = weeklyWithStatus.every((quiz) => quiz.status === 'completed');
   let finalWithStatus = null;
   if (finalExam) {
-    const result = resultByQuiz[finalExam.id];
-    let status;
-    if (result) status = 'completed';
-    else if (allWeeklyDone) status = 'unlocked';
-    else status = 'locked';
-
+    const result = resultByQuiz[String(finalExam.id)] || null;
+    const passed = Boolean(result?.total && Math.round((result.score / result.total) * 100) >= passPercent);
+    const status = passed ? 'completed' : (allWeeklyDone ? 'unlocked' : 'locked');
     const { count: questionCount } = await supabase
       .from('quiz_questions')
       .select('id', { count: 'exact', head: true })
       .eq('quiz_id', finalExam.id);
 
-    const passPercent = 70; // القيمة الافتراضية، وبنجيب المحدّثة من site_settings تحت
-    const passed = result ? Math.round((result.score / result.total) * 100) >= passPercent : null;
-
     finalWithStatus = {
       ...finalExam,
       status,
-      result: result || null,
+      result,
       has_questions: (questionCount || 0) > 0,
-      passed,
+      passed: result ? passed : null,
     };
   }
 
-  return res.status(200).json({ quizzes: weeklyWithStatus, final_exam: finalWithStatus });
+  return res.status(200).json({ quizzes: weeklyWithStatus, final_exam: finalWithStatus, pass_percent: passPercent });
 };

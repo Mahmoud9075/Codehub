@@ -20,7 +20,7 @@ module.exports = async (req, res) => {
     .order('created_at', { ascending: false })
     .limit(200);
 
-  if (error) return res.status(500).json({ error: error.message });
+  if (error) return res.status(500).json({ error: 'تعذر تحميل سجل التعديلات' });
 
   return res.status(200).json({ log: data });
 };

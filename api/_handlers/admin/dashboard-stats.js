@@ -20,12 +20,12 @@ module.exports = async (req, res) => {
   const { count: totalStudents, error: sErr } = await supabase
     .from('students')
     .select('id', { count: 'exact', head: true });
-  if (sErr) return res.status(500).json({ error: sErr.message });
+  if (sErr) return res.status(500).json({ error: 'تعذر تحميل إحصائيات الطلاب' });
 
   const { data: allResults, error: rErr } = await supabase
     .from('results')
     .select('student_id, score, total, completed_at');
-  if (rErr) return res.status(500).json({ error: rErr.message });
+  if (rErr) return res.status(500).json({ error: 'تعذر تحميل إحصائيات النتائج' });
 
   const quizzesCompleted = (allResults || []).length;
 
@@ -56,7 +56,7 @@ module.exports = async (req, res) => {
     .select('id, first_name, last_name, phone, phone_verified, created_at')
     .order('created_at', { ascending: false })
     .limit(5);
-  if (recErr) return res.status(500).json({ error: recErr.message });
+  if (recErr) return res.status(500).json({ error: 'تعذر تحميل آخر التسجيلات' });
 
   return res.status(200).json({
     total_students: totalStudents || 0,

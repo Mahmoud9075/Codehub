@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
     }
 
     const { data, error } = await supabase.from('site_content').select('key, value');
-    if (error) return res.status(500).json({ error: error.message });
+    if (error) return res.status(500).json({ error: 'تعذر تحميل محتوى الموقع' });
 
     const map = {};
     (data || []).forEach((row) => { map[row.key] = row.value; });
@@ -20,6 +20,6 @@ module.exports = async (req, res) => {
     return res.status(200).json({ content: map });
   } catch (err) {
     // Always return JSON on unexpected errors to avoid frontend JSON.parse failures
-    return res.status(500).json({ error: err && err.message ? err.message : 'Internal server error' });
+    return res.status(500).json({ error: 'تعذر تحميل محتوى الموقع' });
   }
 };

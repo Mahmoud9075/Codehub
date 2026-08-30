@@ -21,7 +21,7 @@ module.exports = async (req, res) => {
     .order('created_at', { ascending: false })
     .limit(200);
 
-  if (error) return res.status(500).json({ error: error.message });
+  if (error) return res.status(500).json({ error: 'تعذر تحميل أسئلة المساعد' });
 
   // تجميع الأسئلة المتشابهة (نص مطابق تمامًا) عشان نعرف الأكتر تكرارًا
   const counts = {};
@@ -34,5 +34,5 @@ module.exports = async (req, res) => {
 
   const topQuestions = Object.values(counts).sort((a, b) => b.count - a.count);
 
-  return res.status(200).json({ total_questions: data.length, top_questions: topQuestions });
+  return res.status(200).json({ total_questions: (data || []).length, top_questions: topQuestions });
 };

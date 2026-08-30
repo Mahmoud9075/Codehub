@@ -18,9 +18,10 @@ module.exports = async (req, res) => {
   const { data, error } = await supabase
     .from('students')
     .select('id, first_name, last_name, phone, email, phone_verified, created_at')
-    .order('created_at', { ascending: false });
+    .order('created_at', { ascending: false })
+    .limit(1000);
 
-  if (error) return res.status(500).json({ error: error.message });
+  if (error) return res.status(500).json({ error: 'تعذر تحميل الطلاب' });
 
   return res.status(200).json({ students: data || [] });
 };

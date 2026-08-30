@@ -20,13 +20,13 @@ module.exports = async (req, res) => {
     .order('visited_at', { ascending: false })
     .limit(5000);
 
-  if (error) return res.status(500).json({ error: error.message });
+  if (error) return res.status(500).json({ error: 'تعذر تحميل الزيارات' });
 
   const byPage = {};
   const last7Days = {};
   const now = Date.now();
 
-  data.forEach((row) => {
+  (data || []).forEach((row) => {
     byPage[row.page] = (byPage[row.page] || 0) + 1;
     const daysAgo = Math.floor((now - new Date(row.visited_at).getTime()) / 86400000);
     if (daysAgo < 7) {
@@ -36,7 +36,7 @@ module.exports = async (req, res) => {
   });
 
   return res.status(200).json({
-    total: data.length,
+    total: (data || []).length,
     by_page: byPage,
     last_7_days: last7Days,
   });

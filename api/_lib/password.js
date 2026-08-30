@@ -4,7 +4,7 @@
 
 const crypto = require('crypto');
 
-const ITERATIONS = 100000;
+const ITERATIONS = 210000;
 const KEYLEN = 64;
 const DIGEST = 'sha512';
 
@@ -55,4 +55,11 @@ function verifyPassword(password, storedHash) {
   });
 }
 
-module.exports = { hashPassword, verifyPassword };
+function needsRehash(storedHash) {
+  try {
+    const parts = String(storedHash || '').split('$');
+    return parts.length !== 4 || parts[0] !== 'pbkdf2' || Number(parts[1]) < ITERATIONS;
+  } catch (error) { return true; }
+}
+
+module.exports = { hashPassword, verifyPassword, needsRehash };

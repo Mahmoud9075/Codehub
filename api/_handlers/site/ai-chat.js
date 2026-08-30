@@ -1,6 +1,17 @@
 const { supabase } = require('../../_lib/supabase');
 const { applyCors } = require('../../_lib/cors');
 const { retrieveBookContext } = require('../../_lib/book-knowledge');
+const { requireStudent } = require('../../_lib/student-auth');
+const { getClientIp, shortHash, tooManyAttempts, recordAttempt } = require('../../_lib/request-security');
+
+function validImageBuffer(buffer, mime) {
+  if (!buffer || buffer.length < 12) return false;
+  if (mime === 'image/jpeg') return buffer[0] === 0xff && buffer[1] === 0xd8 && buffer[2] === 0xff;
+  if (mime === 'image/png') return buffer.slice(0, 8).equals(Buffer.from([0x89,0x50,0x4e,0x47,0x0d,0x0a,0x1a,0x0a]));
+  if (mime === 'image/webp') return buffer.slice(0, 4).toString('ascii') === 'RIFF' && buffer.slice(8, 12).toString('ascii') === 'WEBP';
+  if (mime === 'image/gif') return ['GIF87a', 'GIF89a'].includes(buffer.slice(0, 6).toString('ascii'));
+  return false;
+}
 
 // POST /api/ai-chat   body: { student_id, question, history, image_data?, image_mime? }
 //
@@ -20,22 +31,62 @@ module.exports = async (req, res) => {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { student_id, question, history, conversation_id, image_data, image_mime } = req.body || {};
+  const session = await requireStudent(req, res);
+  if (!session) return;
+  const student_id = session.id;
+
+  const { question, history, conversation_id, image_data, image_mime } = req.body || {};
   const cleanQuestion = typeof question === 'string' ? question.trim() : '';
   const hasImage = typeof image_data === 'string' && image_data.length > 0;
   const safeQuestion = cleanQuestion || 'اشرح محتوى الصورة بالتفصيل.';
   const allowedImageMimes = new Set(['image/jpeg', 'image/png', 'image/webp', 'image/gif']);
-  const safeImageMime = allowedImageMimes.has(image_mime) ? image_mime : 'image/jpeg';
+  const safeImageMime = allowedImageMimes.has(image_mime) ? image_mime : null;
 
   if (!cleanQuestion && !hasImage) {
     return res.status(400).json({ error: 'السؤال مطلوب' });
   }
-  if (cleanQuestion.length > 1000) {
+  if (cleanQuestion.length > 2500) {
     return res.status(400).json({ error: 'السؤال طويل قوي' });
   }
-  // قرابة 1.5MB بعد فك Base64. الواجهة تصغّر الصورة قبل الإرسال أصلًا.
-  if (hasImage && image_data.length > 2_000_000) {
-    return res.status(413).json({ error: 'حجم الصورة كبير. جرّب صورة أصغر' });
+
+  if (history !== undefined && !Array.isArray(history)) {
+    return res.status(400).json({ error: 'سجل المحادثة غير صحيح' });
+  }
+  const safeHistory = (Array.isArray(history) ? history : []).slice(-10).map((message) => ({
+    role: message?.role === 'assistant' ? 'assistant' : 'user',
+    content: String(message?.content || '').trim().slice(0, 4000),
+  })).filter((message) => message.content);
+  if (safeHistory.reduce((sum, message) => sum + message.content.length, 0) > 16000) {
+    return res.status(400).json({ error: 'سجل المحادثة طويل قوي' });
+  }
+
+  if (hasImage) {
+    if (!safeImageMime || !/^[A-Za-z0-9+/=\r\n]+$/.test(image_data)) return res.status(400).json({ error: 'بيانات الصورة غير صحيحة' });
+    const imageBuffer = Buffer.from(image_data, 'base64');
+    if (imageBuffer.length > 1_500_000) return res.status(413).json({ error: 'حجم الصورة كبير. جرّب صورة أصغر' });
+    if (!validImageBuffer(imageBuffer, safeImageMime)) return res.status(400).json({ error: 'ملف الصورة غير صالح' });
+  }
+
+  const ip = getClientIp(req);
+  const aiContext = `ai_${shortHash(student_id)}`;
+  const aiAccountContext = `ai_account_${shortHash(student_id)}`;
+  if (await tooManyAttempts({ ip, context: aiContext, windowMs: 10 * 60 * 1000, limit: 30 }) ||
+      await tooManyAttempts({ ip: 'account', context: aiAccountContext, windowMs: 10 * 60 * 1000, limit: 60 })) {
+    return res.status(429).json({ error: 'طلبات كتير للمساعد. جرّب تاني بعد شوية.' });
+  }
+  await Promise.allSettled([recordAttempt(ip, aiContext), recordAttempt('account', aiAccountContext)]);
+
+  let storedConversation = null;
+  if (conversation_id) {
+    const { data, error } = await supabase
+      .from('ai_conversations')
+      .select('id, messages')
+      .eq('id', String(conversation_id))
+      .eq('student_id', student_id)
+      .maybeSingle();
+    if (error) return res.status(500).json({ error: 'تعذر تحميل المحادثة' });
+    if (!data) return res.status(404).json({ error: 'المحادثة مش موجودة' });
+    storedConversation = data;
   }
 
   if (!process.env.GEMINI_API_KEY) {
@@ -55,35 +106,45 @@ module.exports = async (req, res) => {
     .map((k) => `### ${k.title}\n${k.content}`)
     .join('\n\n');
 
-  const bookResult = retrieveBookContext(safeQuestion, history, 8);
+  const storedHistory = storedConversation && Array.isArray(storedConversation.messages)
+    ? storedConversation.messages.slice(-10).map((message) => ({
+        role: message?.role === 'assistant' ? 'assistant' : 'user',
+        content: String(message?.content || '').trim().slice(0, 4000),
+      })).filter((message) => message.content)
+    : null;
+  const retrievalHistory = storedHistory || safeHistory;
+  const bookResult = retrieveBookContext(safeQuestion, retrievalHistory, 8);
   const bookContext = bookResult.context;
 
-  const systemPrompt = `أنت مساعد تعليمي مصري لطلاب المرحلة الثانوية، متخصص في البرمجة والذكاء الاصطناعي. هدفك أن يفهم الطالب الإجابة فعلًا، وليس مجرد إعطائه ردًا قصيرًا أو عامًا.
+  const systemPrompt = `أنت مساعد Code Hub الذكي: مساعد عام وتعليمي لطلاب المرحلة الثانوية، وليس مقيدًا بالمنهج فقط. تقدر تساعد في البرمجة والذكاء الاصطناعي والمواد الدراسية واللغات والترجمة والعلوم والتكنولوجيا والأسئلة العامة، وتشرح الصور المرفوعة داخل الشات. هدفك أن يفهم الطالب الإجابة فعلًا وأن يحصل على رد دقيق وواضح على سؤاله نفسه.
 
-قواعد مهمة جدًا لازم تتبعها بالظبط:
-1. اقرأ سؤال الطالب وسياق المحادثة كويس، وجاوب على المطلوب نفسه. ممنوع الرد بكلام محفوظ أو إجابة لا تخص السؤال.
-2. استخدم صفحات الكتب ومحتوى المنهج المرفقين أدناه أولًا. لو الإجابة موجودة فيهم، لا تستخدم بحث الإنترنت ولا تغيّر المعلومة.
-3. لو المقتطفات لا تكفي فعلًا أو السؤال خارج الكتب، استخدم Google Search للتحقق من المعلومة من مصدر موثوق وحديث. لا تدّعي أنك بحثت إذا لم تظهر لك نتيجة بحث.
-4. اكتب بالعربي المصري البسيط والواضح. اشرح المصطلح، وبعده الفكرة خطوة بخطوة، وبعدها مثال صغير عندما يفيد.
-5. طول الإجابة يكون مناسبًا للسؤال: لا تختصر لدرجة تضيّع المعنى، ولا تطوّل بلا فائدة. لو الطالب قال "وسّع" أو "اشرح بالتفصيل" قدّم شرحًا كاملًا ومنظمًا.
-6. لو السؤال يحتمل أكثر من معنى ولا يمكن تحديد المقصود من السياق، اسأل سؤال توضيح واحد بدل التخمين.
-7. في المسائل وأسئلة الاختيار والصح والخطأ: اذكر الإجابة الصحيحة أولًا، ثم سببها باختصار واضح.
-8. في البرمجة: اشرح الكود سطرًا سطرًا عند الحاجة، واستخدم مثالًا صحيحًا قابلًا للتنفيذ، ونبّه على الأخطاء الشائعة.
-9. لو الطالب أرسل صورة: افحص الصورة نفسها، واقرأ النص الظاهر فيها، وحدد ما يسأل عنه ثم اشرح له بوضوح. لا تقل إن الصورة غير ظاهرة طالما وصلت لك صورة في الطلب.
-10. ممنوع اختراع معلومة أو اسم درس أو رقم صفحة. لا تعرض للطالب اسم الكتاب أو رقم الصفحة أو عبارة "المصدر"؛ استخدم هذه البيانات داخليًا للتأكد فقط. لو مقتطف الكتاب غير كافٍ، انتقل للمصدر الخارجي الموثوق.
-11. لا تستخدم رموز Markdown مثل ** أو ### في الرد. استخدم عناوين نصية بسيطة وترقيمًا عاديًا، لأن الواجهة تعرض النص كما هو.
-12. لا تكرر مقدمة ترحيبية في كل رسالة، ولا تضف سؤالًا مقترحًا إلا لو كان مفيدًا فعلًا للسياق.
+قواعد مهمة جدًا:
+1. افهم سؤال الطالب وسياق المحادثة، وجاوب على المطلوب مباشرة بدون ردود محفوظة.
+2. لو السؤال متعلق بمنهج البرمجة والذكاء الاصطناعي، استخدم صفحات الكتب ومحتوى المدرس المرفقين أدناه كأولوية أولى.
+3. لو السؤال عام أو خارج المنهج، جاوب من معرفتك العامة. ولو المعلومة حديثة أو متغيرة أو تحتاج تحقق، استخدم Google Search من مصدر موثوق وحديث.
+4. تقدر تساعد في الترجمة، تبسيط النصوص، حل الأسئلة، شرح الأكواد، الرياضيات الأساسية، العلوم، التكنولوجيا، والمعلومات العامة.
+5. اكتب بالعربي المصري البسيط افتراضيًا، لكن لو الطالب طلب لغة أخرى أو كتب بلغة أخرى جاوبه باللغة المناسبة.
+6. طول الإجابة يكون مناسبًا للسؤال. لو الطالب طلب شرحًا مفصلًا، نظمه خطوة بخطوة مع أمثلة عند الحاجة.
+7. في أسئلة الاختيار والصح والخطأ والمسائل: اذكر الإجابة الصحيحة ثم السبب أو الحل بوضوح.
+8. في البرمجة: قدّم كودًا صحيحًا قابلًا للتنفيذ واشرح الأجزاء المهمة ونبّه على الأخطاء الشائعة.
+9. لو الطالب أرسل صورة، حلل الصورة نفسها واقرأ النص والعناصر الظاهرة فيها، ثم جاوب على السؤال المرتبط بها. لو أرسل صورة بدون سؤال، اشرح محتواها وأبرز ما يمكن فهمه منها.
+10. لا تخترع معلومة أو اسم درس أو رقم صفحة. لا تعرض أرقام صفحات الكتب أو أسماء المصادر الداخلية للطالب.
+11. لا تستخدم Markdown ثقيل مثل ### أو جداول معقدة؛ خلي الرد سهل القراءة داخل الشات.
+12. لا تكرر ترحيبًا في كل رسالة، ولا تحوّل كل رد إلى محاضرة طويلة.
+13. لو طلب الطالب شيئًا مؤذيًا أو غير قانوني أو غير آمن، لا تساعد في الجزء الضار، وقدّم بديلًا آمنًا ومفيدًا.
 
 أقرب صفحات من الكتب الوزارية المرفقة لسؤال الطالب:
 ${bookContext || '(لم يتم العثور على مقتطف قريب بما يكفي من الكتب لهذا السؤال)'}
 
 محتوى إضافي أضافه المدرس من لوحة الإدارة:
-${knowledgeText || '(لا يوجد محتوى إضافي حاليًا)'}`;
+${knowledgeText || '(لا يوجد محتوى إضافي حاليًا)'}`
 
   // شكل الرسائل الداخلي (بيتخزن في قاعدة البيانات وبيستخدمه الفرونت إند)
   // فاضل زي ما هو: { role: 'user' | 'assistant', content: '...' }
+  const conversationHistory = storedHistory || safeHistory;
+
   const messages = [
-    ...(Array.isArray(history) ? history.slice(-10) : []),
+    ...conversationHistory,
     { role: 'user', content: safeQuestion },
   ];
 
@@ -117,6 +178,8 @@ ${knowledgeText || '(لا يوجد محتوى إضافي حاليًا)'}`;
         maxOutputTokens: 1800,
       },
     };
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 25000);
     const requestOptions = {
       method: 'POST',
       headers: {
@@ -124,20 +187,32 @@ ${knowledgeText || '(لا يوجد محتوى إضافي حاليًا)'}`;
         'x-goog-api-key': process.env.GEMINI_API_KEY,
       },
       body: JSON.stringify(requestBody),
+      signal: controller.signal,
     };
 
-    let response = await fetch(apiUrl, requestOptions);
+    let response;
+    try {
+      response = await fetch(apiUrl, requestOptions);
+    } finally {
+      clearTimeout(timeout);
+    }
     let data = await response.json();
 
     // لو البحث غير متاح للحساب أو الحصة خلصت، خلى الشات يفضل شغال من الكتب والموديل.
     if (!response.ok && [400, 403, 429].includes(response.status)) {
       const fallbackBody = { ...requestBody };
       delete fallbackBody.tools;
-      response = await fetch(apiUrl, { ...requestOptions, body: JSON.stringify(fallbackBody) });
-      data = await response.json();
+      const fallbackController = new AbortController();
+      const fallbackTimeout = setTimeout(() => fallbackController.abort(), 25000);
+      try {
+        response = await fetch(apiUrl, { ...requestOptions, signal: fallbackController.signal, body: JSON.stringify(fallbackBody) });
+        data = await response.json();
+      } finally {
+        clearTimeout(fallbackTimeout);
+      }
     }
     if (!response.ok) {
-      return res.status(500).json({ error: data.error?.message || 'حصل خطأ في المساعد الذكي' });
+      return res.status(502).json({ error: 'المساعد الذكي غير متاح دلوقتي. جرّب تاني بعد شوية.' });
     }
 
     // شكل رد Gemini: data.candidates[0].content.parts[0].text
@@ -176,11 +251,11 @@ ${knowledgeText || '(لا يوجد محتوى إضافي حاليًا)'}`;
         : 'general_knowledge';
 
     // سجّل السؤال (صامت، ما بيأثرش على الرد لو فشل) — لسجل الأسئلة الشائعة في اللوحة
-    supabase.from('ai_chat_log').insert({ student_id: student_id || null, question: safeQuestion, answer_source: source }).then(() => {});
+    supabase.from('ai_chat_log').insert({ student_id, question: safeQuestion, answer_source: source }).then(() => {});
 
     // احفظ المحادثة كاملة عشان الطالب يقدر يرجعلها تاني بعدين
-    let savedConversationId = conversation_id || null;
-    if (student_id) {
+    let savedConversationId = storedConversation?.id || null;
+    {
       const newMessages = [
         ...messages,
         { role: 'assistant', content: answerText },
