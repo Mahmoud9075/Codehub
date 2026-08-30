@@ -5,109 +5,24 @@
   // ============================================================
   window.CH_SITE_API_BASE = window.location.origin;
 
-/* --- extracted script 2 --- */
-document.addEventListener('DOMContentLoaded',function(){
-        var hero=document.querySelector('.jl-hero');
-        var copy=hero&&hero.querySelector('.jl-hero-text');
-        if(!hero||!copy)return;
-
-        if(!copy.querySelector('.jl-wall-code')){
-          var wall=document.createElement('div');
-          wall.className='jl-wall-code';
-          wall.setAttribute('aria-hidden','true');
-          ['</>','{ }','AI','#','01','( )'].forEach(function(symbol){
-            var item=document.createElement('span');
-            item.textContent=symbol;
-            wall.appendChild(item);
-          });
-          copy.insertBefore(wall,copy.firstChild);
-        }
-
-        var sub=copy.querySelector('p.sub');
-        if(sub)sub.textContent='Code Hub هي منصة تعليمية خاصة متخصصة في تدريس مادة البرمجة والذكاء الاصطناعي لطلاب الصف الأول الثانوي والصف الثاني الثانوي بطريقة مبسطة وعملية تساعد الطالب على الفهم والتطبيق وتحقيق أعلى الدرجات';
-
-        var primary=copy.querySelector('.jl-open-groups');
-        if(primary){
-          primary.textContent='ابدأ دلوقتي';
-          primary.removeAttribute('data-i18n');
-        }
-
-        var oldChat=copy.querySelector('#jl-hero-chat-btn');
-        if(oldChat)oldChat.remove();
-
-        var wallLayer=copy.querySelector('.jl-wall-code');
-        if(wallLayer&&window.matchMedia('(pointer:fine)').matches&&!window.matchMedia('(prefers-reduced-motion:reduce)').matches){
-          hero.addEventListener('pointermove',function(event){
-            var rect=hero.getBoundingClientRect();
-            var x=((event.clientX-rect.left)/rect.width-.5)*12;
-            var y=((event.clientY-rect.top)/rect.height-.5)*10;
-            wallLayer.style.setProperty('--wall-x',x.toFixed(1)+'px');
-            wallLayer.style.setProperty('--wall-y',y.toFixed(1)+'px');
-          });
-          hero.addEventListener('pointerleave',function(){
-            wallLayer.style.setProperty('--wall-x','0px');
-            wallLayer.style.setProperty('--wall-y','0px');
-          });
-        }
-      });
-
-/* --- extracted script 3 --- */
-document.addEventListener('DOMContentLoaded',function(){
-        var accountButton=document.getElementById('jl-student-btn');
-        if(accountButton){
-          accountButton.textContent='حسابي';
-          accountButton.setAttribute('aria-label','فتح الحساب الشخصي أو تسجيل الدخول');
-          accountButton.title='الاسم والبريد ورقم الهاتف والصورة الشخصية';
-        }
-        var langButton=document.getElementById('jl-lang-pill');
-        if(langButton){
-          langButton.setAttribute('aria-label','تغيير اللغة بين العربية والإنجليزية');
-          langButton.title='العربية / English';
-        }
-      });
-
-/* --- extracted script 4 --- */
-document.addEventListener('DOMContentLoaded',function(){
-        var exact='Code Hub هي منصة تعليمية خاصة متخصصة في تدريس مادة البرمجة والذكاء الاصطناعي لطلاب الصف الأول الثانوي والصف الثاني الثانوي بطريقة مبسطة وعملية تساعد الطالب على الفهم والتطبيق وتحقيق أعلى الدرجات';
-        var desc=document.querySelector('.jl-hero .jl-hero-text p');
-        if(desc) desc.textContent=exact;
-        document.querySelectorAll('.jl-course-btn').forEach(function(button){button.remove()});
-        var primary=document.querySelector('.jl-hero-primary');
-        if(primary) primary.textContent='ابدأ دلوقتي';
-        var account=document.getElementById('jl-student-btn');
-        if(account){account.setAttribute('title','الحساب الشخصي: تعديل الاسم والبريد والهاتف والصورة');account.setAttribute('aria-label','فتح الحساب الشخصي أو تسجيل الدخول')}
-        var lang=document.querySelector('.jl-lang-pill');
-        if(lang){lang.setAttribute('title','تغيير اللغة');lang.setAttribute('aria-label','تغيير لغة الموقع')}
-        var scene=document.querySelector('.jl-hw-scene');
-        if(scene){
-          scene.querySelectorAll('.jl-wall-code,.jl-hero-code-field').forEach(function(old){old.remove()});
-          var field=document.createElement('div');field.className='jl-hero-code-field';field.setAttribute('aria-hidden','true');
-          ['</>','{ }','AI','#','01','( )','[ ]','λ','const','</>','{ }',';','=','fn'].forEach(function(symbol){var item=document.createElement('span');item.textContent=symbol;field.appendChild(item)});
-          scene.appendChild(field);
-          scene.addEventListener('pointermove',function(event){var box=scene.getBoundingClientRect();var x=((event.clientX-box.left)/box.width-.5)*12;var y=((event.clientY-box.top)/box.height-.5)*9;field.style.setProperty('--code-x',x+'px');field.style.setProperty('--code-y',y+'px')},{passive:true});
-          scene.addEventListener('pointerleave',function(){field.style.setProperty('--code-x','0px');field.style.setProperty('--code-y','0px')},{passive:true});
-        }
-      });
-
-/* --- extracted script 5 --- */
-document.addEventListener('DOMContentLoaded',function(){
-        var scene=document.querySelector('.jl-hw-scene');
-        var copy=document.querySelector('.jl-hero>.jl-hero-text');
-        if(scene&&copy) scene.appendChild(copy);
-        var desc=document.querySelector('.jl-hw-scene .jl-hero-text p');
-        if(desc) desc.textContent='Code Hub منصة متخصصة في تعليم البرمجة والذكاء الاصطناعي لطلاب الصف الأول والثاني الثانوي بأسلوب عملي ومبسّط.';
-        var register=document.getElementById('jl-register-nav-btn');
-        if(register){register.textContent='حساب جديد';register.setAttribute('role','link');register.setAttribute('aria-label','إنشاء حساب جديد')}
-      });
-
-/* --- extracted script 6 --- */
-document.addEventListener('DOMContentLoaded',function(){
-        var scene=document.querySelector('.jl-hw-scene');
-        var copy=scene&&scene.querySelector('.jl-hero-text');
-        var actions=copy&&copy.querySelector('.jl-hero-actions');
-        if(scene&&actions) scene.appendChild(actions);
-        if(copy) copy.style.setProperty('display','none','important');
-      });
+/* --- first-screen initializer v12 --- */
+document.addEventListener('DOMContentLoaded', function(){
+  var accountButton=document.getElementById('jl-student-btn');
+  if(accountButton){
+    accountButton.setAttribute('aria-label','فتح الحساب الشخصي أو تسجيل الدخول');
+    accountButton.title='الحساب الشخصي أو تسجيل الدخول';
+  }
+  var register=document.getElementById('jl-register-nav-btn');
+  if(register){
+    register.setAttribute('role','link');
+    register.setAttribute('aria-label','إنشاء حساب جديد');
+  }
+  var langButton=document.getElementById('jl-lang-pill');
+  if(langButton){
+    langButton.setAttribute('aria-label','تغيير لغة الموقع بين العربية والإنجليزية');
+    langButton.title='العربية / English';
+  }
+});
 
 /* --- extracted script 7 --- */
 (function(){
@@ -580,6 +495,7 @@ document.addEventListener('DOMContentLoaded',function(){
     "btn-subscribe": {ar:"انضم لـ CODE HUB", en:"Join CODE HUB"},
     "hero-h1": {ar:"مستقبلك في البرمجة", en:"Your Future in Programming"},
     "hero-h1-mark": {ar:"يبدأ من هنا", en:"Starts Here"},
+    "hero-sub": {ar:"اتعلّم، طبّق، اختبر نفسك وتابع تقدمك خطوة بخطوة.", en:"Learn, practice, test yourself, and track your progress step by step."},
     "benefits-h": {ar:"إيه اللي هتاخده", en:"What You'll"},
     "benefits-h-mark": {ar:"معانا؟", en:"Get With Us"},
     "benefits-sub": {ar:"كل اللي محتاجه عشان تفهم، تطبّق، وتحقّق أعلى الدرجات — في مكان واحد.", en:"Everything you need to understand, practice, and score higher — all in one place."},
@@ -592,6 +508,26 @@ document.addEventListener('DOMContentLoaded',function(){
     "about-tag": {ar:"عن Code Hub", en:"About Code Hub"},
     "about-h": {ar:"ليه CODE HUB؟", en:"Why CODE HUB?"},
     "about-tagline": {ar:"مستقبل التعليم يبدأ من هنا", en:"The future of education starts here"},
+    "why-1-h": {ar:"شرح يخليك تفهم مش تحفظ", en:"Understand, Don’t Memorize"},
+    "why-1-p": {ar:"شرح مبسّط وتطبيقي لمادة البرمجة والذكاء الاصطناعي لطلاب أولى وثانية ثانوي.", en:"Clear, practical Programming & AI lessons for first- and second-year secondary students."},
+    "why-2-h": {ar:"اختبارات تتابع مستواك", en:"Tests That Track Your Level"},
+    "why-2-p": {ar:"اختبارات بعد كل حصة، أسبوعية وشهرية، عشان تعرف مستواك ونقاط ضعفك أول بأول.", en:"Session, weekly, and monthly tests help you track your level and weak points continuously."},
+    "why-3-h": {ar:"مهارات للمستقبل", en:"Skills for the Future"},
+    "why-3-p": {ar:"مش هدفنا الامتحان بس؛ هدفنا إنك تفهم، تطبّق، تحل المشكلات وتبني أساس قوي للجامعة وسوق العمل.", en:"Our goal goes beyond exams: understand, apply, solve problems, and build a strong foundation for university and work."},
+    "faq-h": {ar:"عندك سؤال؟", en:"Have a Question?"},
+    "faq-sub": {ar:"كل اللي محتاج تعرفه عن CODE HUB قبل ما تبدأ.", en:"Everything you need to know about CODE HUB before you start."},
+    "faq-q1": {ar:"الاشتراك شهري ولا سنوي؟", en:"Is the subscription monthly or yearly?"},
+    "faq-a1": {ar:"الاشتراك بيكون حسب نظام الدراسة المتاح، وهتلاقي كل التفاصيل والأسعار موضحة قبل الاشتراك.", en:"Subscriptions follow the available study plan, with all details and prices shown clearly before you subscribe."},
+    "faq-q2": {ar:"هل الدروس شرح بس ولا فيها تطبيق واختبارات؟", en:"Are lessons explanation only, or do they include practice and tests?"},
+    "faq-a2": {ar:"لأ، الشرح بيكون عملي ونظري، ومعاه تطبيق أثناء الدرس واختبارات تساعدك تتأكد إنك فهمت وتتابع مستواك.", en:"Lessons combine theory and hands-on practice, with tests that confirm understanding and track progress."},
+    "faq-q3": {ar:"إزاي المحتوى متوافق مع منهج المدرسة؟", en:"How does the content match the school curriculum?"},
+    "faq-a3": {ar:"المحتوى مترتب بما يتناسب مع منهج البرمجة والذكاء الاصطناعي لطلاب أولى وثانية ثانوي، مع شرح وتدريبات على كل جزء.", en:"Content is organized around the Programming & AI curriculum for first- and second-year secondary students, with explanations and practice for every part."},
+    "faq-q4": {ar:"هل الشرح مناسب لو أنا مبتدئ ومليش أي خلفية في البرمجة؟", en:"Is it suitable if I’m a complete beginner in programming?"},
+    "faq-a4": {ar:"أيوه، بنبدأ من الأساسيات خطوة بخطوة، فمش محتاج تكون عندك خبرة سابقة في البرمجة.", en:"Yes. We start from the basics step by step, so no previous programming experience is required."},
+    "faq-q5": {ar:"إزاي أتابع مستوايا وتقدمي؟", en:"How can I track my level and progress?"},
+    "faq-a5": {ar:"من خلال الاختبارات والنتائج داخل حسابك، تقدر تعرف مستواك وتتابع تقدمك باستمرار.", en:"Your account shows tests and results so you can continuously monitor your level and progress."},
+    "faq-q6": {ar:"لو واجهت مشكلة، هل فيه دعم فني؟", en:"Is technical support available if I have a problem?"},
+    "faq-a6": {ar:"أيوه، لو واجهتك أي مشكلة في الحساب أو استخدام المنصة، تقدر تتواصل مع الدعم ونساعدك في حلها.", en:"Yes. If you have any account or platform issue, contact support and we’ll help you solve it."},
     "footer-info-h": {ar:"تواصل معنا", en:"Contact Us"},
     "footer-tagline": {ar:"بنعلّم البرمجة والذكاء الاصطناعي بشغف.", en:"We teach programming and AI with passion."},
     "footer-address": {ar:"شارع 10 - سنتر كيان - الدور التاني - أمام مكتبة الروضة وبجوار سوبر ماركت الشعب", en:"10th St. - Kayan Center - 2nd Floor - opposite Al-Rawda Library, next to Al-Shaab Supermarket"},
@@ -630,8 +566,11 @@ document.addEventListener('DOMContentLoaded',function(){
     "val-3": {ar:"التعلم القائم على التطبيق.", en:"Application-based learning."},
     "val-4": {ar:"الشفافية والالتزام.", en:"Transparency & commitment."},
     "val-5": {ar:"دعم الطالب في كل مرحلة من رحلته التعليمية.", en:"Supporting students at every stage of their learning journey."},
-    "groups-h": {ar:"سجّل في جروب الواتساب بتاعك", en:"Join Your WhatsApp Group"},
-    "groups-p": {ar:"دوس على الصف بتاعك وهتتحول على طول لجروب الواتساب.", en:"Tap your grade and you'll be taken straight to the WhatsApp group."},
+    "groups-tag": {ar:"اختر الصف الدراسي", en:"Choose your grade"},
+    "groups-h": {ar:"💬 انضم إلى مجموعة واتساب", en:"💬 Join Your WhatsApp Group"},
+    "groups-p": {ar:"اختر صفك الدراسي وسيتم تحويلك مباشرة إلى مجموعة واتساب.", en:"Choose your grade and you'll be taken directly to the WhatsApp group."},
+    "groups-g1": {ar:"💡 أولى ثانوي | البرمجة من الصفر", en:"💡 First Secondary | Programming from Zero"},
+    "groups-g2": {ar:"🚀 ثانية ثانوي | مستقبل البكالوريا", en:"🚀 Second Secondary | Baccalaureate Future"},
     "footer-links-h2": {ar:"روابط سريعة", en:"Quick Links"},
     "footer-nav-audience": {ar:"لمن المنصة", en:"Who It's For"},
     "nav-reviews": {ar:"⭐ التقييمات", en:"⭐ Reviews"},
@@ -676,6 +615,7 @@ document.addEventListener('DOMContentLoaded',function(){
     htmlEl.setAttribute('lang', lang);
     htmlEl.setAttribute('dir', lang === 'en' ? 'ltr' : 'rtl');
     if (langLabel) langLabel.textContent = lang === 'en' ? 'AR' : 'EN';
+    if (langPill){ langPill.setAttribute('aria-label', lang === 'ar' ? 'Switch to English' : 'التبديل إلى العربية'); langPill.title = lang === 'ar' ? 'English' : 'العربية'; }
 
     document.querySelectorAll('[data-i18n]').forEach(function(el){
       var entry = translations[el.getAttribute('data-i18n')];
