@@ -32,11 +32,19 @@ module.exports = async (req, res) => {
   // Count every valid registration attempt so successful/duplicate requests cannot bypass the hourly cap.
   await recordAttempt(ip, 'student_register').catch(() => {});
 
-  const [{ data: byPhone }, { data: byEmail }] = await Promise.all([
+  const [phoneLookup, emailLookup] = await Promise.all([
     supabase.from('students').select('id').eq('phone', phone).maybeSingle(),
     supabase.from('students').select('id').eq('email', email).maybeSingle(),
   ]);
-  if (byPhone || byEmail) return res.status(409).json({ error: 'الرقم أو الإيميل ده مسجل قبل كده' });
+  if (phoneLookup.error || emailLookup.error) {
+    const lookupError = phoneLookup.error || emailLookup.error;
+    console.error('[register] Student lookup failed', { code: lookupError.code, message: lookupError.message });
+    if (String(lookupError.code || '') === '42703' || String(lookupError.code || '') === '42P01') {
+      return res.status(503).json({ error: 'قاعدة بيانات الحسابات محتاجة تحديث مرة واحدة قبل إنشاء حساب جديد.' });
+    }
+    return res.status(500).json({ error: 'تعذر التحقق من بيانات الحساب حاليًا. حاول مرة تانية.' });
+  }
+  if (phoneLookup.data || emailLookup.data) return res.status(409).json({ error: 'الرقم أو الإيميل ده مسجل قبل كده' });
 
   const password_hash = await hashPassword(password);
   const parent_token = crypto.randomBytes(24).toString('base64url');
@@ -47,8 +55,16 @@ module.exports = async (req, res) => {
     .single();
 
   if (error) {
-    if (String(error.code) === '23505') return res.status(409).json({ error: 'الرقم أو الإيميل ده مسجل قبل كده' });
-    return res.status(500).json({ error: 'حصل خطأ أثناء إنشاء الحساب' });
+    const code = String(error.code || '');
+    if (code === '23505') return res.status(409).json({ error: 'الرقم أو الإيميل ده مسجل قبل كده' });
+    console.error('[register] Supabase insert failed', { code, message: error.message, details: error.details });
+    if (code === '42703' || code === '42P01' || code === '22001') {
+      return res.status(503).json({ error: 'قاعدة بيانات الحسابات محتاجة تحديث مرة واحدة قبل إنشاء حسابات جديدة.' });
+    }
+    if (code === '42501') {
+      return res.status(500).json({ error: 'صلاحيات قاعدة البيانات محتاجة مراجعة قبل إنشاء الحساب.' });
+    }
+    return res.status(500).json({ error: 'حصل خطأ أثناء إنشاء الحساب. جرّب مرة تانية، ولو استمر الخطأ راجع Logs في Vercel.' });
   }
 
   setStudentSession(res, created.id, password_hash);
