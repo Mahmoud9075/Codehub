@@ -1,6 +1,6 @@
 const { supabase } = require('../../_lib/supabase');
 const { applyCors } = require('../../_lib/cors');
-const { getClientIp, tooManyAttempts, recordAttempt } = require('../../_lib/request-security');
+const { getClientIp } = require('../../_lib/request-security');
 
 const ALLOWED_AUDIENCES = new Set(['أولى ثانوي', 'ثانية ثانوي', 'ولي أمر', 'زائر']);
 
@@ -9,7 +9,64 @@ function cleanText(value, max) {
 }
 
 function tableMissing(error) {
-  return error && (error.code === '42P01' || /site_reviews/i.test(String(error.message || '')) && /does not exist|schema cache/i.test(String(error.message || '')));
+  return error && (
+    error.code === '42P01' ||
+    (/site_reviews/i.test(String(error.message || '')) && /does not exist|schema cache/i.test(String(error.message || '')))
+  );
+}
+
+function normalizeArabic(value) {
+  return String(value || '')
+    .toLowerCase()
+    .replace(/[\u064B-\u065F\u0670]/g, '')
+    .replace(/[أإآٱ]/g, 'ا')
+    .replace(/ى/g, 'ي')
+    .replace(/ؤ/g, 'و')
+    .replace(/ئ/g, 'ي')
+    .replace(/ة/g, 'ه')
+    .replace(/[^\u0600-\u06FFa-z0-9\s]/gi, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+const DIRECT_ABUSE = [
+  'وسخ', 'وسخه', 'معفن', 'معفنه', 'زباله', 'حقير', 'حقيره', 'قذر', 'قذره',
+  'غبي', 'غبيه', 'اهبل', 'هبله', 'حمار', 'حماره', 'كلب', 'كلبه',
+  'قليل الادب', 'قله ادب', 'عديم الادب', 'عديمه الادب',
+  'عرص', 'خول', 'شرموط', 'شرموطه', 'متناك', 'متناكه', 'كسم', 'كس امك',
+  'ابن متناك', 'يلعن', 'لعنه'
+];
+
+const DIRECTED_NEGATIVE_PHRASES = [
+  'شرحك وحش', 'شرحك وحشه', 'شرحك مش حلو', 'شرحك مش كويس', 'شرحك معفن',
+  'شرحكم وحش', 'شرحكم وحشه', 'شرحكم مش حلو', 'شرحكم مش كويس', 'شرحكم معفن',
+  'انت مبتفهمش حاجه', 'انتم مبتفهموش حاجه', 'انتوا مبتفهموش حاجه',
+  'انت مش فاهم حاجه', 'انتم مش فاهمين حاجه', 'انتوا مش فاهمين حاجه',
+  'لبسك وحش', 'لبسك وحشه', 'شكلك وحش', 'شكلك وحشه', 'مراتك وحشه', 'مراتك وحش'
+];
+
+const FAMILY_WORDS = [
+  'امك', 'ابوك', 'اهلك', 'والدتك', 'والدك', 'اختك', 'اخوك', 'خالك', 'عمك', 'مراتك'
+];
+
+const FAMILY_INSULT_WORDS = [
+  'وسخ', 'وسخه', 'معفن', 'معفنه', 'زباله', 'قذر', 'قذره', 'حمار', 'حماره',
+  'كلب', 'كلبه', 'قليل الادب', 'وحش', 'وحشه', 'قبيح', 'قبيحه', 'لعنه', 'يلعن'
+];
+
+function containsPhrase(text, phrases) {
+  return phrases.some((phrase) => text.includes(phrase));
+}
+
+function needsAdminReview(comment) {
+  const text = normalizeArabic(comment);
+  if (!text) return false;
+  if (containsPhrase(text, DIRECT_ABUSE)) return true;
+  if (containsPhrase(text, DIRECTED_NEGATIVE_PHRASES)) return true;
+  const familyMention = FAMILY_WORDS.some((word) => text.includes(word));
+  const familyInsult = FAMILY_INSULT_WORDS.some((word) => text.includes(word));
+  if (familyMention && familyInsult) return true;
+  return false;
 }
 
 module.exports = async (req, res) => {
@@ -24,7 +81,9 @@ module.exports = async (req, res) => {
       .limit(60);
 
     if (error) {
-      if (tableMissing(error)) return res.status(200).json({ reviews: [], average: 0, count: 0, configured: false });
+      if (tableMissing(error)) {
+        return res.status(200).json({ reviews: [], average: 0, count: 0, configured: false });
+      }
       return res.status(500).json({ error: 'تعذر تحميل التقييمات' });
     }
 
@@ -32,6 +91,7 @@ module.exports = async (req, res) => {
     const average = reviews.length
       ? Math.round((reviews.reduce((sum, review) => sum + Number(review.stars || 0), 0) / reviews.length) * 10) / 10
       : 0;
+
     return res.status(200).json({ reviews, average, count: reviews.length, configured: true });
   }
 
@@ -42,47 +102,46 @@ module.exports = async (req, res) => {
     const stars = Number(req.body?.stars);
     const honeypot = cleanText(req.body?.website, 100);
 
-    // حقل مخفي للبوتات؛ الرد الطبيعي يمنع البوت من معرفة قاعدة الحماية.
-    if (honeypot) return res.status(202).json({ ok: true, pending: true });
+    // Anti-bot only. No public-review rate limit: real users can submit more than one review.
+    if (honeypot) {
+      return res.status(202).json({ ok: true, pending: true, message: 'شكرًا لتقييمك ❤️ رأيك وصلنا.' });
+    }
 
     if (name.length < 2) return res.status(400).json({ error: 'اكتب اسم صحيح' });
     if (!ALLOWED_AUDIENCES.has(audience)) return res.status(400).json({ error: 'اختار صفتك بشكل صحيح' });
     if (!Number.isInteger(stars) || stars < 1 || stars > 5) return res.status(400).json({ error: 'اختار تقييم من 1 إلى 5 نجوم' });
     if (comment.length < 5) return res.status(400).json({ error: 'اكتب رأيك بشكل أوضح' });
 
+    const pending = needsAdminReview(comment);
     const ipHash = getClientIp(req);
-    const shortWindow = { ip: ipHash, context: 'public_review_short', windowMs: 15 * 60 * 1000, limit: 2 };
-    const dailyWindow = { ip: ipHash, context: 'public_review_daily', windowMs: 24 * 60 * 60 * 1000, limit: 5 };
-    if (await tooManyAttempts(shortWindow) || await tooManyAttempts(dailyWindow)) {
-      return res.status(429).json({ error: 'أرسلت تقييمات كتير. جرّب مرة تانية بعد شوية.' });
-    }
-
-    const { data: recent } = await supabase
-      .from('site_reviews')
-      .select('id')
-      .eq('ip_hash', ipHash)
-      .eq('comment', comment)
-      .gte('created_at', new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString())
-      .limit(1);
-    if (recent && recent.length) return res.status(409).json({ error: 'التقييم ده اتبعت بالفعل' });
 
     const { data, error } = await supabase
       .from('site_reviews')
-      .insert({ name, audience, stars, comment, status: 'pending', ip_hash: ipHash })
+      .insert({
+        name,
+        audience,
+        stars,
+        comment,
+        status: pending ? 'pending' : 'approved',
+        ip_hash: ipHash,
+      })
       .select('id')
       .single();
 
     if (error) {
-      if (tableMissing(error)) return res.status(503).json({ error: 'نظام التقييمات محتاج تشغيل تحديث قاعدة البيانات أولًا' });
+      if (tableMissing(error)) {
+        return res.status(503).json({ error: 'نظام التقييمات محتاج تشغيل تحديث قاعدة البيانات أولًا' });
+      }
       return res.status(500).json({ error: 'تعذر حفظ التقييم' });
     }
 
-    await Promise.allSettled([
-      recordAttempt(ipHash, 'public_review_short'),
-      recordAttempt(ipHash, 'public_review_daily'),
-    ]);
-
-    return res.status(201).json({ ok: true, pending: true, id: data?.id || null });
+    // Same user-facing message in both cases: we don't expose moderation details to the visitor.
+    return res.status(201).json({
+      ok: true,
+      pending,
+      id: data?.id || null,
+      message: 'شكرًا لتقييمك ❤️ رأيك وصلنا.'
+    });
   }
 
   return res.status(405).json({ error: 'Method not allowed' });
