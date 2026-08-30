@@ -6288,3 +6288,598 @@ html[lang="ar"] .jl-lang-ar,html[lang="en"] .jl-lang-en{ color:var(--brand-gold)
 @media (prefers-reduced-motion:reduce){
   .jl-float-whatsapp,.jl-chat-btn,.jl-student-btn,.jl-admin-btn,.jl-mp-teaser-card,.jl-free-badge,.jl-cta-brand{ animation:none !important; }
 }
+
+/* =====================================================================
+   CODE HUB FINAL 100 PASS — 2026-08-30
+   Fixes: compact navy hamburger menu, auth modals, hero code-symbol motion.
+   WhatsApp + AI floating buttons keep their exact fixed positions.
+   ===================================================================== */
+
+/* --- Navbar: eliminate the oversized blank menu at every viewport --- */
+.jl-nav-start{ position:relative !important; }
+.jl-nav-hamburger{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  flex:0 0 auto !important;
+}
+.jl-nav-links{
+  display:none !important;
+  position:absolute !important;
+  top:calc(100% + 12px) !important;
+  inset-inline-start:0 !important;
+  inset-inline-end:auto !important;
+  margin:0 !important;
+  width:min(330px,calc(100vw - 28px)) !important;
+  max-width:330px !important;
+  max-height:min(68dvh,540px) !important;
+  flex-direction:column !important;
+  align-items:stretch !important;
+  padding:9px !important;
+  gap:2px !important;
+  overflow-y:auto !important;
+  overscroll-behavior:contain !important;
+  background:#102A43 !important;
+  border:1px solid rgba(217,164,65,.52) !important;
+  border-radius:14px !important;
+  box-shadow:0 20px 48px rgba(7,25,42,.34) !important;
+  z-index:1100 !important;
+}
+.jl-nav-links.open{ display:flex !important; }
+.jl-nav-links .jl-navlink{
+  width:100% !important;
+  min-height:40px !important;
+  display:flex !important;
+  align-items:center !important;
+  padding:9px 12px !important;
+  border:1px solid transparent !important;
+  border-radius:9px !important;
+  color:#F7F4EC !important;
+  font-size:13.5px !important;
+  line-height:1.35 !important;
+}
+.jl-nav-links .jl-navlink:hover,.jl-nav-links .jl-navlink:focus-visible{
+  background:rgba(217,164,65,.14) !important;
+  border-color:rgba(217,164,65,.25) !important;
+  color:#FFE4A0 !important;
+  transform:none !important;
+}
+.jl-auth-register{
+  color:#fff !important;
+  background:#102A43 !important;
+  border-color:#102A43 !important;
+}
+.jl-auth-login{ color:#102A43 !important; border-color:#102A43 !important; }
+[data-theme="dark"] .jl-auth-register{
+  color:#102A43 !important;
+  background:#D9A441 !important;
+  border-color:#D9A441 !important;
+}
+[data-theme="dark"] .jl-auth-login{ color:#F7F4EC !important; border-color:rgba(247,244,236,.78) !important; }
+
+/* --- Student login/register: cleaner hierarchy and compact registration --- */
+.jl-student-overlay{ background:rgba(7,24,42,.76) !important; backdrop-filter:blur(6px) !important; }
+.jl-student-modal{
+  width:min(480px,calc(100vw - 28px)) !important;
+  max-width:480px !important;
+  padding:34px 34px 30px !important;
+  border:1px solid rgba(217,164,65,.30) !important;
+  border-radius:24px !important;
+  background:#F7F4EC !important;
+  color:#102A43 !important;
+  box-shadow:0 34px 90px rgba(5,20,35,.38) !important;
+  overflow-x:hidden !important;
+}
+.jl-student-close{
+  top:14px !important;
+  inset-inline-end:14px !important;
+  width:34px !important;
+  height:34px !important;
+  display:grid !important;
+  place-items:center !important;
+  background:#EEE8DB !important;
+  color:#7A7465 !important;
+  border:1px solid rgba(16,42,67,.06) !important;
+  z-index:10 !important;
+}
+.jl-student-close:hover{ background:#E5DDCE !important; color:#102A43 !important; }
+.jl-student-tabs{ gap:10px !important; margin:4px 0 20px !important; padding-inline:0 !important; }
+.jl-student-tab{
+  min-height:48px !important;
+  border-radius:11px !important;
+  font-size:15px !important;
+  font-weight:900 !important;
+  background:#EEE9DD !important;
+  color:#766F60 !important;
+}
+.jl-student-tab.active{ background:#102A43 !important; color:#fff !important; box-shadow:0 8px 18px rgba(16,42,67,.16) !important; }
+.jl-student-form input{
+  min-height:50px !important;
+  padding:11px 15px !important;
+  margin-bottom:10px !important;
+  border:1px solid rgba(217,164,65,.30) !important;
+  border-radius:11px !important;
+  background:#FFFDF8 !important;
+  color:#102A43 !important;
+  box-shadow:none !important;
+}
+.jl-student-form input:focus{
+  border-color:rgba(217,164,65,.82) !important;
+  box-shadow:0 0 0 3px rgba(217,164,65,.12) !important;
+}
+.jl-pass-wrap{ margin-bottom:10px !important; }
+.jl-pass-eye{ inset-inline-end:12px !important; opacity:.62 !important; }
+
+#jl-login-form > .jl-reg{
+  width:132px !important;
+  min-height:50px !important;
+  display:flex !important;
+  justify-content:center !important;
+  margin:10px auto 0 !important;
+  padding:0 22px !important;
+  background:#D9A441 !important;
+  color:#fff !important;
+  border-radius:999px !important;
+  box-shadow:0 12px 26px rgba(217,164,65,.30) !important;
+}
+#jl-login-form > .jl-student-link{
+  display:block !important;
+  width:max-content !important;
+  margin:10px auto 0 !important;
+  color:#C68D1E !important;
+  font-size:13px !important;
+}
+
+#jl-register-form .jl-review-row{ gap:10px !important; margin-bottom:8px !important; }
+#jl-register-form .jl-review-row input{ min-width:0 !important; margin-bottom:0 !important; }
+#jl-register-form input{ min-height:46px !important; margin-bottom:8px !important; }
+#jl-register-form .jl-pass-wrap{ margin-bottom:8px !important; }
+#jl-register-form .jl-pass-strength-bar{ margin:-4px 0 7px !important; height:4px !important; }
+#jl-register-form .jl-pass-checklist{
+  grid-template-columns:1fr 1fr !important;
+  gap:5px 14px !important;
+  margin:0 0 9px !important;
+  padding:9px 11px !important;
+  border:1px solid rgba(217,164,65,.20) !important;
+  border-radius:11px !important;
+  background:#F1ECDF !important;
+}
+#jl-register-form .jl-pass-checklist li{ font-size:10.8px !important; line-height:1.45 !important; }
+#jl-register-form > .jl-reg{
+  width:210px !important;
+  min-height:52px !important;
+  display:flex !important;
+  justify-content:center !important;
+  margin:12px auto 0 !important;
+  padding:0 22px !important;
+  background:#102A43 !important;
+  color:#fff !important;
+  border-radius:999px !important;
+  box-shadow:0 12px 28px rgba(16,42,67,.22) !important;
+}
+#jl-register-form > .jl-reg:hover{ background:#173B5A !important; }
+
+/* Auth popup stays light and readable even while the site is in dark theme. */
+[data-theme="dark"] .jl-student-modal{ background:#F7F4EC !important; color:#102A43 !important; border-color:rgba(217,164,65,.34) !important; }
+[data-theme="dark"] .jl-student-form input{ background:#FFFDF8 !important; color:#102A43 !important; border-color:rgba(217,164,65,.32) !important; }
+[data-theme="dark"] .jl-student-tab{ background:#EEE9DD !important; color:#766F60 !important; }
+[data-theme="dark"] .jl-student-tab.active{ background:#102A43 !important; color:#fff !important; }
+[data-theme="dark"] #jl-register-form > .jl-reg{ background:#102A43 !important; color:#fff !important; }
+
+/* --- Hero: restore the floating code-symbol animation over the photo --- */
+.jl-hero-code-field{
+  display:block !important;
+  position:absolute !important;
+  inset:0 !important;
+  overflow:hidden !important;
+  pointer-events:none !important;
+  z-index:2 !important;
+}
+.jl-hero-code-field span{
+  position:absolute !important;
+  display:block !important;
+  font-family:var(--font-mono) !important;
+  font-weight:800 !important;
+  line-height:1 !important;
+  color:rgba(232,197,116,.28) !important;
+  text-shadow:0 0 18px rgba(217,164,65,.18) !important;
+  user-select:none !important;
+  animation:jlHeroCodeFloat100 6.8s ease-in-out infinite !important;
+  will-change:transform,opacity !important;
+}
+.jl-hero-code-field span:nth-child(1){left:7%;top:14%;font-size:28px;animation-delay:-.4s !important;}
+.jl-hero-code-field span:nth-child(2){left:38%;top:11%;font-size:23px;animation-delay:-2.2s !important;}
+.jl-hero-code-field span:nth-child(3){left:31%;top:74%;font-size:20px;animation-delay:-4.1s !important;}
+.jl-hero-code-field span:nth-child(4){left:54%;top:67%;font-size:19px;animation-delay:-1.1s !important;}
+.jl-hero-code-field span:nth-child(5){left:59%;top:20%;font-size:20px;animation-delay:-3.1s !important;}
+.jl-hero-code-field span:nth-child(6){left:48%;top:48%;font-size:22px;animation-delay:-5.0s !important;}
+.jl-hero-code-field span:nth-child(7){left:18%;top:55%;font-size:18px;animation-delay:-1.8s !important;}
+.jl-hero-code-field span:nth-child(8){left:63%;top:83%;font-size:18px;animation-delay:-3.7s !important;}
+@keyframes jlHeroCodeFloat100{
+  0%,100%{ transform:translate3d(0,0,0) rotate(-2deg); opacity:.22; }
+  50%{ transform:translate3d(0,-14px,0) rotate(3deg); opacity:.55; }
+}
+
+/* Keep hero text above the animated symbols and preserve the fixed floating buttons. */
+.jl-hero-text{ z-index:4 !important; }
+.jl-float-whatsapp,.jl-float-chat{ right:max(16px,env(safe-area-inset-right)) !important; }
+.jl-float-whatsapp{ bottom:max(18px,env(safe-area-inset-bottom)) !important; }
+.jl-float-chat{ bottom:calc(max(18px,env(safe-area-inset-bottom)) + 64px) !important; }
+
+@media(max-width:700px){
+  .jl-student-modal{ width:min(460px,calc(100vw - 20px)) !important; padding:28px 18px 24px !important; border-radius:20px !important; }
+  .jl-student-close{ top:12px !important; inset-inline-end:12px !important; width:31px !important; height:31px !important; }
+  .jl-student-tabs{ margin-top:4px !important; }
+  .jl-student-tab{ min-height:46px !important; font-size:13.5px !important; }
+  #jl-register-form .jl-review-row{ grid-template-columns:1fr 1fr !important; gap:8px !important; }
+  #jl-register-form .jl-pass-checklist{ gap:4px 8px !important; padding:8px !important; }
+  #jl-register-form .jl-pass-checklist li{ font-size:9.8px !important; }
+  #jl-register-form > .jl-reg{ width:190px !important; min-height:50px !important; }
+  .jl-hero-code-field span{ font-size:14px !important; opacity:.20; }
+  .jl-hero-code-field span:nth-child(2),.jl-hero-code-field span:nth-child(4),.jl-hero-code-field span:nth-child(8){ display:none !important; }
+  .jl-nav-links{ width:min(300px,calc(100vw - 20px)) !important; max-width:300px !important; top:calc(100% + 8px) !important; }
+}
+
+@media(max-width:380px){
+  #jl-register-form .jl-review-row{ grid-template-columns:1fr !important; }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .jl-hero-code-field span{ animation:none !important; }
+}
+
+
+/* === CODE HUB AUDITED 14.2 ===
+   Functional recovery + visual polish. Keep WhatsApp / AI floating positions untouched.
+   === */
+
+/* Always use the dark-letter logo in every theme. Older theme rules switched it back
+   to the white-letter asset, so override them once at the very end. */
+.jl-nav-logo-link img,
+.jl-ai-topbar-logo,
+.jl-footer-brand-logo{
+  content:url("codehub-logo-light-v9.png?v=14.2") !important;
+  filter:none !important;
+  opacity:1 !important;
+}
+[data-theme="dark"] .jl-nav-logo-link img,
+[data-theme="dark"] .jl-ai-topbar-logo,
+[data-theme="dark"] .jl-footer-brand-logo{
+  content:url("codehub-logo-light-v9.png?v=14.2") !important;
+  filter:none !important;
+}
+
+/* "حساب جديد" next to login: gold, never navy. */
+.jl-auth-register,
+[data-theme="dark"] .jl-auth-register{
+  background:#D9A441 !important;
+  border-color:#D9A441 !important;
+  color:#102A43 !important;
+  box-shadow:0 7px 18px rgba(217,164,65,.22) !important;
+}
+.jl-auth-register:hover,
+[data-theme="dark"] .jl-auth-register:hover{
+  background:#E5B756 !important;
+  border-color:#E5B756 !important;
+  color:#102A43 !important;
+  transform:translateY(-1px) !important;
+}
+
+/* Make the three-line menu an unmistakable interactive control. */
+.jl-nav-hamburger{
+  cursor:pointer !important;
+  pointer-events:auto !important;
+  touch-action:manipulation !important;
+  user-select:none !important;
+  position:relative !important;
+  z-index:1202 !important;
+}
+.jl-nav-links{ z-index:1201 !important; }
+.jl-nav-links.open{ display:flex !important; visibility:visible !important; opacity:1 !important; pointer-events:auto !important; }
+
+/* Hero programming symbols: force the requested motion on and keep it subtle. */
+.jl-hero-code-field{
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  z-index:3 !important;
+}
+.jl-hero-code-field span{
+  display:block !important;
+  animation:jlHeroCodeFloat141 6.4s ease-in-out infinite !important;
+}
+@keyframes jlHeroCodeFloat141{
+  0%,100%{transform:translate3d(0,0,0) rotate(-2deg) scale(1);opacity:.23}
+  35%{transform:translate3d(7px,-10px,0) rotate(1deg) scale(1.035);opacity:.48}
+  70%{transform:translate3d(-5px,-17px,0) rotate(3deg) scale(.99);opacity:.34}
+}
+/* The site owner explicitly requested this hero animation even when OS motion
+   reduction is enabled. Other accessibility motion reductions remain untouched. */
+@media (prefers-reduced-motion:reduce){
+  .jl-hero-code-field span{animation:jlHeroCodeFloat141 9s ease-in-out infinite !important;}
+}
+
+/* Auth / profile: readable, compact, no clipped logout or awkward inner scrollbar. */
+.jl-student-modal.jl-pv-mode{
+  max-height:min(92dvh,900px) !important;
+  overflow-y:auto !important;
+  overflow-x:hidden !important;
+  scrollbar-width:thin !important;
+  scrollbar-color:rgba(16,42,67,.28) transparent !important;
+  padding-bottom:34px !important;
+}
+.jl-student-modal.jl-pv-mode::-webkit-scrollbar{width:7px !important;}
+.jl-student-modal.jl-pv-mode::-webkit-scrollbar-track{background:transparent !important;}
+.jl-student-modal.jl-pv-mode::-webkit-scrollbar-thumb{background:rgba(16,42,67,.25) !important;border-radius:99px !important;}
+#jl-register-form > .jl-reg,
+[data-theme="dark"] #jl-register-form > .jl-reg{
+  background:#D9A441 !important;
+  color:#102A43 !important;
+  box-shadow:0 12px 28px rgba(217,164,65,.24) !important;
+}
+#jl-register-form > .jl-reg:not(:disabled):hover{background:#E5B756 !important;color:#102A43 !important;}
+#jl-register-form > .jl-reg:disabled{opacity:.55 !important;filter:saturate(.65) !important;}
+.jl-student-msg.err{color:#A83232 !important;font-weight:800 !important;}
+.jl-student-msg.ok{color:#287A49 !important;font-weight:800 !important;}
+
+@media(max-width:700px){
+  .jl-nav-links{max-height:min(66dvh,500px) !important;}
+  .jl-hero-code-field span:nth-child(2),
+  .jl-hero-code-field span:nth-child(4),
+  .jl-hero-code-field span:nth-child(8){display:none !important;}
+  .jl-student-modal.jl-pv-mode{max-height:94dvh !important;}
+}
+
+/* =====================================================================
+   CODE HUB RELEASE 15.0 — quiz UX + typography stability pass
+   ===================================================================== */
+
+/* Consistent readable typography across auth/profile/forms. */
+body,button,input,textarea,select{font-family:"Cairo",sans-serif !important;}
+.jl-student-form input,
+.jl-student-form textarea,
+.jl-student-form select{font-size:16px !important;line-height:1.5 !important;}
+.jl-student-form input::placeholder,
+.jl-student-form textarea::placeholder{font-size:15px !important;opacity:.72 !important;}
+#jl-register-form .jl-pass-checklist li{font-size:12.2px !important;line-height:1.55 !important;}
+.jl-auth-login,.jl-auth-register{font-size:13.5px !important;font-weight:900 !important;}
+.jl-student-msg{font-size:13px !important;line-height:1.6 !important;}
+
+/* Quiz rows: make unpublished quizzes clear instead of opening an empty screen. */
+.jl-mp-quiz-row.no-questions{opacity:.72 !important;}
+.jl-mp-quiz-row.no-questions .jl-mp-quiz-btn{
+  background:rgba(122,116,96,.12) !important;
+  color:var(--muted) !important;
+  cursor:not-allowed !important;
+}
+
+/* Quiz-taking screen: cleaner hierarchy and reliable mobile controls. */
+.jl-quiz-take{
+  max-width:760px !important;
+  margin:0 auto !important;
+  padding:24px !important;
+  border:1px solid rgba(217,164,65,.25) !important;
+  border-radius:20px !important;
+  background:#FFFDF8 !important;
+  box-shadow:0 18px 46px rgba(16,42,67,.10) !important;
+}
+.jl-quiz-take-head{
+  display:flex !important;
+  justify-content:space-between !important;
+  gap:14px !important;
+  align-items:center !important;
+  color:#102A43 !important;
+  font-size:14px !important;
+  font-weight:900 !important;
+}
+.jl-quiz-take-progress{height:8px !important;background:#EAE4D8 !important;border-radius:999px !important;overflow:hidden !important;}
+.jl-quiz-take-progress-fill{background:linear-gradient(90deg,#D9A441,#E8C574) !important;border-radius:999px !important;transition:width .24s ease !important;}
+.jl-quiz-take-question{font-size:19px !important;line-height:1.75 !important;color:#102A43 !important;font-weight:900 !important;}
+.jl-quiz-option{
+  min-height:50px !important;
+  padding:12px 15px !important;
+  border:1px solid rgba(16,42,67,.12) !important;
+  border-radius:12px !important;
+  background:#F7F4EC !important;
+  color:#102A43 !important;
+  font-size:15px !important;
+  line-height:1.55 !important;
+}
+.jl-quiz-option:hover{border-color:rgba(217,164,65,.62) !important;background:#FCF8ED !important;transform:translateY(-1px) !important;}
+.jl-quiz-option.selected{background:#102A43 !important;color:#F7F4EC !important;border-color:#102A43 !important;box-shadow:0 8px 18px rgba(16,42,67,.16) !important;}
+.jl-quiz-save-note{margin-top:13px !important;color:#667463 !important;font-size:12px !important;font-weight:800 !important;}
+.jl-quiz-nav-actions{display:flex !important;gap:10px !important;justify-content:space-between !important;align-items:center !important;margin-top:18px !important;}
+.jl-quiz-prev-btn{
+  min-height:46px !important;
+  padding:0 22px !important;
+  border:1px solid rgba(16,42,67,.18) !important;
+  border-radius:999px !important;
+  background:#F7F4EC !important;
+  color:#102A43 !important;
+  font-weight:900 !important;
+  cursor:pointer !important;
+}
+.jl-quiz-prev-btn:disabled{opacity:.42 !important;cursor:not-allowed !important;}
+.jl-quiz-next-main{min-width:150px !important;justify-content:center !important;margin:0 !important;}
+.jl-quiz-result-note{margin:14px auto 18px !important;padding:11px 14px !important;border-radius:12px !important;font-size:13px !important;font-weight:900 !important;max-width:520px !important;}
+.jl-quiz-result-note.ok{background:rgba(111,207,151,.15) !important;color:#287A49 !important;}
+.jl-quiz-result-note.fail{background:rgba(192,57,43,.10) !important;color:#A83232 !important;}
+.jl-quiz-submit-error{max-width:640px !important;margin:0 auto !important;padding:22px !important;border:1px solid rgba(192,57,43,.18) !important;border-radius:18px !important;background:#FFF9F7 !important;text-align:center !important;}
+.jl-quiz-submit-error>p:not(.jl-mp-error-msg){color:#675E55 !important;font-size:13px !important;}
+
+/* Dark theme keeps the exam readable without inverting form contrast. */
+[data-theme="dark"] .jl-quiz-take{background:#173B5A !important;border-color:rgba(217,164,65,.28) !important;box-shadow:0 20px 50px rgba(5,20,35,.25) !important;}
+[data-theme="dark"] .jl-quiz-take-head,
+[data-theme="dark"] .jl-quiz-take-question{color:#F7F4EC !important;}
+[data-theme="dark"] .jl-quiz-take-progress{background:#0E2740 !important;}
+[data-theme="dark"] .jl-quiz-option{background:#102A43 !important;color:#F7F4EC !important;border-color:rgba(247,244,236,.12) !important;}
+[data-theme="dark"] .jl-quiz-option:hover{background:#1C4668 !important;border-color:rgba(217,164,65,.55) !important;}
+[data-theme="dark"] .jl-quiz-option.selected{background:#D9A441 !important;color:#102A43 !important;border-color:#D9A441 !important;}
+[data-theme="dark"] .jl-quiz-prev-btn{background:#102A43 !important;color:#F7F4EC !important;border-color:rgba(247,244,236,.15) !important;}
+[data-theme="dark"] .jl-quiz-save-note{color:#D8D1C4 !important;}
+
+/* Calm the few remaining decorative loops; keep motion purposeful. */
+.jl-prize-badge,.jl-countdown-badge{animation:none !important;}
+.jl-back-top{animation:none !important;}
+.jl-footer .jl-social-icon{animation:none !important;}
+
+@media(max-width:700px){
+  .jl-student-form input,.jl-student-form textarea,.jl-student-form select{font-size:16px !important;}
+  #jl-register-form .jl-pass-checklist{grid-template-columns:1fr 1fr !important;gap:6px 10px !important;}
+  #jl-register-form .jl-pass-checklist li{font-size:11.8px !important;}
+  .jl-quiz-take{padding:18px 14px !important;border-radius:16px !important;}
+  .jl-quiz-take-head{font-size:12.5px !important;align-items:flex-start !important;}
+  .jl-quiz-take-question{font-size:17px !important;}
+  .jl-quiz-nav-actions{gap:8px !important;}
+  .jl-quiz-prev-btn,.jl-quiz-next-main{flex:1 1 0 !important;min-width:0 !important;padding-inline:12px !important;font-size:13.5px !important;}
+}
+
+/* =====================================================================
+   CODE HUB RELEASE 16.0 — navigation/order, auth themes, WhatsApp groups
+   ===================================================================== */
+
+/* Light theme: account creation is unmistakably navy with white text. */
+.jl-auth-register{
+  background:#102A43 !important;
+  border-color:#102A43 !important;
+  color:#FFFFFF !important;
+  box-shadow:0 7px 18px rgba(16,42,67,.18) !important;
+}
+.jl-auth-register:hover{
+  background:#173B5A !important;
+  border-color:#173B5A !important;
+  color:#FFFFFF !important;
+}
+#jl-register-form > .jl-reg{
+  background:#102A43 !important;
+  color:#FFFFFF !important;
+  border-color:#102A43 !important;
+}
+#jl-register-form > .jl-reg:not(:disabled):hover{background:#173B5A !important;color:#FFFFFF !important;}
+
+/* Dark theme = the deliberate inverse: dark modal, light fields, gold active CTA. */
+[data-theme="dark"] .jl-student-modal{
+  background:#102A43 !important;
+  color:#F7F4EC !important;
+  border-color:rgba(217,164,65,.40) !important;
+}
+[data-theme="dark"] .jl-student-close{background:#173B5A !important;color:#F7F4EC !important;border-color:rgba(217,164,65,.20) !important;}
+[data-theme="dark"] .jl-student-tab{background:#173B5A !important;color:#D8D1C4 !important;}
+[data-theme="dark"] .jl-student-tab.active{background:#D9A441 !important;color:#102A43 !important;}
+[data-theme="dark"] .jl-student-form input,
+[data-theme="dark"] .jl-student-form textarea,
+[data-theme="dark"] .jl-student-form select{
+  background:#F7F4EC !important;
+  color:#102A43 !important;
+  border-color:rgba(217,164,65,.44) !important;
+}
+[data-theme="dark"] #jl-register-form .jl-pass-checklist{background:#173B5A !important;color:#F7F4EC !important;border-color:rgba(217,164,65,.24) !important;}
+[data-theme="dark"] #jl-register-form > .jl-reg{background:#D9A441 !important;color:#102A43 !important;border-color:#D9A441 !important;}
+[data-theme="dark"] #jl-login-form > .jl-reg{background:#D9A441 !important;color:#102A43 !important;}
+[data-theme="dark"] .jl-student-link{color:#F0C96C !important;}
+[data-theme="dark"] .jl-student-msg{color:#F7F4EC !important;}
+
+/* WhatsApp chooser: navy grade label and a clear online option. */
+.jl-groups-tag{
+  color:#FFFFFF !important;
+  background:#102A43 !important;
+  border-color:#102A43 !important;
+  font-family:"Cairo",sans-serif !important;
+  font-weight:900 !important;
+  letter-spacing:0 !important;
+}
+.jl-group-option-online{
+  border-color:rgba(16,42,67,.36) !important;
+  background:linear-gradient(135deg,#F7F4EC,#EEF3F7) !important;
+}
+.jl-group-option-online .jl-group-arrow{background:#102A43 !important;color:#FFFFFF !important;}
+[data-theme="dark"] .jl-group-option-online{background:#F7F4EC !important;border-color:rgba(217,164,65,.55) !important;}
+
+/* Review feedback stays inside the card instead of a browser alert. */
+.jl-review-form-status{min-height:22px;margin:8px 0 0;text-align:center;font-size:13px;font-weight:800;line-height:1.6;color:var(--muted);}
+.jl-review-form-status.ok{color:#287A49;}
+.jl-review-form-status.err{color:#A83232;}
+[data-theme="dark"] .jl-review-form-status.ok{color:#82D9A4;}
+[data-theme="dark"] .jl-review-form-status.err{color:#FF9C9C;}
+
+
+/* ============================================================
+   RELEASE 16.1 — ONLINE DELIVERY CLARITY
+   Keeps the existing visual identity while making the online
+   teaching model obvious in the hero, benefits and pricing.
+   ============================================================ */
+.jl-hero-badges{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+.jl-hero-badges .jl-free-badge{margin-bottom:0 !important;}
+.jl-online-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  width:max-content;
+  padding:8px 13px;
+  border-radius:999px;
+  background:#102A43;
+  color:#fff;
+  border:1px solid rgba(217,164,65,.55);
+  font-family:"Cairo",sans-serif;
+  font-size:13px;
+  line-height:1;
+  font-weight:900;
+  box-shadow:0 8px 20px rgba(16,42,67,.18);
+  animation:jlCardIn .45s ease both;
+}
+.jl-live-dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#D9A441;
+  box-shadow:0 0 0 4px rgba(217,164,65,.16);
+}
+[data-theme="dark"] .jl-online-badge{
+  background:#F7F4EC;
+  color:#102A43;
+  border-color:#D9A441;
+}
+.jl-pricing-online{
+  width:max-content;
+  max-width:100%;
+  margin:2px auto 12px;
+  padding:7px 12px;
+  border-radius:999px;
+  background:rgba(16,42,67,.08);
+  border:1px solid rgba(16,42,67,.14);
+  color:#102A43;
+  font-size:12.5px;
+  font-weight:900;
+  line-height:1.4;
+  text-align:center;
+}
+.jl-pricing-card.jl-pricing-best .jl-pricing-online{
+  background:rgba(217,164,65,.14);
+  border-color:rgba(217,164,65,.48);
+  color:#F0CF7B;
+}
+[data-theme="dark"] .jl-pricing-card:not(.jl-pricing-best) .jl-pricing-online{
+  background:#F7F4EC;
+  color:#102A43;
+  border-color:rgba(217,164,65,.55);
+}
+/* All WhatsApp chooser arrows use one navy treatment. */
+.jl-group-arrow,
+.jl-group-option-online .jl-group-arrow{
+  background:#F7F4EC !important;
+  color:#102A43 !important;
+  border:1px solid rgba(16,42,67,.16);
+  font-weight:900;
+}
+@media (max-width:700px){
+  .jl-hero-badges{gap:7px;margin-bottom:9px;}
+  .jl-online-badge{font-size:11px;padding:7px 10px;}
+  .jl-pricing-online{font-size:11.5px;padding:6px 10px;}
+}
