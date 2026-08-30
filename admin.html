@@ -11,6 +11,35 @@
 :root{--navy:#1a2142;--gold:#b6913b;--cream:#f5f1e8;--card:#fff;--ink:#343434;--muted:#777;--danger:#b42318;--green:#247a45;--line:#ded9cd}
 *{box-sizing:border-box}body{margin:0;font-family:Cairo,sans-serif;background:var(--cream);color:var(--ink)}button,input,textarea,select{font:inherit}.hidden{display:none!important}.wrap{max-width:1400px;margin:auto;padding:18px}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:16px}.login{max-width:520px;margin:7vh auto}.login h1{margin-top:0;color:var(--navy)}.field{display:grid;gap:6px;margin-bottom:12px}.field label{font-weight:700;font-size:13px}.field input,.field textarea,.field select,.search{width:100%;border:1px solid var(--line);border-radius:9px;padding:10px;background:#fff}.field textarea{min-height:105px;resize:vertical}.btn{border:0;border-radius:9px;padding:9px 14px;cursor:pointer;font-weight:700;background:var(--navy);color:#fff}.btn.secondary{background:#ece8de;color:var(--navy)}.btn.danger{background:var(--danger)}.btn.good{background:var(--green)}.btn.small{padding:6px 10px;font-size:12px}.btn:disabled{opacity:.5;cursor:not-allowed}.msg{min-height:24px;font-size:13px;margin-top:8px}.msg.error{color:var(--danger)}.msg.ok{color:var(--green)}.login-tabs{display:flex;gap:8px;margin-bottom:15px}.login-tabs .btn{flex:1}.topbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px}.topbar h1{font-size:22px;margin:0;color:var(--navy)}.admin-layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:16px}.nav{position:sticky;top:16px;height:max-content}.nav button{width:100%;text-align:right;margin-bottom:7px;background:transparent;color:var(--navy);border:1px solid transparent}.nav button.active{background:var(--navy);color:#fff}.panel{display:none}.panel.active{display:block}.panel h2{margin-top:0;color:var(--navy)}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}.stat strong{display:block;font-size:27px;color:var(--navy)}.muted{color:var(--muted);font-size:13px}.toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px}.toolbar>*{max-width:100%}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:10px}.table{width:100%;border-collapse:collapse;min-width:720px;background:#fff}.table th,.table td{padding:10px;border-bottom:1px solid var(--line);text-align:right;font-size:13px;vertical-align:top}.table th{background:#f3efe6;color:var(--navy)}.badge{display:inline-block;padding:3px 8px;border-radius:999px;font-size:11px;background:#eee}.badge.good{background:#e6f4ea;color:var(--green)}.badge.bad{background:#fde8e7;color:var(--danger)}.split{display:grid;grid-template-columns:1fr 1fr;gap:14px}.item{border:1px solid var(--line);border-radius:10px;padding:12px;margin:8px 0;background:#fff}.item-title{font-weight:800;color:var(--navy);word-break:break-word}.item-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.code{direction:ltr;text-align:left;font-family:monospace;white-space:pre-wrap;word-break:break-all;background:#f6f6f6;padding:8px;border-radius:7px}.empty{padding:18px;text-align:center;color:var(--muted)}.section-note{font-size:12px;color:var(--muted);margin:-5px 0 14px}.checkline{display:flex;gap:8px;align-items:center;margin-bottom:12px}.loading{opacity:.55;pointer-events:none}@media(max-width:960px){.admin-layout{grid-template-columns:1fr}.nav{position:static;display:flex;overflow:auto;gap:7px}.nav button{min-width:max-content;text-align:center}.grid{grid-template-columns:repeat(2,1fr)}.split{grid-template-columns:1fr}}@media(max-width:560px){.wrap{padding:10px}.grid{grid-template-columns:1fr}.topbar{align-items:flex-start;flex-direction:column}.card{padding:13px}}
 </style>
+<style id="ui-refresh-admin">
+body{background:linear-gradient(180deg,#f7f4ec 0%,#efeadf 100%)}
+.wrap{max-width:1500px;padding:24px}
+.card{border-radius:22px;padding:22px;box-shadow:0 18px 38px rgba(26,33,66,.06)}
+.login{border-radius:26px;padding:28px}
+.topbar{margin-bottom:18px}.topbar h1{font-size:28px}
+.admin-layout{grid-template-columns:250px minmax(0,1fr);align-items:start}
+.nav.card{padding:14px;border-radius:24px;background:#fff;box-shadow:0 18px 38px rgba(26,33,66,.06)}
+.nav button{display:flex;align-items:center;justify-content:flex-start;border-radius:14px;padding:12px 14px;margin-bottom:8px;border:1px solid transparent;font-weight:800;transition:.2s}
+.nav button:hover{background:#f7f4ec;border-color:#ece3d0}.nav button.active{background:var(--navy);color:#fff;box-shadow:0 14px 24px rgba(26,33,66,.16)}
+.panel h2{font-size:28px;margin-bottom:6px}.section-note{font-size:13px;line-height:1.9;margin:0 0 16px}
+.field input,.field textarea,.field select,.search{border-radius:14px;padding:12px 14px;border:1px solid #ddd3c0;transition:border-color .2s,box-shadow .2s}.field input:focus,.field textarea:focus,.field select:focus,.search:focus{outline:none;border-color:#b6913b;box-shadow:0 0 0 4px rgba(182,145,59,.12)}
+.btn{border-radius:14px;padding:11px 16px;box-shadow:0 10px 20px rgba(26,33,66,.08)}
+.btn.secondary{background:#f3eee2}.grid{grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px}.stat{border-radius:18px;padding:18px}.stat strong{font-size:30px}
+.table-wrap{border-radius:18px}.table th,.table td{padding:12px 14px;font-size:14px}
+.item{border-radius:18px;padding:18px;border:1px solid #e7decd;box-shadow:0 12px 26px rgba(26,33,66,.04);margin:12px 0}
+.item-title{font-size:22px;line-height:1.6;margin-bottom:4px}.item-actions{margin-top:14px}
+#months-box > *,#quizzes-box > *,#questions-box > *,#reviews-admin-box > *,#admins-box > *,#content-box > *,#knowledge-box > *{min-height:auto !important}
+#months-box > *,#quizzes-box > *,#reviews-admin-box > *{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px}
+#months-box h3,#quizzes-box h3,#reviews-admin-box h3,#questions-box h3{margin:0;color:var(--navy);font-size:19px;line-height:1.6}
+#months-box p,#quizzes-box p,#reviews-admin-box p,#questions-box p{margin:4px 0 0;color:var(--muted);line-height:1.8}
+#months-box button,#quizzes-box button,#reviews-admin-box button,#questions-box button,#admins-box button{border-radius:12px}
+#quiz-manager.hidden,#question-manager.hidden{display:none!important}
+#quiz-manager,#question-manager{scroll-margin-top:20px}
+.empty{padding:26px;border:1px dashed #dacdb5;border-radius:18px;background:#fcfbf8}
+@media(max-width:960px){.admin-layout{grid-template-columns:1fr}.nav.card{position:static}.nav{display:flex;overflow:auto;gap:8px}.nav button{white-space:nowrap;margin-bottom:0}.panel h2{font-size:24px}}
+@media(max-width:560px){.wrap{padding:12px}.card{padding:16px;border-radius:18px}.topbar h1{font-size:24px}.item-title{font-size:18px}}
+</style>
+
 </head>
 <body>
 <div class="wrap">
@@ -74,7 +103,7 @@
         <section class="panel" id="panel-reviews">
           <div class="card">
             <h2>تقييمات الموقع</h2>
-            <p class="section-note">التقييم الجديد يفضل معلق لحد ما تنشره. المنشور فقط هو اللي بيظهر للزوار.</p>
+            <p class="section-note">التقييمات النظيفة ممكن تظهر مباشرة، وأي تقييم مش واضح راجعه الأول.</p>
             <div id="reviews-admin-stats" class="grid" style="margin-bottom:14px"></div>
             <div id="reviews-admin-box"></div>
           </div>
@@ -83,7 +112,7 @@
         <section class="panel" id="panel-exams">
           <div class="card">
             <h2>الشهور والاختبارات</h2>
-            <form id="month-form" class="toolbar"><input id="month-name" class="search" style="max-width:320px" maxlength="80" placeholder="اسم الشهر الجديد" required><button class="btn" type="submit">إضافة شهر + اختبارات الشهر</button></form>
+            <form id="month-form" class="toolbar"><input id="month-name" class="search" style="max-width:320px" maxlength="80" placeholder="اسم الشهر الجديد" required><button class="btn" type="submit">إضافة شهر + اختبارات الشهر</button></form><p class="section-note">الترتيب سهل: أضف الشهر ← افتح إدارة الاختبارات ← افتح إدارة الأسئلة.</p>
             <div id="months-box"></div>
           </div>
           <div id="quiz-manager" class="card hidden">
@@ -139,6 +168,57 @@
   </section>
 </div>
 
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var navButtons = Array.prototype.slice.call(document.querySelectorAll('#nav [data-panel]'));
+  var panels = Array.prototype.slice.call(document.querySelectorAll('.panel'));
+  function activatePanel(name){
+    navButtons.forEach(function(btn){ btn.classList.toggle('active', btn.getAttribute('data-panel') === name); });
+    panels.forEach(function(panel){ panel.classList.toggle('active', panel.id === 'panel-' + name); });
+  }
+  navButtons.forEach(function(btn){
+    btn.addEventListener('click', function(){ activatePanel(btn.getAttribute('data-panel')); });
+  });
+
+  var showPin = document.getElementById('show-pin');
+  var showSuper = document.getElementById('show-super');
+  var pinForm = document.getElementById('pin-form');
+  var superBox = document.getElementById('super-box');
+  function setLoginMode(mode){
+    var pinMode = mode === 'pin';
+    if (pinForm) pinForm.classList.toggle('hidden', !pinMode);
+    if (superBox) superBox.classList.toggle('hidden', pinMode);
+    if (showPin) showPin.className = 'btn' + (pinMode ? '' : ' secondary');
+    if (showSuper) showSuper.className = 'btn' + (pinMode ? ' secondary' : '');
+  }
+  if (showPin) showPin.addEventListener('click', function(){ setLoginMode('pin'); });
+  if (showSuper) showSuper.addEventListener('click', function(){ setLoginMode('super'); });
+  setLoginMode('pin');
+
+  function decorateBox(boxId, fallbackText){
+    var box = document.getElementById(boxId);
+    if (!box) return;
+    function apply(){
+      if (!box.children.length && !box.textContent.trim()){
+        box.innerHTML = '<div class="empty">' + fallbackText + '</div>';
+        return;
+      }
+      Array.prototype.slice.call(box.children).forEach(function(el){
+        if (!el.classList.contains('item') && !el.classList.contains('empty') && !el.classList.contains('table-wrap')){
+          el.classList.add('item');
+        }
+      });
+    }
+    apply();
+    new MutationObserver(apply).observe(box, {childList:true, subtree:false});
+  }
+  decorateBox('months-box','أضف أول شهر من فوق، وبعدها هتظهر هنا قائمة الشهور بشكل أبسط.');
+  decorateBox('quizzes-box','اختر شهر أولاً، وبعدها هتظهر الاختبارات هنا.');
+  decorateBox('questions-box','اختر اختبار أولاً، وبعدها هتظهر الأسئلة هنا.');
+  decorateBox('reviews-admin-box','التقييمات هتظهر هنا أول ما توصل من الموقع.');
+});
+</script>
 <script src="assets/admin.js" defer></script>
 </body>
 </html>
