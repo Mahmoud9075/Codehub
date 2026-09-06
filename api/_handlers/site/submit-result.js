@@ -127,7 +127,8 @@ module.exports = async (req, res) => {
   const total = questions.length;
   const percent = Math.round((score / total) * 100);
   const isFinal = access.quiz.type === 'final';
-  const passedFinal = isFinal && percent >= access.passPercent;
+  const passedCurrent = percent >= access.passPercent;
+  const passedFinal = isFinal && passedCurrent;
 
   const { data, error } = await supabase
     .from('results')
@@ -136,8 +137,8 @@ module.exports = async (req, res) => {
     .single();
   if (error) return res.status(500).json({ error: 'تعذر حفظ النتيجة' });
 
-  // Keep a persistent admin alert for every low-score attempt, even if the student retries later.
-  if (percent < 75) {
+  // Keep a persistent admin alert for every failed attempt, even if the student retries later.
+  if (!passedCurrent) {
     try {
       const { data: alertStudent } = await supabase
         .from('students')
@@ -152,8 +153,8 @@ module.exports = async (req, res) => {
         alert_type: critical ? 'critical' : 'warning',
         title: critical ? 'نتيجة أقل من 50%' : 'نتيجة أقل من نسبة النجاح',
         message: critical
-          ? `${fullName || 'الطالب'} حصل على ${percent}% في ${access.quiz.title || 'الاختبار'} ويحتاج متابعة ومراجعة قوية.`
-          : `${fullName || 'الطالب'} حصل على ${percent}% في ${access.quiz.title || 'الاختبار'}؛ نسبة النجاح المطلوبة 75%.`,
+          ? `${fullName || 'الطالب'} حصل على ${percent}% في ${access.quiz.title || 'الاختبار'} ويحتاج متابعة ومراجعة قوية. الاختبار التالي يظل مقفولًا حتى يحقق ${access.passPercent}%.`
+          : `${fullName || 'الطالب'} حصل على ${percent}% في ${access.quiz.title || 'الاختبار'}؛ نسبة النجاح المطلوبة ${access.passPercent}% والاختبار التالي ما زال مقفولًا.`,
         percent,
       });
     } catch (error) {
@@ -161,18 +162,18 @@ module.exports = async (req, res) => {
     }
   }
 
-  const shouldNotify = !access.result || passedFinal;
+  const shouldNotify = !access.result || passedCurrent;
   if (shouldNotify) {
     try {
       const { data: student } = await supabase.from('students').select('phone, first_name').eq('id', studentId).maybeSingle();
       if (student?.phone) {
         let message;
-        if (isFinal && !passedFinal) {
-          message = `يا ${student.first_name || 'بطل'}، درجتك في الاختبار النهائي ${score}/${total} (${percent}%). المطلوب ${access.passPercent}% للنجاح. تقدر تراجع وتحاول تاني من Code Hub.`;
+        if (!passedCurrent) {
+          message = `يا ${student.first_name || 'بطل'}، درجتك في ${access.quiz.title || 'الاختبار'} ${score}/${total} (${percent}%). المطلوب ${access.passPercent}% للنجاح، والاختبار اللي بعده هيفضل مقفول لحد ما تعدّي النسبة. راجع وحاول تاني من Code Hub.`;
         } else if (isFinal) {
           message = `مبروك يا ${student.first_name || 'بطل'}! نجحت في الاختبار النهائي بدرجة ${score}/${total} (${percent}%). الشهر اللي بعده اتفتح ليك في Code Hub 🎉`;
         } else {
-          message = `مبروك يا ${student.first_name || 'بطل'}! خلّصت الكويز بدرجة ${score}/${total}. الكويز اللي بعده اتفتح دلوقتي في Code Hub 🎉`;
+          message = `مبروك يا ${student.first_name || 'بطل'}! نجحت في الكويز بدرجة ${score}/${total} (${percent}%). الكويز اللي بعده اتفتح دلوقتي في Code Hub 🎉`;
         }
         await sendWhatsAppNotification(student.phone, message);
       }
@@ -181,10 +182,18 @@ module.exports = async (req, res) => {
     }
   }
 
-  const reviewLocked = isFinal && !passedFinal;
+  // Do not reveal model answers for a failed attempt; the student must retry and pass first.
+  const reviewLocked = !passedCurrent;
   const safeBreakdown = reviewLocked
     ? breakdown.map(({ correct_index, correct_answer, ...item }) => ({ ...item, correct_index: null, correct_answer: null }))
     : breakdown;
 
-  return res.status(200).json({ result: data, breakdown: safeBreakdown, review_locked: reviewLocked, pass_percent: access.passPercent });
+  return res.status(200).json({
+    result: data,
+    breakdown: safeBreakdown,
+    review_locked: reviewLocked,
+    pass_percent: access.passPercent,
+    passed: passedCurrent,
+    next_locked: !passedCurrent,
+  });
 };
