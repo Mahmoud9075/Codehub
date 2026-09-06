@@ -31,7 +31,14 @@ module.exports = async (req, res) => {
     .select('id, first_name, last_name, phone, parent_phone, grade_level, email, avatar_url, phone_verified, is_active, password_hash')
     .eq('email', normalizedEmail)
     .maybeSingle();
-  if (error) return res.status(500).json({ error: 'حصل خطأ في تسجيل الدخول' });
+  if (error) {
+    const code = String(error.code || '');
+    console.error('[login] Student lookup failed', { code, message: error.message, details: error.details });
+    if (code === '42703' || code === '42P01') {
+      return res.status(503).json({ error: 'قاعدة بيانات الحسابات محتاجة تحديث مرة واحدة قبل تسجيل الدخول.' });
+    }
+    return res.status(500).json({ error: 'حصل خطأ في تسجيل الدخول. حاول مرة تانية، ولو استمر الخطأ راجع Vercel Logs.' });
+  }
 
   if (student && student.is_active === false) return res.status(403).json({ error: 'الحساب موقوف. تواصل مع الإدارة.' });
 
