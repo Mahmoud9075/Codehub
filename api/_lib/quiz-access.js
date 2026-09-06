@@ -1,4 +1,5 @@
 const { supabase } = require('./supabase');
+const { getStudentGrade, isValidGradeLevel } = require('./grade-access');
 
 async function getPassPercent() {
   const { data } = await supabase
@@ -10,14 +11,22 @@ async function getPassPercent() {
   return Number.isFinite(parsed) ? Math.max(1, Math.min(100, parsed)) : 70;
 }
 
-async function isMonthUnlocked(studentId, monthId, passPercent) {
-  const { data: months, error: monthsError } = await supabase
-    .from('months')
-    .select('id, order_index')
-    .order('order_index', { ascending: true });
-  if (monthsError) throw monthsError;
+async function getStudentMonths(studentId) {
+  const gradeLevel = await getStudentGrade(studentId);
+  if (!isValidGradeLevel(gradeLevel)) return { gradeLevel: null, months: [] };
 
-  const targetIndex = (months || []).findIndex((month) => String(month.id) === String(monthId));
+  const { data: months, error } = await supabase
+    .from('months')
+    .select('id, order_index, grade_level')
+    .eq('grade_level', gradeLevel)
+    .order('order_index', { ascending: true });
+  if (error) throw error;
+  return { gradeLevel, months: months || [] };
+}
+
+async function isMonthUnlocked(studentId, monthId, passPercent) {
+  const { months } = await getStudentMonths(studentId);
+  const targetIndex = months.findIndex((month) => String(month.id) === String(monthId));
   if (targetIndex < 0) return false;
   if (targetIndex === 0) return true;
 
@@ -58,6 +67,13 @@ async function getQuizAccess(studentId, quizId) {
   if (quizError) throw quizError;
   if (!quiz) return { exists: false, status: 'locked' };
 
+  // Important: a student can only access quizzes whose month belongs to the
+  // grade saved on the student's account. URL tampering must not bypass this.
+  const { gradeLevel, months } = await getStudentMonths(studentId);
+  if (!gradeLevel) return { exists: true, quiz, status: 'locked', missingGrade: true };
+  const monthBelongsToStudent = months.some((month) => String(month.id) === String(quiz.month_id));
+  if (!monthBelongsToStudent) return { exists: true, quiz, status: 'locked', gradeMismatch: true };
+
   const passPercent = await getPassPercent();
   const monthUnlocked = await isMonthUnlocked(studentId, quiz.month_id, passPercent);
   if (!monthUnlocked) return { exists: true, quiz, passPercent, status: 'locked', monthUnlocked: false };
@@ -87,7 +103,6 @@ async function getQuizAccess(studentId, quizId) {
     const result = resultByQuiz[String(item.id)];
     const status = result ? 'completed' : (previousCompleted ? 'unlocked' : 'locked');
     weeklyStatus[String(item.id)] = status;
-    // Once there is a gap, later historical results must not reopen the sequence.
     previousCompleted = previousCompleted && Boolean(result);
   });
 
@@ -118,4 +133,4 @@ async function getQuizAccess(studentId, quizId) {
   };
 }
 
-module.exports = { getPassPercent, isMonthUnlocked, getQuizAccess };
+module.exports = { getPassPercent, isMonthUnlocked, getQuizAccess, getStudentMonths };
