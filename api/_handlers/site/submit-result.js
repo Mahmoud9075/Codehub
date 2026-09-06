@@ -136,6 +136,31 @@ module.exports = async (req, res) => {
     .single();
   if (error) return res.status(500).json({ error: 'تعذر حفظ النتيجة' });
 
+  // Keep a persistent admin alert for every low-score attempt, even if the student retries later.
+  if (percent < 75) {
+    try {
+      const { data: alertStudent } = await supabase
+        .from('students')
+        .select('first_name, last_name, phone')
+        .eq('id', studentId)
+        .maybeSingle();
+      const fullName = alertStudent ? `${alertStudent.first_name || ''} ${alertStudent.last_name || ''}`.trim() : 'طالب';
+      const critical = percent < 50;
+      await supabase.from('student_alerts').insert({
+        student_id: String(studentId),
+        quiz_id: String(quizId),
+        alert_type: critical ? 'critical' : 'warning',
+        title: critical ? 'نتيجة أقل من 50%' : 'نتيجة أقل من نسبة النجاح',
+        message: critical
+          ? `${fullName || 'الطالب'} حصل على ${percent}% في ${access.quiz.title || 'الاختبار'} ويحتاج متابعة ومراجعة قوية.`
+          : `${fullName || 'الطالب'} حصل على ${percent}% في ${access.quiz.title || 'الاختبار'}؛ نسبة النجاح المطلوبة 75%.`,
+        percent,
+      });
+    } catch (error) {
+      // Alert failure must never invalidate a saved quiz result.
+    }
+  }
+
   const shouldNotify = !access.result || passedFinal;
   if (shouldNotify) {
     try {
