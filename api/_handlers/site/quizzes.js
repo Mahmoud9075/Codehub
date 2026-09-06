@@ -38,20 +38,24 @@ module.exports = async (req, res) => {
   if (rErr) return res.status(500).json({ error: 'تعذر تحميل النتائج' });
 
   const resultByQuiz = Object.fromEntries((results || []).map((result) => [String(result.quiz_id), result]));
-  let previousCompleted = true;
+  const hasPassed = (result) => Boolean(result?.total && Math.round((result.score / result.total) * 100) >= passPercent);
+
+  // Every quiz is a gate: the next quiz stays locked until the current quiz reaches the pass percentage.
+  let previousPassed = true;
   const weeklyWithStatus = weeklyQuizzes.map((quiz) => {
-    const result = resultByQuiz[String(quiz.id)];
-    const status = result ? 'completed' : (previousCompleted ? 'unlocked' : 'locked');
-    previousCompleted = previousCompleted && Boolean(result);
-    return { ...quiz, status, result: result || null };
+    const result = resultByQuiz[String(quiz.id)] || null;
+    const passed = hasPassed(result);
+    const status = passed ? 'completed' : (previousPassed ? 'unlocked' : 'locked');
+    previousPassed = previousPassed && passed;
+    return { ...quiz, status, result, passed: result ? passed : null };
   });
 
-  const allWeeklyDone = weeklyWithStatus.every((quiz) => quiz.status === 'completed');
+  const allWeeklyPassed = weeklyWithStatus.every((quiz) => quiz.status === 'completed');
   let finalWithStatus = null;
   if (finalExam) {
     const result = resultByQuiz[String(finalExam.id)] || null;
-    const passed = Boolean(result?.total && Math.round((result.score / result.total) * 100) >= passPercent);
-    const status = passed ? 'completed' : (allWeeklyDone ? 'unlocked' : 'locked');
+    const passed = hasPassed(result);
+    const status = passed ? 'completed' : (allWeeklyPassed ? 'unlocked' : 'locked');
     const { count: questionCount } = await supabase
       .from('quiz_questions')
       .select('id', { count: 'exact', head: true })
