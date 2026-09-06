@@ -97,13 +97,17 @@ async function getQuizAccess(studentId, quizId) {
   const weekly = (allQuizzes || []).filter((item) => item.type !== 'final');
   const finalQuiz = (allQuizzes || []).find((item) => item.type === 'final');
 
-  let previousCompleted = true;
+  const hasPassed = (result) => Boolean(result?.total && Math.round((result.score / result.total) * 100) >= passPercent);
+  let previousPassed = true;
   const weeklyStatus = {};
+  const weeklyPassed = {};
   weekly.forEach((item) => {
-    const result = resultByQuiz[String(item.id)];
-    const status = result ? 'completed' : (previousCompleted ? 'unlocked' : 'locked');
+    const result = resultByQuiz[String(item.id)] || null;
+    const passed = hasPassed(result);
+    const status = passed ? 'completed' : (previousPassed ? 'unlocked' : 'locked');
     weeklyStatus[String(item.id)] = status;
-    previousCompleted = previousCompleted && Boolean(result);
+    weeklyPassed[String(item.id)] = result ? passed : null;
+    previousPassed = previousPassed && passed;
   });
 
   if (quiz.type !== 'final') {
@@ -114,13 +118,14 @@ async function getQuizAccess(studentId, quizId) {
       monthUnlocked: true,
       status: weeklyStatus[String(quiz.id)] || 'locked',
       result: resultByQuiz[String(quiz.id)] || null,
+      passed: weeklyPassed[String(quiz.id)] ?? null,
     };
   }
 
-  const allWeeklyDone = weekly.every((item) => Boolean(resultByQuiz[String(item.id)]));
+  const allWeeklyPassed = weekly.every((item) => hasPassed(resultByQuiz[String(item.id)]));
   const finalResult = finalQuiz ? resultByQuiz[String(finalQuiz.id)] : null;
-  const passed = Boolean(finalResult && finalResult.total && Math.round((finalResult.score / finalResult.total) * 100) >= passPercent);
-  const status = passed ? 'completed' : (allWeeklyDone ? 'unlocked' : 'locked');
+  const passed = hasPassed(finalResult);
+  const status = passed ? 'completed' : (allWeeklyPassed ? 'unlocked' : 'locked');
 
   return {
     exists: true,
