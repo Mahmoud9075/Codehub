@@ -36,11 +36,11 @@ async function getStudentSession(req) {
 
   const { data: student, error } = await supabase
     .from('students')
-    .select('id, password_hash')
+    .select('id, password_hash, is_active')
     .eq('id', payload.sub)
     .maybeSingle();
 
-  if (error || !student || !safeEqual(payload.pv, passwordVersion(student.password_hash))) return null;
+  if (error || !student || student.is_active === false || !safeEqual(payload.pv, passwordVersion(student.password_hash))) return null;
   return { id: student.id };
 }
 
