@@ -1,5 +1,5 @@
 const { supabase } = require('../../_lib/supabase');
-const { validateName, withinMaxLength, MAX_LENGTHS } = require('../../_lib/auth-validators');
+const { validateName, validatePhone, withinMaxLength, MAX_LENGTHS } = require('../../_lib/auth-validators');
 const { applyCors } = require('../../_lib/cors');
 const { requireStudent } = require('../../_lib/student-auth');
 
@@ -19,7 +19,7 @@ module.exports = async (req, res) => {
   if (!session) return;
   const studentId = session.id;
 
-  const { first_name, last_name, avatar_base64 } = req.body || {};
+  const { first_name, last_name, parent_phone, avatar_base64 } = req.body || {};
   const update = {};
 
   if (first_name !== undefined) {
@@ -31,6 +31,12 @@ module.exports = async (req, res) => {
     const value = String(last_name || '').trim();
     if (!withinMaxLength(value, MAX_LENGTHS.name) || !validateName(value)) return res.status(400).json({ error: 'الاسم الأخير يقبل حروف بس' });
     update.last_name = value;
+  }
+
+  if (parent_phone !== undefined) {
+    const value = String(parent_phone || '').trim();
+    if (!validatePhone(value)) return res.status(400).json({ error: 'اكتب رقم ولي الأمر بشكل صحيح' });
+    update.parent_phone = value;
   }
 
   if (avatar_base64) {
@@ -61,7 +67,7 @@ module.exports = async (req, res) => {
     .from('students')
     .update(update)
     .eq('id', studentId)
-    .select('id, first_name, last_name, phone, email, avatar_url, phone_verified')
+    .select('id, first_name, last_name, phone, parent_phone, grade_level, email, avatar_url, phone_verified, is_active')
     .single();
   if (error) return res.status(500).json({ error: 'تعذر تحديث البيانات' });
 
