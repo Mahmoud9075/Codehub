@@ -5,6 +5,7 @@ const { applyCors } = require('../../_lib/cors');
 const { hashPassword } = require('../../_lib/password');
 const { setStudentSession } = require('../../_lib/student-auth');
 const { getClientIp, tooManyAttempts, recordAttempt } = require('../../_lib/request-security');
+const { isValidGradeLevel } = require('../../_lib/grade-access');
 
 module.exports = async (req, res) => {
   if (applyCors(req, res)) return;
@@ -15,16 +16,22 @@ module.exports = async (req, res) => {
     return res.status(429).json({ error: 'محاولات تسجيل كتير، حاول تاني بعد شوية.' });
   }
 
-  let { first_name, last_name, phone, email, password } = req.body || {};
+  let { first_name, last_name, phone, parent_phone, parent_phone_confirm, grade_level, email, password } = req.body || {};
   first_name = String(first_name || '').trim();
   last_name = String(last_name || '').trim();
   phone = String(phone || '').trim();
+  parent_phone = String(parent_phone || '').trim();
+  parent_phone_confirm = String(parent_phone_confirm || '').trim();
+  grade_level = String(grade_level || '').trim();
   email = normalizeEmail(email);
 
-  if (!first_name || !last_name || !phone || !email || !password) return res.status(400).json({ error: 'كل الحقول مطلوبة' });
+  if (!first_name || !last_name || !phone || !parent_phone || !parent_phone_confirm || !grade_level || !email || !password) return res.status(400).json({ error: 'كل الحقول مطلوبة' });
   if (!withinMaxLength(first_name, MAX_LENGTHS.name) || !withinMaxLength(last_name, MAX_LENGTHS.name)) return res.status(400).json({ error: 'الاسم طويل قوي' });
   if (!validateName(first_name) || !validateName(last_name)) return res.status(400).json({ error: 'الاسم يقبل حروف عربي أو إنجليزي بس، من غير أرقام أو رموز' });
-  if (!validatePhone(phone)) return res.status(400).json({ error: 'اكتب رقم موبايل مصري صحيح (11 رقم، يبدأ بـ 010 أو 011 أو 012 أو 015)' });
+  if (!validatePhone(phone)) return res.status(400).json({ error: 'اكتب رقم موبايل الطالب بشكل صحيح (11 رقم، يبدأ بـ 010 أو 011 أو 012 أو 015)' });
+  if (!validatePhone(parent_phone)) return res.status(400).json({ error: 'اكتب رقم ولي الأمر بشكل صحيح (11 رقم، يبدأ بـ 010 أو 011 أو 012 أو 015)' });
+  if (parent_phone !== parent_phone_confirm) return res.status(400).json({ error: 'رقم ولي الأمر وتأكيد رقم ولي الأمر غير متطابقين' });
+  if (!isValidGradeLevel(grade_level)) return res.status(400).json({ error: 'اختار الصف الدراسي: أولى ثانوي أو ثانية ثانوي' });
   if (!withinMaxLength(email, MAX_LENGTHS.email) || !validateEmail(email)) return res.status(400).json({ error: 'اكتب إيميل صحيح' });
   if (isDisposableEmail(email)) return res.status(400).json({ error: 'من فضلك استخدم إيميل حقيقي، مش إيميل مؤقت' });
   if (!validatePassword(password) || String(password).length > 256) return res.status(400).json({ error: 'الباسورد لازم 8 حروف على الأقل، وفيه حرف كابيتال وحرف سمول ورقم ورمز' });
@@ -50,8 +57,8 @@ module.exports = async (req, res) => {
   const parent_token = crypto.randomBytes(24).toString('base64url');
   const { data: created, error } = await supabase
     .from('students')
-    .insert({ first_name, last_name, phone, email, password_hash, parent_token })
-    .select('id, first_name, last_name, phone, email, avatar_url, phone_verified')
+    .insert({ first_name, last_name, phone, parent_phone, grade_level, email, password_hash, parent_token, is_active: true })
+    .select('id, first_name, last_name, phone, parent_phone, grade_level, email, avatar_url, phone_verified, is_active')
     .single();
 
   if (error) {
