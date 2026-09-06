@@ -183,7 +183,7 @@ document.addEventListener('DOMContentLoaded', function(){
         var status = quiz.status;
         var hasQuestions = quiz.has_questions !== false;
         var icon = status === 'completed' ? '✓' : (status === 'unlocked' ? (hasQuestions ? '▶' : '⏳') : '🔒');
-        var btnLabel = status === 'completed' ? 'خلصته' : (status === 'unlocked' ? (hasQuestions ? 'ابدأ' : 'لسه منزلش') : 'مقفول');
+        var btnLabel = status === 'completed' ? 'ناجح ✓' : (status === 'unlocked' ? (hasQuestions ? (quiz.result ? 'أعد الاختبار' : 'ابدأ') : 'لسه منزلش') : 'مقفول');
         var scoreHtml = quiz.result ? '<span class="jl-mp-quiz-score">' + quiz.result.score + '/' + quiz.result.total + '</span>' : '';
         var shareBtnHtml = quiz.result ? '<button class="jl-mp-share-btn" data-quiz-title="' + mpEsc(quiz.title) + '" data-score="' + quiz.result.score + '" data-total="' + quiz.result.total + '" title="شارك نتيجتك" aria-label="شارك نتيجتك">📤</button>' : '';
         rows +=
@@ -201,10 +201,10 @@ document.addEventListener('DOMContentLoaded', function(){
       var feIcon = fe.status === 'completed' ? '✓' : (fe.status === 'unlocked' ? '🎯' : '🔒');
       var feScoreHtml = fe.result ? '<span class="jl-mp-quiz-score">' + fe.result.score + '/' + fe.result.total + '</span>' : '';
       var feBtnLabel, feBtnDisabled = true;
-      if (fe.status === 'completed'){ feBtnLabel = 'خلصته'; }
+      if (fe.status === 'completed'){ feBtnLabel = 'ناجح ✓'; }
       else if (fe.status === 'locked'){ feBtnLabel = 'مقفول'; }
       else if (!fe.has_questions){ feBtnLabel = 'لسه الاختبار منزلش'; }
-      else { feBtnLabel = 'ابدأ الاختبار'; feBtnDisabled = false; }
+      else { feBtnLabel = fe.result ? 'أعد الاختبار' : 'ابدأ الاختبار'; feBtnDisabled = false; }
 
       finalHtml =
         '<div class="jl-mp-final-exam">' +
@@ -386,8 +386,8 @@ document.addEventListener('DOMContentLoaded', function(){
           submittingQuiz = false;
           clearProgress();
           if (activeQuizCleanup) activeQuizCleanup();
-          if (window.jlConfetti) window.jlConfetti();
           var pct = Math.round((data.result.score / data.result.total) * 100);
+          if (data.passed && window.jlConfetti) window.jlConfetti();
 
           // 20) مراجعة الإجابات الصح والغلط
           var reviewHtml = (data.breakdown || []).map(function(b, i){
@@ -404,13 +404,13 @@ document.addEventListener('DOMContentLoaded', function(){
           var targetPass = Number(data.pass_percent || PASS_PERCENT) || PASS_PERCENT;
           var resultMessage;
           if (pct >= 90) {
-            resultMessage = 'ممتاز جدًا يا بطل! 👏🔥 نتيجتك ' + pct + '%، ودي أعلى من نسبة النجاح المطلوبة (' + targetPass + '%). حافظ على المستوى ده وراجع أي غلطة بسيطة عشان تثبت المعلومة.';
+            resultMessage = 'ممتاز جدًا يا بطل! 👏🔥 نتيجتك ' + pct + '%، ودي أعلى من نسبة النجاح المطلوبة (' + targetPass + '%). ' + (isFinal ? 'الشهر اللي بعده اتفتح لك.' : 'الاختبار اللي بعده اتفتح لك.') + ' حافظ على المستوى ده.';
           } else if (pct >= targetPass) {
-            resultMessage = 'مبروك، نجحت ✅ نتيجتك ' + pct + '% ووصلت لنسبة النجاح المطلوبة (' + targetPass + '%). راجع الأسئلة اللي غلطت فيها عشان المرة الجاية توصل لدرجة أعلى.';
+            resultMessage = 'مبروك، نجحت ✅ نتيجتك ' + pct + '% ووصلت لنسبة النجاح المطلوبة (' + targetPass + '%). ' + (isFinal ? 'الشهر اللي بعده اتفتح لك.' : 'الاختبار اللي بعده اتفتح لك.') + ' كمل بنفس المستوى.';
           } else if (pct >= 50) {
-            resultMessage = 'أنت قريب جدًا من النجاح 💪 نتيجتك ' + pct + '%، والمطلوب ' + targetPass + '%. ركّز على الأخطاء اللي ظهرت لك وراجع الجزء ده كويس، وبعدها جرّب تاني.';
+            resultMessage = 'أنت قريب جدًا من النجاح 💪 نتيجتك ' + pct + '%، والمطلوب ' + targetPass + '%. الاختبار اللي بعده هيفضل مقفول لحد ما تعدّي ' + targetPass + '%. راجع وحاول الاختبار ده تاني.';
           } else {
-            resultMessage = 'محتاج مراجعة أقوى شوية 💙 نتيجتك ' + pct + '% وهي أقل من 50%. ارجع للجزء المرتبط بالأسئلة دي، افهم الغلطات واحدة واحدة، وبعد المراجعة جرّب مرة تانية.';
+            resultMessage = 'محتاج مراجعة أقوى شوية 💙 نتيجتك ' + pct + '% وهي أقل من 50%. الاختبار اللي بعده مقفول، ولازم تعيد الاختبار الحالي وتحقق ' + targetPass + '% على الأقل عشان تكمل.';
           }
 
           monthsEl.innerHTML =
@@ -576,7 +576,7 @@ document.addEventListener('DOMContentLoaded', function(){
     "audience-h": {ar:"CODE HUB مناسبة لمين؟", en:"Who Is CODE HUB For?"},
     "path-h": {ar:"المسار", en:"Monthly"},
     "path-h-mark": {ar:"الشهري", en:"Path"},
-    "path-sub": {ar:"افتح الشهر وابدأ اختباراتك بالترتيب — كل ما تخلّص كويز، اللي بعده يفتح تلقائي.", en:"Open a month and take your quizzes in order — finish one, the next unlocks automatically."},
+    "path-sub": {ar:"اختباراتك بالترتيب — لازم تحقق 75% في كل اختبار عشان اللي بعده يفتح.", en:"Take quizzes in order — score at least 75% on each quiz to unlock the next one."},
     "cta-eyebrow": {ar:"ابدأ النهارده · تقدر تلغي في أي وقت ———", en:"Start today · Cancel anytime ———"},
     "cta-h": {ar:'جاهز تبدأ؟', en:'Ready to Start?'},
     "about-tag": {ar:"عن Code Hub", en:"About Code Hub"},
