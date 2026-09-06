@@ -74,7 +74,7 @@
   ]
 }
     </script>
-<link href="assets/site.css?v=16.1" rel="stylesheet"/>
+<link href="assets/site.css?v=17.0" rel="stylesheet"/>
 <link href="assets/reviews-hotfix.css?v=16.2" rel="stylesheet"/>
 </head>
 <body cz-shortcut-listen="true">
@@ -119,7 +119,9 @@
 </form>
 <form class="jl-student-form" id="jl-register-form" style="display:none;">
 <div class="jl-review-row"><input id="rg-first" placeholder="الاسم الأول (حروف بس)" required="" type="text"/><input id="rg-last" placeholder="الاسم الأخير (حروف بس)" required="" type="text"/></div>
-<input id="rg-phone" placeholder="رقم الموبايل (01xxxxxxxxx)" required="" type="text"/>
+<input id="rg-phone" inputmode="numeric" placeholder="رقم موبايل الطالب (01xxxxxxxxx)" required="" type="text"/>
+<div class="jl-review-row"><input id="rg-parent-phone" inputmode="numeric" placeholder="رقم ولي الأمر" required="" type="text"/><input id="rg-parent-phone2" inputmode="numeric" placeholder="تأكيد رقم ولي الأمر" required="" type="text"/></div>
+<select id="rg-grade" required=""><option value="">اختر الصف الدراسي</option><option value="first_secondary">أولى ثانوي</option><option value="second_secondary">ثانية ثانوي</option></select>
 <input id="rg-email" placeholder="الإيميل" required="" type="email"/>
 <div class="jl-pass-wrap"><input id="rg-password" placeholder="مثال: 123@Codehub" required="" type="password"/><button aria-label="إظهار/إخفاء الباسورد" class="jl-pass-eye" data-target="rg-password" type="button">👁️</button></div><div class="jl-pass-strength-bar"><span></span></div><ul class="jl-pass-checklist" id="rg-pass-checklist"><li data-rule="len">8 حروف على الأقل</li><li data-rule="upper">حرف كبير (A-Z)</li><li data-rule="lower">حرف صغير (a-z)</li><li data-rule="num">رقم</li><li data-rule="sym">رمز (@#$...)</li></ul>
 <div class="jl-pass-wrap"><input id="rg-password2" placeholder="أكّد الباسورد" required="" type="password"/><button aria-label="إظهار/إخفاء الباسورد" class="jl-pass-eye" data-target="rg-password2" type="button">👁️</button></div>
@@ -183,6 +185,14 @@
 </button>
 </div>
 <div class="jl-pv-contact-row">
+<svg aria-hidden="true" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M3 7h18M6 3h12M5 7v12h14V7"></path><path d="M9 11h6M9 15h4"></path></svg>
+<span>الصف: <strong id="jl-profile-grade">—</strong></span>
+</div>
+<div class="jl-pv-contact-row">
+<svg aria-hidden="true" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+<span>ولي الأمر: <strong id="jl-profile-parent-phone">—</strong></span>
+</div>
+<div class="jl-pv-contact-row">
 <svg aria-hidden="true" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="15" rx="2.5" width="19" x="2.5" y="4.5"></rect><path d="m3 6.5 9 6.5 9-6.5"></path></svg>
 <span id="jl-profile-email">—</span>
 </div>
@@ -212,5 +222,5 @@
 </div></div><div class="jl-mp-overlay" id="jl-mp-overlay"><div class="jl-mp-modal"><button aria-label="إغلاق" class="jl-mp-modal-close" id="jl-mp-modal-close" type="button">✕</button><div class="jl-mp-head"><h2><span data-i18n-inner="path-h">المسار</span> <span class="mono" data-i18n-inner="path-h-mark" style="color:var(--gold)">الشهري</span></h2><p data-i18n="path-sub">افتح الشهر وابدأ اختباراتك بالترتيب — كل ما تخلّص كويز، اللي بعده يفتح تلقائي.</p></div><div class="jl-mp-months" id="jl-mp-months"></div><div class="jl-mp-panel" id="jl-mp-panel"></div></div></div></div></div>
 <div class="jl-toast" id="jl-toast"></div><button aria-label="ارجع لفوق" class="jl-back-top" id="jl-back-top" type="button">↑</button><a aria-label="تواصل واتساب" class="jl-float-whatsapp" href="https://wa.me/201023514568" rel="noopener noreferrer" target="_blank"><svg aria-hidden="true" fill="currentColor" height="26" viewbox="0 0 24 24" width="26"><path d="M12.01 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.07L2 22l5.06-1.33A9.93 9.93 0 0 0 12.01 22C17.53 22 22 17.52 22 12S17.53 2 12.01 2zm0 18.06c-1.63 0-3.15-.46-4.45-1.25l-.32-.19-3.01.79.8-2.93-.21-.3A8.02 8.02 0 0 1 4 12c0-4.42 3.59-8 8.01-8 4.41 0 8 3.58 8 8s-3.59 8.06-8 8.06zm4.4-5.99c-.24-.12-1.43-.7-1.65-.78-.22-.08-.38-.12-.55.12-.16.24-.63.78-.77.94-.14.16-.28.18-.52.06-.24-.12-1.02-.38-1.95-1.21-.72-.64-1.21-1.43-1.35-1.67-.14-.24-.01-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.33-.76-1.82-.2-.48-.4-.42-.55-.42h-.47c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.12 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.43-.58 1.63-1.15.2-.57.2-1.05.14-1.15-.06-.1-.22-.16-.46-.28z"></path></svg></a><button aria-label="تحدث مع مساعد Code Hub" class="jl-float-chat" id="jl-chat-open-btn" title="تحدث مع المساعد الذكي" type="button"><span aria-hidden="true">🤖</span><span class="jl-float-label">اسأل Code Hub</span></button>
 <div class="jl-ai-overlay" id="jl-ai-overlay"><div class="jl-ai-modal"><div class="jl-ai-sidebar" id="jl-ai-sidebar"><div class="jl-ai-sidebar-head"><button class="jl-ai-new-btn" id="jl-ai-new-btn" type="button">+ محادثة جديدة</button></div><div class="jl-ai-conv-list" id="jl-ai-conv-list"></div></div><div class="jl-ai-main"><div class="jl-ai-topbar"><button aria-label="رجوع للموقع" class="jl-ai-exit-btn" id="jl-ai-exit-btn" title="رجوع للموقع" type="button">→ رجوع</button><button aria-label="رجوع" class="jl-ai-back-btn" id="jl-ai-back-btn" title="رجوع" type="button">←</button><button aria-label="المحادثات" class="jl-ai-hamburger" id="jl-ai-hamburger" type="button">☰</button><div aria-label="مساعد Code Hub" class="jl-ai-topbar-brand"><img alt="مساعد Code Hub" class="jl-ai-topbar-logo" src="assets/codehub-logo-light-v9.png?v=16.1"/></div><button aria-label="إغلاق" class="jl-ai-close-btn" id="jl-ai-close-btn" type="button">✕</button></div><div class="jl-ai-thread" id="jl-ai-thread"><div class="jl-ai-empty-state" id="jl-ai-empty-state"><div class="jl-ai-empty-icon">🤖</div><p>اسألني في المنهج أو أي موضوع عام، أو ارفع صورة وأنا أحللها معاك.</p></div></div><form class="jl-ai-input-bar" id="jl-ai-input-form"><button aria-label="ارفع صورة أو ملف" class="jl-ai-plus-btn" id="jl-ai-plus-btn" type="button">+</button><input accept="image/jpeg,image/png,image/webp,image/gif" hidden="" id="jl-ai-file-input" type="file"/><input autocomplete="off" class="jl-ai-input" id="jl-ai-input" maxlength="2500" placeholder="اكتب سؤالك هنا أو ارفع صورة..." type="text"/><button aria-label="إرسال" class="jl-ai-send-btn" id="jl-ai-send-btn" type="submit">➤</button></form><div class="jl-ai-file-preview" id="jl-ai-file-preview" style="display:none;"></div></div></div></div>
-<script defer="" src="assets/site.js?v=16.1"></script>
+<script defer="" src="assets/site.js?v=17.0"></script>
 </body></html>
