@@ -16,9 +16,89 @@ module.exports = async (req, res) => {
   if (!auth.ok) return res.status(401).json({ error: 'مش معاك صلاحية' });
 
   if (req.method === 'GET') {
+    const id = cleanText(req.query?.id);
+
+    if (id) {
+      const { data: student, error: studentError } = await supabase
+        .from('students')
+        .select('id, first_name, last_name, phone, parent_phone, grade_level, email, avatar_url, phone_verified, is_active, created_at, updated_at')
+        .eq('id', id)
+        .maybeSingle();
+      if (studentError) return res.status(500).json({ error: 'تعذر تحميل بيانات الطالب' });
+      if (!student) return res.status(404).json({ error: 'الطالب مش موجود' });
+
+      const { data: results, error: resultsError } = await supabase
+        .from('results')
+        .select(`
+          score,
+          total,
+          completed_at,
+          quizzes ( id, title, type, week_number, quiz_number_in_week, months ( id, name ) )
+        `)
+        .eq('student_id', id)
+        .order('completed_at', { ascending: false })
+        .limit(500);
+      if (resultsError) return res.status(500).json({ error: 'تعذر تحميل سجل اختبارات الطالب' });
+
+      const history = (results || []).map((r) => {
+        const percent = r.total ? Math.round((r.score / r.total) * 100) : 0;
+        return {
+          score: r.score,
+          total: r.total,
+          percent,
+          completed_at: r.completed_at,
+          quiz_id: r.quizzes?.id || null,
+          quiz: r.quizzes?.title || 'اختبار',
+          quiz_type: r.quizzes?.type || null,
+          week_number: r.quizzes?.week_number || null,
+          quiz_number_in_week: r.quizzes?.quiz_number_in_week || null,
+          month: r.quizzes?.months?.name || '—',
+        };
+      });
+
+      const completed = history.length;
+      const average = completed ? Math.round(history.reduce((sum, r) => sum + r.percent, 0) / completed) : null;
+      const passed = history.filter((r) => r.percent >= 75).length;
+      const needsFollowUp = history.filter((r) => r.percent < 75).length;
+      const critical = history.filter((r) => r.percent < 50).length;
+      const fallbackAlerts = history
+        .filter((r) => r.percent < 75)
+        .slice(0, 12)
+        .map((r) => ({
+          severity: r.percent < 50 ? 'critical' : 'warning',
+          message: r.percent < 50
+            ? `النتيجة ${r.percent}% في ${r.quiz} — محتاج متابعة ومراجعة قوية.`
+            : `النتيجة ${r.percent}% في ${r.quiz} — قريب من النجاح المطلوب 75%.`,
+          completed_at: r.completed_at,
+        }));
+
+      const { data: storedAlerts, error: storedAlertError } = await supabase
+        .from('student_alerts')
+        .select('alert_type, title, message, percent, created_at')
+        .eq('student_id', String(id))
+        .order('created_at', { ascending: false })
+        .limit(30);
+      const alerts = storedAlertError
+        ? fallbackAlerts
+        : (storedAlerts || []).map((a) => ({
+            severity: a.alert_type || 'warning',
+            title: a.title,
+            message: a.message,
+            percent: a.percent,
+            completed_at: a.created_at,
+          }));
+
+      return res.status(200).json({
+        student,
+        stats: { completed_quizzes: completed, average_percent: average, passed_quizzes: passed, needs_follow_up: needsFollowUp, critical_results: critical },
+        results: history,
+        alerts,
+      });
+    }
+
     const { data, error } = await supabase
       .from('students')
-      .select('id, first_name, last_name, phone, parent_phone, grade_level, email, phone_verified, is_active, created_at, updated_at')
+      .select('id, first_name, last_name, phone, parent_phone, grade_level, email, avatar_url, phone_verified, is_active, created_at, updated_at')
       .order('created_at', { ascending: false })
       .limit(5000);
 
@@ -88,7 +168,7 @@ module.exports = async (req, res) => {
       .from('students')
       .update(update)
       .eq('id', id)
-      .select('id, first_name, last_name, phone, parent_phone, grade_level, email, phone_verified, is_active, created_at, updated_at')
+      .select('id, first_name, last_name, phone, parent_phone, grade_level, email, avatar_url, phone_verified, is_active, created_at, updated_at')
       .single();
     if (error) return res.status(500).json({ error: 'تعذر حفظ بيانات الطالب' });
 
