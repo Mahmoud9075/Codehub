@@ -7009,3 +7009,13 @@ body,button,input,textarea,select{font-family:"Cairo",sans-serif !important;}
   .jl-review-card{padding:18px 16px !important;}
   .jl-reviews-stat-pill{width:100% !important; justify-content:center !important;}
 }
+
+/* Student registration: grade selector + parent contact fields */
+.jl-student-form select{
+  width:100%; min-height:50px; padding:11px 15px; margin-bottom:10px;
+  border:1px solid rgba(217,164,65,.30); border-radius:11px;
+  background:#FFFDF8; color:#102A43; box-sizing:border-box;
+}
+.jl-student-form select:focus{
+  outline:none; border-color:rgba(217,164,65,.82); box-shadow:0 0 0 3px rgba(217,164,65,.12);
+}
