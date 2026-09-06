@@ -1,7 +1,7 @@
 const { supabase } = require('../../_lib/supabase');
 const { applyCors } = require('../../_lib/cors');
 const { requireStudent } = require('../../_lib/student-auth');
-const { getPassPercent } = require('../../_lib/quiz-access');
+const { getPassPercent, getStudentMonths } = require('../../_lib/quiz-access');
 
 
 const cairoFormatter = new Intl.DateTimeFormat('en-US', {
@@ -31,7 +31,7 @@ module.exports = async (req, res) => {
 
   const { data: student, error: sErr } = await supabase
     .from('students')
-    .select('id, created_at, phone_verified')
+    .select('id, created_at, phone_verified, grade_level')
     .eq('id', student_id)
     .maybeSingle();
 
@@ -47,10 +47,19 @@ module.exports = async (req, res) => {
 
   const results = myResults || [];
   const passPercent = await getPassPercent();
-  const { data: allQuizzes, error: qErr } = await supabase.from('quizzes').select('id, month_id, type');
+  let scopedMonths = [];
+  try { scopedMonths = (await getStudentMonths(student_id)).months || []; }
+  catch (error) { return res.status(500).json({ error: 'تعذر تحميل بيانات صفك الدراسي' }); }
+  const scopedMonthIds = scopedMonths.map((month) => month.id);
+  const { data: allQuizzes, error: qErr } = await supabase
+    .from('quizzes')
+    .select('id, month_id, type')
+    .in('month_id', scopedMonthIds.length ? scopedMonthIds : ['00000000-0000-0000-0000-000000000000']);
   if (qErr) return res.status(500).json({ error: 'تعذر تحميل بيانات الاختبارات' });
   const quizById = Object.fromEntries((allQuizzes || []).map((quiz) => [String(quiz.id), quiz]));
-  const completedResults = results.filter((result) => {
+  const gradeQuizIdsSet = new Set((allQuizzes || []).map((quiz) => String(quiz.id)));
+  const scopedResults = results.filter((result) => gradeQuizIdsSet.has(String(result.quiz_id)));
+  const completedResults = scopedResults.filter((result) => {
     const quiz = quizById[String(result.quiz_id)];
     if (!quiz || quiz.type !== 'final') return true;
     return Boolean(result.total && Math.round((result.score / result.total) * 100) >= passPercent);
@@ -58,12 +67,12 @@ module.exports = async (req, res) => {
   const quizzesCompleted = completedResults.length;
 
   let avgScorePercent = null;
-  if (results.length > 0) {
-    const sumPercent = results.reduce((acc, r) => acc + (r.total ? (r.score / r.total) * 100 : 0), 0);
-    avgScorePercent = Math.round(sumPercent / results.length);
+  if (scopedResults.length > 0) {
+    const sumPercent = scopedResults.reduce((acc, r) => acc + (r.total ? (r.score / r.total) * 100 : 0), 0);
+    avgScorePercent = Math.round(sumPercent / scopedResults.length);
   }
 
-  const dateSet = new Set(results.map((r) => cairoDayKey(r.completed_at)));
+  const dateSet = new Set(scopedResults.map((r) => cairoDayKey(r.completed_at)));
   let streakDays = 0;
   for (let i = 0; i < 366; i++) {
     const key = cairoDayKey(Date.now() - i * 24 * 60 * 60 * 1000);
@@ -79,9 +88,11 @@ module.exports = async (req, res) => {
 
   let percentile = null;
   if (quizzesCompleted > 0) {
+    const gradeQuizIds = (allQuizzes || []).map((quiz) => quiz.id);
     const { data: allResults, error: allErr } = await supabase
       .from('results')
-      .select('student_id, score, total');
+      .select('student_id, score, total')
+      .in('quiz_id', gradeQuizIds.length ? gradeQuizIds : ['00000000-0000-0000-0000-000000000000']);
 
     if (!allErr && allResults && allResults.length) {
       const byStudent = {};
@@ -107,8 +118,8 @@ module.exports = async (req, res) => {
   let remainingQuizzesThisMonth = 0;
   let allMonthsDone = false;
   {
-    const { data: months } = await supabase.from('months').select('id, name, order_index').order('order_index', { ascending: true });
-    const resultByQuizId = Object.fromEntries(results.map((r) => [r.quiz_id, r]));
+    const months = scopedMonths;
+    const resultByQuizId = Object.fromEntries(scopedResults.map((r) => [r.quiz_id, r]));
 
     let previousPassed = true;
     let found = false;
