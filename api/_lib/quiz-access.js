@@ -8,7 +8,7 @@ async function getPassPercent() {
     .eq('id', 1)
     .maybeSingle();
   const parsed = Number(data?.final_exam_pass_percent);
-  return Number.isFinite(parsed) ? Math.max(1, Math.min(100, parsed)) : 70;
+  return Number.isFinite(parsed) ? Math.max(1, Math.min(100, parsed)) : 75;
 }
 
 async function getStudentMonths(studentId) {
@@ -61,7 +61,7 @@ async function isMonthUnlocked(studentId, monthId, passPercent) {
 async function getQuizAccess(studentId, quizId) {
   const { data: quiz, error: quizError } = await supabase
     .from('quizzes')
-    .select('id, month_id, type, order_index')
+    .select('id, month_id, type, order_index, title')
     .eq('id', quizId)
     .maybeSingle();
   if (quizError) throw quizError;
