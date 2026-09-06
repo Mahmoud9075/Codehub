@@ -62,6 +62,36 @@ module.exports = async (req, res) => {
     .limit(5);
   if (recErr) return res.status(500).json({ error: 'تعذر تحميل آخر التسجيلات' });
 
+  const { data: storedAlerts, error: alertErr } = await supabase
+    .from('student_alerts')
+    .select('id, student_id, alert_type, title, message, percent, created_at')
+    .order('created_at', { ascending: false })
+    .limit(20);
+
+  let alerts = [];
+  if (alertErr) {
+    const code = String(alertErr.code || '');
+    if (code === '42P01' || code === '42703') {
+      alerts = [{
+        type: 'info',
+        student_id: null,
+        title: 'تحديث قاعدة البيانات مطلوب',
+        message: 'شغّل ملف CODEHUB_PASS_75_AND_MONITORING.sql مرة واحدة لتفعيل تنبيهات الطلاب الدائمة.',
+        created_at: new Date().toISOString(),
+      }];
+    }
+  } else {
+    alerts = (storedAlerts || []).map((a) => ({
+      id: a.id,
+      type: a.alert_type || 'warning',
+      student_id: a.student_id,
+      percent: a.percent,
+      title: a.title,
+      message: a.message,
+      created_at: a.created_at,
+    }));
+  }
+
   return res.status(200).json({
     total_students: totalStudents || 0,
     avg_performance_percent: avgPerformancePercent,
@@ -71,5 +101,6 @@ module.exports = async (req, res) => {
     second_secondary_students: secondSecondaryStudents,
     unassigned_students: unassignedStudents,
     recent_registrations: recentStudents || [],
+    alerts,
   });
 };
