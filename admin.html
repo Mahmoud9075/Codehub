@@ -33,11 +33,13 @@ body{background:linear-gradient(180deg,#f7f4ec 0%,#efeadf 100%)}
 #months-box h3,#quizzes-box h3,#reviews-admin-box h3,#questions-box h3{margin:0;color:var(--navy);font-size:19px;line-height:1.6}
 #months-box p,#quizzes-box p,#reviews-admin-box p,#questions-box p{margin:4px 0 0;color:var(--muted);line-height:1.8}
 #months-box button,#quizzes-box button,#reviews-admin-box button,#questions-box button,#admins-box button{border-radius:12px}
+.month-admin-toolbar{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;margin-bottom:6px}.month-create-form{flex:1;min-width:280px;margin:0}.month-create-form #month-name{max-width:320px}.month-create-form #month-grade{max-width:220px}.month-filter{max-width:190px}.month-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;align-items:start}.month-card{border:1px solid #e2dac9;border-radius:18px;background:linear-gradient(180deg,#fff 0%,#fffdf9 100%);box-shadow:0 10px 28px rgba(26,33,66,.055);overflow:hidden;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}.month-card:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(26,33,66,.09);border-color:#d2c39f}.month-card.expanded{grid-column:1/-1;transform:none;border-color:#c8aa62;box-shadow:0 16px 40px rgba(26,33,66,.09)}.month-card-toggle{width:100%;border:0;background:transparent;color:inherit;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;cursor:pointer;text-align:right}.month-card-main{display:grid;gap:7px;min-width:0}.month-card-title{font-size:22px;font-weight:800;color:var(--navy);line-height:1.35}.month-card-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.month-grade-badge{display:inline-flex;align-items:center;padding:5px 10px;border-radius:999px;background:#f4efe3;color:#6f5824;font-size:12px;font-weight:800}.month-grade-badge.unassigned{background:#fde8e7;color:var(--danger)}.month-order{font-size:12px;color:var(--muted)}.month-chevron{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:#f6f1e7;color:var(--navy);font-size:18px;flex:0 0 auto;transition:transform .2s ease}.month-card.expanded .month-chevron{transform:rotate(180deg);background:var(--navy);color:#fff}.month-card-body{border-top:1px solid #eee6d8;padding:18px 20px 20px;background:#fffdf9}.month-card-controls{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-bottom:16px;padding-bottom:14px;border-bottom:1px dashed #dfd6c5}.month-card-controls .search{max-width:210px}.month-quizzes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.quiz-week-group{grid-column:1/-1;display:grid;gap:9px}.quiz-week-title{font-weight:800;color:var(--navy);font-size:14px;padding:3px 2px}.quiz-week-items{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}.quiz-mini-card{border:1px solid #e5ddcd;border-radius:14px;padding:13px;background:#fff;display:grid;gap:8px;min-height:120px}.quiz-mini-card.final{background:#fbf7ea;border-color:#d9c184}.quiz-mini-title{font-weight:800;color:var(--navy);line-height:1.6}.quiz-mini-meta{font-size:12px;color:var(--muted)}.quiz-mini-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:auto}.quiz-add-box{margin-top:16px;border:1px dashed #cdbd97;border-radius:15px;padding:14px;background:#fbf8f1}.quiz-add-box h4{margin:0 0 10px;color:var(--navy)}.quiz-add-form{display:grid;grid-template-columns:minmax(220px,1fr) 150px auto;gap:9px;align-items:center}.quiz-add-form .search{max-width:none}.quiz-empty{padding:18px;border:1px dashed #ddd3c0;border-radius:14px;text-align:center;color:var(--muted);background:#fff}.question-context{margin-bottom:10px}.question-context .badge{font-size:12px;padding:5px 10px}
 #quiz-manager.hidden,#question-manager.hidden{display:none!important}
 #quiz-manager,#question-manager{scroll-margin-top:20px}
 .empty{padding:26px;border:1px dashed #dacdb5;border-radius:18px;background:#fcfbf8}
+.admin-alerts{display:grid;gap:10px}.admin-alert{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:16px;padding:13px 14px;background:#fff}.admin-alert.critical{border-color:#efb7b3;background:#fff7f6}.admin-alert.warning{border-color:#ead29a;background:#fffbf0}.admin-alert.info{border-color:#bdd3ee;background:#f6faff}.admin-alert-icon{font-size:20px}.admin-alert-body strong{display:block;color:var(--navy);margin-bottom:3px}.admin-alert-body p{margin:0 0 3px;line-height:1.7;font-size:13px}.student-profile-head{display:flex;gap:16px;align-items:center;margin-bottom:18px}.student-profile-head h3{margin:0 0 7px;color:var(--navy);font-size:25px}.student-profile-avatar{width:78px;height:78px;border-radius:22px;object-fit:cover;border:2px solid #e2d7bf;background:#f4efe4}.student-profile-avatar.placeholder{display:grid;place-items:center;font-size:30px;font-weight:800;color:var(--navy)}.student-profile-badges{display:flex;gap:7px;flex-wrap:wrap}.student-data-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin-bottom:16px}.student-data-grid>div{border:1px solid #e8e0d1;background:#fffdf9;border-radius:14px;padding:12px}.student-data-grid span{display:block;color:var(--muted);font-size:12px;margin-bottom:4px}.student-data-grid strong{display:block;color:var(--navy);word-break:break-word}.student-mini-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin:16px 0}.student-mini-stat{border:1px solid #e5ddce;border-radius:14px;padding:12px;background:#fdfbf6}.student-mini-stat strong{display:block;color:var(--navy);font-size:23px}.student-mini-stat span{font-size:12px;color:var(--muted)}.student-detail-section{margin-top:20px}.student-detail-section h3{color:var(--navy);margin:0 0 10px}.student-detail-alert{display:grid;gap:3px;border-radius:13px;padding:11px 12px;margin:8px 0;border:1px solid #ead29a;background:#fffbf0}.student-detail-alert.critical{border-color:#efb7b3;background:#fff7f6}.student-detail-alert.info{border-color:#bdd3ee;background:#f6faff}.student-detail-alert span{font-size:13px;line-height:1.7}.student-detail-alert small{color:var(--muted)}
 @media(max-width:960px){.admin-layout{grid-template-columns:1fr}.nav.card{position:static}.nav{display:flex;overflow:auto;gap:8px}.nav button{white-space:nowrap;margin-bottom:0}.panel h2{font-size:24px}}
-@media(max-width:560px){.wrap{padding:12px}.card{padding:16px;border-radius:18px}.topbar h1{font-size:24px}.item-title{font-size:18px}}
+@media(max-width:720px){.month-grid{grid-template-columns:1fr}.month-card.expanded{grid-column:auto}.month-card-toggle{padding:15px}.month-card-body{padding:14px}.month-card-title{font-size:19px}.month-admin-toolbar{display:grid}.month-create-form{display:grid;grid-template-columns:1fr;min-width:0;width:100%}.month-create-form #month-name,.month-create-form #month-grade,.month-filter{max-width:none;width:100%}.quiz-add-form{grid-template-columns:1fr}.quiz-week-items{grid-template-columns:1fr}}@media(max-width:560px){.admin-alert{grid-template-columns:auto 1fr}.admin-alert .btn{grid-column:1/-1}.student-profile-head{align-items:flex-start}.student-profile-avatar{width:64px;height:64px}.wrap{padding:12px}.card{padding:16px;border-radius:18px}.topbar h1{font-size:24px}.item-title{font-size:18px}}
 </style>
 
 </head>
@@ -89,6 +91,7 @@ body{background:linear-gradient(180deg,#f7f4ec 0%,#efeadf 100%)}
       <main>
         <section class="panel active" id="panel-dashboard">
           <div id="stats-grid" class="grid"></div>
+          <div class="card"><h2>تنبيهات الطلاب</h2><p class="section-note">هنا يظهر لك فورًا أي طالب نتيجته أقل من 75%، مع تمييز النتائج الأقل من 50% كحالة متابعة مهمة.</p><div id="admin-alerts-box" class="admin-alerts"></div></div>
           <div class="card"><h2>آخر التسجيلات</h2><div id="recent-box"></div></div>
         </section>
 
@@ -105,6 +108,10 @@ body{background:linear-gradient(180deg,#f7f4ec 0%,#efeadf 100%)}
               <button class="btn secondary" id="students-export-pdf" type="button">PDF / طباعة</button>
             </div>
             <div id="students-box" style="margin-top:12px"></div>
+          </div>
+          <div class="card hidden" id="student-details">
+            <div class="toolbar" style="justify-content:space-between"><div><h2 style="margin-bottom:2px">ملف الطالب الكامل</h2><p class="section-note" style="margin:0">بيانات الحساب والصورة والتحقق والنتائج والتنبيهات الخاصة بالطالب في مكان واحد.</p></div><button class="btn secondary" id="student-details-close" type="button">إغلاق</button></div>
+            <div id="student-details-body"></div>
           </div>
           <div class="card hidden" id="student-editor">
             <h2>تعديل بيانات الطالب</h2>
@@ -145,12 +152,12 @@ body{background:linear-gradient(180deg,#f7f4ec 0%,#efeadf 100%)}
         <section class="panel" id="panel-exams">
           <div class="card">
             <h2>الشهور والاختبارات</h2>
-            <form id="month-form" class="toolbar"><input id="month-name" class="search" style="max-width:320px" maxlength="80" placeholder="اسم الشهر الجديد" required><select id="month-grade" class="search" style="max-width:220px" required><option value="">اختر الصف</option><option value="first_secondary">أولى ثانوي</option><option value="second_secondary">ثانية ثانوي</option></select><button class="btn" type="submit">إضافة شهر + اختبارات الشهر</button></form><p class="section-note">كل شهر مرتبط بصف محدد. الطالب يشوف شهور واختبارات صفه فقط.</p>
-            <div id="months-box"></div>
-          </div>
-          <div id="quiz-manager" class="card hidden">
-            <h2 id="quiz-manager-title">اختبارات الشهر</h2>
-            <div id="quizzes-box"></div>
+            <div class="month-admin-toolbar">
+              <form id="month-form" class="toolbar month-create-form"><input id="month-name" class="search" maxlength="80" placeholder="اسم الشهر الجديد" required><select id="month-grade" class="search" required><option value="">اختر الصف</option><option value="first_secondary">أولى ثانوي</option><option value="second_secondary">ثانية ثانوي</option></select><button class="btn" type="submit">إضافة شهر</button></form>
+              <select id="month-list-filter" class="search month-filter"><option value="">كل الصفوف</option><option value="first_secondary">أولى ثانوي</option><option value="second_secondary">ثانية ثانوي</option><option value="unassigned">غير محدد</option></select>
+            </div>
+            <p class="section-note">اضغط على أي شهر لفتح اختباراته في نفس المكان، واضغط عليه مرة ثانية لإخفائها. تقدر تضيف اختبار مستقل لأي محاضرة بدل تجميع أكثر من محاضرة في اختبار واحد.</p>
+            <div id="months-box" class="month-grid"></div>
           </div>
           <div id="question-manager" class="card hidden">
             <h2 id="question-manager-title">الأسئلة</h2>
@@ -203,6 +210,6 @@ body{background:linear-gradient(180deg,#f7f4ec 0%,#efeadf 100%)}
 
 
 <script src="assets/admin-ui.js?v=17.0" defer></script>
-<script src="assets/admin.js?v=17.0" defer></script>
+<script src="assets/admin.js?v=18.0" defer></script>
 </body>
 </html>
