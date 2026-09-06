@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
   const includeParent = String(req.query?.include_parent || '') === '1';
   const { data: student, error } = await supabase
     .from('students')
-    .select('id, first_name, last_name, phone, email, avatar_url, phone_verified, parent_token')
+    .select('id, first_name, last_name, phone, parent_phone, grade_level, email, avatar_url, phone_verified, is_active, parent_token')
     .eq('id', session.id)
     .maybeSingle();
   if (error || !student) return res.status(404).json({ error: 'الحساب مش موجود' });
@@ -22,7 +22,7 @@ module.exports = async (req, res) => {
       .from('students')
       .update({ parent_token: parentToken })
       .eq('id', session.id)
-      .select('id, first_name, last_name, phone, email, avatar_url, phone_verified, parent_token')
+      .select('id, first_name, last_name, phone, parent_phone, grade_level, email, avatar_url, phone_verified, is_active, parent_token')
       .single();
     if (updated) {
       if (!includeParent) delete updated.parent_token;
