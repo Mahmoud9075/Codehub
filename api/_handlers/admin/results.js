@@ -21,7 +21,7 @@ module.exports = async (req, res) => {
       score,
       total,
       completed_at,
-      students ( first_name, last_name, phone ),
+      students ( first_name, last_name, phone, grade_level ),
       quizzes ( title, week_number, quiz_number_in_week, months ( name ) )
     `)
     .order('completed_at', { ascending: false })
@@ -32,6 +32,7 @@ module.exports = async (req, res) => {
   const rows = (data || []).map((r) => ({
     student_name: r.students ? `${r.students.first_name} ${r.students.last_name}` : null,
     student_phone: r.students?.phone,
+    grade_level: r.students?.grade_level,
     month: r.quizzes?.months?.name,
     quiz: r.quizzes?.title,
     score: r.score,
