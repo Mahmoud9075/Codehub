@@ -75,5 +75,17 @@ module.exports = async (req, res) => {
   }
 
   setStudentSession(res, created.id, password_hash);
+
+  // Best-effort admin notification. Account creation must still succeed if alerts are unavailable.
+  try {
+    const fullName = `${created.first_name || ''} ${created.last_name || ''}`.trim() || 'طالب جديد';
+    await supabase.from('student_alerts').insert({
+      student_id: String(created.id),
+      alert_type: 'info',
+      title: 'حساب طالب جديد',
+      message: `تم إنشاء حساب جديد لـ ${fullName} (${created.phone || 'بدون رقم'}).`,
+    });
+  } catch (error) {}
+
   return res.status(201).json({ student: created });
 };
