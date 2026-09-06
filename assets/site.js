@@ -1076,6 +1076,9 @@ document.addEventListener('DOMContentLoaded', function(){
     if (!s) return;
     document.getElementById('jl-profile-name').textContent = s.first_name + ' ' + s.last_name;
     document.getElementById('jl-profile-phone').textContent = s.phone;
+    var gradeLabel = s.grade_level === 'first_secondary' ? 'أولى ثانوي' : (s.grade_level === 'second_secondary' ? 'ثانية ثانوي' : 'غير محدد');
+    document.getElementById('jl-profile-grade').textContent = gradeLabel;
+    document.getElementById('jl-profile-parent-phone').textContent = s.parent_phone || 'غير مسجل';
     document.getElementById('jl-profile-email').textContent = s.email || '—';
     document.getElementById('jl-profile-avatar').src = s.avatar_url || 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="110" height="110"><rect width="110" height="110" fill="%23e5ded0"/></svg>';
 
@@ -1352,9 +1355,14 @@ document.addEventListener('DOMContentLoaded', function(){
   function checkRegisterFormValid(){
     var pass1 = document.getElementById('rg-password').value;
     var pass2 = document.getElementById('rg-password2').value;
+    var parentPhone = document.getElementById('rg-parent-phone').value.trim();
+    var parentPhone2 = document.getElementById('rg-parent-phone2').value.trim();
+    var grade = document.getElementById('rg-grade').value;
     var ok = validateName(document.getElementById('rg-first').value) &&
              validateName(document.getElementById('rg-last').value) &&
              validatePhone(document.getElementById('rg-phone').value) &&
+             validatePhone(parentPhone) && parentPhone === parentPhone2 &&
+             (grade === 'first_secondary' || grade === 'second_secondary') &&
              validateEmail(document.getElementById('rg-email').value) &&
              validatePassword(pass1) &&
              pass1 === pass2 && pass1 !== '';
@@ -1363,8 +1371,8 @@ document.addEventListener('DOMContentLoaded', function(){
     rgSubmitBtn.style.cursor = ok ? 'pointer' : 'not-allowed';
     return ok;
   }
-  ['rg-first','rg-last','rg-phone','rg-email','rg-password','rg-password2'].forEach(function(id){
-    document.getElementById(id).addEventListener('input', checkRegisterFormValid);
+  ['rg-first','rg-last','rg-phone','rg-parent-phone','rg-parent-phone2','rg-grade','rg-email','rg-password','rg-password2'].forEach(function(id){
+    document.getElementById(id).addEventListener(id === 'rg-grade' ? 'change' : 'input', checkRegisterFormValid);
   });
   checkRegisterFormValid();
 
@@ -1374,6 +1382,9 @@ document.addEventListener('DOMContentLoaded', function(){
     var first = document.getElementById('rg-first').value.trim();
     var last = document.getElementById('rg-last').value.trim();
     var phone = document.getElementById('rg-phone').value.trim();
+    var parentPhone = document.getElementById('rg-parent-phone').value.trim();
+    var parentPhone2 = document.getElementById('rg-parent-phone2').value.trim();
+    var grade = document.getElementById('rg-grade').value;
     var email = normalizeEmail(document.getElementById('rg-email').value);
     var pass1 = document.getElementById('rg-password').value;
     var pass2 = document.getElementById('rg-password2').value;
@@ -1385,6 +1396,21 @@ document.addEventListener('DOMContentLoaded', function(){
     }
     if (!validatePhone(phone)){
       msg.textContent = 'اكتب رقم موبايل مصري صحيح (11 رقم، يبدأ بـ 010 أو 011 أو 012 أو 015).';
+      msg.className = 'jl-student-msg err'; if (window.jlShakeInvalid) window.jlShakeInvalid(msg);
+      return;
+    }
+    if (!validatePhone(parentPhone)){
+      msg.textContent = 'اكتب رقم ولي الأمر بشكل صحيح.';
+      msg.className = 'jl-student-msg err'; if (window.jlShakeInvalid) window.jlShakeInvalid(msg);
+      return;
+    }
+    if (parentPhone !== parentPhone2){
+      msg.textContent = 'رقم ولي الأمر وتأكيد رقم ولي الأمر مش متطابقين.';
+      msg.className = 'jl-student-msg err'; if (window.jlShakeInvalid) window.jlShakeInvalid(msg);
+      return;
+    }
+    if (grade !== 'first_secondary' && grade !== 'second_secondary'){
+      msg.textContent = 'اختار الصف الدراسي: أولى ثانوي أو ثانية ثانوي.';
       msg.className = 'jl-student-msg err'; if (window.jlShakeInvalid) window.jlShakeInvalid(msg);
       return;
     }
@@ -1417,6 +1443,9 @@ document.addEventListener('DOMContentLoaded', function(){
         first_name: first,
         last_name: last,
         phone: phone,
+        parent_phone: parentPhone,
+        parent_phone_confirm: parentPhone2,
+        grade_level: grade,
         email: email,
         password: pass1
       })
