@@ -1,152 +1,43 @@
--- Code Hub security hardening (run once in Supabase SQL Editor before/with this deployment).
--- The application talks to these tables through the Vercel backend using the service-role key.
+-- CODE HUB: student grade + parent phone + safe student management
+-- Run this once in Supabase SQL Editor before deploying the matching code.
 
 begin;
 
--- OTP hashes are longer than the original six-digit codes.
+alter table public.students add column if not exists parent_phone text;
+alter table public.students add column if not exists grade_level text;
+alter table public.students add column if not exists is_active boolean not null default true;
+alter table public.students add column if not exists updated_at timestamptz default now();
+
+alter table public.months add column if not exists grade_level text;
+
+-- Keep legacy rows valid until the admin assigns a grade. New registrations/new months
+-- are validated by the server and must use one of these two values.
 do $$
 begin
-  if to_regclass('public.phone_otps') is not null then
-    alter table public.phone_otps alter column code type text using code::text;
+  if not exists (
+    select 1 from pg_constraint where conname = 'students_grade_level_check'
+  ) then
+    alter table public.students
+      add constraint students_grade_level_check
+      check (grade_level is null or grade_level in ('first_secondary','second_secondary'));
   end if;
-  if to_regclass('public.password_resets') is not null then
-    alter table public.password_resets alter column code type text using code::text;
-  end if;
-  if to_regclass('public.super_admin_otps') is not null then
-    alter table public.super_admin_otps alter column code type text using code::text;
+
+  if not exists (
+    select 1 from pg_constraint where conname = 'months_grade_level_check'
+  ) then
+    alter table public.months
+      add constraint months_grade_level_check
+      check (grade_level is null or grade_level in ('first_secondary','second_secondary'));
   end if;
 end $$;
 
--- Rate-limit/analytics identifiers are pseudonymous HMAC strings, not raw IP values.
-do $$
-begin
-  if to_regclass('public.login_attempts') is not null then
-    alter table public.login_attempts alter column ip type text using ip::text;
-  end if;
-  if to_regclass('public.page_visits') is not null then
-    alter table public.page_visits alter column ip type text using ip::text;
-  end if;
-end $$;
-
--- Repair/upgrade the student account schema used by registration/login/profile.
-do $$
-begin
-  if to_regclass('public.students') is not null then
-    alter table public.students add column if not exists first_name text;
-    alter table public.students add column if not exists last_name text;
-    alter table public.students add column if not exists phone text;
-    alter table public.students add column if not exists email text;
-    alter table public.students add column if not exists password_hash text;
-    alter table public.students add column if not exists parent_token text;
-    alter table public.students add column if not exists avatar_url text;
-    alter table public.students add column if not exists phone_verified boolean default false;
-    alter table public.students add column if not exists created_at timestamptz default now();
-    alter table public.students alter column password_hash type text using password_hash::text;
-    alter table public.students alter column email type text using email::text;
-    alter table public.students alter column phone type text using phone::text;
-    update public.students set phone_verified = false where phone_verified is null;
-  end if;
-end $$;
-
--- Final-exam pass percentage is configurable from the admin panel.
-do $$
-begin
-  if to_regclass('public.site_settings') is not null then
-    alter table public.site_settings add column if not exists final_exam_pass_percent integer default 70;
-    update public.site_settings
-       set final_exam_pass_percent = 70
-     where final_exam_pass_percent is null
-        or final_exam_pass_percent < 1
-        or final_exam_pass_percent > 100;
-  end if;
-end $$;
-
--- Keep exactly one canonical result per student/quiz. The app uses UPSERT on
--- (student_id, quiz_id), so this unique index is required for reliable submissions.
--- If an older database has duplicates, keep the latest result before adding it.
-do $$
-begin
-  if to_regclass('public.results') is not null then
-    with ranked as (
-      select ctid,
-             row_number() over (
-               partition by student_id, quiz_id
-               order by completed_at desc nulls last, ctid desc
-             ) as rn
-      from public.results
-    )
-    delete from public.results r
-    using ranked x
-    where r.ctid = x.ctid and x.rn > 1;
-  end if;
-end $$;
-
--- Helpful indexes for authorization, quiz progression, rate limiting, and dashboards.
-create unique index if not exists uq_results_student_quiz on public.results(student_id, quiz_id);
-create index if not exists idx_results_student_quiz on public.results(student_id, quiz_id);
-create unique index if not exists uq_students_parent_token on public.students(parent_token) where parent_token is not null;
-create index if not exists idx_results_completed_at on public.results(completed_at desc);
-create index if not exists idx_quizzes_month_order on public.quizzes(month_id, order_index);
-create index if not exists idx_questions_quiz_order on public.quiz_questions(quiz_id, order_index);
-create index if not exists idx_ai_conversations_student_updated on public.ai_conversations(student_id, updated_at desc);
-create index if not exists idx_login_attempts_lookup on public.login_attempts(ip, context, attempted_at desc);
-create index if not exists idx_phone_otps_student on public.phone_otps(student_id, expires_at desc);
-create index if not exists idx_password_resets_student on public.password_resets(student_id, expires_at desc);
-create index if not exists idx_page_visits_date on public.page_visits(visited_at desc);
-
-
-
--- Public reviews submitted by students, parents, or guests. They are moderated in the admin panel.
-create table if not exists public.site_reviews (
-  id bigint generated by default as identity primary key,
-  name text not null,
-  audience text not null default 'زائر',
-  stars smallint not null check (stars between 1 and 5),
-  comment text not null,
-  status text not null default 'pending' check (status in ('pending','approved','hidden')),
-  ip_hash text,
-  created_at timestamptz not null default now(),
-  moderated_at timestamptz,
-  moderated_by text
-);
-alter table public.site_reviews add column if not exists name text;
-alter table public.site_reviews add column if not exists audience text default 'زائر';
-alter table public.site_reviews add column if not exists stars smallint;
-alter table public.site_reviews add column if not exists comment text;
-alter table public.site_reviews add column if not exists status text default 'pending';
-alter table public.site_reviews add column if not exists ip_hash text;
-alter table public.site_reviews add column if not exists created_at timestamptz default now();
-alter table public.site_reviews add column if not exists moderated_at timestamptz;
-alter table public.site_reviews add column if not exists moderated_by text;
-create index if not exists idx_site_reviews_status_created on public.site_reviews(status, created_at desc);
-create index if not exists idx_site_reviews_ip_created on public.site_reviews(ip_hash, created_at desc);
-
--- Sensitive tables are server-only. service_role bypasses RLS; anon/authenticated do not.
-do $$
-declare
-  t text;
-  tables text[] := array[
-    'students','results','months','quizzes','quiz_questions','site_settings',
-    'site_content','site_content_history','ai_knowledge','ai_chat_log','ai_conversations',
-    'admin_emails','super_admins','super_admin_otps','login_attempts','phone_otps',
-    'password_resets','admin_audit_log','page_visits','site_reviews'
-  ];
-begin
-  foreach t in array tables loop
-    if to_regclass('public.' || t) is not null then
-      execute format('alter table public.%I enable row level security', t);
-      execute format('revoke all on table public.%I from anon, authenticated', t);
-    end if;
-  end loop;
-end $$;
-
--- Code Hub avatar bucket used by profile photo uploads.
-do $$
-begin
-  if to_regclass('storage.buckets') is not null then
-    insert into storage.buckets (id, name, public) values ('avatars','avatars',true)
-    on conflict (id) do update set public = excluded.public;
-  end if;
-end $$;
+create index if not exists idx_students_grade_active on public.students(grade_level, is_active);
+create index if not exists idx_students_parent_phone on public.students(parent_phone);
+create index if not exists idx_months_grade_order on public.months(grade_level, order_index);
 
 commit;
+
+-- IMPORTANT AFTER RUNNING:
+-- 1) Open Admin > الطلاب and assign a grade to any old student whose grade is "غير محدد".
+-- 2) Open Admin > الشهور والاختبارات and assign a grade to every old month.
+-- Unassigned legacy months are intentionally hidden from students to prevent cross-grade access.
