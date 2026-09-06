@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
   function mpEsc(value){ return String(value == null ? '' : value).replace(/[&<>"']/g,function(ch){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];}); }
 
-  var PASS_PERCENT = 70;
+  var PASS_PERCENT = 75;
   var monthsCache = [];
   var expandedMonthId = null;
   var quizzesCache = {}; // month_id -> { weekly: [...], final: {...} }
@@ -401,13 +401,23 @@ document.addEventListener('DOMContentLoaded', function(){
             '</div>';
           }).join('');
 
+          var targetPass = Number(data.pass_percent || PASS_PERCENT) || PASS_PERCENT;
+          var resultMessage;
+          if (pct >= 90) {
+            resultMessage = 'ممتاز جدًا يا بطل! 👏🔥 نتيجتك ' + pct + '%، ودي أعلى من نسبة النجاح المطلوبة (' + targetPass + '%). حافظ على المستوى ده وراجع أي غلطة بسيطة عشان تثبت المعلومة.';
+          } else if (pct >= targetPass) {
+            resultMessage = 'مبروك، نجحت ✅ نتيجتك ' + pct + '% ووصلت لنسبة النجاح المطلوبة (' + targetPass + '%). راجع الأسئلة اللي غلطت فيها عشان المرة الجاية توصل لدرجة أعلى.';
+          } else if (pct >= 50) {
+            resultMessage = 'أنت قريب جدًا من النجاح 💪 نتيجتك ' + pct + '%، والمطلوب ' + targetPass + '%. ركّز على الأخطاء اللي ظهرت لك وراجع الجزء ده كويس، وبعدها جرّب تاني.';
+          } else {
+            resultMessage = 'محتاج مراجعة أقوى شوية 💙 نتيجتك ' + pct + '% وهي أقل من 50%. ارجع للجزء المرتبط بالأسئلة دي، افهم الغلطات واحدة واحدة، وبعد المراجعة جرّب مرة تانية.';
+          }
+
           monthsEl.innerHTML =
             '<div class="jl-quiz-result">' +
               '<div class="jl-quiz-result-score">' + data.result.score + ' / ' + data.result.total + '</div>' +
               '<div class="jl-quiz-result-pct">' + pct + '%</div>' +
-              '<div class="jl-quiz-result-note ' + (data.review_locked ? 'fail' : 'ok') + '">' +
-                (data.review_locked ? 'النهائي محتاج ' + (data.pass_percent || PASS_PERCENT) + '% للنجاح. راجع وحاول تاني.' : 'تم حفظ نتيجتك وتحديث المسار بنجاح.') +
-              '</div>' +
+              '<div class="jl-quiz-result-note ' + (pct >= targetPass ? 'ok' : 'fail') + '">' + resultMessage + '</div>' +
               '<button type="button" class="jl-reg" id="jl-quiz-back-btn">← رجوع للمسار</button>' +
               (data.review_locked ? '' : '<button type="button" class="jl-student-link" id="jl-quiz-review-btn" style="margin-top:12px;">مراجعة الإجابات</button>') +
               (data.review_locked ? '' : '<div id="jl-quiz-review-list" style="display:none;text-align:start;margin-top:16px;">' + reviewHtml + '</div>') +
