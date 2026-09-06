@@ -28,10 +28,12 @@ module.exports = async (req, res) => {
 
   const { data: student, error } = await supabase
     .from('students')
-    .select('id, first_name, last_name, phone, email, avatar_url, phone_verified, password_hash')
+    .select('id, first_name, last_name, phone, parent_phone, grade_level, email, avatar_url, phone_verified, is_active, password_hash')
     .eq('email', normalizedEmail)
     .maybeSingle();
   if (error) return res.status(500).json({ error: 'حصل خطأ في تسجيل الدخول' });
+
+  if (student && student.is_active === false) return res.status(403).json({ error: 'الحساب موقوف. تواصل مع الإدارة.' });
 
   const match = student ? await verifyPassword(String(password), student.password_hash) : false;
   if (!match) {
