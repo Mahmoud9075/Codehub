@@ -2,7 +2,7 @@
 (function(){
 'use strict';
 var API = window.location.origin;
-var state = { students:[], results:[], months:[], currentMonth:null, currentQuiz:null, questions:[] };
+var state = { students:[], results:[], months:[], currentMonth:null, currentQuiz:null, questions:[], expandedMonthId:null, monthQuizzes:{} };
 function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
 function fmtDate(v){if(!v)return '—';var d=new Date(v);return isNaN(d)?'—':d.toLocaleString('ar-EG');}
 function setMsg(id,text,type){var el=document.getElementById(id);if(!el)return;el.textContent=text||'';el.className='msg '+(type||'');}
@@ -26,7 +26,31 @@ Array.prototype.forEach.call(document.querySelectorAll('#nav button'),function(b
 function loadPanel(name){Array.prototype.forEach.call(document.querySelectorAll('.panel'),function(p){p.classList.toggle('active',p.id==='panel-'+name);});var loaders={dashboard:loadDashboard,students:loadStudents,results:loadResults,reviews:loadReviewsAdmin,exams:loadMonths,content:loadContent,ai:loadAI,settings:loadSettings,admins:loadAdmins,audit:loadAudit,analytics:loadAnalytics};if(loaders[name])loaders[name]();}
 function table(headers,rows){if(!rows.length)return '<div class="empty">مفيش بيانات.</div>';return '<div class="table-wrap"><table class="table"><thead><tr>'+headers.map(function(h){return '<th>'+esc(h)+'</th>';}).join('')+'</tr></thead><tbody>'+rows.join('')+'</tbody></table></div>';}
 
-function loadDashboard(){adminGet('dashboard-stats').then(function(d){var cards=[['إجمالي الطلاب',d.total_students],['أولى ثانوي',d.first_secondary_students||0],['ثانية ثانوي',d.second_secondary_students||0],['متوسط الأداء',d.avg_performance_percent==null?'—':d.avg_performance_percent+'%'],['الكويزات المكتملة',d.quizzes_completed],['محتاجين متابعة',d.students_behind]];document.getElementById('stats-grid').innerHTML=cards.map(function(x){return '<div class="stat"><strong>'+esc(x[1])+'</strong><span class="muted">'+esc(x[0])+'</span></div>';}).join('');var rows=(d.recent_registrations||[]).map(function(s){return '<tr><td>'+esc((s.first_name||'')+' '+(s.last_name||''))+'</td><td>'+esc(gradeLabel(s.grade_level))+'</td><td>'+esc(s.phone||'')+'</td><td>'+(s.phone_verified?'<span class="badge good">مؤكد</span>':'<span class="badge bad">غير مؤكد</span>')+'</td><td>'+esc(fmtDate(s.created_at))+'</td></tr>';});document.getElementById('recent-box').innerHTML=table(['الطالب','الصف','الموبايل','التحقق','التسجيل'],rows);}).catch(function(e){document.getElementById('recent-box').textContent=e.message;});}
+function loadDashboard(){
+  adminGet('dashboard-stats').then(function(d){
+    var cards=[['إجمالي الطلاب',d.total_students],['أولى ثانوي',d.first_secondary_students||0],['ثانية ثانوي',d.second_secondary_students||0],['متوسط الأداء',d.avg_performance_percent==null?'—':d.avg_performance_percent+'%'],['الكويزات المكتملة',d.quizzes_completed],['محتاجين متابعة',d.students_behind]];
+    document.getElementById('stats-grid').innerHTML=cards.map(function(x){return '<div class="stat"><strong>'+esc(x[1])+'</strong><span class="muted">'+esc(x[0])+'</span></div>';}).join('');
+    var rows=(d.recent_registrations||[]).map(function(s){return '<tr><td>'+esc((s.first_name||'')+' '+(s.last_name||''))+'</td><td>'+esc(gradeLabel(s.grade_level))+'</td><td>'+esc(s.phone||'')+'</td><td>'+(s.phone_verified?'<span class="badge good">مؤكد</span>':'<span class="badge bad">غير مؤكد</span>')+'</td><td>'+esc(fmtDate(s.created_at))+'</td></tr>';});
+    document.getElementById('recent-box').innerHTML=table(['الطالب','الصف','الموبايل','التحقق','التسجيل'],rows);
+    renderDashboardAlerts(d.alerts||[]);
+  }).catch(function(e){document.getElementById('recent-box').textContent=e.message;var a=document.getElementById('admin-alerts-box');if(a)a.textContent=e.message;});
+}
+function renderDashboardAlerts(alerts){
+  var box=document.getElementById('admin-alerts-box');if(!box)return;
+  if(!alerts.length){box.innerHTML='<div class="empty">مفيش تنبيهات محتاجة تدخل دلوقتي ✅</div>';return;}
+  box.innerHTML=alerts.map(function(a){
+    var cls=a.type==='critical'?'critical':(a.type==='warning'?'warning':'info');
+    var icon=a.type==='critical'?'🔴':(a.type==='warning'?'🟠':'🔵');
+    return '<div class="admin-alert '+cls+'"><div class="admin-alert-icon">'+icon+'</div><div class="admin-alert-body"><strong>'+esc(a.title||'تنبيه')+'</strong><p>'+esc(a.message||'')+'</p><span class="muted">'+esc(fmtDate(a.created_at))+'</span></div>'+(a.student_id?'<button class="btn small secondary" data-alert-student="'+esc(a.student_id)+'">فتح الطالب</button>':'')+'</div>';
+  }).join('');
+  box.querySelectorAll('[data-alert-student]').forEach(function(b){b.onclick=function(){goToStudentDetails(b.getAttribute('data-alert-student'));};});
+}
+function goToStudentDetails(id){
+  var navBtn=document.querySelector('#nav button[data-panel="students"]');
+  if(navBtn){Array.prototype.forEach.call(document.querySelectorAll('#nav button'),function(b){b.classList.toggle('active',b===navBtn);});}
+  Array.prototype.forEach.call(document.querySelectorAll('.panel'),function(p){p.classList.toggle('active',p.id==='panel-students');});
+  if(state.students&&state.students.length){openStudentDetails(id);}else{adminGet('students').then(function(d){state.students=d.students||[];renderStudents();openStudentDetails(id);}).catch(function(e){alert(e.message);});}
+}
 
 function gradeLabel(v){return v==='first_secondary'?'أولى ثانوي':(v==='second_secondary'?'ثانية ثانوي':'غير محدد');}
 function loadStudents(){adminGet('students').then(function(d){state.students=d.students||[];renderStudents();}).catch(function(e){document.getElementById('students-box').textContent=e.message;});}
@@ -54,13 +78,39 @@ function renderStudents(){
     var status=s.is_active===false?'<span class="badge bad">موقوف</span>':'<span class="badge good">نشط</span>';
     var grade=s.grade_level?'<span class="badge">'+esc(gradeLabel(s.grade_level))+'</span>':'<span class="badge bad">غير محدد</span>';
     var action=s.is_active===false?'<button class="btn small good" data-student-reactivate="'+esc(s.id)+'">تفعيل</button>':'<button class="btn small danger" data-student-deactivate="'+esc(s.id)+'">تعطيل</button>';
-    return '<tr><td>'+esc((s.first_name||'')+' '+(s.last_name||''))+'</td><td>'+grade+'</td><td>'+esc(s.phone||'—')+'</td><td>'+esc(s.parent_phone||'—')+'</td><td>'+esc(s.email||'—')+'</td><td>'+status+'</td><td>'+esc(fmtDate(s.created_at))+'</td><td><div class="toolbar" style="margin:0"><button class="btn small secondary" data-student-edit="'+esc(s.id)+'">تعديل</button>'+action+'</div></td></tr>';
+    return '<tr><td>'+esc((s.first_name||'')+' '+(s.last_name||''))+'</td><td>'+grade+'</td><td>'+esc(s.phone||'—')+'</td><td>'+esc(s.parent_phone||'—')+'</td><td>'+esc(s.email||'—')+'</td><td>'+status+'</td><td>'+esc(fmtDate(s.created_at))+'</td><td><div class="toolbar" style="margin:0"><button class="btn small" data-student-details="'+esc(s.id)+'">تفاصيل</button><button class="btn small secondary" data-student-edit="'+esc(s.id)+'">تعديل</button>'+action+'</div></td></tr>';
   });
   var box=document.getElementById('students-box');
   box.innerHTML=table(['الاسم','الصف','رقم الطالب','رقم ولي الأمر','الإيميل','الحالة','التسجيل','إدارة'],rows);
+  box.querySelectorAll('[data-student-details]').forEach(function(b){b.onclick=function(){openStudentDetails(b.getAttribute('data-student-details'));};});
   box.querySelectorAll('[data-student-edit]').forEach(function(b){b.onclick=function(){openStudentEditor(b.getAttribute('data-student-edit'));};});
   box.querySelectorAll('[data-student-deactivate]').forEach(function(b){b.onclick=function(){if(!confirm('تعطيل حساب الطالب؟ النتائج هتفضل محفوظة ويمكن تفعيله تاني.'))return;api('/api/admin/students?id='+encodeURIComponent(b.getAttribute('data-student-deactivate')),{method:'DELETE'}).then(loadStudents).catch(function(e){alert(e.message);});};});
   box.querySelectorAll('[data-student-reactivate]').forEach(function(b){b.onclick=function(){api('/api/admin/students',{method:'PUT',body:JSON.stringify({id:b.getAttribute('data-student-reactivate'),is_active:true})}).then(loadStudents).catch(function(e){alert(e.message);});};});
+}
+function openStudentDetails(id){
+  var card=document.getElementById('student-details');
+  var box=document.getElementById('student-details-body');
+  if(!card||!box)return;
+  card.classList.remove('hidden');
+  box.innerHTML='<div class="empty">جاري تحميل كل بيانات الطالب...</div>';
+  card.scrollIntoView({behavior:'smooth',block:'start'});
+  adminGet('students?id='+encodeURIComponent(id)).then(function(d){renderStudentDetails(d);}).catch(function(e){box.innerHTML='<div class="msg error">'+esc(e.message)+'</div>';});
+}
+function renderStudentDetails(d){
+  var s=d.student||{},st=d.stats||{},results=d.results||[],alerts=d.alerts||[];
+  var box=document.getElementById('student-details-body');if(!box)return;
+  var fullName=((s.first_name||'')+' '+(s.last_name||'')).trim()||'طالب';
+  var avatar=s.avatar_url?'<img class="student-profile-avatar" src="'+esc(s.avatar_url)+'" alt="صورة الطالب">':'<div class="student-profile-avatar placeholder">'+esc((s.first_name||'ط').charAt(0))+'</div>';
+  var status=s.is_active===false?'<span class="badge bad">موقوف</span>':'<span class="badge good">نشط</span>';
+  var verified=s.phone_verified?'<span class="badge good">رقم مؤكد</span>':'<span class="badge bad">رقم غير مؤكد</span>';
+  var statsHtml=[['الاختبارات المكتملة',st.completed_quizzes||0],['متوسط المستوى',st.average_percent==null?'—':st.average_percent+'%'],['75% فأعلى',st.passed_quizzes||0],['أقل من 75%',st.needs_follow_up||0],['أقل من 50%',st.critical_results||0]].map(function(x){return '<div class="student-mini-stat"><strong>'+esc(x[1])+'</strong><span>'+esc(x[0])+'</span></div>';}).join('');
+  var alertsHtml=alerts.length?alerts.map(function(a){var cls=a.severity==='critical'?'critical':(a.severity==='info'?'info':'warning');var label=a.severity==='critical'?'🔴 متابعة مهمة':(a.severity==='info'?'🔵 معلومة':'🟠 محتاج متابعة');return '<div class="student-detail-alert '+cls+'"><strong>'+label+'</strong><span>'+esc(a.message)+'</span><small>'+esc(fmtDate(a.completed_at))+'</small></div>';}).join(''):'<div class="empty">مفيش تنبيهات خاصة بالطالب حاليًا ✅</div>';
+  var resultRows=results.map(function(r){var cls=r.percent>=75?'good':(r.percent<50?'bad':'');return '<tr><td>'+esc(r.month||'—')+'</td><td>'+esc(r.quiz||'—')+'</td><td><span class="badge '+cls+'">'+esc(r.score)+'/'+esc(r.total)+' ('+esc(r.percent)+'%)</span></td><td>'+esc(fmtDate(r.completed_at))+'</td></tr>';});
+  box.innerHTML='<div class="student-profile-head">'+avatar+'<div><h3>'+esc(fullName)+'</h3><div class="student-profile-badges">'+status+verified+'<span class="badge">'+esc(gradeLabel(s.grade_level))+'</span></div></div></div>'+ 
+    '<div class="student-data-grid"><div><span>رقم الطالب</span><strong>'+esc(s.phone||'—')+'</strong></div><div><span>رقم ولي الأمر</span><strong>'+esc(s.parent_phone||'—')+'</strong></div><div><span>الإيميل</span><strong>'+esc(s.email||'—')+'</strong></div><div><span>تاريخ التسجيل</span><strong>'+esc(fmtDate(s.created_at))+'</strong></div><div><span>آخر تعديل</span><strong>'+esc(fmtDate(s.updated_at))+'</strong></div><div><span>حالة التحقق</span><strong>'+(s.phone_verified?'مؤكد':'غير مؤكد')+'</strong></div></div>'+ 
+    '<div class="student-mini-stats">'+statsHtml+'</div>'+ 
+    '<div class="student-detail-section"><h3>تنبيهات الطالب</h3>'+alertsHtml+'</div>'+ 
+    '<div class="student-detail-section"><h3>سجل الاختبارات والنتائج</h3>'+table(['الشهر','الاختبار','النتيجة','التاريخ'],resultRows)+'</div>';
 }
 function openStudentEditor(id){
   var s=state.students.find(function(x){return String(x.id)===String(id);});if(!s)return;
@@ -99,6 +149,7 @@ document.getElementById('student-grade-filter').addEventListener('change',render
 document.getElementById('student-status-filter').addEventListener('change',renderStudents);
 document.getElementById('students-export-excel').addEventListener('click',exportStudentsExcel);
 document.getElementById('students-export-pdf').addEventListener('click',exportStudentsPdf);
+document.getElementById('student-details-close').addEventListener('click',function(){document.getElementById('student-details').classList.add('hidden');});
 document.getElementById('student-edit-cancel').addEventListener('click',function(){document.getElementById('student-editor').classList.add('hidden');});
 document.getElementById('student-edit-form').addEventListener('submit',function(e){
   e.preventDefault();setMsg('student-edit-msg','جاري الحفظ...');
@@ -148,18 +199,136 @@ function loadReviewsAdmin(){
 }
 
 // Months / quizzes / questions
-function loadMonths(){api('/api/months').then(function(d){state.months=d.months||[];renderMonths();}).catch(function(e){document.getElementById('months-box').textContent=e.message;});}
-function renderMonths(){
-  var box=document.getElementById('months-box');if(!state.months.length){box.innerHTML='<div class="empty">مفيش شهور.</div>';return;}
-  box.innerHTML=state.months.map(function(m){
-    var grade=m.grade_level?gradeLabel(m.grade_level):'غير محدد';
-    return '<div class="item" data-month-item="'+esc(m.id)+'"><div><div class="item-title">'+esc(m.name)+'</div><div class="muted">'+esc(grade)+' — الترتيب: '+esc(m.order_index)+'</div></div><div class="item-actions"><select class="search" data-month-grade-select style="max-width:180px"><option value="">اختر الصف</option><option value="first_secondary" '+(m.grade_level==='first_secondary'?'selected':'')+'>أولى ثانوي</option><option value="second_secondary" '+(m.grade_level==='second_secondary'?'selected':'')+'>ثانية ثانوي</option></select><button class="btn small secondary" data-month-grade-save>حفظ الصف</button><button class="btn small" data-month="'+esc(m.id)+'">إدارة الاختبارات</button></div></div>';
-  }).join('');
-  box.querySelectorAll('[data-month]').forEach(function(b){b.onclick=function(){var id=b.getAttribute('data-month');state.currentMonth=state.months.find(function(x){return String(x.id)===String(id);});loadQuizzes(id);};});
-  box.querySelectorAll('[data-month-item]').forEach(function(item){item.querySelector('[data-month-grade-save]').onclick=function(){var id=item.getAttribute('data-month-item');var grade=item.querySelector('[data-month-grade-select]').value;if(!grade){alert('اختار الصف الأول.');return;}api('/api/admin/add-month',{method:'PUT',body:JSON.stringify({id:id,grade_level:grade})}).then(loadMonths).catch(function(e){alert(e.message);});};});
+function loadMonths(){
+  api('/api/months').then(function(d){
+    state.months=d.months||[];
+    if(state.expandedMonthId&&!state.months.some(function(m){return String(m.id)===String(state.expandedMonthId);})){state.expandedMonthId=null;state.currentMonth=null;}
+    renderMonths();
+  }).catch(function(e){document.getElementById('months-box').textContent=e.message;});
 }
-document.getElementById('month-form').addEventListener('submit',function(e){e.preventDefault();var name=document.getElementById('month-name').value.trim();var grade=document.getElementById('month-grade').value;if(!name||!grade)return;api('/api/admin/add-month',{method:'POST',body:JSON.stringify({name:name,grade_level:grade})}).then(function(){document.getElementById('month-name').value='';document.getElementById('month-grade').value='';loadMonths();}).catch(function(err){alert(err.message);});});
-function loadQuizzes(monthId){adminGet('quizzes?month_id='+encodeURIComponent(monthId)).then(function(d){document.getElementById('quiz-manager').classList.remove('hidden');document.getElementById('quiz-manager-title').textContent='اختبارات '+(state.currentMonth?state.currentMonth.name:'الشهر')+(state.currentMonth?' — '+gradeLabel(state.currentMonth.grade_level):'');var box=document.getElementById('quizzes-box');var qs=d.quizzes||[];box.innerHTML=qs.length?qs.map(function(q){return '<div class="item"><div class="item-title">'+esc(q.title)+'</div><div class="muted">'+esc(q.type==='final'?'نهائي':'أسبوع '+q.week_number+' — كويز '+q.quiz_number_in_week)+' — '+esc(q.question_count)+' سؤال</div><div class="item-actions"><button class="btn small" data-quiz="'+esc(q.id)+'">إدارة الأسئلة</button></div></div>';}).join(''):'<div class="empty">مفيش اختبارات.</div>';box.querySelectorAll('[data-quiz]').forEach(function(b){b.onclick=function(){var id=b.getAttribute('data-quiz');state.currentQuiz=qs.find(function(x){return String(x.id)===String(id);});loadQuestions(id);};});}).catch(function(e){document.getElementById('quizzes-box').textContent=e.message;});}
+function filteredMonths(){
+  var filter=document.getElementById('month-list-filter')?document.getElementById('month-list-filter').value:'';
+  return (state.months||[]).filter(function(m){
+    if(!filter)return true;
+    if(filter==='unassigned')return !m.grade_level;
+    return m.grade_level===filter;
+  });
+}
+function monthGradeBadge(m){
+  return '<span class="month-grade-badge '+(!m.grade_level?'unassigned':'')+'">'+esc(gradeLabel(m.grade_level))+'</span>';
+}
+function renderMonths(){
+  var box=document.getElementById('months-box');
+  var months=filteredMonths();
+  if(!months.length){box.innerHTML='<div class="empty">مفيش شهور مطابقة للفلتر.</div>';return;}
+  box.innerHTML=months.map(function(m){
+    var expanded=String(state.expandedMonthId||'')===String(m.id);
+    return '<article class="month-card '+(expanded?'expanded':'')+'" data-month-item="'+esc(m.id)+'">'+
+      '<button type="button" class="month-card-toggle" data-month-toggle="'+esc(m.id)+'" aria-expanded="'+(expanded?'true':'false')+'">'+
+        '<span class="month-card-main"><span class="month-card-title">'+esc(m.name)+'</span><span class="month-card-meta">'+monthGradeBadge(m)+'<span class="month-order">الترتيب: '+esc(m.order_index)+'</span></span></span>'+
+        '<span class="month-chevron">⌄</span>'+
+      '</button>'+
+      (expanded?'<div class="month-card-body">'+
+        '<div class="month-card-controls"><strong>إعداد الشهر</strong><select class="search" data-month-grade-select><option value="">اختر الصف</option><option value="first_secondary" '+(m.grade_level==='first_secondary'?'selected':'')+'>أولى ثانوي</option><option value="second_secondary" '+(m.grade_level==='second_secondary'?'selected':'')+'>ثانية ثانوي</option></select><button class="btn small secondary" data-month-grade-save>حفظ الصف</button></div>'+
+        '<div data-month-quizzes="'+esc(m.id)+'"><div class="quiz-empty">جاري تحميل الاختبارات...</div></div>'+
+      '</div>':'')+
+    '</article>';
+  }).join('');
+
+  box.querySelectorAll('[data-month-toggle]').forEach(function(b){
+    b.onclick=function(){
+      var id=b.getAttribute('data-month-toggle');
+      if(String(state.expandedMonthId||'')===String(id)){
+        state.expandedMonthId=null;state.currentMonth=null;state.currentQuiz=null;document.getElementById('question-manager').classList.add('hidden');renderMonths();return;
+      }
+      state.expandedMonthId=id;
+      state.currentMonth=state.months.find(function(x){return String(x.id)===String(id);})||null;
+      state.currentQuiz=null;document.getElementById('question-manager').classList.add('hidden');
+      renderMonths();
+      loadQuizzes(id);
+    };
+  });
+  box.querySelectorAll('[data-month-item]').forEach(function(item){
+    var save=item.querySelector('[data-month-grade-save]');
+    if(save)save.onclick=function(){
+      var id=item.getAttribute('data-month-item');
+      var grade=item.querySelector('[data-month-grade-select]').value;
+      if(!grade){alert('اختار الصف الأول.');return;}
+      api('/api/admin/add-month',{method:'PUT',body:JSON.stringify({id:id,grade_level:grade})}).then(function(){return loadMonths();}).catch(function(e){alert(e.message);});
+    };
+  });
+
+  if(state.expandedMonthId){
+    var expandedVisible=months.some(function(m){return String(m.id)===String(state.expandedMonthId);});
+    if(expandedVisible)loadQuizzes(state.expandedMonthId);
+  }
+}
+document.getElementById('month-list-filter').addEventListener('change',function(){state.currentQuiz=null;document.getElementById('question-manager').classList.add('hidden');renderMonths();});
+document.getElementById('month-form').addEventListener('submit',function(e){
+  e.preventDefault();
+  var name=document.getElementById('month-name').value.trim();
+  var grade=document.getElementById('month-grade').value;
+  if(!name||!grade)return;
+  api('/api/admin/add-month',{method:'POST',body:JSON.stringify({name:name,grade_level:grade})}).then(function(data){
+    document.getElementById('month-name').value='';document.getElementById('month-grade').value='';
+    state.expandedMonthId=data.month&&data.month.id?data.month.id:null;
+    return loadMonths();
+  }).catch(function(err){alert(err.message);});
+});
+function quizCardHtml(q){
+  var final=q.type==='final';
+  var meta=(final?'اختبار نهائي':'محاضرة/كويز '+(q.quiz_number_in_week||''))+' — '+esc(q.question_count)+' سؤال';
+  return '<div class="quiz-mini-card '+(final?'final':'')+'" data-quiz-card="'+esc(q.id)+'">'+
+    '<div class="quiz-mini-title">'+esc(q.title)+'</div><div class="quiz-mini-meta">'+meta+'</div>'+
+    '<div class="quiz-mini-actions"><button class="btn small" data-quiz="'+esc(q.id)+'">إدارة الأسئلة</button><button class="btn small secondary" data-quiz-rename="'+esc(q.id)+'">تغيير الاسم</button>'+(final?'':'<button class="btn small danger" data-quiz-delete="'+esc(q.id)+'">حذف</button>')+'</div></div>';
+}
+function renderQuizzesInMonth(monthId,qs){
+  var slot=document.querySelector('[data-month-quizzes="'+String(monthId).replace(/"/g,'')+'"]');
+  if(!slot)return;
+  state.monthQuizzes[String(monthId)]=qs||[];
+  var weekly=(qs||[]).filter(function(q){return q.type!=='final';});
+  var finalQuiz=(qs||[]).filter(function(q){return q.type==='final';});
+  var groups='';
+  for(var w=1;w<=4;w++){
+    var list=weekly.filter(function(q){return Number(q.week_number)===w;});
+    if(!list.length)continue;
+    groups+='<div class="quiz-week-group"><div class="quiz-week-title">الأسبوع '+w+'</div><div class="quiz-week-items">'+list.map(quizCardHtml).join('')+'</div></div>';
+  }
+  var ungrouped=weekly.filter(function(q){var w=Number(q.week_number);return !(w>=1&&w<=4);});
+  if(ungrouped.length)groups+='<div class="quiz-week-group"><div class="quiz-week-title">اختبارات إضافية</div><div class="quiz-week-items">'+ungrouped.map(quizCardHtml).join('')+'</div></div>';
+  if(finalQuiz.length)groups+='<div class="quiz-week-group"><div class="quiz-week-title">الاختبار النهائي</div><div class="quiz-week-items">'+finalQuiz.map(quizCardHtml).join('')+'</div></div>';
+  if(!groups)groups='<div class="quiz-empty">لسه مفيش اختبارات في الشهر ده.</div>';
+  slot.innerHTML='<div class="month-quizzes-grid">'+groups+'</div>'+
+    '<div class="quiz-add-box"><h4>إضافة اختبار مستقل لمحاضرة</h4><form class="quiz-add-form" data-quiz-add-form="'+esc(monthId)+'"><input class="search" data-quiz-new-title maxlength="120" placeholder="مثال: اختبار المحاضرة الثالثة" required><select class="search" data-quiz-new-week required><option value="">اختر الأسبوع</option><option value="1">الأسبوع 1</option><option value="2">الأسبوع 2</option><option value="3">الأسبوع 3</option><option value="4">الأسبوع 4</option></select><button class="btn" type="submit">إضافة منفصل</button></form><div class="section-note" style="margin:8px 0 0">استخدمها لو عندك 3 محاضرات أو أكثر وعايز كل محاضرة يبقى لها اختبار مستقل.</div></div>';
+
+  slot.querySelectorAll('[data-quiz]').forEach(function(b){b.onclick=function(){
+    var id=b.getAttribute('data-quiz');state.currentQuiz=(qs||[]).find(function(x){return String(x.id)===String(id);});loadQuestions(id);
+  };});
+  slot.querySelectorAll('[data-quiz-rename]').forEach(function(b){b.onclick=function(){
+    var id=b.getAttribute('data-quiz-rename');var q=(qs||[]).find(function(x){return String(x.id)===String(id);});if(!q)return;
+    var title=prompt('اكتب الاسم الجديد للاختبار:',q.title||'');if(title===null)return;title=title.trim();if(!title)return;
+    api('/api/admin/quizzes',{method:'PUT',body:JSON.stringify({id:id,title:title})}).then(function(){loadQuizzes(monthId);}).catch(function(e){alert(e.message);});
+  };});
+  slot.querySelectorAll('[data-quiz-delete]').forEach(function(b){b.onclick=function(){
+    var id=b.getAttribute('data-quiz-delete');var q=(qs||[]).find(function(x){return String(x.id)===String(id);});
+    if(!confirm('حذف "'+(q?q.title:'الاختبار')+'"؟ سيتم حذف أسئلته ونتائجه المرتبطة به نهائيًا.'))return;
+    api('/api/admin/quizzes?id='+encodeURIComponent(id),{method:'DELETE'}).then(function(){loadQuizzes(monthId);}).catch(function(e){alert(e.message);});
+  };});
+  var form=slot.querySelector('[data-quiz-add-form]');
+  if(form)form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var title=form.querySelector('[data-quiz-new-title]').value.trim();var week=Number(form.querySelector('[data-quiz-new-week]').value);
+    if(!title||week<1||week>4)return;
+    api('/api/admin/quizzes',{method:'POST',body:JSON.stringify({month_id:monthId,title:title,week_number:week})}).then(function(){loadQuizzes(monthId);}).catch(function(err){alert(err.message);});
+  });
+}
+function loadQuizzes(monthId){
+  var slot=document.querySelector('[data-month-quizzes="'+String(monthId).replace(/"/g,'')+'"]');
+  if(slot)slot.innerHTML='<div class="quiz-empty">جاري تحميل الاختبارات...</div>';
+  adminGet('quizzes?month_id='+encodeURIComponent(monthId)).then(function(d){
+    var qs=d.quizzes||[];renderQuizzesInMonth(monthId,qs);
+  }).catch(function(e){var current=document.querySelector('[data-month-quizzes="'+String(monthId).replace(/"/g,'')+'"]');if(current)current.textContent=e.message;});
+}
 function loadQuestions(quizId){adminGet('questions?quiz_id='+encodeURIComponent(quizId)).then(function(d){state.questions=d.questions||[];document.getElementById('question-manager').classList.remove('hidden');document.getElementById('question-manager-title').textContent='أسئلة '+(state.currentQuiz?state.currentQuiz.title:'الاختبار');resetQuestionForm();renderQuestions();}).catch(function(e){document.getElementById('questions-box').textContent=e.message;});}
 function renderQuestions(){var box=document.getElementById('questions-box');if(!state.questions.length){box.innerHTML='<div class="empty">لسه مفيش أسئلة.</div>';return;}box.innerHTML=state.questions.map(function(q,i){return '<div class="item"><div class="muted">#'+(i+1)+' — '+esc(q.type_label||q.question_type)+'</div><div class="item-title">'+esc(q.question_text)+'</div><div class="muted">الإجابة: '+esc(q.correct_answer||'—')+'</div><div class="item-actions"><button class="btn small secondary" data-edit="'+esc(q.id)+'">تعديل</button><button class="btn small danger" data-delete="'+esc(q.id)+'">حذف</button></div></div>';}).join('');box.querySelectorAll('[data-edit]').forEach(function(b){b.onclick=function(){editQuestion(b.getAttribute('data-edit'));};});box.querySelectorAll('[data-delete]').forEach(function(b){b.onclick=function(){if(!confirm('حذف السؤال؟'))return;api('/api/admin/questions?id='+encodeURIComponent(b.getAttribute('data-delete')),{method:'DELETE'}).then(function(){loadQuestions(state.currentQuiz.id);}).catch(function(e){alert(e.message);});};});}
 function questionMode(){var type=document.getElementById('question-type').value;var custom=type==='custom';document.getElementById('custom-type-field').classList.toggle('hidden',!custom);document.getElementById('answer-mode-field').classList.toggle('hidden',!custom);var mode=custom?document.getElementById('answer-mode').value:((type==='multiple_choice'||type==='true_false')?'choice':'text');var choice=mode==='choice';document.getElementById('options-field').classList.toggle('hidden',!choice||type==='true_false');document.getElementById('correct-index-field').classList.toggle('hidden',!choice);document.getElementById('correct-answer-field').classList.toggle('hidden',choice);document.getElementById('threshold-field').classList.toggle('hidden',choice);}
@@ -174,7 +343,7 @@ function loadContent(){adminGet('content').then(function(d){var rows=d.content||
 function loadAI(){Promise.all([adminGet('ai-questions'),adminGet('ai-knowledge')]).then(function(all){var a=all[0],k=all[1];var top=a.top_questions||[];document.getElementById('ai-questions-box').innerHTML='<div class="muted">إجمالي الأسئلة المسجلة: '+esc(a.total_questions||0)+'</div>'+(top.length?top.slice(0,50).map(function(q){return '<div class="item"><div class="item-title">'+esc(q.question)+'</div><div class="muted">التكرار: '+esc(q.count)+' — إجابات عامة: '+esc(q.general)+'</div></div>';}).join(''):'<div class="empty">مفيش بيانات.</div>');var list=k.knowledge||[];var kb=document.getElementById('knowledge-box');kb.innerHTML=list.length?list.map(function(x){return '<div class="item"><div class="item-title">'+esc(x.title)+'</div><div class="muted">'+esc(String(x.content||'').slice(0,260))+(String(x.content||'').length>260?'…':'')+'</div><div class="item-actions"><button class="btn danger small" data-kdel="'+esc(x.id)+'">حذف</button></div></div>';}).join(''):'<div class="empty">مفيش محتوى مضاف.</div>';kb.querySelectorAll('[data-kdel]').forEach(function(b){b.onclick=function(){if(!confirm('حذف المحتوى؟'))return;api('/api/admin/ai-knowledge?id='+encodeURIComponent(b.getAttribute('data-kdel')),{method:'DELETE'}).then(loadAI).catch(function(e){alert(e.message);});};});}).catch(function(e){document.getElementById('ai-questions-box').textContent=e.message;});}
 document.getElementById('knowledge-form').addEventListener('submit',function(e){e.preventDefault();api('/api/admin/ai-knowledge',{method:'POST',body:JSON.stringify({title:document.getElementById('knowledge-title').value,content:document.getElementById('knowledge-content').value})}).then(function(){e.target.reset();loadAI();}).catch(function(err){alert(err.message);});});
 
-function loadSettings(){adminGet('settings').then(function(d){var s=d.settings||{};document.getElementById('maintenance-mode').checked=!!s.maintenance_mode;document.getElementById('hidden-sections').value=(s.hidden_sections||[]).join(', ');document.getElementById('pass-percent').value=s.final_exam_pass_percent==null?70:s.final_exam_pass_percent;}).catch(function(e){setMsg('settings-msg',e.message,'error');});}
+function loadSettings(){adminGet('settings').then(function(d){var s=d.settings||{};document.getElementById('maintenance-mode').checked=!!s.maintenance_mode;document.getElementById('hidden-sections').value=(s.hidden_sections||[]).join(', ');document.getElementById('pass-percent').value=s.final_exam_pass_percent==null?75:s.final_exam_pass_percent;}).catch(function(e){setMsg('settings-msg',e.message,'error');});}
 document.getElementById('settings-form').addEventListener('submit',function(e){e.preventDefault();var sections=document.getElementById('hidden-sections').value.split(',').map(function(x){return x.trim();}).filter(Boolean);api('/api/admin/settings',{method:'POST',body:JSON.stringify({maintenance_mode:document.getElementById('maintenance-mode').checked,hidden_sections:sections,final_exam_pass_percent:Number(document.getElementById('pass-percent').value)})}).then(function(){setMsg('settings-msg','تم الحفظ','ok');}).catch(function(err){setMsg('settings-msg',err.message,'error');});});
 
 function loadAdmins(){adminGet('admins').then(function(d){var list=d.admins||[];var box=document.getElementById('admins-box');box.innerHTML=list.length?list.map(function(a){return '<div class="item"><div class="item-title" dir="ltr">'+esc(a.email)+'</div><div class="muted">'+esc(fmtDate(a.added_at))+'</div><div class="item-actions"><button class="btn danger small" data-adel="'+esc(a.email)+'">حذف</button></div></div>';}).join(''):'<div class="empty">مفيش أدمنز إضافيين.</div>';box.querySelectorAll('[data-adel]').forEach(function(b){b.onclick=function(){if(!confirm('حذف الأدمن؟'))return;api('/api/admin/admins?email='+encodeURIComponent(b.getAttribute('data-adel')),{method:'DELETE'}).then(loadAdmins).catch(function(e){alert(e.message);});};});}).catch(function(e){document.getElementById('admins-box').textContent=e.message;});}
