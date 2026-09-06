@@ -43,7 +43,7 @@ module.exports = async (req, res) => {
     }
   });
 
-  const { data: allStudentIds } = await supabase.from('students').select('id');
+  const { data: allStudentIds } = await supabase.from('students').select('id, grade_level');
   const fourteenDaysAgo = Date.now() - 14 * 24 * 60 * 60 * 1000;
   let studentsBehind = 0;
   (allStudentIds || []).forEach((s) => {
@@ -51,9 +51,13 @@ module.exports = async (req, res) => {
     if (!last || last < fourteenDaysAgo) studentsBehind++;
   });
 
+  const firstSecondaryStudents = (allStudentIds || []).filter((s) => s.grade_level === 'first_secondary').length;
+  const secondSecondaryStudents = (allStudentIds || []).filter((s) => s.grade_level === 'second_secondary').length;
+  const unassignedStudents = (allStudentIds || []).filter((s) => !s.grade_level).length;
+
   const { data: recentStudents, error: recErr } = await supabase
     .from('students')
-    .select('id, first_name, last_name, phone, phone_verified, created_at')
+    .select('id, first_name, last_name, phone, grade_level, phone_verified, created_at')
     .order('created_at', { ascending: false })
     .limit(5);
   if (recErr) return res.status(500).json({ error: 'تعذر تحميل آخر التسجيلات' });
@@ -63,6 +67,9 @@ module.exports = async (req, res) => {
     avg_performance_percent: avgPerformancePercent,
     quizzes_completed: quizzesCompleted,
     students_behind: studentsBehind,
+    first_secondary_students: firstSecondaryStudents,
+    second_secondary_students: secondSecondaryStudents,
+    unassigned_students: unassignedStudents,
     recent_registrations: recentStudents || [],
   });
 };
