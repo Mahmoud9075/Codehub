@@ -570,6 +570,7 @@ document.addEventListener('DOMContentLoaded', function(){
     "hero-h1": {ar:"مستقبلك في البرمجة", en:"Your Future in Programming"},
     "hero-h1-mark": {ar:"يبدأ من هنا", en:"Starts Here"},
     "hero-sub": {ar:"ابدأ من الصفر… وافهم البرمجة خطوة بخطوة لحد ما تبقى واثق في مستواك.", en:"Start from zero and understand programming step by step until you feel confident in your level."},
+    "hero-sub-extra": {ar:"كل خطوة بتبدأ بفهم… وكل نجاح بيبدأ بمحاولة.", en:"Every step starts with understanding, and every success starts with an attempt."},
     "benefits-h": {ar:"إيه اللي هتاخده", en:"What You'll"},
     "benefits-h-mark": {ar:"معانا؟", en:"Get With Us"},
     "benefits-sub": {ar:"كل اللي محتاجه عشان تفهم، تطبّق، وتحقّق أعلى الدرجات — في مكان واحد.", en:"Everything you need to understand, practice, and score higher — all in one place."},
